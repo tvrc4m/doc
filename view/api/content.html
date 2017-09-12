@@ -1,0 +1,55 @@
+<?php echo $header; ?>
+<div class="col-md-9">
+    <?php foreach($params as $key=>$param){?>
+    <div id="paramInfo" class="headline">
+        <h2><?php echo $param['title']; ?></h2>
+    </div>
+    <p><?php echo $param['desc']; ?></p>
+    <h4>API地址</h4>
+    <p>
+        <span class="label label-primary"><?php echo strtoupper($param['type']);?></span> 
+        <?php echo $param['url']; ?>
+        <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
+    </p>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="warning">
+                <th width="110">参数</th>
+                <th width="110">类型</th>
+                <th>说明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($param['params'] as $name=>$item){ ?>
+            <tr>
+                <td><?php echo $name; ?></td>
+                <td><?php echo $item['type'];?></td>
+                <td><?php echo $item['desc'];?></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <?php if($param['return']){ ?>
+        <h4>返回数据</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="110">参数</th>
+                    <th width="110">类型</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach($param['return'] as $item){ ?>
+                <tr>
+                    <td><?php echo $name; ?></td>
+                    <td><?php echo $item['type'];?></td>
+                    <td><?php echo $item['desc'];?></td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    <?php } ?>
+    <?php } ?>
+</div>
+<?php echo $footer; ?>

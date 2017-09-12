@@ -1,0 +1,14 @@
+{
+  "upload": {
+    "title":"上传App",
+    "desc": "通过该接口，开发者可以直接上传 App 到蒲公英。上传时，请使用 HTTP POST 方式，其中 enctype 为",
+    "params": {
+      "uKey": {
+        "desc": "(必填) 用户Key 点击获取_ukey",
+        "type": "string"
+      }
+    },
+    "type": "post",
+    "url": "http://qiniu-storage.pgyer.com/apiv1/app/upload"
+  }
+}
