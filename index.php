@@ -1,17 +1,32 @@
 <?php
 
 define('ROOT', __DIR__);
+define('DATA', ROOT.'/data/');
+define('VIEW', ROOT.'/view/');
+define('CORE', ROOT.'/core/');
+define('CTL',  ROOT.'/api/');
 
-include_once(ROOT.'/core/doc.php');
+include_once(CORE.'doc.php');
+include_once(CORE.'api.php');
 
-$app='app';
+$app=$_GET['app'];
 
-$action='index';
+$act=$_GET['act'];
 
-include_once(ROOT.'/api/app.api.php');
+empty($app) && $app='app';
 
-$api=new AppApi;
+empty($act) && $act='index';
 
-$params=$api->export();
+$filepath=CTL.$app.'.api.php';
 
-print_r($params);
+if(!file_exists($filepath)) exit('未找到指定api');
+
+include_once($filepath);
+
+$class=strtoupper($app).'Api';
+
+$api=new $class;
+
+call_user_func_array([$api,$act], [$_GET]);
+
+

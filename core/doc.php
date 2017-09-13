@@ -2,15 +2,26 @@
 
 class Doc {
 
-    protected function getApiList(){
+    const DOC_TYPE_APP  =   1;  // app接口文档
+    const DOC_TYPE_PC   =   2;  // pc接口文档
 
+    /**
+     * 接口文档类型
+     * @var int
+     */
+    protected $doc_type;
 
-    }
+    protected $header;
 
-    protected function export(){
+    /**
+     * footer
+     * @var string
+     */
+    protected $footer;
 
-        $apilist=$this->getApiList();
-
-        
-    }
+    /**
+     * api数据
+     * @var array
+     */
+    protected $json;
 }

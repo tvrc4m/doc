@@ -1,0 +1,108 @@
+<?php echo $header; ?>
+<div class="col-md-9">
+    <?php if($params){ ?>
+        <?php if($params['desc']){ ?>
+            <div id="paramInfo" class="headline">
+                <h2>接口说明</h2>
+            </div>
+            <div class="alert alert-warning fade in">
+                <?php echo $params['desc'];?>
+            </div>
+        <?php } ?>
+        <?php unset($params['desc']);?>
+        <?php if($params['common']){ ?>
+            <?php foreach($params['common'] as $name=>$common){ ?>
+                <div id="paramInfo" class="headline">
+                    <h2><?php echo $name; ?></h2>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="warning">
+                            <th width="110">参数</th>
+                            <th width="110">类型</th>
+                            <th width="110">是否必须</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($common as $name=>$item){ ?>
+                        <tr>
+                            <td><?php echo $name; ?></td>
+                            <td><?php echo $item['type'];?></td>
+                            <td><?php echo $item['must'];?></td>
+                            <td><?php echo $item['desc'];?></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php } ?>
+        <?php } ?>
+        <?php unset($params['common']);?>
+        <?php foreach($params as $key=>$param){?>
+            <a name="#<?php echo $key; ?>" style="display: none;"></a>
+            <div id="paramInfo" class="headline">
+                <h2><?php echo $param['title']; ?></h2>
+                <?php if($key){ ?>
+                    <code><a href="/api/app/<?php echo $key;?>" target="_blank">链接</a></code>
+                <?php } ?>
+            </div>
+            <p><?php echo $param['desc']; ?></p>
+            <h4>API地址</h4>
+            <p>
+                <span class="label label-primary"><?php echo strtoupper($param['type']);?></span> 
+                <?php echo $param['url']; ?>
+                <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
+            </p>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="warning">
+                        <th width="110">参数</th>
+                        <th width="110">类型</th>
+                        <th width="110">是否必须</th>
+                        <th>说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($param['params'] as $name=>$item){ ?>
+                    <tr>
+                        <td><?php echo $name; ?></td>
+                        <td><?php echo $item['type'];?></td>
+                        <td><?php echo $item['must'];?></td>
+                        <td><?php echo $item['desc'];?></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            <?php if($param['return']){ ?>
+                <h4>返回数据</h4>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="warning">
+                            <th width="110">参数</th>
+                            <th width="110">类型</th>
+                            <th width="110">是否必须</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($param['return'] as $key=>$item){ ?>
+                        <tr>
+                            <td><?php echo $key; ?></td>
+                            <td><?php echo $item['type'];?></td>
+                            <td><?php echo $item['must'];?></td>
+                            <td><?php echo $item['desc'];?></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php } ?>
+            <?php if($param['example']){ ?>
+                <h4>返回代码</h4>
+                <pre><?php echo $param['example'];?></pre>
+            <?php } ?>
+        <?php } ?>
+    <?php }else{ ?>
+        <p>未找到指定api接口</p>
+    <?php } ?>
+</div>
+<?php echo $footer; ?>

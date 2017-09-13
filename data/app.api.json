@@ -1,14 +1,620 @@
 {
-  "upload": {
-    "title":"上传App",
-    "desc": "通过该接口，开发者可以直接上传 App 到蒲公英。上传时，请使用 HTTP POST 方式，其中 enctype 为",
+  "channel_getlist": {
+    "desc": "获取所有频道，如果用户已登录，也会返回该用户自定义的频道，返回的顺序即为用户所定义的顺序。\n如果用户未登录，刚返回该设备ID保存的自定义频道数据。\n增加置顶属性，置顶的频道不允许排序及隐藏",
+    "example": {
+      "code": "",
+      "title": "返回值"
+    },
     "params": {
-      "uKey": {
-        "desc": "(必填) 用户Key 点击获取_ukey",
+      "cate": {
+        "desc": "模块ID，默认为新闻资讯（cate=1）,cate是频道分类，1是APP首页，2是APP视频，3是APPVR，4是PC",
+        "must": "是",
+        "type": "int"
+      },
+      "devID": {
+        "desc": "设备ID",
+        "must": "是",
         "type": "string"
       }
     },
+    "return": {
+      "hide": {
+        "desc": "隐藏频道",
+        "type": "array"
+      },
+      "show": {
+        "desc": "显示的频道",
+        "type": "array"
+      }
+    },
+    "title": "获取频道列表",
     "type": "post",
-    "url": "http://qiniu-storage.pgyer.com/apiv1/app/upload"
+    "url": "appapi/channel/getList"
+  },
+  "channel_updatecustom": {
+    "desc": "保存用户自定义的频道，需要登录",
+    "example": {
+      "code": "",
+      "title": "返回值"
+    },
+    "params": {
+      "chan_ids": {
+        "desc": "显示频道ID，用英文逗号隔开。频道ID的顺序就是用户自定义的顺序",
+        "must": "是",
+        "type": "string"
+      },
+      "devID": {
+        "desc": "设备ID",
+        "must": "是",
+        "type": "string"
+      },
+      "hide_chan_ids": {
+        "desc": "隐藏频道ID，用英文逗号隔开。频道ID的顺序就是用户自定义的顺序",
+        "must": "是",
+        "type": "string"
+      }
+    },
+    "return": {
+      "error_code": {
+        "desc": "错误码",
+        "type": "int"
+      },
+      "error_msg": {
+        "desc": "错误消息",
+        "type": "string"
+      }
+    },
+    "title": "保存用户自定义频道",
+    "type": "post",
+    "url": "appapi/channel/updateCustom"
+  },
+  "common": {
+    "常规请求参数": {
+      "header": {}
+    },
+    "常规返回参数": {
+      "api_version": {
+        "desc": "API版本号",
+        "must": "是",
+        "type": "string"
+      },
+      "error_code": {
+        "desc": "错误码",
+        "must": "是",
+        "type": "int"
+      },
+      "error_msg": {
+        "desc": "错误消息",
+        "must": "是",
+        "type": "string"
+      }
+    }
+  },
+  "desc": "<p>1.除特别说明，所有数据API的请求方式均为HTTP POST方式。</p><p>2.获取图片等资源文件接口的请求方式为HTTP GET</p><p>3.API接口返回数据格式为JSON。</p><p>4.所有接口请求时，必须包含参数_api_key，以便识别接口身份。</p>",
+  "index_getarticledetail": {
+    "desc": "获取当前文章api所需要的数据",
+    "example": {
+      "code": "",
+      "title": "返回值"
+    },
+    "params": {
+      "cate": {
+        "desc": "频道分类",
+        "must": "是",
+        "type": "int"
+      },
+      "cid": {
+        "desc": "内容id",
+        "must": "是",
+        "type": "int"
+      }
+    },
+    "return": {
+      "comment_tourist": {
+        "desc": "允许游客评论允许游客评论（true允许，false不允许）",
+        "must": "是",
+        "type": "string"
+      },
+      "comments": {
+        "desc": "评论数量",
+        "must": "是",
+        "type": "int"
+      },
+      "extend.content": {
+        "desc": "文章内容",
+        "must": "是",
+        "type": "string"
+      },
+      "extend.src": {
+        "desc": "来源",
+        "must": "是",
+        "type": "string"
+      },
+      "extend.video": {
+        "desc": "视频URL",
+        "must": "是",
+        "type": "string"
+      },
+      "extend.video_img": {
+        "desc": "视频底图",
+        "must": "是",
+        "type": "string"
+      },
+      "id": {
+        "desc": "文章id",
+        "must": "是",
+        "type": "int"
+      },
+      "is_faved": {
+        "desc": "是否收藏 0否 1是",
+        "must": "是",
+        "type": "int"
+      },
+      "posts_ops": {
+        "desc": "评论审核规则(1先审后发,2先发后审)",
+        "must": "是",
+        "type": "int"
+      },
+      "share_image": {
+        "desc": "分享图",
+        "must": "是",
+        "type": "string"
+      },
+      "share_url": {
+        "desc": "分享地址url",
+        "must": "是",
+        "type": "string"
+      },
+      "title": {
+        "desc": "标题",
+        "must": "是",
+        "type": "string"
+      },
+      "user.id": {
+        "desc": "发布者id",
+        "must": "是",
+        "type": "string"
+      },
+      "user.image": {
+        "desc": "发布者头像",
+        "must": "是",
+        "type": "string"
+      },
+      "user.nickname": {
+        "desc": "发布者用户名",
+        "must": "是",
+        "type": "string"
+      }
+    },
+    "title": "文章详情页接口",
+    "type": "post",
+    "url": "appapi/index/getArticleDetail"
+  },
+  "index_getimagedetail": {
+    "desc": "获取当前图集所需要的数据",
+    "example": {
+      "code": "",
+      "title": "返回值"
+    },
+    "params": {
+      "cate": {
+        "desc": "频道分类",
+        "must": "是",
+        "type": "int"
+      },
+      "cid": {
+        "desc": "内容id",
+        "must": "是",
+        "type": "int"
+      }
+    },
+    "return": {
+      "comment_tourist": {
+        "desc": "允许游客评论允许游客评论（true允许，false不允许）",
+        "must": "是",
+        "type": "string"
+      },
+      "comments": {
+        "desc": "评论数量",
+        "must": "是",
+        "type": "int"
+      },
+      "extend": {
+        "desc": "图集图片",
+        "must": "是",
+        "type": "array"
+      },
+      "extend.desc": {
+        "desc": "图片描述",
+        "must": "是",
+        "type": "string"
+      },
+      "extend.image": {
+        "desc": "图片URL",
+        "must": "是",
+        "type": "string"
+      },
+      "extend.order": {
+        "desc": "图片顺序",
+        "must": "是",
+        "type": "string"
+      },
+      "id": {
+        "desc": "图集id",
+        "must": "是",
+        "type": "int"
+      },
+      "is_faved": {
+        "desc": "是否收藏 0否 1是",
+        "must": "是",
+        "type": "int"
+      },
+      "posts_ops": {
+        "desc": "评论审核规则(1先审后发,2先发后审)",
+        "must": "是",
+        "type": "int"
+      },
+      "share_image": {
+        "desc": "分享图",
+        "must": "是",
+        "type": "string"
+      },
+      "share_url": {
+        "desc": "分享地址url",
+        "must": "是",
+        "type": "string"
+      },
+      "title": {
+        "desc": "标题",
+        "must": "是",
+        "type": "string"
+      },
+      "user": {
+        "desc": "发布者信息",
+        "must": "是",
+        "type": "object"
+      },
+      "user.id": {
+        "desc": "发布者id",
+        "must": "是",
+        "type": "string"
+      },
+      "user.image": {
+        "desc": "发布者头像",
+        "must": "是",
+        "type": "string"
+      },
+      "user.nickname": {
+        "desc": "发布者用户名",
+        "must": "是",
+        "type": "string"
+      }
+    },
+    "title": "图集详情页接口",
+    "type": "post",
+    "url": "appapi/index/getImageDetail"
+  },
+  "index_getspecialdetail": {
+    "desc": "获取当前专题所需要的数据",
+    "example": {
+      "code": "",
+      "title": "返回值"
+    },
+    "params": {
+      "cate": {
+        "desc": "频道分类",
+        "must": "是",
+        "type": "int"
+      },
+      "cid": {
+        "desc": "内容id",
+        "must": "是",
+        "type": "int"
+      }
+    },
+    "return": {
+      "comment_tourist": {
+        "desc": "允许游客评论允许游客评论（true允许，false不允许）",
+        "must": "是",
+        "type": "string"
+      },
+      "comments": {
+        "desc": "评论数量",
+        "must": "是",
+        "type": "int"
+      },
+      "id": {
+        "desc": "文章id",
+        "must": "是",
+        "type": "int"
+      },
+      "is_faved": {
+        "desc": "是否收藏 0否 1是",
+        "must": "是",
+        "type": "int"
+      },
+      "news": {
+        "desc": "专题关联的文章",
+        "must": "是",
+        "type": "array"
+      },
+      "news.card_type": {
+        "desc": "内容样式",
+        "must": "是",
+        "type": "int"
+      },
+      "news.cate": {
+        "desc": "频道分类",
+        "must": "否",
+        "type": "int"
+      },
+      "news.desc": {
+        "desc": "内容导语",
+        "must": "是",
+        "type": "string"
+      },
+      "news.duration": {
+        "desc": "视频时长",
+        "must": "是",
+        "type": "string"
+      },
+      "news.id": {
+        "desc": "关联文章id",
+        "must": "是",
+        "type": "int"
+      },
+      "news.image": {
+        "desc": "缩略图",
+        "must": "是",
+        "type": "string"
+      },
+      "news.image_num": {
+        "desc": "图集个数",
+        "must": "是",
+        "type": "int"
+      },
+      "news.images": {
+        "desc": "三图模式-缩略图",
+        "must": "是",
+        "type": "array"
+      },
+      "news.share_url": {
+        "desc": "分享页面",
+        "must": "是",
+        "type": "string"
+      },
+      "news.source": {
+        "desc": "文章来源",
+        "must": "是",
+        "type": "string"
+      },
+      "news.tags": {
+        "desc": "标签",
+        "must": "是",
+        "type": "array"
+      },
+      "news.tags.border_color": {
+        "desc": "标签边框颜色",
+        "must": "是",
+        "type": "string"
+      },
+      "news.tags.font_color": {
+        "desc": "标签文字颜色",
+        "must": "是",
+        "type": "string"
+      },
+      "news.tags.name": {
+        "desc": "标签文字",
+        "must": "是",
+        "type": "string"
+      },
+      "news.type": {
+        "desc": "内容分类",
+        "must": "是",
+        "type": "string"
+      },
+      "news.views": {
+        "desc": "阅读量",
+        "must": "是",
+        "type": "int"
+      },
+      "posts_ops": {
+        "desc": "评论审核规则(1先审后发,2先发后审)",
+        "must": "是",
+        "type": "int"
+      },
+      "share_image": {
+        "desc": "分享图",
+        "must": "是",
+        "type": "string"
+      },
+      "share_url": {
+        "desc": "分享地址url",
+        "must": "是",
+        "type": "string"
+      },
+      "title": {
+        "desc": "标题",
+        "must": "是",
+        "type": "string"
+      },
+      "user": {
+        "desc": "发布者信息",
+        "must": "是",
+        "type": "object"
+      },
+      "user.id": {
+        "desc": "发布者id",
+        "must": "是",
+        "type": "string"
+      },
+      "user.image": {
+        "desc": "发布者头像",
+        "must": "是",
+        "type": "string"
+      },
+      "user.nickname": {
+        "desc": "发布者用户名",
+        "must": "是",
+        "type": "string"
+      }
+    },
+    "title": "专题详情页接口",
+    "type": "post",
+    "url": "appapi/index/getSpecialDetail"
+  },
+  "index_getvideodetail": {
+    "desc": "获取当前视频所需要的数据",
+    "example": {
+      "code": "",
+      "title": "返回值"
+    },
+    "params": {
+      "cate": {
+        "desc": "频道分类",
+        "must": "是",
+        "type": "int"
+      },
+      "cid": {
+        "desc": "内容id",
+        "must": "是",
+        "type": "int"
+      }
+    },
+    "return": {
+      "comment_tourist": {
+        "desc": "允许游客评论允许游客评论（true允许，false不允许）",
+        "must": "是",
+        "type": "string"
+      },
+      "comments": {
+        "desc": "评论数量",
+        "must": "是",
+        "type": "int"
+      },
+      "id": {
+        "desc": "文章id",
+        "must": "是",
+        "type": "int"
+      },
+      "is_faved": {
+        "desc": "是否收藏 0否 1是",
+        "must": "是",
+        "type": "int"
+      },
+      "create_time": {
+        "desc": "创建时间",
+        "must": "是",
+        "type": "string"
+      },
+      "video": {
+        "desc": "用户发布的其它视频 如果没有 不展示",
+        "must": "否",
+        "type": "array"
+      },
+      "video.card_type": {
+        "desc": "内容样式",
+        "must": "是",
+        "type": "int"
+      },
+      "video.cate": {
+        "desc": "频道分类",
+        "must": "否",
+        "type": "int"
+      },
+      "video.desc": {
+        "desc": "内容导语",
+        "must": "是",
+        "type": "string"
+      },
+      "video.duration": {
+        "desc": "视频时长",
+        "must": "是",
+        "type": "string"
+      },
+      "video.id": {
+        "desc": "关联文章id",
+        "must": "是",
+        "type": "int"
+      },
+      "video.image": {
+        "desc": "缩略图",
+        "must": "是",
+        "type": "string"
+      },
+      "video.image_num": {
+        "desc": "图集个数",
+        "must": "是",
+        "type": "int"
+      },
+      "video.images": {
+        "desc": "三图模式-缩略图",
+        "must": "是",
+        "type": "array"
+      },
+      "video.share_url": {
+        "desc": "分享页面",
+        "must": "是",
+        "type": "string"
+      },
+      "video.source": {
+        "desc": "文章来源",
+        "must": "是",
+        "type": "string"
+      },
+      "video.type": {
+        "desc": "内容分类",
+        "must": "是",
+        "type": "string"
+      },
+      "video.views": {
+        "desc": "阅读量",
+        "must": "是",
+        "type": "int"
+      },
+      "posts_ops": {
+        "desc": "评论审核规则(1先审后发,2先发后审)",
+        "must": "是",
+        "type": "int"
+      },
+      "share_image": {
+        "desc": "分享图",
+        "must": "是",
+        "type": "string"
+      },
+      "share_url": {
+        "desc": "分享地址url",
+        "must": "是",
+        "type": "string"
+      },
+      "title": {
+        "desc": "标题",
+        "must": "是",
+        "type": "string"
+      },
+      "user": {
+        "desc": "发布者信息",
+        "must": "是",
+        "type": "object"
+      },
+      "user.id": {
+        "desc": "发布者id",
+        "must": "是",
+        "type": "string"
+      },
+      "user.image": {
+        "desc": "发布者头像",
+        "must": "是",
+        "type": "string"
+      },
+      "user.nickname": {
+        "desc": "发布者用户名",
+        "must": "是",
+        "type": "string"
+      }
+    },
+    "title": "视频详情页接口",
+    "type": "post",
+    "url": "appapi/index/getVideoDetail"
   }
 }

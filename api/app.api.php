@@ -1,20 +1,29 @@
 <?php
 
-class AppApi extends Doc {
+class AppApi extends Api {
 
-    public function export(){
+    protected $json='app.api.json';
 
-        $json=file_get_contents(ROOT.'/data/app.api.json');
+    /**
+     * app全部的api接口
+     * @return 
+     */
+    public function index(){
 
-        $params=json_decode($json,true);
+        $this->export($this->json);
+    }
 
-        $header=file_get_contents(ROOT.'/view/api/header.html');
-        $footer=file_get_contents(ROOT.'/view/api/footer.html');
-        // $content=file_get_contents(ROOT.'/view/api/content.html');
-        $content=include_once(ROOT.'/view/api/content.html');
+    /**
+     * 指定的某个api接口
+     * @param array $params 接收GET请求数组
+     * @return 
+     */
+    public function detail($params){
 
-        echo $content;
+        $api=$params['api'];
 
-        // echo $content;
+        empty($api) && exit('api接口地址不存在');
+
+        $this->export($this->json,$api);
     }
 }
