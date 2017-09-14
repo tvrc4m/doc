@@ -1,5 +1,5 @@
 <?php echo $header; ?>
-<div class="col-md-9">
+<div class="col-md-9" style="margin-left: 279px;">
     <?php if($params){ ?>
         <?php if($params['desc']){ ?>
             <div id="paramInfo" class="headline">
@@ -39,7 +39,8 @@
         <?php } ?>
         <?php unset($params['common']);?>
         <?php foreach($params as $key=>$param){?>
-            <a name="#<?php echo $key; ?>" style="display: none;"></a>
+            <a name="<?php echo $key; ?>"></a>
+            <br>
             <div id="paramInfo" class="headline">
                 <h2><?php echo $param['title']; ?></h2>
                 <?php if($key){ ?>

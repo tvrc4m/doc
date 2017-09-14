@@ -13,13 +13,21 @@ class Api extends Doc {
         $json=file_get_contents(DATA.$jsonfile);
 
         $params=json_decode($json,true);
+
+        $api_list=[];
+
+        foreach ($params as $key=>$param) {
+            
+            if($key!='common' && $key!='desc') $api_list[$key]=$param['title'];
+        }
+        
         // print_r($params);exit;
         if(!empty($api)){
 
             $params=[$params[$api]];
         }
 
-        $header=file_get_contents(VIEW.'app/header.html');
+        include_once(VIEW.'app/header.html');
         $footer=file_get_contents(VIEW.'app/footer.html');
         
         $content=include_once(VIEW.'app/content.html');

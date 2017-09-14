@@ -15,17 +15,28 @@
     <div class="container content">
         <div class="row">
             <!-- Begin Sidebar Menu -->
-            <div class="col-md-3">
+            <div class="col-md-3" style="position: fixed;">
                 <ul class="doc-nav list-group sidebar-nav-v1" id="sidebar-nav" data-offset-top="202" data-offset-bottom="300">
-                    <li id="sdknode-api" class="list-group-item list-toggle sidebar-submenu "><a data-toggle="collapse" data-parent="#" href="http://www.pgyer.com/doc/api#collapse-api">开放API</a>
-                        <ul id="collapse-api" class="collapse">
-                            <li><a href="http://www.pgyer.com/doc/api#paramInfo"><i class="fa fa-file-text-o"></i>接口说明</a></li>
-                            <li><a href="http://www.pgyer.com/doc/api#commonParams"><i class="fa fa-file-text-o"></i>常规参数说明</a></li>
-                            <li><a href="http://www.pgyer.com/doc/api#codeSample"><i class="fa fa-file-text-o"></i>示例代码</a></li>
-                            <li><a href="http://www.pgyer.com/doc/api#uploadApp"><i class="fa fa-file-text-o"></i>上传App</a></li>
-                            <li><a href="http://www.pgyer.com/doc/api#installApp"><i class="fa fa-file-text-o"></i>安装App</a></li>
+                    <li id="sdknode-api" class="list-group-item list-toggle sidebar-submenu">
+                        <a data-toggle="collapse" href="javascript:void(0);">开放API</a>
+                        <ul id="collapse-api" class="collapse" style="display: block;">
+                            <?php foreach($api_list as $key=>$name){ ?>
+                                <li>
+                                    <a href="/api/app#<?php echo $key;?>">
+                                        <i class="fa fa-file-text-o"></i>
+                                        <?php echo $name; ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </li>
                 </ul>
             </div>
             <!-- End Sidebar Menu -->
+            <script type="text/javascript">
+                function collapse(that){
+                    var id=document.getElementById("collapse-api");
+                    console.log(id);
+                    id.setAttribute("style","display:block");
+                }
+            </script>
