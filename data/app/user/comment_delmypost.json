@@ -1,9 +1,5 @@
 {
   "desc": "必须是自己登录的情况",
-  "example": {
-    "code": "",
-    "title": "返回值"
-  },
   "params": {
     "id": {
       "desc": "问答ID",

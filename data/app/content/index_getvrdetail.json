@@ -1,9 +1,5 @@
 {
   "desc": "获取当前VR所需要的数据",
-  "example": {
-    "code": "",
-    "title": "返回值"
-  },
   "params": {
     "cate": {
       "desc": "频道分类",

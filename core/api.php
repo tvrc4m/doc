@@ -7,6 +7,7 @@ class Api extends Doc {
     const API_TYPE_PC   =   'pc';
 
     const JSON_EXT=".json";
+    const EXAMPLE_EXT='.example';
 
     /**
      * 页面输出
@@ -39,6 +40,15 @@ class Api extends Doc {
                     $api_list[$dirs[$dir]][$api_basename]=$api_parse['title'];
                     $api_data[$api_basename]=$api_parse;
                 }
+
+                foreach (glob($filename.'/example/*'.self::EXAMPLE_EXT) as $emamplename) {
+                    
+                    $api_basename=basename($emamplename,self::EXAMPLE_EXT);
+
+                    $example_content=file_get_contents($emamplename);
+                    
+                    $api_data[$api_basename]['example']=$example_content;
+                }
             }
         }
 
@@ -48,7 +58,7 @@ class Api extends Doc {
 
             $api_data=[$api_data[$api]];
         }else{
-            
+
             $commonapi=file_get_contents(DATA.$type.'/'.$type.self::JSON_EXT);
 
             $common=json_decode($commonapi,true);

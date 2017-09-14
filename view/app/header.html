@@ -24,7 +24,7 @@
                             <ul id="collapse-api" class="collapse">
                                 <?php foreach($list as $key=>$name){ ?>
                                     <li>
-                                        <a href="/api/app#<?php echo $key;?>">
+                                        <a key="<?php echo $key;?>" href="/api/app#<?php echo $key;?>">
                                             <i class="fa fa-file-text-o"></i>
                                             <?php echo $name; ?>
                                         </a>
@@ -37,14 +37,31 @@
             </div>
             <!-- End Sidebar Menu -->
             <script type="text/javascript">
+                var hash=document.location.hash;
+                if(hash && $(hash)){
+                    key=hash.substr(1);
+                    var cls="a[key='"+key+"']";
+                    $(cls).parents('ul').show();
+                    $(cls).addClass('active');
+                }
                 $("a[data-toggle]").click(function(){
+                    var menu=$(this).parent('li');
                     var submenu=$(this).siblings('.collapse');
                     var display=submenu.css('display');
                     if(display=='none'){
                         $(".collapse").hide();
+                        menu.addClass('active');
                         submenu.show();
                     }else{
+                        menu.removeClass('active');
                         submenu.hide();
                     } 
+                })
+                $("a[key]").click(function(){
+                    var menu=$(this).parents('ul').parents('li');
+                    $(".sidebar-submenu").removeClass('active');
+                    menu.addClass('active');
+                    $(".sidebar-submenu ul li a.active").removeClass("active");
+                    $(this).addClass("active");
                 })
             </script>

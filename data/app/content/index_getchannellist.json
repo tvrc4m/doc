@@ -1,9 +1,5 @@
 {
   "desc": "获取频道列表",
-  "example": {
-    "code": "",
-    "title": "返回值"
-  },
   "params": {
     "cate": {
       "desc": "模块ID，默认为新闻资讯（cate=1）,cate是频道分类，1是APP首页，2是APP视频，3是APPVR，4是PC",

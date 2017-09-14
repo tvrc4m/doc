@@ -1,9 +1,5 @@
 {
   "desc": "必须登录情况下",
-  "example": {
-    "code": "",
-    "title": "返回值"
-  },
   "params": {
     "page": {
       "desc": "分页",

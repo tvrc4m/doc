@@ -1,9 +1,5 @@
 {
   "desc": "获取某个频道的内容（card）列表，可翻页",
-  "example": {
-    "code": "",
-    "title": "返回值"
-  },
   "params": {
     "chanId": {
       "desc": "频道ID",

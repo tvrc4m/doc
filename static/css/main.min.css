@@ -112,3 +112,6 @@ Copyright (c) 2014 Daniel Eden
             .sidebar-nav-v1>li.sidebar-submenu.active>a[data-toggle="collapse"] {
                 border-bottom: solid 1px #e4e9f0;
             }
+            .sidebar-nav-v1>li.sidebar-submenu ul.collapse a.active{
+                color: #38d5b6;
+            }

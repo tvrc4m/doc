@@ -1,9 +1,5 @@
 {
   "desc": "使用第三方平台f信息登录，如果是新用户则新建用户",
-  "example": {
-    "code": "",
-    "title": "返回值"
-  },
   "params": {},
   "return": {
     "gender": {

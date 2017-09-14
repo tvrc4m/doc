@@ -1,0 +1,17 @@
+{
+  "data": {
+    "auth": [
+      0
+    ],
+    "comment_num": "0",
+    "create_time": "2015-08-02 18:09:15",
+    "gender": "m",
+    "id": "1",
+    "image": "http://img12.nipic.com/20091108/2904378_211137045663_1.jpg",
+    "intro": "个人介绍",
+    "nickname": "测试用户1",
+    "phone": "13811012345"
+  },
+  "error_code": 0,
+  "error_msg": ""
+}

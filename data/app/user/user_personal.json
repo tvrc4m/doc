@@ -1,9 +1,5 @@
 {
   "desc": "必须是登录的情况",
-  "example": {
-    "code": "",
-    "title": "返回值"
-  },
   "params": {
     "code": {
       "desc": "验证码",

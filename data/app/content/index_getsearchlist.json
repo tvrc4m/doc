@@ -1,9 +1,5 @@
 {
   "desc": "全站搜索，不包含问答",
-  "example": {
-    "code": "",
-    "title": "返回值"
-  },
   "params": {
     "keyword": {
       "desc": "关键词",
