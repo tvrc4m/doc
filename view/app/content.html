@@ -1,46 +1,43 @@
 <?php echo $header; ?>
 <div class="col-md-9" style="margin-left: 279px;">
-    <?php if($params){ ?>
-        <?php if($params['desc']){ ?>
+    <?php if($common['desc']){ ?>
+        <div id="paramInfo" class="headline">
+            <h2>接口说明</h2>
+        </div>
+        <div class="alert alert-warning fade in">
+            <?php echo $api_data['desc'];?>
+        </div>
+    <?php } ?>
+    <?php if($common['common']){ ?>
+        <?php foreach($common['common'] as $name=>$common){ ?>
             <div id="paramInfo" class="headline">
-                <h2>接口说明</h2>
+                <h2><?php echo $name; ?></h2>
             </div>
-            <div class="alert alert-warning fade in">
-                <?php echo $params['desc'];?>
-            </div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="warning">
+                        <th width="110">参数</th>
+                        <th width="110">类型</th>
+                        <th width="110">是否必须</th>
+                        <th>说明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($common as $name=>$item){ ?>
+                    <tr>
+                        <td><?php echo $name; ?></td>
+                        <td><?php echo $item['type'];?></td>
+                        <td><?php echo $item['must'];?></td>
+                        <td><?php echo $item['desc'];?></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         <?php } ?>
-        <?php unset($params['desc']);?>
-        <?php if($params['common']){ ?>
-            <?php foreach($params['common'] as $name=>$common){ ?>
-                <div id="paramInfo" class="headline">
-                    <h2><?php echo $name; ?></h2>
-                </div>
-                <table class="table table-bordered table-striped">
-                    <thead>
-                        <tr class="warning">
-                            <th width="110">参数</th>
-                            <th width="110">类型</th>
-                            <th width="110">是否必须</th>
-                            <th>说明</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($common as $name=>$item){ ?>
-                        <tr>
-                            <td><?php echo $name; ?></td>
-                            <td><?php echo $item['type'];?></td>
-                            <td><?php echo $item['must'];?></td>
-                            <td><?php echo $item['desc'];?></td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            <?php } ?>
-        <?php } ?>
-        <?php unset($params['common']);?>
-        <?php foreach($params as $key=>$param){?>
+    <?php } ?>
+    <?php if($api_data){ ?>
+        <?php foreach($api_data as $key=>$param){?>
             <a name="<?php echo $key; ?>"></a>
-            <br>
             <div id="paramInfo" class="headline">
                 <h2><?php echo $param['title']; ?></h2>
                 <?php if($key){ ?>

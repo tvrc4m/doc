@@ -1,0 +1,127 @@
+{
+  "desc": "获取某个频道的内容（card）列表，可翻页",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "chanId": {
+      "desc": "频道ID",
+      "must": "是",
+      "type": "int"
+    },
+    "page": {
+      "desc": "页码",
+      "must": "否",
+      "type": "int"
+    },
+    "pcount": {
+      "desc": "每页条数",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+    "data": {
+      "desc": "数据列表",
+      "type": "array"
+    },
+    "data.card_type": {
+      "desc": "卡片类型,0：无图，1：小图，2：大图，3：并列三图，4：图集大图，5：视频大图，6：图文广告，7：文字广告，8：外链广告",
+      "type": "int"
+    },
+    "data.desc": {
+      "desc": "内容描述或导语",
+      "type": "string"
+    },
+    "data.id": {
+      "desc": "文章id",
+      "type": "int"
+    },
+    "data.image": {
+      "desc": "浏览量",
+      "type": "string"
+    },
+    "data.image_num": {
+      "desc": "图集个数",
+      "must": "是",
+      "type": "int"
+    },
+    "data.images": {
+      "desc": "三图模式-缩略图",
+      "must": "是",
+      "type": "array"
+    },
+    "data.is_adv": {
+      "desc": "1是广告，0不是广告",
+      "type": "int"
+    },
+    "data.share_url": {
+      "desc": "分享出去的URL",
+      "type": "string"
+    },
+    "data.source": {
+      "desc": "文章来源",
+      "type": "string"
+    },
+    "data.tags": {
+      "desc": "标签",
+      "type": "array"
+    },
+    "data.tags.border_color": {
+      "desc": "标签边框颜色",
+      "type": "string"
+    },
+    "data.tags.font_color": {
+      "desc": "标签字体颜色",
+      "type": "string"
+    },
+    "data.tags.name": {
+      "desc": "标签名称",
+      "type": "string"
+    },
+    "data.title": {
+      "desc": "文章标题",
+      "type": "string"
+    },
+    "data.type": {
+      "desc": "文章类型,1：专题，2：文章，3：图集，4：视频，9:直播，11VR，12问答",
+      "type": "int"
+    },
+    "data.url": {
+      "desc": "链接地址",
+      "type": "string"
+    },
+    "data.views": {
+      "desc": "浏览量",
+      "type": "int"
+    },
+    "focus": {
+      "desc": "焦点图列表",
+      "type": "array"
+    },
+    "focus.cid": {
+      "desc": "内容id",
+      "type": "int"
+    },
+    "focus.image": {
+      "desc": "图片URL",
+      "type": "string"
+    },
+    "focus.title": {
+      "desc": "焦点图标题",
+      "type": "string"
+    },
+    "focus.type": {
+      "desc": "内容type（type=0，表示使用url）",
+      "type": "int"
+    },
+    "focus.url": {
+      "desc": "链接地址",
+      "type": "string"
+    }
+  },
+  "title": "获取频道的内容列表",
+  "type": "post",
+  "url": "appapi/index/getContentList"
+}

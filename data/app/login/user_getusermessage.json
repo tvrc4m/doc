@@ -1,0 +1,33 @@
+{
+  "desc": "使用第三方平台f信息登录，如果是新用户则新建用户",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {},
+  "return": {
+    "gender": {
+      "desc": "用户性别",
+      "must": "是",
+      "type": "string"
+    },
+    "id": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    },
+    "image": {
+      "desc": "大头像",
+      "must": "是",
+      "type": "string"
+    },
+    "nickname": {
+      "desc": "用户昵称",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "获取用户部分信息",
+  "type": "post",
+  "url": "appapi/user/getusermessage"
+}

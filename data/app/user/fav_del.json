@@ -1,0 +1,23 @@
+{
+  "desc": "必须登录情况下",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "cid": {
+      "desc": "文章id",
+      "must": "是",
+      "type": "int"
+    },
+    "uid": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "return": {},
+  "title": "我的收藏",
+  "type": "post",
+  "url": "appapi/fav/del"
+}

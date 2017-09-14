@@ -1,0 +1,28 @@
+{
+  "desc": "使用第三方平台f信息登录，如果是新用户则新建用户",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "pic_name": {
+      "desc": "图片名称",
+      "must": "否",
+      "type": "string"
+    },
+    "uid": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    },
+    "取pic_name的值，如果pic_name不传，此处为pic_name的默认值": {
+      "desc": "图片文件，二进制文件流",
+      "must": "是",
+      "type": "binary"
+    }
+  },
+  "return": {},
+  "title": "更新用户头像",
+  "type": "post",
+  "url": "appapi/user/portrait"
+}

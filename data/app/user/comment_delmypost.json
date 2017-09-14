@@ -1,0 +1,18 @@
+{
+  "desc": "必须是自己登录的情况",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "id": {
+      "desc": "问答ID",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "return": {},
+  "title": "删除我的问答",
+  "type": "post",
+  "url": "appapi/comment/delMypost"
+}

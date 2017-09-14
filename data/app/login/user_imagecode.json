@@ -1,0 +1,18 @@
+{
+  "desc": "",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {},
+  "return": {
+    "data": {
+      "desc": "base64 图片流",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "获取图形验证码",
+  "type": "post",
+  "url": "appapi/user/imagecode"
+}

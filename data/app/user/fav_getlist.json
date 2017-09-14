@@ -1,0 +1,33 @@
+{
+  "desc": "必须登录情况下",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "page": {
+      "desc": "分页",
+      "must": "否",
+      "type": "int"
+    },
+    "pcount": {
+      "desc": "每页的条数",
+      "must": "否",
+      "type": "int"
+    },
+    "type": {
+      "desc": "收藏的数据类型",
+      "must": "否",
+      "type": "int"
+    },
+    "uid": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "return": {},
+  "title": "我的收藏",
+  "type": "post",
+  "url": "appapi/fav/getList"
+}

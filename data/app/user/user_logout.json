@@ -1,0 +1,18 @@
+{
+  "desc": "必须登录情况下",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "sessionid": {
+      "desc": "sessionid",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {},
+  "title": "退出登录",
+  "type": "post",
+  "url": "appapi/user/logout"
+}

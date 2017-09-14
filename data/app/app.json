@@ -1,0 +1,25 @@
+{
+  "common": {
+    "常规请求参数": {
+      "header": {}
+    },
+    "常规返回参数": {
+      "api_version": {
+        "desc": "API版本号",
+        "must": "是",
+        "type": "string"
+      },
+      "error_code": {
+        "desc": "错误码",
+        "must": "是",
+        "type": "int"
+      },
+      "error_msg": {
+        "desc": "错误消息",
+        "must": "是",
+        "type": "string"
+      }
+    }
+  },
+  "desc": "<p>1.除特别说明，所有数据API的请求方式均为HTTP POST方式。</p><p>2.获取图片等资源文件接口的请求方式为HTTP GET</p><p>3.API接口返回数据格式为JSON。</p><p>4.所有接口请求时，必须包含参数_api_key，以便识别接口身份。</p>"
+}

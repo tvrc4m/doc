@@ -1,0 +1,174 @@
+{
+  "desc": "全站搜索，不包含问答",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "keyword": {
+      "desc": "关键词",
+      "must": "是",
+      "type": "string"
+    },
+    "page": {
+      "desc": "当前页数,默认值1",
+      "must": "否",
+      "type": "int"
+    },
+    "pcount": {
+      "desc": "每页个数,默认值10",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+    "bind": {
+      "desc": "相关内容",
+      "must": "否",
+      "type": "array"
+    },
+    "bind.card_type": {
+      "desc": "内容样式",
+      "must": "是",
+      "type": "int"
+    },
+    "bind.cate": {
+      "desc": "频道分类",
+      "must": "否",
+      "type": "int"
+    },
+    "bind.desc": {
+      "desc": "内容导语",
+      "must": "是",
+      "type": "string"
+    },
+    "bind.duration": {
+      "desc": "视频时长",
+      "must": "是",
+      "type": "string"
+    },
+    "bind.id": {
+      "desc": "关联文章id",
+      "must": "是",
+      "type": "int"
+    },
+    "bind.image": {
+      "desc": "缩略图",
+      "must": "是",
+      "type": "string"
+    },
+    "bind.image_num": {
+      "desc": "图集个数",
+      "must": "是",
+      "type": "int"
+    },
+    "bind.images": {
+      "desc": "三图模式-缩略图",
+      "must": "是",
+      "type": "array"
+    },
+    "bind.share_url": {
+      "desc": "分享页面",
+      "must": "是",
+      "type": "string"
+    },
+    "bind.source": {
+      "desc": "文章来源",
+      "must": "是",
+      "type": "string"
+    },
+    "bind.type": {
+      "desc": "内容分类",
+      "must": "是",
+      "type": "string"
+    },
+    "bind.views": {
+      "desc": "阅读量",
+      "must": "是",
+      "type": "int"
+    },
+    "comment_tourist": {
+      "desc": "允许游客评论允许游客评论（true允许，false不允许）",
+      "must": "是",
+      "type": "string"
+    },
+    "comments": {
+      "desc": "评论数量",
+      "must": "是",
+      "type": "int"
+    },
+    "create_time": {
+      "desc": "创建时间",
+      "must": "是",
+      "type": "string"
+    },
+    "extend": {
+      "desc": "直播其他数据信息",
+      "must": "是",
+      "type": "object"
+    },
+    "extend.duration": {
+      "desc": "视频时长",
+      "must": "是",
+      "type": "string"
+    },
+    "extend.url": {
+      "desc": "视频地址",
+      "must": "是",
+      "type": "string"
+    },
+    "id": {
+      "desc": "文章id",
+      "must": "是",
+      "type": "int"
+    },
+    "is_faved": {
+      "desc": "是否收藏 0否 1是",
+      "must": "是",
+      "type": "int"
+    },
+    "posts_ops": {
+      "desc": "评论审核规则(1先审后发,2先发后审)",
+      "must": "是",
+      "type": "int"
+    },
+    "share_image": {
+      "desc": "分享图",
+      "must": "是",
+      "type": "string"
+    },
+    "share_url": {
+      "desc": "分享地址url",
+      "must": "是",
+      "type": "string"
+    },
+    "title": {
+      "desc": "标题",
+      "must": "是",
+      "type": "string"
+    },
+    "user": {
+      "desc": "发布者信息",
+      "must": "是",
+      "type": "object"
+    },
+    "user.id": {
+      "desc": "发布者id",
+      "must": "是",
+      "type": "string"
+    },
+    "user.image": {
+      "desc": "发布者头像",
+      "must": "是",
+      "type": "string"
+    },
+    "user.nickname": {
+      "desc": "发布者用户名",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "首页搜索列表",
+  "type": "post",
+  "url": "appapi/index/getSearchList"
+}

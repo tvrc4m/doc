@@ -1,0 +1,144 @@
+{
+  "desc": "必须是登录的状态",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "page": {
+      "desc": "分页",
+      "must": "否",
+      "type": "int"
+    },
+    "pcount": {
+      "desc": "每页的条数",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+    "comment": {
+      "desc": "评论列表",
+      "must": "是",
+      "type": "array"
+    },
+    "comment.cid": {
+      "desc": "文章id",
+      "must": "是",
+      "type": "int"
+    },
+    "comment.comment": {
+      "desc": "回复评论",
+      "must": "是",
+      "type": "array"
+    },
+    "comment.comment.content": {
+      "desc": "回复内容",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.comment.create_time": {
+      "desc": "回复日期",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.comment.id": {
+      "desc": "评论",
+      "must": "是",
+      "type": "int"
+    },
+    "comment.comment.loves": {
+      "desc": "点赞人数",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.comment.p_uid": {
+      "desc": "",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.comment.pid": {
+      "desc": "给评论的id",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.comment.read": {
+      "desc": "是否读false|true",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.comment.type": {
+      "desc": "文章类型",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.comment.user": {
+      "desc": "用户信息",
+      "must": "是",
+      "type": "object"
+    },
+    "comment.comment.user.id": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    },
+    "comment.comment.user.image": {
+      "desc": "用户头像",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.comment.user.nickname": {
+      "desc": "用户昵称",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.content": {
+      "desc": "问答内容",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.create_devid": {
+      "desc": "创建时的设备id",
+      "must": "是",
+      "type": "int"
+    },
+    "comment.create_time": {
+      "desc": "评论时间",
+      "must": "是",
+      "type": "string"
+    },
+    "comment.create_uid": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    },
+    "comment.id": {
+      "desc": "我的问答列表",
+      "must": "是",
+      "type": "array"
+    },
+    "comment.loves": {
+      "desc": "live人数",
+      "must": "是",
+      "type": "int"
+    },
+    "comment.p_uid": {
+      "desc": "回复人",
+      "must": "是",
+      "type": "int"
+    },
+    "comment.pid": {
+      "desc": "回复上条评论的id",
+      "must": "是",
+      "type": "int"
+    },
+    "comment.type": {
+      "desc": "文章type",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "title": "回复我的评论",
+  "type": "post",
+  "url": "appapi/user/unread"
+}

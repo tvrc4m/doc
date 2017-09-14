@@ -1,0 +1,32 @@
+{
+  "desc": "获取所有频道，如果用户已登录，也会返回该用户自定义的频道，返回的顺序即为用户所定义的顺序。\n如果用户未登录，刚返回该设备ID保存的自定义频道数据。\n增加置顶属性，置顶的频道不允许排序及隐藏",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "cate": {
+      "desc": "模块ID，默认为新闻资讯（cate=1）,cate是频道分类，1是APP首页，2是APP视频，3是APPVR，4是PC",
+      "must": "是",
+      "type": "int"
+    },
+    "devID": {
+      "desc": "设备ID",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {
+    "hide": {
+      "desc": "隐藏频道",
+      "type": "array"
+    },
+    "show": {
+      "desc": "显示的频道",
+      "type": "array"
+    }
+  },
+  "title": "获取频道列表",
+  "type": "post",
+  "url": "appapi/channel/getList"
+}

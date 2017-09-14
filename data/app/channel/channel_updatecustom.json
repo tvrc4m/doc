@@ -1,0 +1,37 @@
+{
+  "desc": "保存用户自定义的频道，需要登录",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "chan_ids": {
+      "desc": "显示频道ID，用英文逗号隔开。频道ID的顺序就是用户自定义的顺序",
+      "must": "是",
+      "type": "string"
+    },
+    "devID": {
+      "desc": "设备ID",
+      "must": "是",
+      "type": "string"
+    },
+    "hide_chan_ids": {
+      "desc": "隐藏频道ID，用英文逗号隔开。频道ID的顺序就是用户自定义的顺序",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {
+    "error_code": {
+      "desc": "错误码",
+      "type": "int"
+    },
+    "error_msg": {
+      "desc": "错误消息",
+      "type": "string"
+    }
+  },
+  "title": "保存用户自定义频道",
+  "type": "post",
+  "url": "appapi/channel/updateCustom"
+}

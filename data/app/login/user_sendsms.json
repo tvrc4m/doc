@@ -1,0 +1,29 @@
+{
+  "desc": "",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "codes": {
+      "desc": "验证码",
+      "must": "是",
+      "type": "string"
+    },
+    "phone": {
+      "desc": "手机号",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {
+    "sessionid": {
+      "desc": "sessionID，用于验证时使用",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "发送验证码短信",
+  "type": "post",
+  "url": "appapi/user/sendSMS"
+}

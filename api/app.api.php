@@ -2,15 +2,13 @@
 
 class AppApi extends Api {
 
-    protected $json='app.api.json';
-
     /**
      * app全部的api接口
      * @return 
      */
     public function index(){
 
-        $this->export($this->json);
+        $this->export(self::API_TYPE_APP);
     }
 
     /**
@@ -24,6 +22,6 @@ class AppApi extends Api {
 
         empty($api) && exit('api接口地址不存在');
 
-        $this->export($this->json,$api);
+        $this->export(self::API_TYPE_APP,$api);
     }
 }

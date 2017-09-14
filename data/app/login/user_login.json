@@ -1,0 +1,74 @@
+{
+  "desc": "使用第三方平台f信息登录，如果是新用户则新建用户",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "access_token": {
+      "desc": "access_token",
+      "must": "是",
+      "type": "string"
+    },
+    "openid": {
+      "desc": "openid",
+      "must": "是",
+      "type": "string"
+    },
+    "platform": {
+      "desc": "平台 1：微博；2：微信；3：QQ",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "return": {
+    "auth": {
+      "desc": "//授权状态，0：手机注册，1：微博；2：微信；3：QQ",
+      "must": "是",
+      "type": "array"
+    },
+    "comment_num": {
+      "desc": "用户未读过的评论数",
+      "must": "是",
+      "type": "string"
+    },
+    "create_time": {
+      "desc": "创建时间",
+      "must": "是",
+      "type": "string"
+    },
+    "gender": {
+      "desc": "性别，m：男，f：女，空字符串：未知",
+      "must": "是",
+      "type": "string"
+    },
+    "id": {
+      "desc": "用户ID",
+      "must": "是",
+      "type": "int"
+    },
+    "image": {
+      "desc": "大头像",
+      "must": "是",
+      "type": "string"
+    },
+    "intro": {
+      "desc": "个人介绍",
+      "must": "是",
+      "type": "string"
+    },
+    "nickname": {
+      "desc": "昵称",
+      "must": "是",
+      "type": "string"
+    },
+    "phone": {
+      "desc": "手机号",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "第三方登录及注册",
+  "type": "post",
+  "url": "appapi/user/login"
+}

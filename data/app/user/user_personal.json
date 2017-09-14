@@ -1,0 +1,64 @@
+{
+  "desc": "必须是登录的情况",
+  "example": {
+    "code": "",
+    "title": "返回值"
+  },
+  "params": {
+    "code": {
+      "desc": "验证码",
+      "must": "是",
+      "type": "string"
+    },
+    "phone": {
+      "desc": "手机号",
+      "must": "是",
+      "type": "string"
+    },
+    "sessionid": {
+      "desc": "发送短信验证码接口返回的sessionid  ",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {
+    "block": {
+      "desc": "是否被block了",
+      "must": "是",
+      "type": "string"
+    },
+    "id": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    },
+    "image": {
+      "desc": "大头像",
+      "must": "是",
+      "type": "string"
+    },
+    "is_comment": {
+      "desc": "评论  true：有回复评论  false：没有   如果is_problem,is_comment 同时为false红点都不显示只要有一个为true外面的那个红点就要显示",
+      "must": "是",
+      "type": "string"
+    },
+    "is_problem": {
+      "desc": "问答评论  true：有回复评论  false：没有",
+      "must": "是",
+      "type": "string"
+    },
+    "nickname": {
+      "desc": "手机号",
+      "must": "是",
+      "type": "string"
+    },
+    "sessionid": {
+      "desc": "sessionid",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "个人中心",
+  "type": "post",
+  "url": "appapi/user/Personal"
+}
