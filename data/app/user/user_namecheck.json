@@ -7,7 +7,6 @@
       "type": "int"
     }
   },
-  "return": {},
   "title": "昵称检查",
   "type": "post",
   "url": "appapi/user/namecheck"

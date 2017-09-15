@@ -17,7 +17,6 @@
       "type": "binary"
     }
   },
-  "return": {},
   "title": "更新用户头像",
   "type": "post",
   "url": "appapi/user/portrait"

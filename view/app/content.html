@@ -5,7 +5,7 @@
             <h2>接口说明</h2>
         </div>
         <div class="alert alert-warning fade in">
-            <?php echo $api_data['desc'];?>
+            <?php echo $common['desc'];?>
         </div>
     <?php } ?>
     <?php if($common['common']){ ?>
@@ -38,6 +38,7 @@
     <?php if($api_data){ ?>
         <?php foreach($api_data as $key=>$param){?>
             <a name="<?php echo $key; ?>"></a>
+            <div style="height: 41px;"></div>
             <div id="paramInfo" class="headline">
                 <h2><?php echo $param['title']; ?></h2>
                 <?php if($key){ ?>
@@ -51,26 +52,28 @@
                 <?php echo $param['url']; ?>
                 <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
             </p>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr class="warning">
-                        <th width="110">参数</th>
-                        <th width="110">类型</th>
-                        <th width="110">是否必须</th>
-                        <th>说明</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($param['params'] as $name=>$item){ ?>
-                    <tr>
-                        <td><?php echo $name; ?></td>
-                        <td><?php echo $item['type'];?></td>
-                        <td><?php echo $item['must'];?></td>
-                        <td><?php echo $item['desc'];?></td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+            <?php if($param['params']){ ?>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="warning">
+                            <th width="110">参数</th>
+                            <th width="110">类型</th>
+                            <th width="110">是否必须</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($param['params'] as $name=>$item){ ?>
+                        <tr>
+                            <td><?php echo $name; ?></td>
+                            <td><?php echo $item['type'];?></td>
+                            <td><?php echo $item['must'];?></td>
+                            <td><?php echo $item['desc'];?></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php } ?>
             <?php if($param['return']){ ?>
                 <h4>返回数据</h4>
                 <table class="table table-bordered table-striped">

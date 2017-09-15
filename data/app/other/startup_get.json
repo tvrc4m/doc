@@ -1,0 +1,24 @@
+{
+  "desc": "",
+  "params": {},
+  "return": {
+    "image": {
+      "desc": "图片链接",
+      "must": "是",
+      "type": "string"
+    },
+    "keep": {
+      "desc": "停留多少秒",
+      "must": "是",
+      "type": "string"
+    },
+    "url": {
+      "desc": "链接",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "启动页接口",
+  "type": "post",
+  "url": "appapi/version/get"
+}

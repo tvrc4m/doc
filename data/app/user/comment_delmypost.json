@@ -7,7 +7,6 @@
       "type": "int"
     }
   },
-  "return": {},
   "title": "删除我的问答",
   "type": "post",
   "url": "appapi/comment/delMypost"

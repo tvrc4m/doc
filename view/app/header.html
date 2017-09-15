@@ -12,8 +12,29 @@
 </head>
 
 <body>
+    <header style="position: fixed;top: 0;height: 40px;z-index: 99;width: 100%">
+        <!--=== navbar start ===-->
+        <div class="container header-navbar navbar navbar-default" role="navigation" style="">
+            <!-- pc header start -->
+            <div class="container container-menu pc-header hidden-xs hidden-sm col-lg-12 col-md-8">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header" style="margin-left:20px;margin-right: 20px;">
+                    <a href="/">
+                        <img id="logo-header" class="img-logo" src="/static/img/logo.png" alt="Logo" width="36" height="36" />
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse navbar-responsive-collapse in">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="active"><a href="/api/app">APP接口文档</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- m-header end-->
+        <!--=== navbar end ===-->
+    </header>
     <!--=== Content Part ===-->
-    <div class="container content">
+    <div class="container content" style="position: relative;top: 65px;">
         <div class="row">
             <!-- Begin Sidebar Menu -->
             <div class="col-md-3" style="position: fixed;">

@@ -22,7 +22,84 @@
       "type": "int"
     }
   },
-  "return": {},
+  "return": {
+    "cate": {
+      "desc": "收藏的类型",
+      "must": "是",
+      "type": "array"
+    },
+    "cate.type": {
+      "desc": "类型id",
+      "must": "是",
+      "type": "int"
+    },
+    "cate.title": {
+      "desc": "类型名称",
+      "must": "是",
+      "type": "string"
+    },
+    "data": {
+      "desc": "收藏的文章列表",
+      "must": "是",
+      "type": "array"
+    },
+    "data.id": {
+      "desc": "文章id",
+      "must": "是",
+      "type": "int"
+    },
+    "data.type": {
+      "desc": "文章类型",
+      "must": "是",
+      "type": "int"
+    },
+    "data.title": {
+      "desc": "文章标题",
+      "must": "是",
+      "type": "string"
+    },
+    "data.desc": {
+      "desc": "文章描述",
+      "must": "是",
+      "type": "string"
+    },
+    "data.cate": {
+      "desc": "文章所属类别",
+      "must": "是",
+      "type": "int"
+    },
+    "data.views": {
+      "desc": "文章阅读数",
+      "must": "是",
+      "type": "int"
+    },
+    "data.image": {
+      "desc": "图片列表,每张图片的url地址",
+      "must": "是",
+      "type": "array"
+    },
+    "data.tags": {
+      "desc": "文章标签",
+      "must": "是",
+      "type": "array"
+    },
+    "data.tags.border_color": {
+      "desc": "标签边框颜色",
+      "type": "string"
+    },
+    "data.tags.font_color": {
+      "desc": "标签字体颜色",
+      "type": "string"
+    },
+    "data.card_type": {
+      "desc": "文章card类型",
+      "type": "string"
+    },
+    "data.share_url": {
+      "desc": "文章分享的url链接",
+      "type": "string"
+    }
+  },
   "title": "我的收藏",
   "type": "post",
   "url": "appapi/fav/getList"

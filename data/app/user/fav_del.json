@@ -12,8 +12,7 @@
       "type": "int"
     }
   },
-  "return": {},
-  "title": "我的收藏",
+  "title": "文章取消收藏",
   "type": "post",
   "url": "appapi/fav/del"
 }

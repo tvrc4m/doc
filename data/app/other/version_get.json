@@ -1,0 +1,29 @@
+{
+  "desc": "app升级管理",
+  "params": {},
+  "return": {
+    "force": {
+      "desc": "是否强制更新 true|false",
+      "must": "是",
+      "type": "string"
+    },
+    "msg": {
+      "desc": "提示语",
+      "must": "是",
+      "type": "string"
+    },
+    "url": {
+      "desc": "新版本下载地址",
+      "must": "是",
+      "type": "string"
+    },
+    "version": {
+      "desc": "新版本号",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "获取APP最新的版本",
+  "type": "post",
+  "url": "appapi/version/get"
+}

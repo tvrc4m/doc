@@ -12,7 +12,6 @@
       "type": "string"
     }
   },
-  "return": {},
   "title": "检查验证码",
   "type": "post",
   "url": "appapi/user/checkSMSCode"
