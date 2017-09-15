@@ -21,5 +21,6 @@
   },
   "title": "发送验证码短信",
   "type": "post",
-  "url": "appapi/user/sendSMS"
+  "url": "appapi/user/sendSMS",
+  "version": "v1.0.1"
 }

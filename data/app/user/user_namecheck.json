@@ -9,5 +9,6 @@
   },
   "title": "昵称检查",
   "type": "post",
-  "url": "appapi/user/namecheck"
+  "url": "appapi/user/namecheck",
+  "version": "v1.0.1"
 }

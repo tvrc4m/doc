@@ -29,5 +29,6 @@
   },
   "title": "保存用户自定义频道",
   "type": "post",
-  "url": "appapi/channel/updateCustom"
+  "url": "appapi/channel/updateCustom",
+  "version": "v1.0.1"
 }

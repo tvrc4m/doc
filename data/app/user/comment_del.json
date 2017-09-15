@@ -9,5 +9,6 @@
   },
   "title": "删除评论",
   "type": "post",
-  "url": "appapi/comment/del"
+  "url": "appapi/comment/del",
+  "version": "v1.0.1"
 }

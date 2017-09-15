@@ -19,6 +19,7 @@
                         <th width="110">参数</th>
                         <th width="110">类型</th>
                         <th width="110">是否必须</th>
+                        <th width="60">版本</th>
                         <th>说明</th>
                     </tr>
                 </thead>
@@ -28,6 +29,7 @@
                         <td><?php echo $name; ?></td>
                         <td><?php echo $item['type'];?></td>
                         <td><?php echo $item['must'];?></td>
+                        <td><?php echo $item['version'];?></td>
                         <td><?php echo $item['desc'];?></td>
                     </tr>
                     <?php } ?>
@@ -42,10 +44,10 @@
             <div id="paramInfo" class="headline">
                 <h2><?php echo $param['title']; ?></h2>
                 <?php if($key){ ?>
-                    <code><a href="/api/app/<?php echo $key;?>" target="_blank">链接</a></code>
+                    <code><a href="/api/app/<?php echo $key;?>" target="_blank">拷贝链接</a></code>
                 <?php } ?>
             </div>
-            <p><?php echo $param['desc']; ?></p>
+            <p><?php if($param['version']){ ?><code><?php echo $param['version']; ?></code><?php } ?> <?php echo $param['desc']; ?></p>
             <h4>API地址</h4>
             <p>
                 <span class="label label-primary"><?php echo strtoupper($param['type']);?></span> 
@@ -59,6 +61,7 @@
                             <th width="110">参数</th>
                             <th width="110">类型</th>
                             <th width="110">是否必须</th>
+                            <th width="60">版本</th>
                             <th>说明</th>
                         </tr>
                     </thead>
@@ -68,6 +71,7 @@
                             <td><?php echo $name; ?></td>
                             <td><?php echo $item['type'];?></td>
                             <td><?php echo $item['must'];?></td>
+                            <td><?php echo $item['version']?$item['version']:$param['version'];?></td>
                             <td><?php echo $item['desc'];?></td>
                         </tr>
                         <?php } ?>
@@ -82,6 +86,7 @@
                             <th width="110">参数</th>
                             <th width="110">类型</th>
                             <th width="110">是否必须</th>
+                            <th width="60">版本</th>
                             <th>说明</th>
                         </tr>
                     </thead>
@@ -91,6 +96,7 @@
                             <td><?php echo $key; ?></td>
                             <td><?php echo $item['type'];?></td>
                             <td><?php echo $item['must'];?></td>
+                            <td><?php echo $item['version']?$item['version']:$param['version'];?></td>
                             <td><?php echo $item['desc'];?></td>
                         </tr>
                         <?php } ?>

@@ -28,39 +28,23 @@
       "must": "是",
       "type": "array"
     },
-    "cate.type": {
-      "desc": "类型id",
-      "must": "是",
-      "type": "int"
-    },
     "cate.title": {
       "desc": "类型名称",
       "must": "是",
       "type": "string"
+    },
+    "cate.type": {
+      "desc": "类型id",
+      "must": "是",
+      "type": "int"
     },
     "data": {
       "desc": "收藏的文章列表",
       "must": "是",
       "type": "array"
     },
-    "data.id": {
-      "desc": "文章id",
-      "must": "是",
-      "type": "int"
-    },
-    "data.type": {
-      "desc": "文章类型",
-      "must": "是",
-      "type": "int"
-    },
-    "data.title": {
-      "desc": "文章标题",
-      "must": "是",
-      "type": "string"
-    },
-    "data.desc": {
-      "desc": "文章描述",
-      "must": "是",
+    "data.card_type": {
+      "desc": "文章card类型",
       "type": "string"
     },
     "data.cate": {
@@ -68,8 +52,13 @@
       "must": "是",
       "type": "int"
     },
-    "data.views": {
-      "desc": "文章阅读数",
+    "data.desc": {
+      "desc": "文章描述",
+      "must": "是",
+      "type": "string"
+    },
+    "data.id": {
+      "desc": "文章id",
       "must": "是",
       "type": "int"
     },
@@ -77,6 +66,10 @@
       "desc": "图片列表,每张图片的url地址",
       "must": "是",
       "type": "array"
+    },
+    "data.share_url": {
+      "desc": "文章分享的url链接",
+      "type": "string"
     },
     "data.tags": {
       "desc": "文章标签",
@@ -91,16 +84,24 @@
       "desc": "标签字体颜色",
       "type": "string"
     },
-    "data.card_type": {
-      "desc": "文章card类型",
+    "data.title": {
+      "desc": "文章标题",
+      "must": "是",
       "type": "string"
     },
-    "data.share_url": {
-      "desc": "文章分享的url链接",
-      "type": "string"
+    "data.type": {
+      "desc": "文章类型",
+      "must": "是",
+      "type": "int"
+    },
+    "data.views": {
+      "desc": "文章阅读数",
+      "must": "是",
+      "type": "int"
     }
   },
   "title": "我的收藏",
   "type": "post",
-  "url": "appapi/fav/getList"
+  "url": "appapi/fav/getList",
+  "version": "v1.0.1"
 }

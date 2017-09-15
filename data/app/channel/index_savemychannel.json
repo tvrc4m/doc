@@ -119,5 +119,6 @@
   },
   "title": "获取频道的内容列表",
   "type": "post",
-  "url": "appapi/index/getContentList"
+  "url": "appapi/index/getContentList",
+  "version": "v1.0.1"
 }

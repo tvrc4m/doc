@@ -19,5 +19,6 @@
   },
   "title": "更新用户信息",
   "type": "post",
-  "url": "appapi/user/update"
+  "url": "appapi/user/update",
+  "version": "v1.0.1"
 }

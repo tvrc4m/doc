@@ -10,5 +10,6 @@
   },
   "title": "获取图形验证码",
   "type": "post",
-  "url": "appapi/user/imagecode"
+  "url": "appapi/user/imagecode",
+  "version": "v1.0.1"
 }

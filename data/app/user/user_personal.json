@@ -56,5 +56,6 @@
   },
   "title": "个人中心",
   "type": "post",
-  "url": "appapi/user/Personal"
+  "url": "appapi/user/Personal",
+  "version": "v1.0.1"
 }

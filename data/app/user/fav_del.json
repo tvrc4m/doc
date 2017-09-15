@@ -14,5 +14,6 @@
   },
   "title": "文章取消收藏",
   "type": "post",
-  "url": "appapi/fav/del"
+  "url": "appapi/fav/del",
+  "version": "v1.0.1"
 }

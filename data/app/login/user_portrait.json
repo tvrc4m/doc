@@ -19,5 +19,6 @@
   },
   "title": "更新用户头像",
   "type": "post",
-  "url": "appapi/user/portrait"
+  "url": "appapi/user/portrait",
+  "version": "v1.0.1"
 }

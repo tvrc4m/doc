@@ -9,5 +9,6 @@
   },
   "title": "退出登录",
   "type": "post",
-  "url": "appapi/user/logout"
+  "url": "appapi/user/logout",
+  "version": "v1.0.1"
 }

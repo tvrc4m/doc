@@ -25,5 +25,6 @@
   },
   "title": "获取用户部分信息",
   "type": "post",
-  "url": "appapi/user/getusermessage"
+  "url": "appapi/user/getusermessage",
+  "version": "v1.0.1"
 }

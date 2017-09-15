@@ -86,5 +86,6 @@
   },
   "title": "我的问答",
   "type": "post",
-  "url": "appapi/user/namecheck"
+  "url": "appapi/user/namecheck",
+  "version": "v1.0.1"
 }

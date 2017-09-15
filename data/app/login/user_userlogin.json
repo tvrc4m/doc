@@ -51,5 +51,6 @@
   },
   "title": "手机号码登录",
   "type": "post",
-  "url": "appapi/user/userlogin"
+  "url": "appapi/user/userlogin",
+  "version": "v1.0.1"
 }
