@@ -19,7 +19,7 @@
                         <th width="110">参数</th>
                         <th width="110">类型</th>
                         <th width="110">是否必须</th>
-                        <th width="60">版本</th>
+                        <th width="110">版本</th>
                         <th>说明</th>
                     </tr>
                 </thead>
@@ -27,9 +27,20 @@
                     <?php foreach($common as $name=>$item){ ?>
                     <tr>
                         <td><?php echo $name; ?></td>
-                        <td><?php echo $item['type'];?></td>
+                        <td><?php echo is_string($item['type'])?$item['type']:implode(" | ",$item['type']);?></td>
                         <td><?php echo $item['must'];?></td>
-                        <td><?php echo $item['version'];?></td>
+                        <td>
+                            <?php 
+                            if(is_string($item['version'])){
+                                echo $item['version'];
+                            }elseif(is_array($item['version'])){
+                                array_walk($item['version'],function(&$v,$k){
+                                    $v=$k.': '.$v;
+                                });
+                                echo implode("<br>",$item['version']);
+                            }
+                            ?>
+                        </td>
                         <td><?php echo $item['desc'];?></td>
                     </tr>
                     <?php } ?>
@@ -61,7 +72,7 @@
                             <th width="110">参数</th>
                             <th width="110">类型</th>
                             <th width="110">是否必须</th>
-                            <th width="60">版本</th>
+                            <th width="110">版本</th>
                             <th>说明</th>
                         </tr>
                     </thead>
@@ -71,7 +82,20 @@
                             <td><?php echo $name; ?></td>
                             <td><?php echo $item['type'];?></td>
                             <td><?php echo $item['must'];?></td>
-                            <td><?php echo $item['version']?$item['version']:$param['version'];?></td>
+                            <td>
+                                <?php 
+                                if(is_string($item['version'])){
+                                    echo $item['version'];
+                                }elseif(is_array($item['version'])){
+                                    array_walk($item['version'],function(&$v,$k){
+                                        $v=$k.': '.$v;
+                                    });
+                                    echo implode("\r\n",$item['version']);
+                                }else{
+                                    echo $param['version'];
+                                }
+                                ?>
+                            </td>
                             <td><?php echo $item['desc'];?></td>
                         </tr>
                         <?php } ?>
@@ -86,7 +110,7 @@
                             <th width="110">参数</th>
                             <th width="110">类型</th>
                             <th width="110">是否必须</th>
-                            <th width="60">版本</th>
+                            <th width="110">版本</th>
                             <th>说明</th>
                         </tr>
                     </thead>
@@ -96,7 +120,20 @@
                             <td><?php echo $key; ?></td>
                             <td><?php echo $item['type'];?></td>
                             <td><?php echo $item['must'];?></td>
-                            <td><?php echo $item['version']?$item['version']:$param['version'];?></td>
+                            <td>
+                                <?php 
+                                if(is_string($item['version'])){
+                                    echo $item['version'];
+                                }elseif(is_array($item['version'])){
+                                    array_walk($item['version'],function(&$v,$k){
+                                        $v=$k.': '.$v;
+                                    });
+                                    echo implode("\r\n",$item['version']);
+                                }else{
+                                    echo $param['version'];
+                                }
+                                ?>
+                            </td>
                             <td><?php echo $item['desc'];?></td>
                         </tr>
                         <?php } ?>

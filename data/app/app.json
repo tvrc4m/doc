@@ -1,43 +1,49 @@
 {
   "common": {
     "常规请求参数": {
-        "header.Platform": {
-          "desc": "app平台,ANDROID:安卓手机,IOS:苹果",
-          "must": "是",
-          "type": "string",
-          "version":"v1.0.1\r\nv2.0.6"
-        },
-        "heder.Version": {
-          "desc": "app版本号,如 2.0.7",
-          "must": "是",
-          "type": "string",
-          "version":"v1.0.1"
+      "header.Platform": {
+        "desc": "app平台,ANDROID:安卓手机,IOS:苹果",
+        "must": "是",
+        "type": "string",
+        "version": {
+          "android": "v1.0.1",
+          "ios": "v2.0.6"
         }
+      },
+      "heder.Version": {
+        "desc": "app版本号,如 2.0.7",
+        "must": "是",
+        "type": "string",
+        "version": "v1.0.1"
+      }
     },
     "常规返回参数": {
       "api_version": {
         "desc": "API版本号,如 2.0.7",
         "must": "是",
         "type": "string",
-        "version":"v1.0.1"
+        "version": "v1.0.1"
       },
       "data": {
         "desc": "其他返回数据的封装载体",
         "must": "否",
-        "type": "array",
-        "version":"v1.0.1"
+        "type": [
+          "string",
+          "array"
+        ],
+        "version": "v1.0.1"
       },
       "error_code": {
         "desc": "错误码,0:表示正常 其他数字:异常,出错等",
         "must": "是",
         "type": "int",
-        "version":"v1.0.1"
+        "version": "v1.0.1"
       },
       "error_msg": {
         "desc": "错误消息",
         "must": "是",
         "type": "string",
-        "version":"v1.0.1"
+        "version": "v1.0.1"
       }
     }
   },
