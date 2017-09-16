@@ -74,6 +74,42 @@ class Api extends Doc {
         exit($content);
     }
 
+
+    /**
+     * 通过指定的key获取josn文件数据
+     * @param  string $type 指定api类型
+     * @param  string $key 指定api接口的key
+     * @return array
+     */
+    public function getJsonByKey($type,$key){
+
+        foreach (glob(DATA.$type.'/*') as $filename) {
+            
+            if($filename==$type.self::JSON_EXT) continue;
+
+            if(is_dir($filename)){
+
+                $dir=basename($filename);
+
+                foreach (glob($filename.'/*'.self::JSON_EXT) as $secname) {
+                    
+                    $api_basename=basename($secname,self::JSON_EXT);
+
+                    if($key==$api_basename){
+
+                        $api_content=file_get_contents($secname);    
+
+                        $api_parse=json_decode($api_content,true);
+
+                        return $api_parse;
+                    }
+                }
+            }
+        }
+
+        return [];
+    }
+
     /**
      * 获取某类别下的分组
      * @param  string $type 
