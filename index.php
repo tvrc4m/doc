@@ -6,6 +6,8 @@ define('VIEW', ROOT.'/view/');
 define('CORE', ROOT.'/core/');
 define('CTL',  ROOT.'/controller/');
 
+define('BASEURL', 'http://'.$_SERVER['HTTP_HOST']);
+
 include_once(CORE.'doc.php');
 include_once(CORE.'api.php');
 

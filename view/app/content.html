@@ -55,7 +55,7 @@
             <div id="paramInfo" class="headline">
                 <h2><?php echo $param['title']; ?></h2>
                 <?php if($key){ ?>
-                    <code><a href="/api/app/<?php echo $key;?>" target="_blank">拷贝链接</a></code>
+                    <code><a class="copy_api_url" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api/app#'.$key;?>" target="_blank">拷贝链接</a></code>
                 <?php } ?>
             </div>
             <p><?php if($param['version']){ ?><code><?php echo $param['version']; ?></code><?php } ?> <?php echo $param['desc']; ?></p>
@@ -149,4 +149,17 @@
         <p>未找到指定api接口</p>
     <?php } ?>
 </div>
+<script src="/static/js/clipboard.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var clipboard = new Clipboard('.copy_api_url');
+        clipboard.on('success', function(e) {
+            e.clearSelection();
+        });
+         
+        clipboard.on('error', function(e) {
+            alert("拷贝失败,请手动拷贝");
+        });
+    })
+</script>
 <?php echo $footer; ?>
