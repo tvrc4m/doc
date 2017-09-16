@@ -71,5 +71,6 @@
   },
   "title": "获取频道列表",
   "type": "post",
-  "url": "appapi/index/getChannelList"
+  "url": "appapi/index/getChannelList",
+  "version": "v1.0.1"
 }

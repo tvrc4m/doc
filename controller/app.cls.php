@@ -1,6 +1,6 @@
 <?php
 
-class AppApi extends Api {
+class AppController extends Api {
 
     /**
      * app全部的api接口

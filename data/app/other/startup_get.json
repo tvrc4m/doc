@@ -20,5 +20,6 @@
   },
   "title": "启动页接口",
   "type": "post",
-  "url": "appapi/version/get"
+  "url": "appapi/version/get",
+  "version": "v1.0.1"
 }

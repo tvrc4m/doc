@@ -25,5 +25,6 @@
   },
   "title": "获取APP最新的版本",
   "type": "post",
-  "url": "appapi/version/get"
+  "url": "appapi/version/get",
+   "version": "v1.0.1"
 }

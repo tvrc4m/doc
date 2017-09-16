@@ -25,7 +25,9 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-responsive-collapse in">
                     <ul class="nav navbar-nav navbar-left">
-                        <li class="active"><a href="/api/app">APP接口文档</a></li>
+                        <li class="<?php echo $tab_selected=='app'?'active':'';?>"><a href="/api/app">APP接口文档</a></li>
+                        <li class="<?php echo $tab_selected=='admin'?'active':'';?>"><a href="/api/app">后台接口文档</a></li>
+                        <li class="<?php echo $tab_selected=='doc'?'active':'';?>"><a href="/doc/develop#develop">开发文档</a></li>
                     </ul>
                 </div>
             </div>
@@ -37,17 +39,17 @@
     <div class="container content" style="position: relative;top: 65px;">
         <div class="row">
             <!-- Begin Sidebar Menu -->
-            <div class="col-md-3" style="position: fixed;">
-                <ul class="doc-nav list-group sidebar-nav-v1" id="sidebar-nav" data-offset-top="202" data-offset-bottom="300">
+            <div class="col-md-3" style="position: fixed;z-index: 99;">
+                <ul class="doc-nav list-group sidebar-nav-v1" id="sidebar-nav">
                     <?php foreach($api_list as $parent=>$list){ ?>
                         <li id="sdknode-api" class="list-group-item list-toggle sidebar-submenu">
                             <a data-toggle="collapse" href="javascript:void(0);"><?php echo $parent; ?></a>
                             <ul id="collapse-api" class="collapse">
-                                <?php foreach($list as $key=>$name){ ?>
+                                <?php foreach($list as $key=>$v){ ?>
                                     <li>
-                                        <a key="<?php echo $key;?>" href="/api/app#<?php echo $key;?>">
+                                        <a key="<?php echo $key;?>" href="<?php echo $v['url'];?>">
                                             <i class="fa fa-file-text-o"></i>
-                                            <?php echo $name; ?>
+                                            <?php echo $v['name']; ?>
                                         </a>
                                     </li>
                                 <?php } ?>

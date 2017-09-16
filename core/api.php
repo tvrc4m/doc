@@ -37,7 +37,7 @@ class Api extends Doc {
 
                     $api_parse=json_decode($api_content,true);
 
-                    $api_list[$dirs[$dir]][$api_basename]=$api_parse['title'];
+                    $api_list[$dirs[$dir]][$api_basename]=['name'=>$api_parse['title'],'url'=>'/api/app#'.$api_basename];
                     $api_data[$api_basename]=$api_parse;
                 }
 
@@ -64,8 +64,10 @@ class Api extends Doc {
             $common=json_decode($commonapi,true);
         }
 
-        include_once(VIEW.'app/header.html');
-        $footer=file_get_contents(VIEW.'app/footer.html');
+        $tab_selected=$type;
+
+        include_once(VIEW.'common/header.html');
+        $footer=file_get_contents(VIEW.'common/footer.html');
         
         $content=include_once(VIEW.'app/content.html');
 

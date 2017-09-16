@@ -24,4 +24,15 @@ class Doc {
      * @var array
      */
     protected $json;
+
+    public function display($html,$api_list,$tab_selected){
+
+        include_once(VIEW.'common/header.html');
+
+        $footer=file_get_contents(VIEW.'common/footer.html');
+        
+        $content=include_once(VIEW.$html);
+
+        exit($content); 
+    }
 }
