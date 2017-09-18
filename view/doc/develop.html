@@ -3,7 +3,7 @@
     <div id="paramInfo" class="headline">
         <h2>php开发规范</h2>
     </div>
-    <ul>
+    <ol style="margin: 20px 0 20px 0;font-size: 16.8px;">
         <li>控制器的命名规范是首字母大写形式后接Controller.linux下区别大小写。</li>
         <li>方法名要有意义，能真实反映其功能，采用驼峰命令方式</li>
         <li>方法功能不应过于庞大，要合适的拆分成细小功能</li>
@@ -19,6 +19,6 @@
         <li>开发分支要基于issue号创建，相应的bug修复在各自的分支内，相互间不影响，测试时需要merge到app，并在测试环境中发布app进行测试，</li>等测试完成之后，准备上线的时候再将开发分支merge到develop分支做回归测试，测试完成merge到mater,并打tag上线
         <li>控制器接收的参数，除非有必要，不要放在params数组里面</li>
         <li>测试上的config/config.php和cli/config/config.php 两个文件不会同步，如有改动，请到测试服务器上改</li>
-    </ul>
+    </ol>
 </div>
 <?php echo $footer; ?>
