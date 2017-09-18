@@ -1,0 +1,64 @@
+{
+  "api_version": ".",
+  "data": {
+    "mine": [
+      {
+        "cate": 1,
+        "fixed": true,
+        "id": 2,
+        "name": "推荐",
+        "order": 154,
+        "pic_num": 554,
+        "top": true
+      },
+      {
+        "cate": 1,
+        "fixed": true,
+        "id": 95,
+        "name": "庭审",
+        "order": 152,
+        "pic_num": 0,
+        "top": true
+      },
+      {
+        "cate": 1,
+        "fixed": true,
+        "id": 94,
+        "name": "告示",
+        "order": 147,
+        "pic_num": 0,
+        "top": true
+      },
+      {
+        "cate": 1,
+        "fixed": true,
+        "id": 104,
+        "name": "财案",
+        "order": 119,
+        "pic_num": 0,
+        "top": true
+      },
+      {
+        "cate": 1,
+        "fixed": false,
+        "id": 109,
+        "name": "历史",
+        "order": 100,
+        "pic_num": 0,
+        "top": false
+      },
+      {
+        "cate": 1,
+        "fixed": false,
+        "id": 151,
+        "name": "海外",
+        "order": 84,
+        "pic_num": 0,
+        "top": false
+      }
+    ],
+    "recommend": []
+  },
+  "error_code": 0,
+  "error_msg": ""
+}
