@@ -67,11 +67,12 @@ class Api extends Doc {
         $tab_selected=$type;
 
         include_once(VIEW.'common/header.html');
-        $footer=file_get_contents(VIEW.'common/footer.html');
         
-        $content=include_once(VIEW.'app/content.html');
+        include_once(VIEW.'app/content.html');
 
-        exit($content);
+        include_once(VIEW.'common/footer.html');
+
+        exit(0);
     }
 
 

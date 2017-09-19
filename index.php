@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL ^ E_NOTICE);
+
 define('ROOT', __DIR__);
 define('DATA', ROOT.'/data/');
 define('VIEW', ROOT.'/view/');
