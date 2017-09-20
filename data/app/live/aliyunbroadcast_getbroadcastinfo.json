@@ -18,9 +18,27 @@
       "must": "是",
       "type": "string",
       "version":"v2.0.6"
+    },
+    "sessionid": {
+      "desc": "用户sessionid",
+      "must": "是",
+      "type": "string",
+      "version":"v2.0.6"
     }
   },
   "return": {
+    "cid": {
+      "desc": "直播内容id",
+      "type": "int"
+    },
+    "pushurl": {
+      "desc": "推流地址",
+      "type": "string"
+    },
+    "share": {
+      "desc": "分享信息(暂定)",
+      "type": "array"
+    },
     "hide": {
       "desc": "隐藏频道",
       "type": "array"
@@ -33,5 +51,5 @@
   "title": "创建直播(阿里云)",
   "type": "post",
   "version":"v2.0.6新增",
-  "url": "appapi/Aliyunbroadcast/getBroadcastInfo"
+  "url": "appapi/aliyunbroadcast/getBroadcastInfo"
 }

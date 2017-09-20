@@ -1,0 +1,27 @@
+{
+  "title": "直播列表--我的(接口文档)",
+  "desc": "个人中心进入的列表 说明：**经纬度都经过header传值(Lng:经度;Lat:纬度)**",
+  "type": "post",
+  "version":"v2.0.6新增",
+  "url": "appapi/aliyunbroadcast/sendSMS",
+  "params": {
+    "page": {
+      "desc": "当前页码",
+      "must": "是",
+      "type": "int",
+      "version":"v2.0.6"
+    },
+    "pcount": {
+      "desc": "当前页请求内容数",
+      "must": "是",
+      "type": "int",
+      "version":"v2.0.6"
+    },
+    "sessionid": {
+      "desc": "用户sessionid",
+      "must": "否",
+      "type": "string",
+      "version":"v2.0.6"
+    }
+  }
+}
