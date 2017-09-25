@@ -1,4 +1,3 @@
-<?php echo $header; ?>
 <div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
     <div id="paramInfo" class="headline">
         <h2>php开发规范</h2>
@@ -19,6 +18,6 @@
         <li>开发分支要基于issue号创建，相应的bug修复在各自的分支内，相互间不影响，测试时需要merge到app，并在测试环境中发布app进行测试，</li>等测试完成之后，准备上线的时候再将开发分支merge到develop分支做回归测试，测试完成merge到mater,并打tag上线
         <li>控制器接收的参数，除非有必要，不要放在params数组里面</li>
         <li>测试上的config/config.php和cli/config/config.php 两个文件不会同步，如有改动，请到测试服务器上改</li>
+        <li>涉及到数据库方面的sql改动，写在public/migration目录下,文件命名方式为Ymd_sql说明.php</li>
     </ol>
 </div>
-<?php echo $footer; ?>
