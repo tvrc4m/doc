@@ -1,0 +1,21 @@
+{
+  "title": "直播在线人数接口(阿里云)",
+  "desc": "实时获取当前直播流下的在线人数",
+  "type": "post",
+  "version":"v2.0.6新增",
+  "url": "appapi/aliyunbroadcast/getOnlineUserNum",
+  "params": {
+    "cid": {
+      "desc": "内容id",
+      "must": "是",
+      "type": "int",
+      "version":"v2.0.6"
+    }
+  },
+  "return": {
+    "userNum": {
+      "desc": "在线人数",
+      "type": "int"
+    }
+  }
+}

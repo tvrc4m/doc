@@ -1,0 +1,43 @@
+{
+  "title": "直播认证手机号验证码请求",
+  "desc": "直播认证手机号验证码请求",
+  "type": "post",
+  "version":"v2.0.6新增,v2.0.8新增参数",
+  "url": "appapi/aliyunbroadcast/checkSMSCode",
+  "params": {
+    "code": {
+      "desc": "验证码",
+      "must": "是",
+      "type": "string",
+      "version":"v2.0.6"
+    },
+    "authcode": {
+      "desc": "验证码标识",
+      "must": "是",
+      "type": "string",
+      "version":"v2.0.6"
+    },
+    "sessionid": {
+      "desc": "用户sessionid",
+      "must": "是",
+      "type": "string",
+      "version":"v2.0.8"
+    },
+    "phone": {
+      "desc": "认证的手机号",
+      "must": "是",
+      "type": "int",
+      "version":"v2.0.8"
+    }
+  },
+  "return": {
+    "id": {
+      "desc": "用户id",
+      "type": "int"
+    },
+    "phone": {
+      "desc": "认证的手机号",
+      "type": "int"
+    }
+  }
+}

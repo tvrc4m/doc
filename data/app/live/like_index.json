@@ -1,0 +1,33 @@
+{
+  "title": "直播点赞接口",
+  "desc": "取消点赞  is_like为空即可",
+  "type": "post",
+  "version":"v2.0.6新增",
+  "url": "appapi/like/index",
+  "params": {
+    "type": {
+      "desc": "点赞类型(直播：9)",
+      "must": "是",
+      "type": "int",
+      "version":"v2.0.6"
+    },
+    "content_id": {
+      "desc": "内容id",
+      "must": "是",
+      "type": "int",
+      "version":"v2.0.6"
+    },
+    "is_like": {
+      "desc": "1：点赞；null：取消点赞",
+      "must": "是",
+      "type": "int",
+      "version":"v2.0.6"
+    },
+    "sessionid": {
+      "desc": " 用户sessionid",
+      "must": "否",
+      "type": "int",
+      "version":"v2.0.6"
+    }
+  }
+}
