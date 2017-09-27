@@ -94,7 +94,7 @@
     },
     "data.other_tags": {
       "desc": "其它标签",
-      "type": "string",
+      "type": "array",
       "version":"v2.0.9"
     },
     "data.other_tags.name": {
