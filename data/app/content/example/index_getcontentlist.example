@@ -1,0 +1,91 @@
+{
+    "focus": [ ], 
+    "data": [
+        {
+            "is_adv": 0, 
+            "id": 108428, 
+            "cate": 1, 
+            "type": 15, 
+            "title": "息烽县人民法院关于拍卖贵州省息烽县永靖镇南大街龙腾明苑7幢1层1-1号房屋（第一次拍卖）的公告", 
+            "desc": "", 
+            "source": "人民法院诉讼资产网", 
+            "views": "0", 
+            "create_uid": null, 
+            "share_url": "http://www.kanfanews.com/web/news/index/108428/1?share=1", 
+            "share_img": "http://www.kanfanews.com/assets/img/AppIcon@2x.png", 
+            "url": "http://www.kanfanews.com/web/news/index/108428/1", 
+            "image": "", 
+            "images": [ ], 
+            "card_type": 0, 
+            "tags": [ ], 
+            "duration": "00:00", 
+            "image_num": 0, 
+            "broad_status": 0, 
+            "start_time": "", 
+            "comments": "0", 
+            "pub_time": "拍卖公告", 
+            "custom_url": "", 
+            "is_faved": 0, 
+            "video_source": "", 
+            "show_comment": 0, 
+            "show_view": 0, 
+            "author": "", 
+            "other_tags": [
+                {
+                    "name": "热门", 
+                    "font_color": "#cc2424", 
+                    "border_color": "#fff3f3"
+                }, 
+                {
+                    "name": "附近", 
+                    "font_color": "#4c96dd", 
+                    "border_color": "#f1fbff"
+                }
+            ], 
+            "is_liked": 0, 
+            "splited": 0
+        }, 
+        {
+            "is_adv": 0, 
+            "id": 833536, 
+            "cate": 1, 
+            "type": 15, 
+            "title": "test1", 
+            "desc": "", 
+            "source": "", 
+            "views": "2", 
+            "create_uid": null, 
+            "share_url": "http://www.kanfanews.com/web/news/index/833536/1?share=1", 
+            "share_img": "http://www.kanfanews.com/assets/img/AppIcon@2x.png", 
+            "url": "http://www.kanfanews.com/web/news/index/833536/1", 
+            "image": "", 
+            "images": [ ], 
+            "card_type": 0, 
+            "tags": [ ], 
+            "duration": "00:00", 
+            "image_num": 0, 
+            "broad_status": 0, 
+            "start_time": "", 
+            "comments": "0", 
+            "pub_time": "", 
+            "custom_url": "", 
+            "is_faved": 0, 
+            "video_source": "", 
+            "show_comment": 0, 
+            "show_view": 1, 
+            "author": "", 
+            "other_tags": [
+                {
+                    "name": "附近", 
+                    "font_color": "#4c96dd", 
+                    "border_color": "#f1fbff"
+                }
+            ], 
+            "is_liked": 0, 
+            "splited": 1
+        }
+    ], 
+    "api_version": ".", 
+    "error_code": 0, 
+    "error_msg": ""
+}

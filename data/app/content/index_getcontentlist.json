@@ -92,6 +92,26 @@
       "desc": "浏览量",
       "type": "int"
     },
+    "data.other_tags": {
+      "desc": "其它标签",
+      "type": "array",
+      "version":"v2.0.9"
+    },
+    "data.other_tags.name": {
+      "desc": "其它标签名称",
+      "type": "string",
+      "version":"v2.0.9"
+    },
+    "data.other_tags.border_color": {
+      "desc": "其它标签边框颜色",
+      "type": "string",
+      "version":"v2.0.9"
+    },
+    "data.other_tags.font_color": {
+      "desc": "其它标签字体颜色",
+      "type": "string",
+      "version": "v2.0.9"
+    },
     "focus": {
       "desc": "焦点图列表",
       "type": "array"
