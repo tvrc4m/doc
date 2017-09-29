@@ -1,12 +1,12 @@
 {
-  "title": "直播点赞接口",
-  "desc": "取消点赞  is_like为空即可",
+  "title": "视频,VR，直播点赞接口",
+  "desc": "未登录情况下，以ip作为用户的唯一判断条件，在已登录的情况下,会在header中传递sessionid,以用户id作为判断条件",
   "type": "post",
   "version":"v2.0.6新增",
   "url": "appapi/like/index",
   "params": {
     "type": {
-      "desc": "点赞类型(直播：9)",
+      "desc": "点赞类型,4:代表视频 11:代表VR 9:直播",
       "must": "是",
       "type": "int",
       "version":"v2.0.6"
@@ -18,7 +18,7 @@
       "version":"v2.0.6"
     },
     "is_like": {
-      "desc": "1：点赞；null：取消点赞",
+      "desc": "1:代表点赞 0:代表取消点赞",
       "must": "是",
       "type": "int",
       "version":"v2.0.6"
