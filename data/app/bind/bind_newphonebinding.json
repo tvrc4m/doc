@@ -1,0 +1,29 @@
+{
+  "desc": "手机账号解绑并绑定新账户",
+  "params": {
+    "uid": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    },
+    "code": {
+      "desc": "验证码",
+      "must": "是",
+      "type": "string"
+    },
+    "phone": {
+      "desc": "手机号",
+      "must": "是",
+      "type": "string"
+    },
+    "sessionid": {
+      "desc": "发送短信验证码接口返回的sessionid  ",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "手机账号解绑并绑定新账户",
+  "type": "post",
+  "url": "appapi/bind/newPhoneBinding",
+  "version": "v1.0.1"
+}

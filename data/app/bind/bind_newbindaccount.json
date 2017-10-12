@@ -1,0 +1,29 @@
+{
+  "desc": "第三方账号解绑并绑定新账户",
+  "params": {
+    "uid": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    },
+    "access_token": {
+      "desc": "access_token",
+      "must": "是",
+      "type": "string"
+    },
+    "openid": {
+      "desc": "openid",
+      "must": "是",
+      "type": "string"
+    },
+    "platform": {
+      "desc": "平台 1：微博；2：微信；3：QQ",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "title": "第三方账号解绑并绑定新账户",
+  "type": "post",
+  "url": "appapi/bind/newBindAccount",
+  "version": "v1.0.1"
+}

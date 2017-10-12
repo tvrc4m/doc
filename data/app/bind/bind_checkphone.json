@@ -1,0 +1,14 @@
+{
+  "desc": "验证待绑定手机号",
+  "params": {
+    "phone": {
+      "desc": "手机号",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "验证待绑定手机号",
+  "type": "post",
+  "url": "appapi/bind/checkPhone",
+  "version": "v1.0.1"
+}

@@ -1,0 +1,29 @@
+{
+  "desc": "第三方登录后绑定手机号",
+  "params": {
+    "uid": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
+    },
+    "code": {
+      "desc": "验证码",
+      "must": "是",
+      "type": "string"
+    },
+    "phone": {
+      "desc": "手机号",
+      "must": "是",
+      "type": "string"
+    },
+    "sessionid": {
+      "desc": "发送短信验证码接口返回的sessionid  ",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "第三方登录后绑定手机号",
+  "type": "post",
+  "url": "appapi/bind/phoneBinding",
+  "version": "v1.0.1"
+}
