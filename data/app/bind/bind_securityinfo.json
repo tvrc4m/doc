@@ -9,6 +9,6 @@
   },
   "title": "账号与安全信息列表(停用)",
   "type": "post",
-  "url": "appapi/bind/securityInfo",
+  "url": "appapi/binding/securityInfo",
   "version": "v1.0.1"
 }
