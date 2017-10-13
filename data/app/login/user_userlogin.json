@@ -47,6 +47,21 @@
       "desc": "sessionid",
       "must": "是",
       "type": "string"
+    },
+    "weibo": {
+      "desc": "微博",
+      "must": "是",
+      "type": "boolean true or false"
+    },
+    "weixin": {
+      "desc": "微信",
+      "must": "是",
+      "type": "boolean true or false"
+    },
+    "qq": {
+      "desc": "qq",
+      "must": "是",
+      "type": "boolean true or false"
     }
   },
   "title": "手机号码登录",
