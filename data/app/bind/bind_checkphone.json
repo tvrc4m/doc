@@ -7,6 +7,16 @@
       "type": "string"
     }
   },
+  "return": {
+    "error_code": {
+      "desc": "错误码:0 成功 1失败",
+      "type": "int"
+    },
+    "error_msg": {
+      "desc": "错误消息",
+      "type": "string"
+    }
+  },
   "title": "验证待绑定手机号",
   "type": "post",
   "url": "appapi/bind/checkPhone",

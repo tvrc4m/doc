@@ -27,6 +27,16 @@
       "type": "string"
     }
   },
+  "return": {
+    "error_code": {
+      "desc": "错误码:0 成功 1失败 2失败 该手机已被别人绑定!",
+      "type": "int"
+    },
+    "error_msg": {
+      "desc": "错误消息",
+      "type": "string"
+    }
+  },
   "title": "修改绑定的手机号",
   "type": "post",
   "url": "appapi/bind/updatePhone",

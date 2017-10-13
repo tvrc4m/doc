@@ -17,6 +17,16 @@
       "type": "int"
     }
   },
+  "return": {
+    "error_code": {
+      "desc": "错误码:0 成功 1失败 2失败 解绑后将无法登录，请先绑定手机号",
+      "type": "int"
+    },
+    "error_msg": {
+      "desc": "错误消息",
+      "type": "string"
+    }
+  },
   "title": "第三方账号解绑",
   "type": "post",
   "url": "appapi/bind/unBindSocialAccount",

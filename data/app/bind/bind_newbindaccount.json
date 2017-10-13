@@ -22,6 +22,16 @@
       "type": "int"
     }
   },
+  "return": {
+    "error_code": {
+      "desc": "错误码:0 成功 1失败",
+      "type": "int"
+    },
+    "error_msg": {
+      "desc": "错误消息",
+      "type": "string"
+    }
+  },
   "title": "第三方账号解绑并绑定新账户",
   "type": "post",
   "url": "appapi/bind/newBindAccount",
