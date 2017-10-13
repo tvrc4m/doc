@@ -7,7 +7,7 @@
       "type": "int"
     }
   },
-  "title": "账号与安全信息列表",
+  "title": "账号与安全信息列表(停用)",
   "type": "post",
   "url": "appapi/bind/securityInfo",
   "version": "v1.0.1"

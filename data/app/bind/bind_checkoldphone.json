@@ -12,7 +12,7 @@
       "type": "string"
     }
   },
-  "title": "修改手机号时,验证旧手机号",
+  "title": "验证旧手机号(停用)",
   "type": "post",
   "url": "appapi/bind/checkOldPhone",
   "version": "v1.0.1"
