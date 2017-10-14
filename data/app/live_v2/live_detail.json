@@ -9,7 +9,7 @@
   },
   "return": {
     "case_info": {
-      "desc": "案件信息",
+      "desc": "案件信息,<code>只有庭审直播有该字段</code>",
       "must": "否",
       "type": "string"
     },
@@ -19,7 +19,7 @@
       "type": "string"
     },
     "court_info": {
-      "desc": "庭审信息",
+      "desc": "庭审信息,<code>只有庭审直播有该字段</code>",
       "must": "否",
       "type": "string"
     },
