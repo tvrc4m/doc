@@ -1,0 +1,106 @@
+{
+  "desc": "因为直播对应三个状态值，每个状态下取的值是不一样的。",
+  "params": {
+    "live_id": {
+      "desc": "直播id",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "return": {
+    "case_info": {
+      "desc": "案件信息",
+      "must": "否",
+      "type": "string"
+    },
+    "court_avatar": {
+      "desc": "法院头像,<code>只有庭审直播有该字段</code>",
+      "must": "是",
+      "type": "string"
+    },
+    "court_info": {
+      "desc": "庭审信息",
+      "must": "否",
+      "type": "string"
+    },
+    "court_live": {
+      "desc": "法院直播的数量,<code>只有庭审直播有该字段</code>",
+      "must": "是",
+      "type": "int"
+    },
+    "court_name": {
+      "desc": "法院名称,<code>只有庭审直播有该字段</code>",
+      "must": "否",
+      "type": "string"
+    },
+    "cover_img": {
+      "desc": "直播封面图片,用于列表展示",
+      "must": "是",
+      "type": "string"
+    },
+    "duration": {
+      "desc": "直播时长,可为空。当回顾时才有确定的值",
+      "must": "是",
+      "type": "string"
+    },
+    "flash_obj": {
+      "desc": "如果live_url为空,则取该字段，代表iframe嵌套的object对象",
+      "must": "否",
+      "type": "string"
+    },
+    "live_id": {
+      "desc": "直播id",
+      "must": "是",
+      "type": "int"
+    },
+    "live_type_id": {
+      "desc": "直播类型id",
+      "must": "是",
+      "type": "int"
+    },
+    "live_url": {
+      "desc": "直播中时取的视频地址",
+      "must": "是",
+      "type": "string"
+    },
+    "preview_desc": {
+      "desc": "预告时的内容描述,可为空",
+      "must": "是",
+      "type": "string"
+    },
+    "preview_img": {
+      "desc": "预告时的图片",
+      "must": "是",
+      "type": "string"
+    },
+    "preview_summary": {
+      "desc": "预告简介,可为空",
+      "must": "是",
+      "type": "string"
+    },
+    "preview_url": {
+      "desc": "预告视频url,预告状态时取该值",
+      "must": "是",
+      "type": "string"
+    },
+    "review_url": {
+      "desc": "回顾视频url,回顾状态时取的字段,可为空",
+      "must": "是",
+      "type": "string"
+    },
+    "stat": {
+      "desc": "直播状态.0: 预告 1:直播中 2:回顾",
+      "must": "是",
+      "type": "int"
+    },
+     "views": {
+      "desc": "直播访问量",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "title": "直播庭审详情页接口",
+  "type": "post",
+  "url": "appapi/live/detail",
+  "version": "v2.1.0"
+}

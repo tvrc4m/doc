@@ -1,0 +1,136 @@
+{
+  "desc": "根据live_type_id来区分是直播首页还是庭审首页,live_type_id为空或为0，代表是直播首页。",
+  "params": {
+    "live_type_id": {
+      "desc": "直播类型。0或空代表是直播大厅",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+    "focus": {
+      "desc": "焦点图列表。可以为空",
+      "must": "否",
+      "type": "array"
+    },
+    "focus.image": {
+      "desc": "图片URL",
+      "must": "是",
+      "type": "string"
+    },
+    "focus.jump": {
+      "desc": "跳转方式  1:站内信息 2:url跳转",
+      "must": "是",
+      "type": "int"
+    },
+    "focus.live_id": {
+      "desc": "直播id,如果是站内内容则为具体的直播id,其他情况下为0",
+      "must": "是",
+      "type": "int"
+    },
+    "focus.title": {
+      "desc": "焦点图标题",
+      "must": "是",
+      "type": "string"
+    },
+    "focus.url": {
+      "desc": "链接地址,当jump=2时取的值",
+      "must": "否",
+      "type": "string"
+    },
+    "preview": {
+      "desc": "预告列表",
+      "must": "否",
+      "type": "array"
+    },
+    "preview.court_name": {
+      "desc": "法院名称",
+      "must": "否",
+      "type": "string"
+    },
+    "preview.time": {
+      "desc": "开播倒计时时间",
+      "must": "是",
+      "type": "string"
+    },
+    "preview.title": {
+      "desc": "预告标题",
+      "must": "是",
+      "type": "string"
+    },
+    "preview.url": {
+      "desc": "预告的跳转地址",
+      "must": "是",
+      "type": "string"
+    },
+    "special": {
+      "desc": "直播专题列表",
+      "must": "是",
+      "type": "array"
+    },
+    "special.filter": {
+      "desc": "列表页的筛选条件,",
+      "must": "否",
+      "type": "array"
+    },
+    "special.filter.stat": {
+      "desc": "列表页的筛选条件之直播状态,",
+      "must": "否",
+      "type": "int"
+    },
+    "special.items": {
+      "desc": "直播列表",
+      "must": "是",
+      "type": "array"
+    },
+    "special.items.court_name": {
+      "desc": "直播专属的法院名称",
+      "must": "是",
+      "type": "string"
+    },
+    "special.items.duration": {
+      "desc": "直播时长",
+      "must": "否",
+      "type": "string"
+    },
+    "special.items.stat": {
+      "desc": "直播状态",
+      "must": "是",
+      "type": "int"
+    },
+    "special.items.subtitle": {
+      "desc": "直播副标题",
+      "must": "否",
+      "type": "string"
+    },
+    "special.items.title": {
+      "desc": "直播标题",
+      "must": "是",
+      "type": "array"
+    },
+    "special.live_type_id": {
+      "desc": "直播类型",
+      "must": "是",
+      "type": "int"
+    },
+    "special.name": {
+      "desc": "专题名字",
+      "must": "是",
+      "type": "string"
+    },
+    "special.summary": {
+      "desc": "专题简介",
+      "must": "否",
+      "type": "string"
+    },
+    "special.url": {
+      "desc": "专题的跳转链接,为空代表不能跳转",
+      "must": "否",
+      "type": "string"
+    }
+  },
+  "title": "直播及庭审首页接口",
+  "type": "post",
+  "url": "appapi/live/index",
+  "version": "v2.1.0"
+}
