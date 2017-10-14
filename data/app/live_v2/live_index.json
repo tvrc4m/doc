@@ -73,8 +73,28 @@
       "must": "否",
       "type": "array"
     },
+    "special.filter.live_type_id": {
+      "desc": "列表页的筛选条件之列表页面，0:直播列表，>0某个直播类型的列表",
+      "must": "否",
+      "type": "int"
+    },
     "special.filter.stat": {
       "desc": "列表页的筛选条件之直播状态,",
+      "must": "否",
+      "type": "int"
+    },
+    "special.filter.type": {
+      "desc": "列表页的筛选条件之直播类型",
+      "must": "否",
+      "type": "int"
+    },
+    "special.filter.case_type": {
+      "desc": "列表页的筛选条件之案件类型,",
+      "must": "否",
+      "type": "int"
+    },
+    "special.filter.court_id": {
+      "desc": "列表页的筛选条件之某个法院",
       "must": "否",
       "type": "int"
     },
@@ -106,7 +126,7 @@
     "special.items.title": {
       "desc": "直播标题",
       "must": "是",
-      "type": "array"
+      "type": "string"
     },
     "special.live_type_id": {
       "desc": "直播类型",
