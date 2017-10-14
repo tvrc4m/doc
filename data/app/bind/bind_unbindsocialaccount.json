@@ -29,6 +29,6 @@
   },
   "title": "第三方账号解绑",
   "type": "post",
-  "url": "appapi/bind/unBindSocialAccount",
+  "url": "appapi/binding/unBindSocialAccount",
   "version": "v1.0.1"
 }

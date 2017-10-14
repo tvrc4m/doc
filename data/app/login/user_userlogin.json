@@ -48,20 +48,35 @@
       "must": "是",
       "type": "string"
     },
-    "weibo": {
+    "weibo.status": {
       "desc": "微博",
       "must": "是",
       "type": "boolean true or false"
     },
-    "weixin": {
+    "weibo.openid": {
+      "desc": "openid",
+      "must": "否",
+      "type": "string"
+    },
+    "weixin.status": {
       "desc": "微信",
       "must": "是",
       "type": "boolean true or false"
     },
-    "qq": {
+    "weixin.openid": {
+      "desc": "openid",
+      "must": "否",
+      "type": "string"
+    },
+    "qq.status": {
       "desc": "qq",
       "must": "是",
       "type": "boolean true or false"
+    },
+    "qq.openid": {
+      "desc": "openid",
+      "must": "否",
+      "type": "string"
     }
   },
   "title": "手机号码登录",

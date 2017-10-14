@@ -19,6 +19,6 @@
   },
   "title": "验证待绑定手机号",
   "type": "post",
-  "url": "appapi/bind/checkPhone",
+  "url": "appapi/binding/checkPhone",
   "version": "v1.0.1"
 }

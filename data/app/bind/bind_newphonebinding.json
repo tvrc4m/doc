@@ -34,6 +34,6 @@
   },
   "title": "手机账号解绑并绑定新账户",
   "type": "post",
-  "url": "appapi/bind/newPhoneBinding",
+  "url": "appapi/binding/newPhoneBinding",
   "version": "v1.0.1"
 }

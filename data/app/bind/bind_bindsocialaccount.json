@@ -34,6 +34,6 @@
   },
   "title": "第三方账号绑定",
   "type": "post",
-  "url": "appapi/bind/bindSocialAccount",
+  "url": "appapi/binding/bindSocialAccount",
   "version": "v1.0.1"
 }

@@ -39,6 +39,6 @@
   },
   "title": "修改绑定的手机号",
   "type": "post",
-  "url": "appapi/bind/updatePhone",
+  "url": "appapi/binding/updatePhone",
   "version": "v1.0.1"
 }
