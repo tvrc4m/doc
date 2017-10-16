@@ -20,18 +20,18 @@
   "return": {
     "weibo": {
       "desc": "微博",
-      "must": "是",
-      "type": "boolean true or false"
+      "must": "否",
+      "type": "true"
     },
     "weixin": {
       "desc": "微信",
-      "must": "是",
-      "type": "boolean true or false"
+      "must": "否",
+      "type": "true"
     },
     "qq": {
       "desc": "qq",
-      "must": "是",
-      "type": "boolean true or false"
+      "must": "否",
+      "type": "true"
     }
   },
   "title": "登录返回第三方绑定的信息",

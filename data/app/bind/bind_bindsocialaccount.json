@@ -28,7 +28,7 @@
       "type": "int"
     },
     "error_msg": {
-      "desc": "错误消息 1(platform不能为空 openid不能为空 access_token不能为空 uid不能为空 绑定失败) 2 此账号已经被别的用户绑定",
+      "desc": "错误消息 0:openid:olotSvzXCAU55t8gxLUGb7-hiiEk 1(platform不能为空 openid不能为空 access_token不能为空 uid不能为空 绑定失败) 2 此账号已经被别的用户绑定",
       "type": "string"
     }
   },
