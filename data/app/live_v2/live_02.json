@@ -1,8 +1,8 @@
 {
   "title": "直播改说明",
   "desc":[
-    "live_type_id代表直播类型。例如:庭审，娱乐，律师来了等等。根据live_type_id来区分是直播首页还是庭审首页,live_type_id为空或为0，代表是直播首页。",
-    "根据jump_type来区分是跳转页面,app根据这个值来渲染不同的直播详情页面。<br/>庭审: JUMP_TYPE_COURT=1,庭审h5: JUMP_TYPE_COURT_H5=2,娱乐类: JUMP_TYPE_FUN=3,律师来了: JUMP_TYPE_LAW=4"
+    "<code>live_type_id</code>代表直播类型。例如:庭审，娱乐，律师来了等等。根据live_type_id来区分是直播首页还是庭审首页,live_type_id为空或为0，代表是直播首页。",
+    "<code>jump_type</code>代表跳转类型,app根据这个值来渲染不同的直播详情页面。<br/>庭审: JUMP_TYPE_COURT=1,庭审h5: JUMP_TYPE_COURT_H5=2,娱乐类: JUMP_TYPE_FUN=3,律师来了: JUMP_TYPE_LAW=4"
   ],
   "is_api":0,
   "sort":0
