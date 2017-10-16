@@ -50,8 +50,8 @@
     },
     "weibo.status": {
       "desc": "微博",
-      "must": "是",
-      "type": "boolean true or false"
+      "must": "否",
+      "type": "true"
     },
     "weibo.openid": {
       "desc": "openid",
@@ -60,8 +60,8 @@
     },
     "weixin.status": {
       "desc": "微信",
-      "must": "是",
-      "type": "boolean true or false"
+      "must": "否",
+      "type": "true"
     },
     "weixin.openid": {
       "desc": "openid",
@@ -70,8 +70,8 @@
     },
     "qq.status": {
       "desc": "qq",
-      "must": "是",
-      "type": "boolean true or false"
+      "must": "否",
+      "type": "true"
     },
     "qq.openid": {
       "desc": "openid",

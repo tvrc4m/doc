@@ -23,6 +23,10 @@
     }
   },
   "return": {
+    "openid": {
+      "desc": "成功后返回的openid",
+      "type": "string"
+    },
     "error_code": {
       "desc": "错误码:0 成功 1失败",
       "type": "int"
