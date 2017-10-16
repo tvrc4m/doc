@@ -1,0 +1,86 @@
+{
+  "desc": "直播列表及筛选条件",
+  "params": {
+    "case_type": {
+      "desc": "筛选条件--案件类型",
+      "must": "否",
+      "type": "int"
+    },
+    "court_id": {
+      "desc": "筛选条件--某个法院",
+      "must": "否",
+      "type": "int"
+    },
+    "court_level": {
+      "desc": "筛选条件--法院级别",
+      "must": "否",
+      "type": "int"
+    },
+    "province": {
+      "desc": "筛选条件--省id",
+      "must": "否",
+      "type": "int"
+    },
+    "stat": {
+      "desc": "筛选条件--直播状态",
+      "must": "否",
+      "type": "int"
+    },
+    "type": {
+      "desc": "筛选条件--直播类型",
+      "must": "否",
+      "type": "int"
+    },
+    "live_type_id": {
+      "desc": "直播类型,代表是每个类型下面的筛选。0代表是直播大厅筛选",
+      "must": "是",
+      "type": "int"
+    },
+    "page": {
+      "desc": "页数,默认为1",
+      "must": "否",
+      "type": "int"
+    },
+    "pcount": {
+      "desc": "每页获取的数量,默认为20",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+    "data": {
+      "desc": "直播数组对应的key",
+      "must": "是",
+      "type": "array"
+    },
+    "data.cover_image": {
+      "desc": "直播封面图片",
+      "must": "是",
+      "type": "string"
+    },
+    "data.live_id": {
+      "desc": "直播id",
+      "must": "是",
+      "type": "int"
+    },
+    "data.stat": {
+      "desc": "直播状态",
+      "must": "是",
+      "type": "int"
+    },
+    "data.subtitle": {
+      "desc": "副标题。庭审直播时取的是法院名字，可为空",
+      "must": "否",
+      "type": "int"
+    },
+    "data.url": {
+      "desc": "直播详情页的链接",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "直播列表及筛选",
+  "type": "post",
+  "url": "appapi/live/filter",
+  "version": "v2.1.0"
+}

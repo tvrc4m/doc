@@ -26,7 +26,7 @@
                     <?php foreach($common as $name=>$item){ ?>
                     <tr>
                         <td><?php echo $name; ?></td>
-                        <td><?php echo is_string($item['type'])?$item['type']:implode(" | ",$item['type']);?></td>
+                        <td><?php echo is_string($item['type'])?($item['type']=='array'?'<code>'.$item['type'].'</code>':$item['type']):implode(" | ",$item['type']);?></td>
                         <td><?php echo $item['must'];?></td>
                         <td>
                             <?php 
@@ -79,7 +79,7 @@
                         <?php foreach($param['params'] as $name=>$item){ ?>
                         <tr>
                             <td><?php echo $name; ?></td>
-                            <td><?php echo $item['type'];?></td>
+                            <td><?php echo $item['type']=='array'?'<code>'.$item['type'].'</code>':$item['type'];?></td>
                             <td><?php echo $item['must'];?></td>
                             <td>
                                 <?php 
@@ -117,7 +117,7 @@
                         <?php foreach($param['return'] as $key=>$item){ ?>
                         <tr>
                             <td><?php echo $key; ?></td>
-                            <td><?php echo $item['type'];?></td>
+                            <td><?php echo $item['type']=='array'?'<code>'.$item['type'].'</code>':$item['type'];?></td>
                             <td><?php echo $item['must'];?></td>
                             <td>
                                 <?php 
