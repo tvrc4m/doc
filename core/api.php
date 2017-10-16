@@ -51,9 +51,7 @@ class Api extends Doc {
                 }
             }
         }
-
-        // print_r($api_data);exit;
-
+        
         if(!empty($api)){
 
             $api_data=[$api_data[$api]];

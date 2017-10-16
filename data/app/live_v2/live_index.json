@@ -1,5 +1,5 @@
 {
-  "desc": "根据live_type_id来区分是直播首页还是庭审首页,live_type_id为空或为0，代表是直播首页。",
+  "desc": "",
   "params": {
     "live_type_id": {
       "desc": "直播类型。0或空代表是直播大厅",
@@ -130,6 +130,11 @@
     },
     "special.live_type_id": {
       "desc": "直播类型",
+      "must": "是",
+      "type": "int"
+    },
+    "special.jump_type": {
+      "desc": "跳转页面类型,1:庭审 2:庭审h5 3:娱乐 4:律师来了",
       "must": "是",
       "type": "int"
     },

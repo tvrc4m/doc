@@ -57,8 +57,21 @@
                     <code><a class="copy_api_url" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api/app#'.$key;?>" target="_blank">拷贝链接</a></code>
                 <?php } ?>
             </div>
-            <p><?php if($param['version']){ ?><code><?php echo $param['version']; ?></code><?php } ?> <?php echo $param['desc']; ?></p>
-            <h4>API地址</h4>
+            <p>
+                <?php if($param['version']){ ?><code><?php echo $param['version']; ?></code><?php } ?> 
+                <?php if(is_string($param['desc'])){?>
+                    <?php echo $param['desc']; ?>
+                <?php }else{ ?>
+                    <ol>
+                        <?php foreach($param['desc'] as $desc){?>
+                            <li><?php echo $desc;?></li>
+                        <?php } ?>
+                    </ol>
+                <?php } ?>
+            </p>
+            <?php if($param['is_api']){ ?>
+                <h4>API地址</h4>
+            <?php } ?>
             <p>
                 <span class="label label-primary"><?php echo strtoupper($param['type']);?></span> 
                 <?php echo $param['url']; ?>
