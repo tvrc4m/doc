@@ -6,7 +6,7 @@
       "must": "否",
       "type": "int"
     },
-    "court_id": {
+    "court": {
       "desc": "筛选条件--某个法院",
       "must": "否",
       "type": "int"
@@ -16,7 +16,7 @@
       "must": "否",
       "type": "int"
     },
-    "province": {
+    "province_id": {
       "desc": "筛选条件--省id",
       "must": "否",
       "type": "int"
@@ -48,6 +48,31 @@
     }
   },
   "return": {
+    "stat": {
+      "desc": "筛选---直播状态",
+      "must": "是",
+      "type": "array"
+    },
+    "type": {
+      "desc": "筛选---类型(只存在与直播大厅 即:live_type_id=0)",
+      "must": "是",
+      "type": "array"
+    },
+    "case_type": {
+      "desc": "筛选---案件类型(只存在与庭审大厅 即:live_type_id=1)",
+      "must": "是",
+      "type": "array"
+    },
+    "court_level": {
+      "desc": "筛选---法院级别(只存在与庭审大厅 即:live_type_id=1)",
+      "must": "是",
+      "type": "array"
+    },
+    "court": {
+      "desc": "筛选---法院名称(只存在与庭审大厅 即:live_type_id=1)",
+      "must": "是",
+      "type": "array"
+    },
     "data": {
       "desc": "直播数组对应的key",
       "must": "是",
@@ -58,7 +83,7 @@
       "must": "是",
       "type": "string"
     },
-    "data.live_id": {
+    "data.id": {
       "desc": "直播id",
       "must": "是",
       "type": "int"
