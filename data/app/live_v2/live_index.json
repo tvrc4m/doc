@@ -3,7 +3,7 @@
   "params": {
     "live_type_id": {
       "desc": "直播类型。0或空代表是直播大厅",
-      "must": "否",
+      "must": "是",
       "type": "int"
     }
   },
@@ -28,11 +28,6 @@
       "must": "是",
       "type": "int"
     },
-    "focus.jump_type": {
-      "desc": "直播详情的跳转类型,<code><a href='#live_02'>点击查看详情</a></code>",
-      "must": "是",
-      "type": "int"
-    },
     "focus.title": {
       "desc": "焦点图标题",
       "must": "是",
@@ -43,130 +38,145 @@
       "must": "否",
       "type": "string"
     },
+    "focus.image_type": {
+      "desc": "图片大小类型，1为小图，二为大图",
+      "must": "否",
+      "type": "int"
+    },
     "preview": {
       "desc": "预告列表",
       "must": "否",
       "type": "array"
     },
-    "preview.court_name": {
-      "desc": "法院名称",
+    "preview.id": {
+      "desc": "预告板块的id",
       "must": "否",
-      "type": "string"
-    },
-    "preview.time": {
-      "desc": "开播倒计时时间",
-      "must": "是",
-      "type": "string"
+      "type": "int"
     },
     "preview.title": {
-      "desc": "预告标题",
-      "must": "是",
+      "desc": "板块名称",
+      "must": "否",
       "type": "string"
     },
-    "preview.url": {
-      "desc": "预告的跳转地址",
-      "must": "是",
-      "type": "string"
-    },
-    "preview.jump_type": {
-      "desc": "直播详情的跳转类型,<code><a href='#live_02'>点击查看详情</a></code>",
-      "must": "是",
-      "type": "int"
-    },
-    "special": {
-      "desc": "直播专题列表",
-      "must": "是",
-      "type": "array"
-    },
-    "special.filter": {
-      "desc": "列表页的筛选条件,",
+    "preview.data": {
+      "desc": "详细数据",
       "must": "否",
       "type": "array"
     },
-    "special.filter.live_type_id": {
-      "desc": "列表页的筛选条件之列表页面，0:直播列表，>0某个直播类型的列表",
+    "preview.data.id": {
+      "desc": "直播id",
       "must": "否",
       "type": "int"
     },
-    "special.filter.stat": {
-      "desc": "列表页的筛选条件之直播状态,",
-      "must": "否",
-      "type": "int"
-    },
-    "special.filter.type": {
-      "desc": "列表页的筛选条件之直播类型",
-      "must": "否",
-      "type": "int"
-    },
-    "special.filter.case_type": {
-      "desc": "列表页的筛选条件之案件类型,",
-      "must": "否",
-      "type": "int"
-    },
-    "special.filter.court_id": {
-      "desc": "列表页的筛选条件之某个法院",
-      "must": "否",
-      "type": "int"
-    },
-    "special.items": {
-      "desc": "直播列表",
-      "must": "是",
-      "type": "array"
-    },
-    "special.items.court_name": {
-      "desc": "直播专属的法院名称",
-      "must": "是",
-      "type": "string"
-    },
-    "special.items.duration": {
-      "desc": "直播时长",
+    "preview.data.title": {
+      "desc": "直播名称",
       "must": "否",
       "type": "string"
     },
-    "special.items.stat": {
-      "desc": "直播状态",
-      "must": "是",
-      "type": "int"
-    },
-    "special.items.jump_type": {
-      "desc": "直播详情的跳转类型,<code><a href='#live_02'>点击查看详情</a></code>",
-      "must": "是",
-      "type": "int"
-    },
-    "special.items.subtitle": {
+    "preview.data.subtitle": {
       "desc": "直播副标题",
       "must": "否",
       "type": "string"
     },
-    "special.items.title": {
-      "desc": "直播标题",
-      "must": "是",
-      "type": "string"
-    },
-    "special.live_type_id": {
-      "desc": "直播类型",
-      "must": "是",
-      "type": "int"
-    },
-    "special.jump_type": {
-      "desc": "跳转页面类型,1:庭审 2:庭审h5 3:娱乐 4:律师来了",
-      "must": "是",
-      "type": "int"
-    },
-    "special.name": {
-      "desc": "专题名字",
-      "must": "是",
-      "type": "string"
-    },
-    "special.summary": {
-      "desc": "专题简介",
+    "preview.data.court_name": {
+      "desc": "法院名称",
       "must": "否",
       "type": "string"
     },
-    "special.url": {
-      "desc": "专题的跳转链接,为空代表不能跳转",
+    "preview.data.start_time": {
+      "desc": "开始时间",
       "must": "否",
       "type": "string"
+    },
+    "preview.data.cover_img": {
+      "desc": "封面地址",
+      "must": "否",
+      "type": "string"
+    },
+    "preview.data.flash_obj": {
+      "desc": "h5端插入falsh地址",
+      "must": "否",
+      "type": "string"
+    },
+    "preview.data.image_type": {
+      "desc": "图片类型：1为小图 2为大图",
+      "must": "否",
+      "type": "int"
+    },
+    "preview.data.jump_type": {
+      "desc": "跳转类型，1为app 2为h5",
+      "must": "否",
+      "type": "int"
+    },
+    "special": {
+      "desc": "专题",
+      "must": "否",
+      "type": "array"
+    },
+    "special.id": {
+      "desc": "直播与回顾id",
+      "must": "否",
+      "type": "int"
+    },
+    "special.title": {
+      "desc": "专题名称",
+      "must": "否",
+      "type": "string"
+    },
+    "special.data": {
+      "desc": "专题数据",
+      "must": "否",
+      "type": "array"
+    },
+    "special.data.id": {
+      "desc": "直播id",
+      "must": "否",
+      "type": "int"
+    },
+    "special.data.title": {
+      "desc": "直播名称",
+      "must": "否",
+      "type": "string"
+    },
+    "special.data.create_time": {
+      "desc": "创建时间",
+      "must": "否",
+      "type": "string"
+    },
+    "special.data.stat": {
+      "desc": "直播状态 0预告 1直播 2回顾",
+      "must": "否",
+      "type": "int"
+    },
+    "special.data.court_name": {
+      "desc": "法院名称",
+      "must": "否",
+      "type": "string"
+    },
+    "special.data.duration": {
+      "desc": "直播时长",
+      "must": "否",
+      "type": "string"
+    },
+    "special.data.cover_img": {
+      "desc": "封面地址",
+      "must": "否",
+      "type": "string"
+    },
+    "special.data.flash_obj": {
+      "desc": "h5端插入falsh地址",
+      "must": "否",
+      "type": "string"
+    },
+    "special.data.image_type": {
+      "desc": "图片大小类型，1为小图，二为大图",
+      "must": "否",
+      "type": "int"
+    },
+    "special.data.jump_type": {
+      "desc": "跳转类型，1为app 2为h5",
+      "must": "否",
+      "type": "int"
     }
   },
   "title": "直播及庭审首页接口",
