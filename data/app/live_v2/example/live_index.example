@@ -1,0 +1,211 @@
+{
+    "focus": [
+        {
+            "id": "8",
+            "title": "法制晚报修改",
+            "image": "https://kanfaimage.oss-cn-beijing.aliyuncs.com/20171013/livefocus_150789676473836.jpg?x-oss-process=image/resize,m_fill,w_562,h_300",
+            "url": "http://www.360doc.com/content/14/0811/10/281812_400977275.shtml",
+            "live_id": "2",
+            "jump": "1",
+            "image_type": "2"
+        },
+        {
+            "id": "2",
+            "title": "法制晚报",
+            "image": "https://kanfaimage.oss-cn-beijing.aliyuncs.com/20171013/livefocus_150786505379600.png?x-oss-process=image/resize,m_fill,w_562,h_300",
+            "url": "http://www.360doc.com/content/14/0811/10/281812_400977275.shtml",
+            "live_id": "0",
+            "jump": "2",
+            "image_type": "2"
+        },
+        {
+            "id": "6",
+            "title": "测试测试123",
+            "image": "https://kanfaimage.oss-cn-beijing.aliyuncs.com/20171013/livefocus_150786563070301.png?x-oss-process=image/resize,m_fill,w_562,h_300",
+            "url": "http://www.360doc.com/content/14/0811/10/281812_400977275.shtml",
+            "live_id": "0",
+            "jump": "2",
+            "image_type": "2"
+        }
+    ],
+    "preview": {
+        "id": 0,
+        "data": [
+            {
+                "id": "57586",
+                "title": "恢复原状纠纷",
+                "subtitle": "",
+                "court_name": "马鞍山市中级人民法院",
+                "start_time": "9小时后开始",
+                "cover_img": "",
+                "flash_obj": "http://player.videoincloud.com/live/567551?src=gkw&cc=1",
+                "image_type": "1",
+                "jump_type": 2
+            },
+            {
+                "id": "57587",
+                "title": "王家成与华峰汽车公司广汽本田宝安店侵权责任纠纷",
+                "subtitle": "",
+                "court_name": "深圳市中级人民法院",
+                "start_time": "9小时后开始",
+                "cover_img": "",
+                "flash_obj": "http://player.videoincloud.com/live/575408?src=gkw&cc=1",
+                "image_type": "1",
+                "jump_type": 2
+            },
+            {
+                "id": "57588",
+                "title": "毛增军诉贾雯晴等申请人执行人执行异议之诉",
+                "subtitle": "",
+                "court_name": "阳泉市中级人民法院",
+                "start_time": "9小时后开始",
+                "cover_img": "",
+                "flash_obj": "http://player.videoincloud.com/live/581428?src=gkw&cc=1",
+                "image_type": "1",
+                "jump_type": 2
+            },
+            {
+                "id": "57589",
+                "title": "土地承包经营权纠纷",
+                "subtitle": "",
+                "court_name": "大同市中级人民法院",
+                "start_time": "9小时后开始",
+                "cover_img": "",
+                "flash_obj": "http://player.videoincloud.com/live/585070?src=gkw&cc=1",
+                "image_type": "1",
+                "jump_type": 2
+            },
+            {
+                "id": "57582",
+                "title": "返还原物纠纷",
+                "subtitle": "",
+                "court_name": "昆明市中级人民法院",
+                "start_time": "9小时后开始",
+                "cover_img": "",
+                "flash_obj": "http://player.videoincloud.com/live/598145?src=gkw&cc=1",
+                "image_type": "1",
+                "jump_type": 2
+            }
+        ],
+        "title": "今日预告"
+    },
+    "special": [
+        {
+            "title": "正在直播",
+            "data": [
+                {
+                    "id": "57363",
+                    "title": "要求确认强制拆除房屋行为违法",
+                    "subtitle": "",
+                    "court_name": "泰州市海陵区人民法院",
+                    "start_time": "2017-10-18 22:30:00",
+                    "cover_img": "",
+                    "flash_obj": "http://player.videoincloud.com/live/598158?src=gkw&cc=1",
+                    "image_type": "1",
+                    "jump_type": 2
+                },
+                {
+                    "id": "57364",
+                    "title": "社会保障行政给付",
+                    "subtitle": "",
+                    "court_name": "乐山市市中区人民法院",
+                    "start_time": "2017-10-18 22:30:00",
+                    "cover_img": "",
+                    "flash_obj": "http://player.videoincloud.com/live/597339?src=gkw&cc=1",
+                    "image_type": "1",
+                    "jump_type": 2
+                },
+                {
+                    "id": "57365",
+                    "title": "土地行政处罚",
+                    "subtitle": "",
+                    "court_name": "吉林市龙潭区人民法院",
+                    "start_time": "2017-10-18 22:15:00",
+                    "cover_img": "",
+                    "flash_obj": "http://player.videoincloud.com/live/597882?src=gkw&cc=1",
+                    "image_type": "1",
+                    "jump_type": 2
+                },
+                {
+                    "id": "57366",
+                    "title": "行政协议",
+                    "subtitle": "",
+                    "court_name": "兰州铁路运输法院",
+                    "start_time": "2017-10-18 21:40:00",
+                    "cover_img": "",
+                    "flash_obj": "http://player.videoincloud.com/live/597959?src=gkw&cc=1",
+                    "image_type": "1",
+                    "jump_type": 2
+                }
+            ],
+            "id": 1,
+            "subtitle": "当前57366直播，进去看看"
+        },
+        {
+            "title": "经典回顾",
+            "id": 2,
+            "data": [
+                {
+                    "id": "2",
+                    "title": "潘中原滥用职权罪",
+                    "create_time": "2017-10-18 14:30:48",
+                    "stat": "1",
+                    "court_name": "长岭县人民法院",
+                    "duration": "0",
+                    "cover_img": "",
+                    "flash_obj": "http://player.videoincloud.com/live/598191?src=gkw&cc=1",
+                    "nickname": "管理员",
+                    "image_type": 1,
+                    "jump_type": 2
+                }
+            ]
+        },
+        {
+            "title": "测试",
+            "data": [
+                {
+                    "id": "1",
+                    "title": "潘中原滥用职权罪",
+                    "create_time": "2017-10-18 14:30:48",
+                    "stat": "1",
+                    "court_name": "长岭县人民法院",
+                    "duration": "0",
+                    "cover_img": "https://kanfaimage.oss-cn-beijing.aliyuncs.com/20171016/livebroadcast_150815068236522.png?x-oss-process=image/resize,m_fill,w_562,h_300",
+                    "flash_obj": "http://player.videoincloud.com/live/598191?src=gkw&cc=1",
+                    "nickname": "管理员",
+                    "image_type": 2,
+                    "jump_type": 2
+                },
+                {
+                    "id": "8550",
+                    "title": "潘中原滥用职权罪",
+                    "create_time": "2017-10-18 14:30:48",
+                    "stat": "1",
+                    "court_name": "长岭县人民法院",
+                    "duration": "0",
+                    "cover_img": "",
+                    "flash_obj": "http://player.videoincloud.com/live/598191?src=gkw&cc=1",
+                    "nickname": null,
+                    "image_type": 1,
+                    "jump_type": 2
+                },
+                {
+                    "id": "8763",
+                    "title": "潘中原滥用职权罪",
+                    "create_time": "2017-10-18 14:30:48",
+                    "stat": "1",
+                    "court_name": "长岭县人民法院",
+                    "duration": "0",
+                    "cover_img": "",
+                    "flash_obj": "http://player.videoincloud.com/live/598191?src=gkw&cc=1",
+                    "nickname": null,
+                    "image_type": 1,
+                    "jump_type": 2
+                }
+            ]
+        }
+    ],
+    "api_version": ".",
+    "error_code": 0,
+    "error_msg": ""
+}
