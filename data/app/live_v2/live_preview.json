@@ -54,7 +54,7 @@
       "type": "string"
     }
   },
-  "title": "直播列表及筛选",
+  "title": "直播预告列表",
   "type": "post",
   "url": "appapi/live/filter",
   "version": "v2.1.0"
