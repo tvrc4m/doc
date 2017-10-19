@@ -2,7 +2,7 @@
   "desc": "",
   "params": {
     "live_type_id": {
-      "desc": "直播类型。0或空代表是直播大厅",
+      "desc": "直播类型。0代表是直播大厅，1为庭审",
       "must": "是",
       "type": "int"
     }

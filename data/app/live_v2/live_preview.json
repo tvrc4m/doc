@@ -1,6 +1,11 @@
 {
   "desc": "预告列表",
   "params": {
+    "live_type_id": {
+      "desc": "直播类型。0代表是直播大厅，1为庭审",
+      "must": "否",
+      "type": "int"
+    },
     "page": {
       "desc": "页码",
       "must": "否",
