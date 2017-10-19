@@ -25,22 +25,12 @@
   },
   "list": [
     {
-      "id": "1",
-      "title": "国家补贴给付",
+      "id": "59159",
+      "title": "盗伐林木罪",
       "subtitle": "",
       "stat": "1",
       "cover_image": null,
-      "jump_type": 2,
-      "url": "http://www.kanfanews.com/web/live/index?id=1"
-    },
-    {
-      "id": "3",
-      "title": "国家补贴给付",
-      "subtitle": "",
-      "stat": "1",
-      "cover_image": null,
-      "jump_type": 2,
-      "url": "http://www.kanfanews.com/web/live/index?id=3"
+      "jump_type": 1
     },
     {
       "id": "47239",
@@ -48,8 +38,7 @@
       "subtitle": "",
       "stat": "1",
       "cover_image": null,
-      "jump_type": 2,
-      "url": "http://www.kanfanews.com/web/live/index?id=47239"
+      "jump_type": 1
     },
     {
       "id": "47240",

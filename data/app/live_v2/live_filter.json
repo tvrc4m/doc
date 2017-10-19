@@ -111,6 +111,6 @@
   },
   "title": "直播列表及筛选",
   "type": "post",
-  "url": "appapi/live/filter",
+  "url": "appapi/live/getfilter",
   "version": "v2.1.0"
 }
