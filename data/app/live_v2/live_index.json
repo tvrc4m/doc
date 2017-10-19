@@ -177,6 +177,11 @@
       "desc": "跳转类型，1为app 2为h5",
       "must": "否",
       "type": "int"
+    },
+    "chanId": {
+      "desc": "庭审chanId 目前只有直播庭审有该值",
+      "must": "否",
+      "type": "int"
     }
   },
   "title": "直播及庭审首页接口",
