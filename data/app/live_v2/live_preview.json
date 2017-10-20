@@ -13,53 +13,57 @@
     }
   },
   "return": {
-    "key": {
-      "desc": "数组的key，为日期",
+    "datas": {
+      "desc": "需求数据",
       "must": "是",
       "type": "array"
     },
-    "id": {
+    "datas.title": {
+      "desc": "大标题日期",
+      "must": "是",
+      "type": "array"
+    },
+    "datas.content.id": {
       "desc": "直播id",
       "must": "是",
       "type": "int"
     },
-    "title": {
+    "datas.content.title": {
       "desc": "直播标题",
       "must": "是",
       "type": "string"
     },
-    "subtitle": {
+    "datas.content.subtitle": {
       "desc": "副标题",
       "must": "是",
       "type": "string"
     },
-    "court_name": {
+    "datas.content.court_name": {
       "desc": "法院名称",
       "must": "是",
       "type": "string"
     },
-    "start_time": {
+    "datas.content.start_time": {
       "desc": "开播时间",
       "must": "是",
       "type": "string"
     },
-    "flash_obj": {
+    "datas.content.flash_obj": {
       "desc": "flash地址",
       "must": "是",
       "type": "string"
     },
-    "jump_type": {
+    "datas.content.jump_type": {
       "desc": "跳珠类型 1为app 2为h5",
       "must": "是",
       "type": "int"
     },
-    "startTime": {
+    "datas.content.startTime": {
       "desc": "距离开始的具体时间段",
       "must": "是",
       "type": "string"
     }
   },
-  "title": "直播预告列表",
   "type": "post",
   "url": "appapi/live/preview",
   "version": "v2.1.0"
