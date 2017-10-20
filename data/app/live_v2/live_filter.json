@@ -73,38 +73,43 @@
       "must": "是",
       "type": "array"
     },
-    "data": {
+    "list": {
       "desc": "直播数组对应的key",
       "must": "是",
       "type": "array"
     },
-    "data.cover_image": {
+    "list.title": {
+      "desc": "标题",
+      "must": "是",
+      "type": "string"
+    },
+    "list.cover_image": {
       "desc": "直播封面图片",
       "must": "是",
       "type": "string"
     },
-    "data.id": {
+    "list.id": {
       "desc": "直播id",
       "must": "是",
       "type": "int"
     },
-    "data.stat": {
+    "list.stat": {
       "desc": "直播状态",
       "must": "是",
       "type": "int"
     },
-    "data.jump_type": {
+    "list.jump_type": {
       "desc": "跳转类型页面，<code><a href='#live_02'>点击查看详情</a></code>",
       "must": "是",
       "type": "int"
     },
-    "data.subtitle": {
+    "list.subtitle": {
       "desc": "副标题。庭审直播时取的是法院名字，可为空",
       "must": "否",
       "type": "int"
     },
-    "data.url": {
-      "desc": "直播详情页的链接",
+    "list.url": {
+      "desc": "庭审h5页面的播放器地址",
       "must": "是",
       "type": "string"
     }
