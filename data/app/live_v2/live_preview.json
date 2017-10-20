@@ -64,6 +64,7 @@
       "type": "string"
     }
   },
+  "title": "直播预告接口",
   "type": "post",
   "url": "appapi/live/preview",
   "version": "v2.1.0"
