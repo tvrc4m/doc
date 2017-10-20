@@ -2,22 +2,22 @@
   "desc": "直播列表及筛选条件",
   "params": {
     "case_type": {
-      "desc": "筛选条件--案件类型",
+      "desc": "筛选条件--案件类型(只有庭审大厅存在 即:live_type_id=1)",
       "must": "否",
       "type": "int"
     },
     "court": {
-      "desc": "筛选条件--某个法院",
+      "desc": "筛选条件--某个法院(只有庭审大厅存在 即:live_type_id=1)",
       "must": "否",
       "type": "int"
     },
     "court_level": {
-      "desc": "筛选条件--法院级别",
+      "desc": "筛选条件--法院级别(只有庭审大厅存在 即:live_type_id=1)",
       "must": "否",
       "type": "int"
     },
     "province_id": {
-      "desc": "筛选条件--省id",
+      "desc": "筛选条件--省id(只有庭审大厅存在 即:live_type_id=1)",
       "must": "否",
       "type": "int"
     },
@@ -27,12 +27,12 @@
       "type": "int"
     },
     "type": {
-      "desc": "筛选条件--直播类型",
+      "desc": "筛选条件--直播类型(只有直播大厅存在 即:live_type_id=0)",
       "must": "否",
       "type": "int"
     },
     "live_type_id": {
-      "desc": "直播类型,代表是每个类型下面的筛选。0代表是直播大厅筛选",
+      "desc": "直播类型,代表是每个类型下面的筛选。0代表是直播大厅筛选，1代表是庭审大厅",
       "must": "是",
       "type": "int"
     },
