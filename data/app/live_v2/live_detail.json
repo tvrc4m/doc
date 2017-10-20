@@ -5,6 +5,11 @@
       "desc": "直播id",
       "must": "是",
       "type": "int"
+    },
+    "live_type_id": {
+      "desc": "直播类型id<code>暂时不用此字段</code>",
+      "must": "否",
+      "type": "int"
     }
   },
   "return": {
@@ -96,6 +101,6 @@
   },
   "title": "直播庭审详情页接口",
   "type": "post",
-  "url": "appapi/live/detail",
+  "url": "appapi/live/getLiveDetail",
   "version": "v2.1.0"
 }
