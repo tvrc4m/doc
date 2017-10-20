@@ -61,6 +61,6 @@
   },
   "title": "直播预告列表",
   "type": "post",
-  "url": "appapi/live/filter",
+  "url": "appapi/live/preview",
   "version": "v2.1.0"
 }
