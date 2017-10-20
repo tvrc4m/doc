@@ -2,22 +2,22 @@
   "desc": "直播列表及筛选条件",
   "params": {
     "case_type": {
-      "desc": "筛选条件--案件类型(只有庭审大厅存在 即:live_type_id=1)",
+      "desc": "筛选条件--案件类型<code>(只有庭审大厅存在 即:live_type_id=1)</code>",
       "must": "否",
       "type": "int"
     },
     "court": {
-      "desc": "筛选条件--某个法院(只有庭审大厅存在 即:live_type_id=1)",
+      "desc": "筛选条件--某个法院<code>(只有庭审大厅存在 即:live_type_id=1)</code>",
       "must": "否",
       "type": "int"
     },
     "court_level": {
-      "desc": "筛选条件--法院级别(只有庭审大厅存在 即:live_type_id=1)",
+      "desc": "筛选条件--法院级别<code>(只有庭审大厅存在 即:live_type_id=1)</code>",
       "must": "否",
       "type": "int"
     },
     "province_id": {
-      "desc": "筛选条件--省id(只有庭审大厅存在 即:live_type_id=1)",
+      "desc": "筛选条件--省id<code>(只有庭审大厅存在 即:live_type_id=1)</code>",
       "must": "否",
       "type": "int"
     },
@@ -27,7 +27,7 @@
       "type": "int"
     },
     "type": {
-      "desc": "筛选条件--直播类型(只有直播大厅存在 即:live_type_id=0)",
+      "desc": "筛选条件--直播类型<code>(只有直播大厅存在 即:live_type_id=0)</code>",
       "must": "否",
       "type": "int"
     },
@@ -54,22 +54,22 @@
       "type": "array"
     },
     "type": {
-      "desc": "筛选---类型(只存在与直播大厅 即:live_type_id=0)",
+      "desc": "筛选---类型<code>(只存在与直播大厅 即:live_type_id=0)</code>",
       "must": "是",
       "type": "array"
     },
     "case_type": {
-      "desc": "筛选---案件类型(只存在与庭审大厅 即:live_type_id=1)",
+      "desc": "筛选---案件类型<code>(只存在与庭审大厅 即:live_type_id=1)</code>",
       "must": "是",
       "type": "array"
     },
     "court_level": {
-      "desc": "筛选---法院级别(只存在与庭审大厅 即:live_type_id=1)",
+      "desc": "筛选---法院级别<code>(只存在与庭审大厅 即:live_type_id=1)</code>",
       "must": "是",
       "type": "array"
     },
     "court": {
-      "desc": "筛选---法院名称(只存在与庭审大厅 即:live_type_id=1)",
+      "desc": "筛选---法院名称<code>(只存在与庭审大厅 即:live_type_id=1)</code>",
       "must": "是",
       "type": "array"
     },
