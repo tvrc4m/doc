@@ -205,6 +205,7 @@
             ]
         }
     ],
+    "chanId": 95,
     "api_version": ".",
     "error_code": 0,
     "error_msg": ""

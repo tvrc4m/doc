@@ -1,0 +1,66 @@
+{
+  "desc": "预告列表",
+  "params": {
+    "live_type_id": {
+      "desc": "直播类型。0代表是直播大厅，1为庭审",
+      "must": "否",
+      "type": "int"
+    },
+    "page": {
+      "desc": "页码",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+    "key": {
+      "desc": "数组的key，为日期",
+      "must": "是",
+      "type": "array"
+    },
+    "id": {
+      "desc": "直播id",
+      "must": "是",
+      "type": "int"
+    },
+    "title": {
+      "desc": "直播标题",
+      "must": "是",
+      "type": "string"
+    },
+    "subtitle": {
+      "desc": "副标题",
+      "must": "是",
+      "type": "string"
+    },
+    "court_name": {
+      "desc": "法院名称",
+      "must": "是",
+      "type": "string"
+    },
+    "start_time": {
+      "desc": "开播时间",
+      "must": "是",
+      "type": "string"
+    },
+    "flash_obj": {
+      "desc": "flash地址",
+      "must": "是",
+      "type": "string"
+    },
+    "jump_type": {
+      "desc": "跳珠类型 1为app 2为h5",
+      "must": "是",
+      "type": "int"
+    },
+    "startTime": {
+      "desc": "距离开始的具体时间段",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "直播预告列表",
+  "type": "post",
+  "url": "appapi/live/filter",
+  "version": "v2.1.0"
+}
