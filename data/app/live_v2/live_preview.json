@@ -21,7 +21,7 @@
     "datas.title": {
       "desc": "大标题日期",
       "must": "是",
-      "type": "array"
+      "type": "string"
     },
     "datas.content.id": {
       "desc": "直播id",
