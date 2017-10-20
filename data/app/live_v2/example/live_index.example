@@ -7,7 +7,9 @@
             "url": "http://www.360doc.com/content/14/0811/10/281812_400977275.shtml",
             "live_id": "2",
             "jump": "1",
-            "image_type": "2"
+            "image_type": "2",
+            "flash_obj": "http://player.videoincloud.com/live/575408?src=gkw&cc=1",
+            "jump_type": 2
         },
         {
             "id": "2",
@@ -16,7 +18,9 @@
             "url": "http://www.360doc.com/content/14/0811/10/281812_400977275.shtml",
             "live_id": "0",
             "jump": "2",
-            "image_type": "2"
+            "image_type": "2",
+            "flash_obj": "http://player.videoincloud.com/live/575408?src=gkw&cc=1",
+            "jump_type": 2
         },
         {
             "id": "6",
@@ -25,7 +29,8 @@
             "url": "http://www.360doc.com/content/14/0811/10/281812_400977275.shtml",
             "live_id": "0",
             "jump": "2",
-            "image_type": "2"
+            "image_type": "2",
+            "jump_type": 1
         }
     ],
     "preview": {
@@ -91,56 +96,64 @@
     },
     "special": [
         {
-            "title": "正在直播",
+            "title": "正在直播", 
             "data": [
                 {
-                    "id": "57363",
-                    "title": "要求确认强制拆除房屋行为违法",
-                    "subtitle": "",
-                    "court_name": "泰州市海陵区人民法院",
-                    "start_time": "2017-10-18 22:30:00",
-                    "cover_img": "",
-                    "flash_obj": "http://player.videoincloud.com/live/598158?src=gkw&cc=1",
-                    "image_type": "1",
+                    "id": "63495", 
+                    "title": "物件损害责任纠纷", 
+                    "subtitle": "", 
+                    "court_name": "吉林市船营区人民法院", 
+                    "start_time": "2017-10-20 22:00:00", 
+                    "cover_img": "", 
+                    "flash_obj": "http://player.videoincloud.com/live/606222?src=gkw&cc=1", 
+                    "stat": "1", 
+                    "duration": "0", 
+                    "image_type": "1", 
                     "jump_type": 2
-                },
+                }, 
                 {
-                    "id": "57364",
-                    "title": "社会保障行政给付",
-                    "subtitle": "",
-                    "court_name": "乐山市市中区人民法院",
-                    "start_time": "2017-10-18 22:30:00",
-                    "cover_img": "",
-                    "flash_obj": "http://player.videoincloud.com/live/597339?src=gkw&cc=1",
-                    "image_type": "1",
+                    "id": "63494", 
+                    "title": "电信服务合同纠纷", 
+                    "subtitle": "", 
+                    "court_name": "长春市中级人民法院", 
+                    "start_time": "2017-10-20 22:00:00", 
+                    "cover_img": "", 
+                    "flash_obj": "http://player.videoincloud.com/live/606234?src=gkw&cc=1", 
+                    "stat": "1", 
+                    "duration": "0", 
+                    "image_type": "1", 
                     "jump_type": 2
-                },
+                }, 
                 {
-                    "id": "57365",
-                    "title": "土地行政处罚",
-                    "subtitle": "",
-                    "court_name": "吉林市龙潭区人民法院",
-                    "start_time": "2017-10-18 22:15:00",
-                    "cover_img": "",
-                    "flash_obj": "http://player.videoincloud.com/live/597882?src=gkw&cc=1",
-                    "image_type": "1",
+                    "id": "63493", 
+                    "title": "生产销售不符合安全标准的食品", 
+                    "subtitle": "", 
+                    "court_name": "敦化市人民法院", 
+                    "start_time": "2017-10-20 22:00:00", 
+                    "cover_img": "", 
+                    "flash_obj": "http://player.videoincloud.com/live/606232?src=gkw&cc=1", 
+                    "stat": "1", 
+                    "duration": "0", 
+                    "image_type": "1", 
                     "jump_type": 2
-                },
+                }, 
                 {
-                    "id": "57366",
-                    "title": "行政协议",
-                    "subtitle": "",
-                    "court_name": "兰州铁路运输法院",
-                    "start_time": "2017-10-18 21:40:00",
-                    "cover_img": "",
-                    "flash_obj": "http://player.videoincloud.com/live/597959?src=gkw&cc=1",
-                    "image_type": "1",
+                    "id": "63492", 
+                    "title": "原告商鸿翔与被告商洪太身体权纠纷一案", 
+                    "subtitle": "", 
+                    "court_name": "长岭县人民法院", 
+                    "start_time": "2017-10-20 22:00:00", 
+                    "cover_img": "", 
+                    "flash_obj": "http://player.videoincloud.com/live/606211?src=gkw&cc=1", 
+                    "stat": "1", 
+                    "duration": "0", 
+                    "image_type": "1", 
                     "jump_type": 2
                 }
-            ],
-            "id": 1,
-            "subtitle": "当前57366直播，进去看看"
-        },
+            ], 
+            "id": 1, 
+            "subtitle": "当前277直播，进去看看"
+        }, 
         {
             "title": "经典回顾",
             "id": 2,

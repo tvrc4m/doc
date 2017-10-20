@@ -43,6 +43,16 @@
       "must": "否",
       "type": "int"
     },
+    "focus.flash_obj": {
+      "desc": "h5端插入falsh地址",
+      "must": "否",
+      "type": "string"
+    },
+    "focus.jump_type": {
+      "desc": "跳转类型，1为app 2为h5",
+      "must": "否",
+      "type": "int"
+    },
     "preview": {
       "desc": "预告列表",
       "must": "否",
