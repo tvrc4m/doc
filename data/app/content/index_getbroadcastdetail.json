@@ -171,5 +171,6 @@
   },
   "title": "直播详情页接口",
   "type": "post",
-  "url": "appapi/index/getBroadcastDetail"
+  "url": "appapi/index/getBroadcastDetail",
+  "version": "v1.0.1"
 }

@@ -49,6 +49,97 @@ class Api extends Doc {
                     
                     $api_data[$api_basename]['example']=$example_content;
                 }
+                // 通过参数组装事例对象
+                foreach ($api_data as $basename=>&$data) {
+                    
+                    if(!$data['example'] && $data['return']){
+
+                        $example=[];
+
+                        ksort($data['return']);
+                       // print_r($data['return']); 
+                        foreach ($data['return'] as $key=>$res) {
+
+                            $desc="[".$res['type']."]".$res['desc'];
+
+                            if(strpos($key, ".")!==FALSE){
+
+                                list($first,$second,$third,$four)=explode('.', $key);
+
+                                // 如果只存在二个参数 
+                                if(!$third){
+
+                                    if($res['type']=='array'){
+
+                                        $example[$first][$second]=array();
+                                    }else{
+                                        
+                                        if(is_object($example[$first])){
+                                            $example[$first]->$second=$desc;                                            
+                                        }else{
+                                            $example[$first][$second]=$desc;    
+                                        }
+
+                                        
+                                    }
+                                }elseif(!$four){
+
+                                    if(is_object($example[$first])){
+                                        if(is_object($example->$first->$second)){
+                                            $example->$first->$second->$third=$desc;        
+                                        }elseif(is_array($example->$first->$second)){
+                                            $example->$first->$second[$third]=$desc;        
+                                        }
+                                    }elseif(is_array($example[$first])){
+                                        if(is_object($example[$first]->$second)){
+                                            $example[$first]->$second->$third=$desc;        
+                                        }elseif(is_array($example[$first]->$second)){
+                                            $example[$first]->$second[$third]=$desc;        
+                                        }
+                                    }
+                                }else{
+                                    if(is_object($example[$first])){
+                                        if(is_object($example->$first->$second)){
+                                            if(is_object($example->$first->$second->$third)){
+                                                $example->$first->$second->$third->$four=$desc;        
+                                            }elseif(is_array($example->$first->$second->$third)){
+                                                $example->$first->$second->$third[$four]=$desc;        
+                                            }
+                                        }elseif(is_array($example->$first->$second)){
+                                            if(is_object($example->$first->$second[$third])){
+                                                $example->$first->$second[$third]->$four=$desc;        
+                                            }elseif(is_array($example->$first->$second[$third])){
+                                                $example->$first->$second[$third][$four]=$desc;        
+                                            }
+                                        }
+                                    }elseif(is_array($example[$first])){
+                                        if(is_object($example[$first]->$second)){
+                                            if(is_object($example[$first]->$second->$third)){
+                                                $example[$first]->$second->$third->$four=$desc;     
+                                            }elseif(is_array($example[$first]->$second->$third)){
+                                                $example[$first]->$second->$third[$four]=$desc;    
+                                            }
+                                        }elseif(is_array($example[$first]->$second)){
+                                            if(is_object($example[$first]->$second[$third])){
+                                                $example[$first]->$second[$third]->$four=$desc;   
+                                            }elseif(is_array($example[$first]->$second[$third])){
+                                                $example[$first]->$second[$third][$four]=$desc;
+                                            }
+                                        }
+                                    }
+                                }
+                            }else{
+                                $example[$key]=($res['type']=='array' || $res['type']=='object')
+                                    ?($res['type']=='array'?array():new stdClass())
+                                    :$desc;
+                            }
+                        }
+
+                        $data['example']=json_encode($example,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+
+                        // print_r($data);exit;
+                    }
+                }
             }
         }
         

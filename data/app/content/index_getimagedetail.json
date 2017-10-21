@@ -96,5 +96,6 @@
   },
   "title": "图集详情页接口",
   "type": "post",
-  "url": "appapi/index/getImageDetail"
+  "url": "appapi/index/getImageDetail",
+  "version": "v1.0.1"
 }

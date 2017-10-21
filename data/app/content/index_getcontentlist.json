@@ -23,7 +23,7 @@
       "type": "array"
     },
     "data.card_type": {
-      "desc": "卡片类型,0：无图，1：小图，2：大图，3：并列三图，4：图集大图，5：视频大图，6：图文广告，7：文字广告，8：外链广告",
+      "desc": "卡片类型,<code><a href='#index_01'>点击见详情</a></code>",
       "type": "int"
     },
     "data.desc": {
@@ -81,7 +81,7 @@
       "type": "string"
     },
     "data.type": {
-      "desc": "文章类型,1：专题，2：文章，3：图集，4：视频，9:直播，11VR，12问答",
+      "desc": "文章类型,<code><a href='#index_01'>点击见详情</a></code>",
       "type": "int"
     },
     "data.url": {

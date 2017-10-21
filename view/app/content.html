@@ -153,8 +153,8 @@
                 </table>
             <?php } ?>
             <?php if($param['example']){ ?>
-                <h4>返回代码</h4>
-                <pre><?php echo $param['example'];?></pre>
+                <h4>返回代码&nbsp;&nbsp;<code class="expand_example">展开</code></h4>
+                <pre class="example"><?php echo $param['example'];?></pre>
             <?php } ?>
         <?php } ?>
     <?php }else{ ?>
@@ -172,5 +172,16 @@
         clipboard.on('error', function(e) {
             alert("拷贝失败,请手动拷贝");
         });
+        $(".expand_example").on('click',function(){
+            var example=$(this).parent().next(".example");
+            if(example.hasClass("show")){
+                example.removeClass("show");
+                $(this).html("展开");
+            }else{
+                example.addClass("show");
+                $(this).html("收起");
+            }
+            
+        })
     })
 </script>
