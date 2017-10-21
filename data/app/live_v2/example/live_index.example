@@ -219,6 +219,7 @@
         }
     ],
     "chanId": 95,
+    "custom_url": "http://www.baidu.com",
     "api_version": ".",
     "error_code": 0,
     "error_msg": ""

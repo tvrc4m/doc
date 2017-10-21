@@ -13,7 +13,7 @@
     }
   },
   "return": {
-    "datas": {
+    "data": {
       "desc": "需求数据",
       "must": "是",
       "type": "array"
