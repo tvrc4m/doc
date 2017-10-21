@@ -1,0 +1,27 @@
+{
+  "desc": "",
+  "params": {
+    "live_id": {
+      "desc": "直播id",
+      "must": "是",
+      "type": "int"
+    },
+    "type": {
+      "desc": "直播类型id<code>固定值:20</code>",
+      "must": "是",
+      "type": "int"
+    },
+    "sessionid": {
+      "desc": "当前用户sessionid",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+
+  },
+  "title": "直播一期点赞接口",
+  "type": "post",
+  "url": "appapi/like/index",
+  "version": "v2.1.0"
+}

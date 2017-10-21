@@ -130,3 +130,16 @@ a.on {
 .sidebar-nav-v1>li.sidebar-submenu ul.collapse a.active {
     color: #38d5b6;
 }
+.expand_example{
+    font-size: 12px;
+    cursor: pointer;
+}
+.example{
+    display: none;
+}
+.show{
+    display: block;
+}
+.data-type{
+    color: #c7254e;
+}

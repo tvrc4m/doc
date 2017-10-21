@@ -78,6 +78,11 @@
       "must": "是",
       "type": "int"
     },
+    "cover_img": {
+      "desc": "该直播封面图",
+      "must": "否",
+      "type": "string"
+    },
     "is_liked": {
       "desc": "改用户是否点赞(0:未点赞;1:已点赞)",
       "must": "否",
