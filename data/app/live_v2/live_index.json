@@ -192,6 +192,11 @@
       "desc": "庭审chanId 目前只有直播庭审有该值",
       "must": "否",
       "type": "int"
+    },
+    "custom_url": {
+      "desc": "直播大厅最后一个自定义url",
+      "must": "否",
+      "type": "int"
     }
   },
   "title": "直播及庭审首页接口",
