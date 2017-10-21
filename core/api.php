@@ -135,7 +135,9 @@ class Api extends Doc {
                             }
                         }
 
-                        $data['example']=json_encode($example,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+                        $example_result=['data'=>$example,'error_code'=>'[int]错误码:0 成功 1失败','error_msg'=>'[string]错误消息','api_version'=>'1.0.0'];
+
+                        $data['example']=json_encode($example_result,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
 
                         // print_r($data);exit;
                     }

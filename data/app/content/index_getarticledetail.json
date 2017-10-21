@@ -27,8 +27,8 @@
       "desc":"视频相关数据",
       "type":"array",
       "must":"是"
-    }
-    "extend.content": {
+    },
+    "extend.content":{
       "desc": "文章内容",
       "must": "是",
       "type": "string"
