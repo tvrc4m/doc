@@ -136,7 +136,7 @@ class Api extends Doc {
                         }
 
                         $example_result=[
-                            'data'=>$example,
+                            'data'=>isset($example['data'])?$example['data']:$example,
                             'error_code'=>"[<span class='data-type'>int</span>]错误码:0 成功 1失败",
                             'error_msg'=>"[<span class='data-type'>string</span>]错误消息",
                             'api_version'=>"[<span class='data-type'>string</span>]1.0.0"
