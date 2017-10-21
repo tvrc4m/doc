@@ -140,3 +140,6 @@ a.on {
 .show{
     display: block;
 }
+.data-type{
+    color: #c7254e;
+}

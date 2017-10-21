@@ -60,7 +60,7 @@ class Api extends Doc {
                        // print_r($data['return']); 
                         foreach ($data['return'] as $key=>$res) {
 
-                            $desc="[".$res['type']."]".$res['desc'];
+                            $desc="<span class='data-type'>[".$res['type']."]</span>".$res['desc'];
 
                             if(strpos($key, ".")!==FALSE){
 
@@ -135,9 +135,14 @@ class Api extends Doc {
                             }
                         }
 
-                        $example_result=['data'=>$example,'error_code'=>'[int]错误码:0 成功 1失败','error_msg'=>'[string]错误消息','api_version'=>'1.0.0'];
+                        $example_result=[
+                            'data'=>$example,
+                            'error_code'=>"[<span class='data-type'>int</span>]错误码:0 成功 1失败",
+                            'error_msg'=>"[<span class='data-type'>string</span>]错误消息",
+                            'api_version'=>"[<span class='data-type'>string</span>]1.0.0"
+                        ];
 
-                        $data['example']=json_encode($example_result,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT);
+                        $data['example']=json_encode($example_result,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
 
                         // print_r($data);exit;
                     }
