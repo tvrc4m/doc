@@ -64,18 +64,33 @@
       "type": "int"
     },
     "live_url": {
-      "desc": "直播中时取的视频地址",
+      "desc": "直播视频地址<code>原生时获取的直播视频地址</code>",
       "must": "是",
       "type": "string"
     },
     "duration": {
-      "desc": "直播时长,可为空。当回顾时才有确定的值",
+      "desc": "直播时长,可为空。<code>当回顾时(即:stat=2)才有确定的值</code>",
       "must": "是",
       "type": "string"
     },
     "views": {
       "desc": "直播访问量",
       "must": "是",
+      "type": "int"
+    },
+    "cover_img": {
+      "desc": "该直播封面图",
+      "must": "否",
+      "type": "string"
+    },
+    "is_liked": {
+      "desc": "改用户是否点赞(0:未点赞;1:已点赞)",
+      "must": "否",
+      "type": "int"
+    },
+    "likes": {
+      "desc": "点赞总数量",
+      "must": "否",
       "type": "int"
     },
     "share.title": {
