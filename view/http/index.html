@@ -89,7 +89,6 @@
         })
         $("a[key]").on('click',function(){
             var key=$(this).attr("key");
-            console.log(key);
             $.ajax({
                 url:"/api/http/get",
                 type:"GET",
@@ -104,7 +103,11 @@
                         var html="";
                         for(field in data.params){
                             html+='<tr>';
-                            html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+field+'</td>';
+                            if(data.params[field]['must']=='是'){
+                                html+='<td class="text-center console-index td-bottom" style="width: 100px;"><code>*</code>'+field+'</td>';
+                            }else{
+                                html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+field+'</td>';
+                            }
                             html+='<td class="text-center td-bottom" style="width: 100px;">';
                             html+='<input type="text" name="'+field+'" />';
                             html+='</td>';
