@@ -4,16 +4,18 @@ class HttpController extends Api {
 
     public function index($params){
 
+        $api_list=$this->getApiList();
+
+        $this->display('http/index.html',['api_list'=>$api_list,'tab_selected'=>'http']);
+    }
+
+    public function get($params){
+
         $key=$params['key'];
-        $env=$params['env'];
 
         $api=$this->getJsonByKey('app',$key);
 
-        empty($env) && $env='dev';
-
-        $api_list=$this->getApiList();
-
-        $this->display('http/index.html',['api_list'=>$api_list,'tab_selected'=>'http','current'=>$key,'api'=>$api,'env'=>$env]);
+        exit(json_encode($api));
     }
 
     /**

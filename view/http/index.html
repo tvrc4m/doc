@@ -3,7 +3,7 @@
     <div id="paramInfo" class="headline">
         <h2><?php echo $data['api']['title'];?></h2>
     </div>
-    <p>
+    <p class="api_url">
         <span class="label label-primary"><?php echo strtoupper($data['api']['type']);?></span> 
         <em><?php echo $data['api']['url']; ?></em>
         <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
@@ -24,50 +24,45 @@
             </div>
         </div>
     </div>
-    <?php if($data['api']['url']){ ?>
     <form id="httpform" action="/http/run" method="POST">
         <input type="hidden" name="url" value="<?php echo $data['api']['url']; ?>" />
         <input type="hidden" name="env" value="dev" />
         <table class="table hidden-xs" style="margin-bottom: 0;">
-            <tbody>
+            <thead>
                 <tr>
                     <th class="text-center console-index td-bottom" style="width: 100px;">参数名</th>
                     <th class="text-center console-index td-bottom" style="width: 100px;">参数值</th>
                     <th class="text-center console-index td-bottom text-left">描述</th>
                 </tr>
-                <?php foreach($data['api']['params'] as $field=>$param){?>
-                    <tr>
-                        <td class="text-center console-index td-bottom" style="width: 100px;"><?php echo $field;?></td>
-                        <td class="text-center td-bottom" style="width: 100px;">
-                            <input type="text" name="<?php echo $field;?>" />
-                        </td>
-                        <td class="text-center td-bottom text-left"><?php echo $param['desc'];?></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
+            </thead>
+            <tbody></tbody>
         </table>
         <button id="httprun" type="button" class="btn-u" style="height:36px;font-size:16px;width:66px;">发送</button> 
         <p></p>
         <div id="result" class="result"></div>
     </form>
-    <?php } ?>
     <script src="/static/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
+        var current="";
         var editor = ace.edit("result");
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/javascript");
         editor.getSession().setTabSize(4);
         editor.getSession().setUseWrapMode(true);
-        editor.setHighlightActiveLine(false);
-        editor.setReadOnly(true);
+        editor.setHighlightActiveLine(true);
+        // editor.setReadOnly(false);
+        var loading=0;
         $("#httprun").click(function(){
+            var that=this;
             $.ajax({
                 url:$("#httpform").attr("action"),
                 type:"POST",
                 dataType:"text",
                 data:$("#httpform").serialize(),
-                before:function(){
-
+                beforeSend:function(){
+                    if(loading) return false;
+                    loading=1;
+                    $(that).attr("disabled","disabled");
                 },
                 success:function(data){
                     console.log(data);
@@ -76,10 +71,48 @@
                         var str=JSON.stringify(json,null,4);
                         console.log(editor);
                         editor.setValue(str);
-                        editor.gotoLine(1);
+                        editor.moveCursorTo(0, 0);
                     }catch(error){
                         editor.setValue(data);
                         // editor.gotoLine(1);
+                    }
+                },
+                complete:function(){
+                    $(that).removeAttr("disabled");
+                    loading=0;
+                },
+                error:function(){
+                  $(that).removeAttr("disabled");  
+                  loading=0;
+                }
+            })
+        })
+        $("a[key]").on('click',function(){
+            var key=$(this).attr("key");
+            console.log(key);
+            $.ajax({
+                url:"/api/http/get",
+                type:"GET",
+                dataType:"json",
+                data:{key:key},
+                success:function(data){
+                    $(".headline h2").html(data.title);
+                    $(".api_url em").html(data.url);
+                    $(".api_url .label-primary").html(data.type);
+                    $("input[name=url]").val(data.url);
+                    if(data.params){
+                        var html="";
+                        for(field in data.params){
+                            html+='<tr>';
+                            html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+field+'</td>';
+                            html+='<td class="text-center td-bottom" style="width: 100px;">';
+                            html+='<input type="text" name="'+field+'" />';
+                            html+='</td>';
+                            html+='<td class="text-center td-bottom text-left">'+data.params[field].desc+'</td>';
+                            html+='</tr>';
+                        }
+                        $("tbody").html(html);
+                        editor.setValue("");
                     }
                 }
             })
@@ -88,6 +121,14 @@
             $(".env a").not(this).removeClass("cur");
             $(this).addClass("cur");
             $("input[name=env]").val($(this).data("env"));
+        })
+        $(function(){
+            if(!current && document.location.hash){
+                current=document.location.hash.substr(1);
+            }
+            if(current){
+                $("a[key="+current+"]").trigger("click");
+            }
         })
     </script>
 </div>

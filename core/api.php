@@ -195,7 +195,8 @@ class Api extends Doc {
 
                     $api_parse=json_decode($api_content,true);
 
-                    $api_list[$dirs[$dir]][$api_basename]=['name'=>$api_parse['title'],'url'=>'/api/http/'.$api_basename];
+                    $api_list[$dirs[$dir]][$api_basename]=['name'=>$api_parse['title'],'url'=>'/api/http#'.$api_basename];
+                    // $api_list[$dirs[$dir]][$api_basename]=['name'=>$api_parse['title'],'url'=>'javascript:void(0);'];
                 }
             }
         }
