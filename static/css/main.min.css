@@ -143,3 +143,38 @@ a.on {
 .data-type{
     color: #c7254e;
 }
+.result{
+    display: block;
+    height: 430px;
+    width: 95%;
+}
+.container, .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.env-container{
+    background: #f2f2f2;
+}
+
+.env a{
+    height: 40px;
+    font-size: 16px;
+    color: #222;
+    text-decoration: none;
+    display: block;
+    line-height: 40px;
+    font-weight: 600;
+}
+.env a.cur{
+    color: #1abc9c;
+    border-bottom: 2px solid #1abc9c;
+}
+.text-left{
+    text-align: left;
+}
+.text-right{
+    text-align: right;
+}
+a.http_send,a:active.http_send,a:hover.http_send{
+    color: #c7254e;
+}

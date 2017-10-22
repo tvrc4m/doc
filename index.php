@@ -31,6 +31,6 @@ $class=strtoupper($app).'Controller';
 
 $api=new $class;
 
-call_user_func_array([$api,$act], [$_GET]);
+call_user_func_array([$api,$act], [$_REQUEST]);
 
 

@@ -162,6 +162,8 @@ class Api extends Doc {
 
         $tab_selected=$type;
 
+        $data=['api_list'=>$api_list,'tab_selected'=>$tab_selected];
+
         include_once(VIEW.'common/header.html');
         
         include_once(VIEW.'app/content.html');
@@ -169,6 +171,36 @@ class Api extends Doc {
         include_once(VIEW.'common/footer.html');
 
         exit(0);
+    }
+
+    public function getApiList($type=self::API_TYPE_APP){
+
+        $dirs=$this->getTypeCate($type);
+
+        $api_list=[];
+
+        foreach (glob(DATA.$type.'/*') as $filename) {
+            
+            if($filename==$type.self::JSON_EXT) continue;
+
+            if(is_dir($filename)){
+
+                $dir=basename($filename);
+
+                foreach (glob($filename.'/*'.self::JSON_EXT) as $secname) {
+                    
+                    $api_basename=basename($secname,self::JSON_EXT);
+
+                    $api_content=file_get_contents($secname);
+
+                    $api_parse=json_decode($api_content,true);
+
+                    $api_list[$dirs[$dir]][$api_basename]=['name'=>$api_parse['title'],'url'=>'/api/http/'.$api_basename];
+                }
+            }
+        }
+
+        return $api_list;
     }
 
 

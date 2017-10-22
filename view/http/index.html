@@ -1,0 +1,92 @@
+<div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
+    <div class="container-fluid env-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="row text-center feed_backmenu">
+                        <div class="env col-md-2 col-sm-2"><a href="javascript:void(0);" data-env="test" class="">TEST</a></div>
+                        <div class="env col-md-2 col-sm-2"><a href="javascript:void(0);" data-env="dev" class="cur">DEV</a></div>
+                        <div class="env col-md-2 col-sm-2"><a href="javascript:void(0);" data-env="staging" class="">STAGING</a></div>
+                        <div class="env col-md-2 col-sm-2"><a href="javascript:void(0);" data-env="live" class="">LIVE</a></div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+    <?php if($data['api']['url']){ ?>
+    <form id="httpform" action="/http/run" method="POST">
+        <input type="hidden" name="url" value="<?php echo $data['api']['url']; ?>" />
+        <input type="hidden" name="env" value="dev" />
+        <table class="table hidden-xs" style="margin-bottom: 0;">
+            <tbody>
+                <tr>
+                    <th class="text-center console-index td-bottom" style="width: 100px;">参数名</th>
+                    <th class="text-center console-index td-bottom" style="width: 100px;">参数值</th>
+                    <th class="text-center console-index td-bottom text-left">描述</th>
+                </tr>
+                <?php foreach($data['api']['params'] as $field=>$param){?>
+                    <tr>
+                        <td class="text-center console-index td-bottom" style="width: 100px;"><?php echo $field;?></td>
+                        <td class="text-center td-bottom" style="width: 100px;">
+                            <input type="text" name="<?php echo $field;?>" />
+                        </td>
+                        <td class="text-center td-bottom text-left"><?php echo $param['desc'];?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <button id="httprun" type="button" class="btn-u" style="height:36px;font-size:16px;width:100px;">发送</button>    
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div id="result" class="result"></div>
+    </form>
+    <?php } ?>
+    <script src="/static/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var editor = ace.edit("result");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/javascript");
+        editor.getSession().setTabSize(4);
+        editor.getSession().setUseWrapMode(true);
+        editor.setHighlightActiveLine(false);
+        editor.setReadOnly(true);
+        $("#httprun").click(function(){
+            $.ajax({
+                url:$("#httpform").attr("action"),
+                type:"POST",
+                dataType:"text",
+                data:$("#httpform").serialize(),
+                before:function(){
+
+                },
+                success:function(data){
+                    console.log(data);
+                    try{
+                        var json=JSON.parse(data);
+                        var str=JSON.stringify(json,null,4);
+                        // $("#result").html(str);
+                        console.log(editor);
+                        editor.setValue(str);
+                        editor.gotoLine(1);
+                        console.log(editor.getValue());
+                    }catch(error){
+                        console.log('error');
+                        editor.setValue(data);
+                        // editor.gotoLine(1);
+                    }
+                }
+            })
+        })
+        $(".env a").on('click',function(){
+            $(".env a").not(this).removeClass("cur");
+            $(this).addClass("cur");
+            $("input[name=env]").val($(this).data("env"));
+        })
+    </script>
+</div>
