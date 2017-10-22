@@ -178,3 +178,7 @@ a.on {
 a.http_send,a:active.http_send,a:hover.http_send{
     color: #c7254e;
 }
+.btn-u,.btn-u:hover{
+    background-color: #428bca;
+    border-radius:.25em;
+}

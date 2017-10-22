@@ -1,4 +1,13 @@
 <div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
+
+    <div id="paramInfo" class="headline">
+        <h2><?php echo $data['api']['title'];?></h2>
+    </div>
+    <p>
+        <span class="label label-primary"><?php echo strtoupper($data['api']['type']);?></span> 
+        <em><?php echo $data['api']['url']; ?></em>
+        <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
+    </p>
     <div class="container-fluid env-container">
         <div class="container">
             <div class="row">
@@ -36,14 +45,9 @@
                     </tr>
                 <?php } ?>
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3">
-                        <button id="httprun" type="button" class="btn-u" style="height:36px;font-size:16px;width:100px;">发送</button>    
-                    </td>
-                </tr>
-            </tfoot>
         </table>
+        <button id="httprun" type="button" class="btn-u" style="height:36px;font-size:16px;width:66px;">发送</button> 
+        <p></p>
         <div id="result" class="result"></div>
     </form>
     <?php } ?>
@@ -70,13 +74,10 @@
                     try{
                         var json=JSON.parse(data);
                         var str=JSON.stringify(json,null,4);
-                        // $("#result").html(str);
                         console.log(editor);
                         editor.setValue(str);
                         editor.gotoLine(1);
-                        console.log(editor.getValue());
                     }catch(error){
-                        console.log('error');
                         editor.setValue(data);
                         // editor.gotoLine(1);
                     }
