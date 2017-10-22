@@ -64,7 +64,7 @@
                 <h2><?php echo $param['title']; ?></h2>
                 <?php if($key){ ?>
                     <code><a class="copy_api_url" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api/app#'.$key;?>" target="_blank">拷贝链接</a></code>
-                    <code><a class="http_send" href="/api/http/<?php echo $key;?>" target="_blank">发起请求</a></code>
+                    <code><a class="http_send" href="/api/http#<?php echo $key;?>" target="_blank">发起请求</a></code>
                 <?php } ?>
             </div>
             <p>
