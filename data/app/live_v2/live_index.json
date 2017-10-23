@@ -194,7 +194,7 @@
       "type": "int"
     },
     "custom_id": {
-      "desc": "直播大厅最后一个自定义url",
+      "desc": "直播大厅最后一个自定义id",
       "must": "否",
       "type": "int"
     }
