@@ -42,9 +42,9 @@ class HttpController extends Api {
 
         if($env=='live') $params['test_code']='fdj837fb&30*83b*&73hf_kgjjg&hhf';
 
-        isset($params['page']) && $params['page']=intval($params['page']);
-        isset($params['pcount']) && $params['pcount']=intval($params['pcount']);
-        
+        empty($params['page']) && $params['page']=1;
+        empty($params['pcount']) && $params['pcount']=20;
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $domain.$url);
         // echo $domain.$url;exit;
