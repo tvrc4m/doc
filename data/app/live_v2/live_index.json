@@ -193,7 +193,7 @@
       "must": "否",
       "type": "int"
     },
-    "custom_url": {
+    "custom_id": {
       "desc": "直播大厅最后一个自定义url",
       "must": "否",
       "type": "int"
