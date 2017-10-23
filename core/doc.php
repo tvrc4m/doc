@@ -25,14 +25,12 @@ class Doc {
      */
     protected $json;
 
-    public function display($html,$api_list,$tab_selected){
+    public function display($html,$data){
 
         include_once(VIEW.'common/header.html');
 
-        $footer=file_get_contents(VIEW.'common/footer.html');
-        
-        $content=include_once(VIEW.$html);
+        include_once(VIEW.$html);
 
-        exit($content); 
+        include_once(VIEW.'common/footer.html');
     }
 }
