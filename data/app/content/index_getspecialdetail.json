@@ -161,5 +161,6 @@
   },
   "title": "专题详情页接口",
   "type": "post",
-  "url": "appapi/index/getSpecialDetail"
+  "url": "appapi/index/getSpecialDetail",
+  "version": "v1.0.1"
 }

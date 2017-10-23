@@ -166,5 +166,6 @@
   },
   "title": "首页搜索列表",
   "type": "post",
-  "url": "appapi/index/getSearchList"
+  "url": "appapi/index/getSearchList",
+  "version": "v1.0.1"
 }

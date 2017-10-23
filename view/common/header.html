@@ -25,9 +25,9 @@
                 </div>
                 <div class="collapse navbar-collapse navbar-responsive-collapse in">
                     <ul class="nav navbar-nav navbar-left">
-                        <li class="<?php echo $tab_selected=='app'?'active':'';?>"><a href="/api/app">APP接口文档</a></li>
-                        <!-- <li class="<?php echo $tab_selected=='admin'?'active':'';?>"><a href="/api/app">后台接口文档</a></li> -->
-                        <li class="<?php echo $tab_selected=='doc'?'active':'';?>"><a href="/doc/develop#develop">开发文档</a></li>
+                        <li class="<?php echo $data['tab_selected']=='app'?'active':'';?>"><a href="/api/app">APP接口文档</a></li>
+                        <li class="<?php echo $data['tab_selected']=='http'?'active':'';?>"><a href="/api/http#channel_getlist">发起请求</a></li>
+                        <li class="<?php echo $data['tab_selected']=='doc'?'active':'';?>"><a href="/doc/develop#develop">开发文档</a></li>
                     </ul>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <!-- Begin Sidebar Menu -->
             <div class="" style="position: fixed;z-index: 99;width: auto;max-width: 280px;">
                 <ul class="doc-nav list-group sidebar-nav-v1" id="sidebar-nav">
-                    <?php foreach($api_list as $parent=>$list){ ?>
+                    <?php foreach($data['api_list'] as $parent=>$list){ ?>
                         <li id="sdknode-api" class="list-group-item list-toggle sidebar-submenu">
                             <a data-toggle="collapse" href="javascript:void(0);"><?php echo $parent; ?></a>
                             <ul id="collapse-api" class="collapse">
@@ -60,9 +60,12 @@
             </div>
             <!-- End Sidebar Menu -->
             <script type="text/javascript">
+                var key="<?php echo $data['current'];?>";
                 var hash=document.location.hash;
                 if(hash && $(hash)){
                     key=hash.substr(1);
+                }
+                if(key){
                     var cls="a[key='"+key+"']";
                     $(cls).parents('ul').show();
                     $(cls).addClass('active');

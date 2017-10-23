@@ -1,10 +1,19 @@
 <div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
     <?php if($common['desc']){ ?>
+        <a href="#app"></a>
         <div id="paramInfo" class="headline">
             <h2>接口说明</h2>
         </div>
         <div class="alert alert-warning fade in">
-            <?php echo $common['desc'];?>
+            <?php if(is_string($common['desc'])){?>
+                    <?php echo $common['desc']; ?>
+                <?php }else{ ?>
+                    <ol>
+                        <?php foreach($common['desc'] as $desc){?>
+                            <li><?php echo $desc;?></li>
+                        <?php } ?>
+                    </ol>
+                <?php } ?>
         </div>
     <?php } ?>
     <?php if($common['common']){ ?>
@@ -55,6 +64,7 @@
                 <h2><?php echo $param['title']; ?></h2>
                 <?php if($key){ ?>
                     <code><a class="copy_api_url" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api/app#'.$key;?>" target="_blank">拷贝链接</a></code>
+                    <code><a class="http_send" href="/api/http#<?php echo $key;?>" target="_blank">发起请求</a></code>
                 <?php } ?>
             </div>
             <p>
@@ -153,8 +163,8 @@
                 </table>
             <?php } ?>
             <?php if($param['example']){ ?>
-                <h4>返回代码</h4>
-                <pre><?php echo $param['example'];?></pre>
+                <h4>返回代码&nbsp;&nbsp;<code class="expand_example">展开</code></h4>
+                <pre class="example"><?php echo $param['example'];?></pre>
             <?php } ?>
         <?php } ?>
     <?php }else{ ?>
@@ -172,5 +182,16 @@
         clipboard.on('error', function(e) {
             alert("拷贝失败,请手动拷贝");
         });
+        $(".expand_example").on('click',function(){
+            var example=$(this).parent().next(".example");
+            if(example.hasClass("show")){
+                example.removeClass("show");
+                $(this).html("展开");
+            }else{
+                example.addClass("show");
+                $(this).html("收起");
+            }
+            
+        })
     })
 </script>

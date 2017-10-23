@@ -161,5 +161,6 @@
   },
   "title": "VR详情页接口",
   "type": "post",
-  "url": "appapi/index/getVrDetail"
+  "url": "appapi/index/getVrDetail",
+  "version": "v1.0.1"
 }
