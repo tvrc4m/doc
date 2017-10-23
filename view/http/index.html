@@ -39,11 +39,12 @@
         </table>
         <button id="httprun" type="button" class="btn-u" style="height:36px;font-size:16px;width:66px;">发送</button> 
         <p></p>
+        <code><a href="javascript:void(0);" onclick="enterFullscreen()">全屏</a></code>
         <div id="result" class="result"></div>
     </form>
     <script src="/static/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-        var current="";
+        var current="",full=0;
         var editor = ace.edit("result");
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/javascript");
@@ -125,6 +126,50 @@
             $(this).addClass("cur");
             $("input[name=env]").val($(this).data("env"));
         })
+        function enterFullscreen(){
+            var editor=document.getElementById('result');
+            // W3C
+            if (editor.requestFullscreen) {
+                editor.requestFullscreen();
+            }
+            // FireFox  
+            else if (editor.mozRequestFullScreen) {
+                editor.mozRequestFullScreen();
+            }
+            // Chrome等  
+            else if (editor.webkitRequestFullScreen) {
+                editor.webkitRequestFullScreen();
+            }
+            // IE11
+            else if (editor.msRequestFullscreen) {
+                editor.msRequestFullscreen();
+            }
+        }
+        // w3c
+        document.onfullscreenchange = function ( event ) { 
+            if(document.fullScreen){
+                $("#result").css({height:'100%',width:'100%'});
+            }else{
+                $("#result").css({height:'420px',width:'95%'});
+            }
+        };
+        // chrome
+        document.onwebkitfullscreenchange=function(event){
+            if(document.webkitIsFullScreen){
+                $("#result").css({height:'100%',width:'100%'});
+            }else{
+                $("#result").css({height:'420px',width:'95%'});
+            }
+        }
+        // FireFox
+        document.onmozfullscreenchange=function(event){
+            if(document.mozFullScreen){
+                $("#result").css({height:'100%',width:'100%'});
+            }else{
+                $("#result").css({height:'420px',width:'95%'});
+            }
+        }
+
         $(function(){
             if(!current && document.location.hash){
                 current=document.location.hash.substr(1);
