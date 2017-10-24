@@ -53,6 +53,11 @@
       "must": "否",
       "type": "int"
     },
+    "focus.live_type_id": {
+      "desc": "直播类型(可为空  只有 jump_type=2时 此字段才有值)",
+      "must": "否",
+      "type": "int"
+    },
     "preview": {
       "desc": "预告列表",
       "must": "否",
