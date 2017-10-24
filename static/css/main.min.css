@@ -177,6 +177,7 @@ a.on {
 }
 a.http_send,a:active.http_send,a:hover.http_send{
     color: #c7254e;
+    font-size: 12px;
 }
 .btn-u,.btn-u:hover,.btn-u:active{
     background-color: #428bca;
