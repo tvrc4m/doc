@@ -137,9 +137,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($param['return'] as $key=>$item){ ?>
+                        <?php foreach($param['return'] as $field=>$item){ ?>
                         <tr>
-                            <td><?php echo $key; ?></td>
+                            <td><?php echo $field; ?></td>
                             <td><?php echo $item['type']=='array'?'<code>'.$item['type'].'</code>':$item['type'];?></td>
                             <td><?php echo $item['must'];?></td>
                             <td>
@@ -163,7 +163,10 @@
                 </table>
             <?php } ?>
             <?php if($param['example']){ ?>
-                <h4>返回代码&nbsp;&nbsp;<code class="expand_example">展开</code></h4>
+                <h4>返回代码&nbsp;&nbsp;
+                    <code class="expand_example">展开</code>
+                    <code><a class="http_send" href="/api/http#<?php echo $key;?>" target="_blank">发起请求</a></code>
+                </h4>
                 <pre class="example"><?php echo $param['example'];?></pre>
             <?php } ?>
         <?php } ?>

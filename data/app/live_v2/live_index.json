@@ -53,6 +53,11 @@
       "must": "否",
       "type": "int"
     },
+    "focus.live_type_id": {
+      "desc": "直播类型(可为空  只有 jump_type=2时 此字段才有值)",
+      "must": "否",
+      "type": "int"
+    },
     "preview": {
       "desc": "预告列表",
       "must": "否",
@@ -76,6 +81,11 @@
     "preview.data.id": {
       "desc": "直播id",
       "must": "否",
+      "type": "int"
+    },
+    "preview.data.live_type_id": {
+      "desc": "直播类型",
+      "must": "是",
       "type": "int"
     },
     "preview.data.title": {
@@ -141,6 +151,11 @@
     "special.data.id": {
       "desc": "直播id",
       "must": "否",
+      "type": "int"
+    },
+    "special.data.live_type_id": {
+      "desc": "直播类型",
+      "must": "是",
       "type": "int"
     },
     "special.data.title": {

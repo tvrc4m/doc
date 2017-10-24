@@ -7,8 +7,8 @@
       "type": "int"
     },
     "live_type_id": {
-      "desc": "直播类型id<code>暂时不用此字段</code>",
-      "must": "否",
+      "desc": "直播类型id",
+      "must": "是",
       "type": "int"
     }
   },

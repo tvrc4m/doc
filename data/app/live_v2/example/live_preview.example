@@ -13,7 +13,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/563600?src=gkw&cc=1", 
                     "stat": "0", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 2,
                     "jump_type": 2, 
                     "startTime": "00:00"
                 }, 
@@ -28,7 +29,8 @@
                     "stat": "0", 
                     "duration": "0", 
                     "image_type": "1", 
-                    "jump_type": 2, 
+                    "jump_type": 2,
+                    "live_type_id": 1,
                     "startTime": "00:00"
                 }, 
                 {
@@ -42,7 +44,8 @@
                     "stat": "0", 
                     "duration": "0", 
                     "image_type": "1", 
-                    "jump_type": 2, 
+                    "jump_type": 2,
+                    "live_type_id": 2,
                     "startTime": "00:00"
                 }, 
                 {
@@ -55,7 +58,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/585398?src=gkw&cc=1", 
                     "stat": "0", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 1,
                     "jump_type": 2, 
                     "startTime": "00:00"
                 }, 
@@ -69,7 +73,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/598002?src=gkw&cc=1", 
                     "stat": "0", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 2,
                     "jump_type": 2, 
                     "startTime": "00:00"
                 }, 
@@ -83,7 +88,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/600698?src=gkw&cc=1", 
                     "stat": "0", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 2,
                     "jump_type": 2, 
                     "startTime": "00:00"
                 }, 
@@ -97,7 +103,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/601843?src=gkw&cc=1", 
                     "stat": "0", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 1,
                     "jump_type": 2, 
                     "startTime": "00:00"
                 }
@@ -116,7 +123,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/583859?src=gkw&cc=1", 
                     "stat": "0", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 2,
                     "jump_type": 2, 
                     "startTime": "00:00"
                 }, 
@@ -130,7 +138,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/601862?src=gkw&cc=1", 
                     "stat": "0", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 2,
                     "jump_type": 2, 
                     "startTime": "00:00"
                 }, 
@@ -144,7 +153,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/583625?src=gkw&cc=1", 
                     "stat": "0", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 1,
                     "jump_type": 2, 
                     "startTime": "00:00"
                 }
