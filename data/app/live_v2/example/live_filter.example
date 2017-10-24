@@ -88,6 +88,7 @@
       "subtitle": "海口市中级人民法院",
       "stat": "0",
       "cover_image": null,
+      "live_type_id": 1,
       "jump_type": 1
     },
     {
@@ -96,6 +97,7 @@
       "subtitle": "平山县人民法院",
       "stat": "0",
       "cover_image": null,
+      "live_type_id": 2,
       "jump_type": 1
     },
     {
@@ -104,6 +106,7 @@
       "subtitle": "弥勒市人民法院",
       "stat": "1",
       "cover_image": null,
+      "live_type_id": 1,
       "jump_type": 2,
       "url": "http://player.videoincloud.com/live/603753?src=gkw&cc=1"
     },
@@ -113,6 +116,7 @@
       "subtitle": "黔西县人民法院",
       "stat": "1",
       "cover_image": null,
+      "live_type_id": 1,
       "jump_type": 2,
       "url": "http://player.videoincloud.com/live/603464?src=gkw&cc=1"
     },
@@ -122,6 +126,7 @@
       "subtitle": "东兰县人民法院",
       "stat": "1",
       "cover_image": null,
+      "live_type_id": 1,
       "jump_type": 2,
       "url": "http://player.videoincloud.com/live/603113?src=gkw&cc=1"
     },
@@ -131,6 +136,7 @@
       "subtitle": "常州市金坛区人民法院",
       "stat": "1",
       "cover_image": null,
+      "live_type_id": 1,
       "jump_type": 2,
       "url": "http://player.videoincloud.com/live/602498?src=gkw&cc=1"
     },
@@ -140,6 +146,7 @@
       "subtitle": "红河哈尼族彝族自治州中级人民法院",
       "stat": "0",
       "cover_image": null,
+      "live_type_id": 1,
       "jump_type": 2,
       "url": "http://player.videoincloud.com/live/600103?src=gkw&cc=1"
     }

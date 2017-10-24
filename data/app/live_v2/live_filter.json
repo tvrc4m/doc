@@ -112,6 +112,11 @@
       "desc": "庭审h5页面的播放器地址",
       "must": "是",
       "type": "string"
+    },
+    "list.live_type_id": {
+      "desc": "直播类型",
+      "must": "是",
+      "type": "int"
     }
   },
   "title": "直播列表及筛选",

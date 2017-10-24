@@ -45,6 +45,7 @@
                 "cover_img": "",
                 "flash_obj": "http://player.videoincloud.com/live/567551?src=gkw&cc=1",
                 "image_type": "1",
+                "live_type_id": 2,
                 "jump_type": 2
             },
             {
@@ -56,6 +57,7 @@
                 "cover_img": "",
                 "flash_obj": "http://player.videoincloud.com/live/575408?src=gkw&cc=1",
                 "image_type": "1",
+                "live_type_id": 1,
                 "jump_type": 2
             },
             {
@@ -67,6 +69,7 @@
                 "cover_img": "",
                 "flash_obj": "http://player.videoincloud.com/live/581428?src=gkw&cc=1",
                 "image_type": "1",
+                "live_type_id": 2,
                 "jump_type": 2
             },
             {
@@ -78,6 +81,7 @@
                 "cover_img": "",
                 "flash_obj": "http://player.videoincloud.com/live/585070?src=gkw&cc=1",
                 "image_type": "1",
+                "live_type_id": 1,
                 "jump_type": 2
             },
             {
@@ -89,6 +93,7 @@
                 "cover_img": "",
                 "flash_obj": "http://player.videoincloud.com/live/598145?src=gkw&cc=1",
                 "image_type": "1",
+                "live_type_id": 2,
                 "jump_type": 2
             }
         ],
@@ -108,7 +113,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/606222?src=gkw&cc=1", 
                     "stat": "1", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 2,
                     "jump_type": 2
                 }, 
                 {
@@ -121,7 +127,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/606234?src=gkw&cc=1", 
                     "stat": "1", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 1,
                     "jump_type": 2
                 }, 
                 {
@@ -134,7 +141,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/606232?src=gkw&cc=1", 
                     "stat": "1", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 2,
                     "jump_type": 2
                 }, 
                 {
@@ -147,7 +155,8 @@
                     "flash_obj": "http://player.videoincloud.com/live/606211?src=gkw&cc=1", 
                     "stat": "1", 
                     "duration": "0", 
-                    "image_type": "1", 
+                    "image_type": "1",
+                    "live_type_id": 1,
                     "jump_type": 2
                 }
             ], 
@@ -169,6 +178,7 @@
                     "flash_obj": "http://player.videoincloud.com/live/598191?src=gkw&cc=1",
                     "nickname": "管理员",
                     "image_type": 1,
+                    "live_type_id": 2,
                     "jump_type": 2
                 }
             ]
@@ -187,6 +197,7 @@
                     "flash_obj": "http://player.videoincloud.com/live/598191?src=gkw&cc=1",
                     "nickname": "管理员",
                     "image_type": 2,
+                    "live_type_id": 1,
                     "jump_type": 2
                 },
                 {
@@ -200,6 +211,7 @@
                     "flash_obj": "http://player.videoincloud.com/live/598191?src=gkw&cc=1",
                     "nickname": null,
                     "image_type": 1,
+                    "live_type_id": 2,
                     "jump_type": 2
                 },
                 {
@@ -213,6 +225,7 @@
                     "flash_obj": "http://player.videoincloud.com/live/598191?src=gkw&cc=1",
                     "nickname": null,
                     "image_type": 1,
+                    "live_type_id": 2,
                     "jump_type": 2
                 }
             ]

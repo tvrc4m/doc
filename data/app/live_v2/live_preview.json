@@ -28,6 +28,11 @@
       "must": "是",
       "type": "int"
     },
+    "data.content.live_type_id": {
+      "desc": "直播类型",
+      "must": "是",
+      "type": "int"
+    },
     "data.content.title": {
       "desc": "直播标题",
       "must": "是",
