@@ -50,15 +50,15 @@ class Api extends Doc {
                     $api_data[$api_basename]['example']=$example_content;
                 }
                 // 通过参数组装事例对象
-                foreach ($api_data as $basename=>&$data) {
+                foreach ($api_data as $basename=>&$apidata) {
                     
-                    if(!$data['example'] && $data['return']){
+                    if(!$apidata['example'] && $apidata['return']){
 
                         $example=[];
 
-                        ksort($data['return']);
+                        ksort($apidata['return']);
                        // print_r($data['return']); 
-                        foreach ($data['return'] as $key=>$res) {
+                        foreach ($apidata['return'] as $key=>$res) {
 
                             $desc="<span class='data-type'>[".$res['type']."]</span>".$res['desc'];
 
@@ -142,7 +142,7 @@ class Api extends Doc {
                             'api_version'=>"[<span class='data-type'>string</span>]1.0.0"
                         ];
 
-                        $data['example']=json_encode($example_result,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+                        $apidata['example']=json_encode($example_result,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
 
                         // print_r($data);exit;
                     }
@@ -159,13 +159,13 @@ class Api extends Doc {
 
             $common=json_decode($commonapi,true);
         }
-
+        
         $tab_selected=$type;
 
         $data=['api_list'=>$api_list,'tab_selected'=>$tab_selected];
 
         include_once(VIEW.'common/header.html');
-        
+
         include_once(VIEW.'app/content.html');
 
         include_once(VIEW.'common/footer.html');

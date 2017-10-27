@@ -71,7 +71,7 @@
                 <?php if($param['version']){ ?><code><?php echo $param['version']; ?></code><?php } ?> 
                 <?php if(is_string($param['desc'])){?>
                     <?php echo $param['desc']; ?>
-                <?php }else{ ?>
+                <?php }elseif(is_array($param['desc'])){ ?>
                     <ol>
                         <?php foreach($param['desc'] as $desc){?>
                             <li><?php echo $desc;?></li>
