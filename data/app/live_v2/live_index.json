@@ -203,6 +203,11 @@
       "must": "否",
       "type": "int"
     },
+    "special.data.title_type": {
+      "desc": "标题类型，1为副标题 2为法院",
+      "must": "否",
+      "type": "int"
+    },
     "chanId": {
       "desc": "庭审chanId 目前只有直播庭审有该值",
       "must": "否",
