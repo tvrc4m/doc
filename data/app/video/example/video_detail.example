@@ -1,0 +1,59 @@
+{
+  "data": {
+    "id": 930934,
+    "title": "视频测试数据",
+    "uid": null,
+    "is_faved": 0,
+    "comment_tourist": true,
+    "posts_ops": 1,
+    "comments": 0,
+    "desc": "",
+    "share_url": "http://www.kanfanews.com/web/video/index/930934/2?share=1",
+    "share_image": "上传中……",
+    "create_time": "2017年10月27日 14:37",
+    "user": {
+      "nickname": "管理员",
+      "image": "http://xinmem.com/dev/app/uploadfiles/thumbnail/0/14489107414334.jpg",
+      "id": 1
+    },
+    "is_liked": 0,
+    "likes": 0,
+    "extend": {
+      "url": "http://www.360doc.com/content/14/0518/18/12523329_378805369.shtml",
+      "duration": "10.25",
+      "did": "0",
+      "src": "",
+      "source_id": "1",
+      "source": ""
+    },
+    "bind": [
+      {
+        "id": "56363",
+        "title": "婚前测试 你忠诚了木有？",
+        "create_time": "2月前",
+        "comments": "0",
+        "image": "https://kanfaimage.oss-cn-beijing.aliyuncs.com/20170821/video_150328210653342.png?x-oss-process=image/resize,m_fill,w_748,h_400",
+        "url": "http://cdn.vrcdkj.cn/Act-ss-mp4-hd/bc9874a3767b4eeb8d6ebf65cee08d4e/1503281886835bn1xdd9tjcgi.mp4",
+        "duration": "02:15"
+      },
+      {
+        "id": "884016",
+        "title": "一次极其严谨的汽车安全测试",
+        "create_time": "1月前",
+        "comments": "0",
+        "image": "https://kanfaimage.oss-cn-beijing.aliyuncs.com/20170913/video_150527965283728.jpg?x-oss-process=image/resize,m_fill,w_748,h_400",
+        "url": "http://cdn.vrcdkj.cn/Act-ss-mp4-hd/4de6647bb39746d69ab1cc33810904fc/1505279316671ld7wryfftsn.mp4",
+        "duration": "00:27"
+      }
+    ],
+    "comment_list": [],
+    "source_channel": {
+      "id": "1",
+      "name": "法制天地",
+      "image": "http://xinmem.com/dev/app/uploadfiles/thumbnail/0/14489107414334.jpg"
+    }
+  },
+  "api_version": ".",
+  "error_code": 0,
+  "error_msg": ""
+}
