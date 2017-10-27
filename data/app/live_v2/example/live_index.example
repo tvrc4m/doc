@@ -118,6 +118,7 @@
                     "duration": "0", 
                     "image_type": "1",
                     "live_type_id": 2,
+                    "title_type": 1,
                     "jump_type": 2
                 }, 
                 {
@@ -132,6 +133,7 @@
                     "duration": "0", 
                     "image_type": "1",
                     "live_type_id": 1,
+                    "title_type": 1,
                     "jump_type": 2
                 }, 
                 {
@@ -146,6 +148,7 @@
                     "duration": "0", 
                     "image_type": "1",
                     "live_type_id": 2,
+                    "title_type": 1,
                     "jump_type": 2
                 }, 
                 {
@@ -160,6 +163,7 @@
                     "duration": "0", 
                     "image_type": "1",
                     "live_type_id": 1,
+                    "title_type": 1,
                     "jump_type": 2
                 }
             ], 
@@ -182,6 +186,7 @@
                     "nickname": "管理员",
                     "image_type": 1,
                     "live_type_id": 2,
+                    "title_type": 1,
                     "jump_type": 2
                 }
             ]
@@ -201,6 +206,7 @@
                     "nickname": "管理员",
                     "image_type": 2,
                     "live_type_id": 1,
+                    "title_type": 2,
                     "jump_type": 2
                 },
                 {
@@ -215,6 +221,7 @@
                     "nickname": null,
                     "image_type": 1,
                     "live_type_id": 2,
+                    "title_type": 2,
                     "jump_type": 2
                 },
                 {
@@ -229,6 +236,7 @@
                     "nickname": null,
                     "image_type": 1,
                     "live_type_id": 2,
+                    "title_type": 2,
                     "jump_type": 2
                 }
             ]
