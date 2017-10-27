@@ -18,10 +18,20 @@
     }
   },
   "return": {
+    "data": {
+      "desc": "内容列表-- 所返内容和之前一样",
+      "must": "是",
+      "type": "array"
+    },
     "video_album": {
       "desc": "专辑集合",
       "must": "是",
       "type": "array"
+    },
+    "video_album.cover_img": {
+      "desc": "专辑图片",
+      "must": "是",
+      "type": "string"
     },
     "video_album.id": {
       "desc": "专辑id",
@@ -32,20 +42,10 @@
       "desc": "专辑title",
       "must": "是",
       "type": "string"
-    },
-    "video_album.cover_img": {
-      "desc": "专辑图片",
-      "must": "是",
-      "type": "string"
-    },
-    "data": {
-      "desc": "内容列表-- 所返内容和之前一样",
-      "must": "是",
-      "type": "array"
     }
   },
   "title": "视频首页",
   "type": "post",
-  "url": "appapi/index/getContentList",
+  "url": "appapi/video/index",
   "version": "v2.1.0"
 }
