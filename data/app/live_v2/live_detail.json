@@ -111,7 +111,7 @@
     "share.url": {
       "desc": "分享的url",
       "must": "是",
-      "type": "int"
+      "type": "string"
     }
   },
   "title": "直播庭审详情页接口",

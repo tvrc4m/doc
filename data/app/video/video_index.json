@@ -1,0 +1,51 @@
+{
+  "desc": "视频一期--视频首页：主要添加专辑列表 即：video_album 字段<code>接口还是之前的视频tab接口地址</code>",
+  "params": {
+    "chanId": {
+      "desc": "视频渠道",
+      "must": "是",
+      "type": "int"
+    },
+    "page": {
+      "desc": "页码，默认 1",
+      "must": "否",
+      "type": "int"
+    },
+    "pcount": {
+      "desc": "每页获取的数量,默认为10",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+    "video_album": {
+      "desc": "专辑集合",
+      "must": "是",
+      "type": "array"
+    },
+    "video_album.id": {
+      "desc": "专辑id",
+      "must": "是",
+      "type": "int"
+    },
+    "video_album.title": {
+      "desc": "专辑title",
+      "must": "是",
+      "type": "string"
+    },
+    "video_album.cover_img": {
+      "desc": "专辑图片",
+      "must": "是",
+      "type": "string"
+    },
+    "data": {
+      "desc": "内容列表-- 所返内容和之前一样",
+      "must": "是",
+      "type": "array"
+    }
+  },
+  "title": "视频首页",
+  "type": "post",
+  "url": "appapi/index/getContentList",
+  "version": "v2.1.0"
+}
