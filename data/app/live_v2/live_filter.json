@@ -98,6 +98,11 @@
       "must": "是",
       "type": "int"
     },
+    "list.during": {
+      "desc": "回顾时长<code>只有回顾时(即:stat=2)存在该字段</code>",
+      "must": "是",
+      "type": "string"
+    },
     "list.jump_type": {
       "desc": "跳转类型页面，<code><a href='#live_02'>点击查看详情</a></code>",
       "must": "是",
