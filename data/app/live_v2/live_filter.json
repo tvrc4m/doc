@@ -98,7 +98,7 @@
       "must": "是",
       "type": "int"
     },
-    "list.during": {
+    "list.duration": {
       "desc": "回顾时长<code>只有回顾时(即:stat=2)存在该字段</code>",
       "must": "是",
       "type": "string"
