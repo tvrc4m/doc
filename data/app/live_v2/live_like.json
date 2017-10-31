@@ -11,6 +11,11 @@
       "must": "是",
       "type": "int"
     },
+    "is_like": {
+      "desc": "1：点赞；null：取消点赞",
+      "must": "是",
+      "type": "int"
+    },
     "sessionid": {
       "desc": "当前用户sessionid",
       "must": "否",
