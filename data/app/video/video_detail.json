@@ -1,5 +1,5 @@
 {
-  "desc": "视频一期--视频详情<code>接口还是之前的视频tab接口地址</code>：添加渠道来源(即：source_channel)以及绑定数据(即：bind) ",
+  "desc": "视频一期--视频详情<code>接口还是之前的视频tab接口地址</code>：添加渠道来源(即：source_channel)以及绑定数据(即：bind)&播放量(即：views)&发布日期(即:create_time) ",
   "params": {
     "cid": {
       "desc": "视频id",
@@ -35,6 +35,16 @@
     },
     "data.source_channel.image": {
       "desc": "来源渠道头像",
+      "must": "是",
+      "type": "string"
+    },
+    "data.views": {
+      "desc": "播放量",
+      "must": "是",
+      "type": "string"
+    },
+    "data.create_time": {
+      "desc": "发布时间",
       "must": "是",
       "type": "string"
     }
