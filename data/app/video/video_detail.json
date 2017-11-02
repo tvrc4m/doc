@@ -43,7 +43,7 @@
       "must": "是",
       "type": "string"
     },
-    "data.create_time": {
+    "data.pub_time": {
       "desc": "发布时间",
       "must": "是",
       "type": "string"
