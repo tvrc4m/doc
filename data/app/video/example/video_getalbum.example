@@ -15,7 +15,8 @@
                 "nickname": "徐波", 
                 "user_img": "http://www.kanfanews.com/uploadfiles/thumbnail/0/14988782763575.jpg", 
                 "source_image": "http://xinmem.com/dev/app/uploadfiles/thumbnail/0/14489107414334.jpg", 
-                "source_name": "法制天地"
+                "source_name": "法制天地",
+                "is_liked": 1
             }, 
             {
                 "id": "904", 
@@ -30,7 +31,8 @@
                 "nickname": "徐波", 
                 "user_img": "http://www.kanfanews.com/uploadfiles/thumbnail/0/14988782763575.jpg", 
                 "source_image": null, 
-                "source_name": null
+                "source_name": null,
+                "is_liked": 1
             }, 
             {
                 "id": "907", 
@@ -45,7 +47,8 @@
                 "nickname": "徐波", 
                 "user_img": "http://www.kanfanews.com/uploadfiles/thumbnail/0/14988782763575.jpg", 
                 "source_image": null, 
-                "source_name": null
+                "source_name": null,
+                "is_liked": 0
             }, 
             {
                 "id": "906", 
@@ -60,7 +63,8 @@
                 "nickname": "徐波", 
                 "user_img": "http://www.kanfanews.com/uploadfiles/thumbnail/0/14988782763575.jpg", 
                 "source_image": null, 
-                "source_name": null
+                "source_name": null,
+                "is_liked": 0
             }, 
             {
                 "id": "905", 
@@ -75,7 +79,8 @@
                 "nickname": "徐波", 
                 "user_img": "http://www.kanfanews.com/uploadfiles/thumbnail/0/14988782763575.jpg", 
                 "source_image": null, 
-                "source_name": null
+                "source_name": null,
+                "is_liked": 0
             }
         ]
     }, 

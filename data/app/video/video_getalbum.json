@@ -5,6 +5,11 @@
       "desc": "专辑id",
       "must": "是",
       "type": "int"
+    },
+    "user_id": {
+      "desc": "用户id",
+      "must": "是",
+      "type": "int"
     }
   },
   "return": {
@@ -72,6 +77,11 @@
       "desc": "来源名称",
       "must": "是",
       "type": "string"
+    },
+    "data.video_data.is_liked": {
+      "desc": "用户是否喜欢该视频",
+      "must": "是",
+      "type": "int"
     }
   },
   "title": "视频专辑详情页",
