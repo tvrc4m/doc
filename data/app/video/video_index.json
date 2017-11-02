@@ -46,6 +46,6 @@
   },
   "title": "视频首页",
   "type": "post",
-  "url": "appapi/video/index",
+  "url": "appapi/Index/getContentList",
   "version": "v2.1.0"
 }
