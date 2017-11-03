@@ -1,5 +1,5 @@
 {
-  "desc": "视频一期--视频首页：主要添加专辑列表 即：video_album 字段<code>接口还是之前的视频tab接口地址</code>",
+  "desc": "视频一期--视频首页<code>接口还是之前的视频tab接口地址</code>：主要添加专辑列表 即：video_album 字段",
   "params": {
     "chanId": {
       "desc": "视频渠道",
@@ -46,6 +46,6 @@
   },
   "title": "视频首页",
   "type": "post",
-  "url": "appapi/video/index",
+  "url": "appapi/Index/getContentList",
   "version": "v2.1.0"
 }

@@ -158,6 +158,11 @@
       "must": "是",
       "type": "int"
     },
+    "special.data.subtitle": {
+      "desc": "副标题",
+      "must": "是",
+      "type": "string"
+    },
     "special.data.title": {
       "desc": "直播名称",
       "must": "否",

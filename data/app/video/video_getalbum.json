@@ -1,0 +1,116 @@
+{
+  "desc": "视频一期--视频专辑",
+  "params": {
+    "id": {
+      "desc": "专辑id",
+      "must": "是",
+      "type": "int"
+    },
+    "user_id": {
+      "desc": "用户id",
+      "must": "否",
+      "type": "int"
+    }
+  },
+  "return": {
+    "data": {
+      "desc": "专辑内容列表",
+      "must": "是",
+      "type": "array"
+    },
+    "data.title": {
+      "desc": "专辑名称",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data": {
+      "desc": "专辑视频内容",
+      "must": "是",
+      "type": "array"
+    },
+    "data.video_data.id": {
+      "desc": "视频id",
+      "must": "是",
+      "type": "int"
+    },
+    "data.video_data.title": {
+      "desc": "视频名称",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.type": {
+      "desc": "内容的数据类型",
+      "must": "是",
+      "type": "int"
+    },
+    "data.video_data.views": {
+      "desc": "观看数",
+      "must": "是",
+      "type": "int"
+    },
+    "data.video_data.desc": {
+      "desc": "导语",
+      "must": "是",
+      "type": "int"
+    },
+    "data.video_data.create_time": {
+      "desc": "创建时间",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.comments": {
+      "desc": "总评论数",
+      "must": "是",
+      "type": "int"
+    },
+    "data.video_data.con_img": {
+      "desc": "缩略图",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.image": {
+      "desc": "视频底图",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.url": {
+      "desc": "视频url",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.duration": {
+      "desc": "时长",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.source_image": {
+      "desc": "来源头像",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.source_name": {
+      "desc": "来源名称",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.is_liked": {
+      "desc": "用户是否喜欢该视频",
+      "must": "是",
+      "type": "int"
+    },
+    "data.video_data.share": {
+      "desc": "分享链接",
+      "must": "是",
+      "type": "string"
+    },
+    "data.video_data.share_img": {
+      "desc": "分享图片",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "视频专辑详情页",
+  "type": "post",
+  "url": "appapi/video/getalbum",
+  "version": "v2.1.0"
+}
