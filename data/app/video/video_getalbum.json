@@ -102,6 +102,11 @@
       "desc": "分享链接",
       "must": "是",
       "type": "string"
+    },
+    "data.video_data.share_img": {
+      "desc": "分享图片",
+      "must": "是",
+      "type": "string"
     }
   },
   "title": "视频专辑详情页",
