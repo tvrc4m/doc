@@ -1,0 +1,37 @@
+<div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
+    <div id="paramInfo" class="headline">
+        <h2>app与js交互</h2>
+    </div>
+    <div>
+        <p>
+            <ol>
+                <li>
+                    JS加载完毕之后，调用客户端方法，loadComplete()方法 目的：通知客户端加载已经完成
+                </li>
+                <li>
+                    JS需要提供一个方法setActivityState("state") 
+                </li>
+                <li>
+                    说明：此方法主要是客户端调用js，以告知js具体的状态，以下是状态说明（后期可能更改暂定这些）： 
+                    <ul>
+                        <li>
+                            未登录，未分享,但是没有手机号
+                        </li>
+                        <li>
+                            已登录，已分享，并且绑定手机号了
+                        </li>
+                        <li>
+                            已登录，未分享(初步考虑，这个不会有，但是为了兼容以后，暂时写上)
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    客户端需要提供一个带返回值的方法，getSessionId( return sessionId) 说明：供给js调用，随时获取sessionId 
+                </li>
+                <li>
+                    客户端需要提供一个方法 startClickPrize() 说明：JS通知客户端，用户已经点击了抽奖按钮
+                </li>
+            </ol>
+        </p>
+    </div>
+</div>
