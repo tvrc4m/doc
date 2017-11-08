@@ -8,7 +8,7 @@ class DocController extends Doc {
 
         $api_list=$this->getDocList();
 
-        $this->display("doc/{$doc}.html",['api_list'=>$api_list,'tab_selected'=>$doc]);
+        $this->display("doc/{$doc}.html",['api_list'=>$api_list,'tab_selected'=>'doc']);
     }
 
     private function getDocList(){
