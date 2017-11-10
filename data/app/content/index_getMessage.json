@@ -1,0 +1,39 @@
+{
+  "desc": "获取抽奖活动api所需要的消息数据",
+  "params": {
+    "sessionId": {
+      "desc": "用户登录后的sessionId",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {
+    "title": {
+      "desc": "标题",
+      "must": "是",
+      "type": "string"
+    },
+    "time": {
+      "desc": "消息发送时间",
+      "must": "是",
+      "type": "string"
+    },
+    "message":{
+      "desc":"消息内容",
+      "type":"string",
+      "must":"是"
+    },
+    "code":{
+      "desc": "劵码",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "title": "抽奖活动消息接口",
+  "type": "post",
+  "url": "appapi/activity/getMessage",
+  "version": "v1.0.1"
+}
+
+
+

@@ -1,0 +1,28 @@
+{
+"api_version": ".",
+"data": {
+	"list":
+	[
+            {
+            "title": "你中奖啦",
+            "time": "12月12日",
+            "message": "fdsfdsfdsfdgdfgdg",
+            "code": "HFO149302432042304234384",
+            },
+            {
+            "title": "你中奖啦",
+            "time": "12月12日",
+            "message": "fdsfdsfdsfdgdfgdg",
+            "code": "HFO149302432042304234384",
+            },
+            {
+            "title": "你中奖啦",
+            "time": "12月12日",
+            "message": "fdsfdsfdsfdgdfgdg",
+            "code": "HFO149302432042304234384",
+            }
+       ]
+    },
+"error_code": 0,
+  "error_msg": ""
+}
