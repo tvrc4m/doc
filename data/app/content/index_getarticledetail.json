@@ -92,7 +92,32 @@
       "desc": "发布者用户名",
       "must": "是",
       "type": "string"
-    }
+    },
+    "activity": {
+      "desc": "活动数据",
+      "must": "是",
+      "type": "array"
+    },
+    "activity.activity_id": {
+      "desc": "活动id",
+      "must": "是",
+      "type": "int"
+    },
+    "activity.buoy": {
+      "desc": "活动图标",
+      "must": "是",
+      "type": "string"
+    },
+    "activity.activity_url": {
+      "desc": "活动url地址",
+      "must": "是",
+      "type": "string"
+    },
+    "activity_static": {
+      "desc": "文章活动状态，1、参与活动原创 2、不参与活动原创 3、参与别的活动原创 4、非原创",
+      "must": "是",
+      "type": "int"
+    },
   },
   "title": "文章详情页接口",
   "type": "post",
