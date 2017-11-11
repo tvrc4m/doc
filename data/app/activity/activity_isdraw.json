@@ -1,43 +1,17 @@
 {
-  "desc": "第三方账号绑定",
+  "desc": "根据uid判断该用户是否已抽过奖",
   "params": {
-    "uid": {
-      "desc": "用户id",
-      "must": "是",
-      "type": "int"
-    },
-    "access_token": {
-      "desc": "access_token",
+    "sessionId": {
+      "desc": "用户登录后的sessionId",
       "must": "是",
       "type": "string"
-    },
-    "openid": {
-      "desc": "openid",
-      "must": "是",
-      "type": "string"
-    },
-    "platform": {
-      "desc": "平台 1：微博；2：微信；3：QQ",
-      "must": "是",
-      "type": "int"
     }
   },
   "return": {
-    "openid": {
-      "desc": "成功后返回的openid",
-      "type": "string"
-    },
-    "error_code": {
-      "desc": "错误码:0 成功 1失败 2也是失败，此账号已经被别的用户绑定",
-      "type": "int"
-    },
-    "error_msg": {
-      "desc": "错误消息 1(platform不能为空 openid不能为空 access_token不能为空 uid不能为空 绑定失败) 2 此账号已经被别的用户绑定",
-      "type": "string"
-    }
+      "status": 1
   },
-  "title": "第三方账号绑定",
+  "title": "根据uid判断该用户是否已抽过奖",
   "type": "post",
-  "url": "appapi/binding/bindSocialAccount",
+  "url": "appapi/activity/isdraw",
   "version": "v1.0.1"
 }
