@@ -8,7 +8,7 @@
     }
   },
   "return": {
-      "status": 1,
+      "status": 1
   },
   "title": "根据uid判断该用户是否已抽过奖",
   "type": "post",
