@@ -1,0 +1,17 @@
+{
+  "desc": "根据uid判断该用户是否已抽过奖",
+  "params": {
+    "sessionId": {
+      "desc": "用户登录后的sessionId",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {
+      "status": 1,
+  },
+  "title": "根据uid判断该用户是否已抽过奖",
+  "type": "post",
+  "url": "appapi/activity/isdraw",
+  "version": "v1.0.1"
+}
