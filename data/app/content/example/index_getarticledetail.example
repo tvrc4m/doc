@@ -33,6 +33,7 @@
       "url": "http://www.kanfanews.com/web/news/index/892413/1",
       "video_source": "",
       "activity": {
+          "title": "测试标题",
           "activity_id": "1",
           "buoy": "www.baidu.com",
           "activity_url": "http://www.kanfa.compublic/web/activity/draw/detail.html?activity_id=1"
@@ -72,6 +73,7 @@
       "url": "http://www.kanfanews.com/web/news/index/892362/1",
       "video_source": "",
       "activity": {
+          "title": "测试标题",
           "activity_id": "1",
           "buoy": "www.baidu.com",
           "activity_url": "http://www.kanfa.compublic/web/activity/draw/detail.html?activity_id=1"
