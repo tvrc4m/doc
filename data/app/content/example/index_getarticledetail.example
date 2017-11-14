@@ -32,6 +32,13 @@
       "type": 2,
       "url": "http://www.kanfanews.com/web/news/index/892413/1",
       "video_source": "",
+      "activity": {
+          "title": "测试标题",
+          "activity_id": "1",
+          "buoy": "www.baidu.com",
+          "activity_url": "http://www.kanfa.compublic/web/activity/draw/detail.html?activity_id=1"
+      },
+      "activity_static": 4,
       "views": "20"
     },
     {
@@ -65,6 +72,13 @@
       "type": 2,
       "url": "http://www.kanfanews.com/web/news/index/892362/1",
       "video_source": "",
+      "activity": {
+          "title": "测试标题",
+          "activity_id": "1",
+          "buoy": "www.baidu.com",
+          "activity_url": "http://www.kanfa.compublic/web/activity/draw/detail.html?activity_id=1"
+      },
+      "activity_static": 4,
       "views": "85"
     },
     {

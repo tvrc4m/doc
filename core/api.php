@@ -251,7 +251,7 @@ class Api extends Doc {
         switch ($type) {
 
             case self::API_TYPE_APP:
-            return ['channel'=>'频道','content'=>'内容','login'=>'登陆','bind'=>'绑定与解绑','user'=>'用户','other'=>'其他','live'=>'直播','message'=>'消息','live_v2'=>'直播一期','video'=>'视频一期'];
+            return ['channel'=>'频道','content'=>'内容','login'=>'登陆','bind'=>'绑定与解绑','user'=>'用户','other'=>'其他','live'=>'直播','message'=>'消息','live_v2'=>'直播一期','video'=>'视频一期','activity'=>'分享原创拉新活动'];
             break;
 
             case self::API_TYPE_WEB:
