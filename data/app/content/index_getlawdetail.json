@@ -1,0 +1,84 @@
+{
+  "desc": "获取政法先锋活动详情页数据api",
+  "params": {
+    "sessionid": {
+      "desc": "用户登录后的sessionId",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {
+    "headimage": {
+      "desc": "头图",
+      "must": "是",
+      "type": "string"
+    },
+    "iconid": {
+      "desc": "图标id",
+      "must": "是",
+      "type": "int"
+    },
+    "icon": {
+      "desc": "图标",
+      "must": "是",
+      "type": "string"
+    },
+    "iconname": {
+      "desc": "图标名称",
+      "must": "是",
+      "type": "string"
+    },
+    "desc": {
+      "desc": "简介",
+      "must": "是",
+      "type": "string"
+    },
+    "id":{
+      "desc":"文章id",
+      "type":"string",
+      "must":"int"
+    },
+    "title":{
+      "desc":"文章标题",
+      "type":"string",
+      "must":"是"
+    },
+    "pub_time":{
+      "desc": "发布时间",
+      "must": "是",
+      "type": "string"
+    },
+    "url":{
+      "desc": "文章链接",
+      "must": "是",
+      "type": "string"
+    },
+    "share_url":{
+      "desc": "分享链接",
+      "must": "是",
+      "type": "string"
+    },
+    "image":{
+      "desc": "缩略图",
+      "must": "是",
+      "type": "string"
+    },
+    "images":{
+      "desc": "缩略图(三图模式)",
+      "must": "是",
+      "type": "string"
+    },
+    "card_type":{
+      "desc": "卡片类型",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "title": "政法先锋活动详情页数据接口",
+  "type": "post",
+  "url": "appapi/activity/getLawDetail",
+  "version": "v1.0.1"
+}
+
+
+
