@@ -25,8 +25,8 @@
     },
     "id":{
       "desc":"文章id",
-      "type":"string",
-      "must":"int"
+      "type":"int",
+      "must":"是"
     },
     "title":{
       "desc":"文章标题",
