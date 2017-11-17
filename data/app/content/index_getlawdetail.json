@@ -65,8 +65,8 @@
     },
     "list":{
       "desc":"文章数据",
-      "type":"int",
-      "must":"array"
+      "type":"array",
+      "must":"是"
     },
     "list.id":{
       "desc":"文章id",
