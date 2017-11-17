@@ -1,20 +1,23 @@
 {
-    "activityinfo": {
+    "activityinfo": [
         "iconid":22
         "icon":"sdfdsfdfsdfsdf",
         "iconname":"sdfdsfdfsdfsdf",
         "headimage":"ccxc"
         "desc":"fsfdsfdfdsfdsfdsf"
-
-    },
+        "share":{
+                    "title":"政法先锋评选",
+                    "desc":"fdsgdfgfdg",
+                    "icon":"sdfdfgfgfdg",
+                    "url":"http://www.kanfanews.com/web/news/index/108428/1?share=1",
+                }
+    ],
     "data": [
         {
             "id": 108428,
             "title": "息烽县人民法院关于拍卖贵州省息烽县永靖镇南大街龙腾明苑7幢1层1-1号房屋（第一次拍卖）的公告",
             "url": "http://www.kanfanews.com/web/news/index/108428/1",
-            "share_url": "http://www.kanfanews.com/web/news/index/108428/1?share=1",
-            "image": "",
-            "images": [ ],
+            "image": "",,
             "card_type": 0,
             "pub_time": "刚刚",
         },
@@ -22,9 +25,7 @@
             "id": 108428,
             "title": "息烽县人民法院关于拍卖贵州省息烽县永靖镇南大街龙腾明苑7幢1层1-1号房屋（第一次拍卖）的公告",
             "url": "http://www.kanfanews.com/web/news/index/108428/1",
-            "share_url": "http://www.kanfanews.com/web/news/index/108428/1?share=1",
             "image": "",
-            "images": [ ],
             "card_type": 0,
             "pub_time": "刚刚",
         }
