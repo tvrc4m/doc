@@ -28,7 +28,7 @@
       "must": "是",
       "type": "string"
     },
-    "activityinfo.share": {
+    "share": {
       "desc": "分享信息",
       "must": "是",
       "type": "object"
@@ -53,37 +53,37 @@
       "must": "是",
       "type": "string"
     },
-    "data":{
+    "list":{
       "desc":"文章数据",
       "type":"array",
       "must":"是"
     },
-    "data.id":{
+    "list.id":{
       "desc":"文章id",
       "type":"int",
       "must":"是"
     },
-    "data.title":{
+    "list.title":{
       "desc":"文章标题",
       "type":"string",
       "must":"是"
     },
-    "data.pub_time":{
+    "list.pub_time":{
       "desc": "发布时间",
       "must": "是",
       "type": "string"
     },
-    "data.url":{
+    "list.url":{
       "desc": "文章链接",
       "must": "是",
       "type": "string"
     },
-    "data.image":{
+    "list.image":{
       "desc": "缩略图",
       "must": "是",
       "type": "string"
     },
-    "data.card_type":{
+    "list.card_type":{
       "desc": "卡片类型 0 无图 1 小图",
       "must": "是",
       "type": "int"
