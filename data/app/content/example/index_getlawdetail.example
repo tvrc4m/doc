@@ -1,5 +1,5 @@
 {
-    "data": [
+    "data": {
         "activityinfo": {
                 "iconid":22
                 "icon":"sdfdsfdfsdfsdf",
@@ -31,7 +31,7 @@
                 "pub_time": "刚刚",
             }
         ]
-    ],
+    },
     "api_version": ".",
     "error_code": 0,
     "error_msg": ""
