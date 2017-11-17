@@ -55,8 +55,8 @@
     },
     "data":{
       "desc":"文章数据",
-      "type":"int",
-      "must":"array"
+      "type":"array",
+      "must":"是"
     },
     "data.id":{
       "desc":"文章id",

@@ -68,9 +68,9 @@
       "type":"int",
       "must":"array"
     },
-    "data.id":{
-      "desc":"文章id",
-      "type":"int",
+    "data":{
+      "desc":"文章数据",
+      "type":"array",
       "must":"是"
     },
     "data.title":{
