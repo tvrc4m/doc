@@ -178,6 +178,7 @@ a.on {
 a.http_send,a:active.http_send,a:hover.http_send{
     color: #c7254e;
     font-size: 12px;
+    text-decoration: none;
 }
 .btn-u,.btn-u:hover,.btn-u:active{
     background-color: #428bca;
@@ -201,4 +202,11 @@ a.http_send,a:active.http_send,a:hover.http_send{
 }
 .full-width{
     width: 100%;
+}
+.api-edit,.api-edit:hover,.api-edit:active{
+    color: #337ab7;
+    text-decoration: none;
+}
+.api-copy{
+    text-decoration: none;   
 }

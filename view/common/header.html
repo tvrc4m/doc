@@ -28,6 +28,12 @@
                         <li class="<?php echo $data['tab_selected']=='app'?'active':'';?>"><a href="/api/app">APP接口文档</a></li>
                         <li class="<?php echo $data['tab_selected']=='http'?'active':'';?>"><a href="/api/http#channel_getlist">发起请求</a></li>
                         <li class="<?php echo $data['tab_selected']=='doc'?'active':'';?>"><a href="/doc/develop#develop">开发文档</a></li>
+                        <li></li>
+                        <li></li>
+                        <li>
+                            <!-- <code><a class="api-edit" href="/api/cat" target="_blank">编辑</a></code> -->
+                            <button type="button" style="margin-top: 5px;padding: 3px 10px;" class="btn-u" style="">编辑类别</button> 
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -39,6 +45,7 @@
     <div class="container content" style="position: relative;top: 65px;">
         <div class="row">
             <!-- Begin Sidebar Menu -->
+            <?php if($data['api_list']){ ?>
             <div class="" style="position: fixed;z-index: 99;width: auto;max-width: 280px;">
                 <ul class="doc-nav list-group sidebar-nav-v1" id="sidebar-nav">
                     <?php foreach($data['api_list'] as $parent=>$list){ ?>
@@ -91,3 +98,4 @@
                     $(this).addClass("active");
                 })
             </script>
+            <?php } ?>
