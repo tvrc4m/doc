@@ -1,0 +1,99 @@
+{
+  "desc": "获取政法先锋活动首页数据api",
+  "params": {
+    "sessionid": {
+      "desc": "用户登录后的sessionId",
+      "must": "是",
+      "type": "string"
+    }
+  },
+  "return": {
+    "activityinfo":{
+      "desc": "活动信息",
+      "must": "是",
+      "type": "array"
+    },
+    "activityinfo.iconid": {
+      "desc": "图标id",
+      "must": "是",
+      "type": "int"
+    },
+    "activityinfo.icon": {
+      "desc": "图标",
+      "must": "是",
+      "type": "string"
+    },
+    "activityinfo.iconname": {
+      "desc": "图标名称",
+      "must": "是",
+      "type": "string"
+    },
+    "share": {
+      "desc": "分享信息",
+      "must": "是",
+      "type": "object"
+    },
+    "share.title": {
+      "desc": "分享标题",
+      "must": "是",
+      "type": "string"
+    },
+    "share.desc": {
+      "desc": "分享简介",
+      "must": "是",
+      "type": "string"
+    },
+    "share.icon": {
+      "desc": "分享图标",
+      "must": "是",
+      "type": "string"
+    },
+    "share.url": {
+      "desc": "分享url",
+      "must": "是",
+      "type": "string"
+    },
+    "list":{
+      "desc":"文章数据",
+      "type":"array",
+      "must":"是"
+    },
+    "list.id":{
+      "desc":"文章id",
+      "type":"int",
+      "must":"是"
+    },
+    "list.title":{
+      "desc":"文章标题",
+      "type":"string",
+      "must":"是"
+    },
+    "list.pub_time":{
+      "desc": "发布时间",
+      "must": "是",
+      "type": "string"
+    },
+    "list.url":{
+      "desc": "文章链接",
+      "must": "是",
+      "type": "string"
+    },
+    "list.image":{
+      "desc": "缩略图",
+      "must": "是",
+      "type": "string"
+    },
+    "list.card_type":{
+      "desc": "卡片类型 0 无图 1 小图",
+      "must": "是",
+      "type": "int"
+    }
+  },
+  "title": "政法先锋活动首页数据接口",
+  "type": "post",
+  "url": "appapi/activity/getLawList",
+  "version": "v1.0.1"
+}
+
+
+
