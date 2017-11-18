@@ -4,7 +4,7 @@
         <h2><?php echo $data['api']['title'];?></h2>
     </div>
     <p class="api_url">
-        <span class="label label-primary"><?php echo strtoupper($data['api']['type']);?></span> 
+        <span class="label label-primary"><?php echo strtoupper($data['api']['type']==1?"post":"get");?></span> 
         <em><?php echo $data['api']['url']; ?></em>
         <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
     </p>
@@ -98,21 +98,21 @@
                 success:function(data){
                     $(".headline h2").html(data.title);
                     $(".api_url em").html(data.url);
-                    $(".api_url .label-primary").html(data.type);
+                    $(".api_url .label-primary").html(data.type==1?'POST':'GET');
                     $("input[name=url]").val(data.url);
                     if(data.params){
                         var html="";
-                        for(field in data.params){
+                        for(index in data.params){
                             html+='<tr>';
-                            if(data.params[field]['must']=='是'){
-                                html+='<td class="text-center console-index td-bottom" style="width: 100px;"><code>*</code>'+field+'</td>';
+                            if(data.params[index]['must']==1){
+                                html+='<td class="text-center console-index td-bottom" style="width: 100px;"><code>*</code>'+data.params[index].name+'</td>';
                             }else{
-                                html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+field+'</td>';
+                                html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+data.params[index].name+'</td>';
                             }
                             html+='<td class="text-center td-bottom" style="width: 100px;">';
-                            html+='<input type="text" name="'+field+'" />';
+                            html+='<input type="text" name="'+data.params[index].name+'" />';
                             html+='</td>';
-                            html+='<td class="text-center td-bottom text-left">'+data.params[field].desc+'</td>';
+                            html+='<td class="text-center td-bottom text-left">'+data.params[index].remark+'</td>';
                             html+='</tr>';
                         }
                         $("tbody").html(html);

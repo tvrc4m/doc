@@ -4,7 +4,7 @@ class HttpController extends Api {
 
     public function index($params){
 
-        $api_list=$this->getApiList();
+        $api_list=$this->getApiList('http');
 
         $this->display('http/index.html',['api_list'=>$api_list,'tab_selected'=>'http']);
     }
@@ -13,8 +13,8 @@ class HttpController extends Api {
 
         $key=$params['key'];
 
-        $api=$this->getJsonByKey('app',$key);
-
+        $api=$this->getApi($key);
+        
         exit(json_encode($api));
     }
 

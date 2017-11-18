@@ -1,0 +1,279 @@
+<div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
+    <form id="api_form">
+        <h4>基本信息</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="110">字段</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody id="base_body"></tbody>
+        </table>
+        <h4>请求参数</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="30"></th>
+                    <th width="110">参数</th>
+                    <th width="110">类型</th>
+                    <th width="50">必填</th>
+                    <th width="120">APP版本</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody id="request_body"></tbody>
+            <tfooter>
+                <tr>
+                    <td colspan="10">
+                        <input style="width: 150px;display: inline-block;" placeholder="字段名" type="text" value="" name="request_name" class="form-control" />
+                        <input class="req_type" type="checkbox" name="type" value="string">&nbsp;string
+                        <input class="req_type" type="checkbox" name="type" value="int">&nbsp;int
+                        <input class="req_type" type="checkbox" name="type" value="boolean">&nbsp;boolean
+                        <input class="req_type" type="checkbox" name="type" value="array">&nbsp;array
+                        <code>|</code>
+                        <input class="req_must" type="checkbox" name="must" checked="" value="1" />&nbsp;必填
+                        <code><a href="javascript:void(0);" onclick="addReqFeild()">添加请求字段</a></code>
+                    </td>
+                </tr>
+            </tfooter>
+        </table>
+        <h4>返回数据</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="30"></th>
+                    <th width="110">参数</th>
+                    <th width="110">类型</th>
+                    <th width="50">必返</th>
+                    <th width="120">APP版本</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody id="return_body"></tbody>
+            <tfooter>
+                <tr>
+                    <td colspan="10">
+                        <input style="width: 150px;display: inline-block;" placeholder="字段名" type="text" value="" name="return_name" class="form-control" />
+                        <input class="return_type" type="checkbox" name="type" value="string">&nbsp;string
+                        <input class="return_type" type="checkbox" name="type" value="int">&nbsp;int
+                        <input class="return_type" type="checkbox" name="type" value="boolean">&nbsp;boolean
+                        <input class="return_type" type="checkbox" name="type" value="array">&nbsp;array
+                        <code>|</code>
+                        <input class="return_must" type="checkbox" name="must" checked="" value="1" />&nbsp;必返
+                        <code><a href="javascript:void(0);" onclick="addRetFeild()">添加返回字段</a></code>
+                    </td>
+                </tr>
+            </tfooter>
+        </table>
+        <button type="button" class="btn-u" onclick="saveApi()" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">保存</button> 
+        &nbsp;&nbsp;&nbsp;<span class="error"></span>
+    </form>
+</div>
+<script id="api_hidden" type="text/html">
+    {{each hidden as value name}}
+        <input type="hidden" name="{{name}}" value="{{value}}">
+    {{/each}}
+</script>
+<script id="api_base_template" type="text/html">
+    {{each base as item name}}
+        <tr>
+            <td>
+                <span class="td-title">{{name}}</span>
+            </td>
+            <td>
+                {{if item['name']=='cat_id'}}
+                    <div class="td-title">
+                        {{each item['list'] as cat}}
+                            <input class="api_cat" type="checkbox" {{if cat['id']==item['value']}}checked{{/if}} name="cat_id" value="{{cat['id']}}">&nbsp;{{cat['name']}}&nbsp;&nbsp;
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <input type="text" value="{{item['value']}}" name="{{item['name']}}" class="form-control" />
+                {{/if}}
+            </td>
+        </tr>
+    {{/each}}
+</script>
+<script type="text/html" id="api_params_template">
+    {{each params as item index}}
+        <tr>
+            <td>
+                <code><a href="javascript:void(0);" class="param-del" onclick="paramDel(this)">X</a></code>
+            </td>
+            <td>
+                <span class="td-title">{{item['name']}}</span>
+                <input type="hidden" name="params[{{item['name']}}][id]" value="{{item['id']}}">
+            </td>
+            <td>
+                <select name="params[{{item['name']}}][type]">
+                    <option value="">--请选择类型--</option>
+                    <option {{if item['type']=='string'}}selected{{/if}} value="string">string</option>
+                    <option {{if item['type']=='int'}}selected{{/if}} value="int">int</option>
+                    <option {{if item['type']=='boolean'}}selected{{/if}} value="boolean">boolean</option>
+                    <option {{if item['type']=='array'}}selected{{/if}} value="array">array</option>
+                </select>
+            </td>
+            <td>
+                <div class="td-title full-width text-center">
+                    <input type="checkbox" name="params[{{item['name']}}][must]" {{if item['must']=='1'}}checked{{/if}} value="1" />
+                </div>
+            </td>
+            <td>
+                <input type="text" value="{{item['version']}}" name="params[{{item['name']}}][version]" class="form-control" />
+            </td>
+            <td>
+                <input type="text" value="{{item['remark']}}" name="params[{{item['name']}}][remark]" class="form-control" />
+            </td>
+        </tr>
+    {{/each}}
+</script>
+<script type="text/html" id="api_return_template">
+    {{each params as item}}
+        <tr>
+            <td>
+                <code><a href="javascript:void(0);" class="param-del" onclick="paramDel(this)">X</a></code>
+            </td>
+            <td>
+                <span class="td-title">{{item['name']}}</span>
+                <input type="hidden" name="return[{{item['name']}}][id]" value="{{item['id']}}">
+            </td>
+            <td>
+                <select name="return[{{item['name']}}][type]">
+                    <option value="">--请选择类型--</option>
+                    <option {{if item['type']=='string'}}selected{{/if}} value="string">string</option>
+                    <option {{if item['type']=='int'}}selected{{/if}} value="int">int</option>
+                    <option {{if item['type']=='boolean'}}selected{{/if}} value="boolean">boolean</option>
+                    <option {{if item['type']=='array'}}selected{{/if}} value="array">array</option>
+                </select>
+            </td>
+            <td>
+                <div class="td-title full-width text-center">
+                    <input type="checkbox" name="return[{{item['name']}}][must]" {{if item['must']=='1'}}checked{{/if}} value="1" />
+                </div>
+            </td>
+            <td>
+                <input type="text" value="{{item['version']}}" name="return[{{item['name']}}][version]" class="form-control" />
+            </td>
+            <td>
+                <input type="text" value="{{item['remark']}}" name="return[{{item['name']}}][remark]" class="form-control" />
+            </td>
+        </tr>
+    {{/each}}
+</script>
+<script src="/static/js/template-web.js"></script>
+<script type="text/javascript">
+    var api=jQuery.parseJSON('<?php echo $data['api'];?>');
+    var base={"接口地址":{name:"url",value:api.url},"标题":{name:'title',value:api.title},"描述说明":{name:"remark",value:api.remark},"版本号":{name:"version",value:api.version},'类别':{name:"cat_id",value:api.cat_id,list:api.cats}};
+    var hidden_html = template("api_hidden", {hidden:{id:api.id}});
+    var base_html = template("api_base_template", {base:base});
+    var req_html = template("api_params_template", {params:api.params});
+    var ret_html = template("api_return_template", {params:api.return});
+    $("#api_form").prepend(hidden_html);
+    $("#base_body").append(base_html);
+    $("#request_body").append(req_html);
+    $("#return_body").append(ret_html);
+    function paramDel(that){
+        $(that).parents('tr').remove();
+    }
+    $(function(){
+        $(".return_type").click(function(){
+            var current=$(this).val();
+            $(".return_type").each(function(i,item){
+                if($(item).prop("checked") && $(item).val()!=current){
+                    $(item).prop("checked",false);
+                }
+            })
+        })
+        $(".req_type").click(function(){
+            var current=$(this).val();
+            $(".req_type").each(function(i,item){
+                if($(item).prop("checked") && $(item).val()!=current){
+                    $(item).prop("checked",false);
+                }
+            })
+        })
+        $(".api_cat").click(function(){
+            var current=$(this).val();
+            $(".api_cat").each(function(i,item){
+                if($(item).prop("checked") && $(item).val()!=current){
+                    $(item).prop("checked",false);
+                }
+            })
+        })
+    })
+    function addReqFeild(){
+        var input=$("input[name=request_name]");
+        var type=$("input.req_type:checkbox:checked").val();
+        var must=$("input.req_must:checkbox:checked").val();
+        var name=input.val();
+        if(!name){
+            input.focus();
+            return false;
+        }
+        var params={};
+        Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0"},enumerable:true});
+        var ret_html = template("api_params_template", {params:params});
+        $("#request_body").append(ret_html);
+        input.val("");
+    }
+    function addRetFeild(){
+        var input=$("input[name=return_name]");
+        var type=$("input.return_type:checkbox:checked").val();
+        var must=$("input.return_must:checkbox:checked").val();
+        var name=input.val();
+        if(!name){
+            input.focus();
+            return false;
+        }
+        var params={};
+        Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0"},enumerable:true});
+        var ret_html = template("api_return_template", {params:params});
+        $("#return_body").append(ret_html);
+        input.val("");
+    }
+    function saveApi(){
+        var url=$("input[name=url]").val();
+        var title=$("input[name=title]").val();
+        var cat_id=$("input[name=cat_id]:checked").val();
+        var params=$("select[name*=type]");
+        if(!url){
+            $(".error").text('接口地址不能为空');
+            return false;
+        }
+        if(!title){
+            $(".error").text("接口标题不能为空");
+            return false;
+        }
+        if(!cat_id){
+            $(".error").text("类别不能为空");
+            return false;
+        }
+        params.each(function(i,item){
+            if(!$(item).val()){
+                console.log(item);
+                $(".error").text('参数类型不能为空');    
+                return false;
+            }
+        })
+        $.ajax({
+            url:"/api/app/save",
+            type:"POST",
+            dataType:"json",
+            data:$("#api_form").serialize(),
+            success:function(data){
+                if(data.errno==0){
+                    alert("修改成功");
+                    document.location.href=data.redirect;
+                }else{
+                    alert(data.errmsg);
+                }
+                console.log(data);
+            }
+        })
+    }
+    function notice(){
+
+
+    }
+</script>

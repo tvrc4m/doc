@@ -47,9 +47,9 @@
                             <ul id="collapse-api" class="collapse">
                                 <?php foreach($list as $key=>$v){ ?>
                                     <li>
-                                        <a key="<?php echo $key;?>" href="<?php echo $v['url'];?>">
+                                        <a key="<?php echo $v['code'];?>" href="<?php echo $v['side_url'];?>">
                                             <i class="fa fa-file-text-o"></i>
-                                            <?php echo $v['name']; ?>
+                                            <?php echo $v['title']; ?>
                                         </a>
                                     </li>
                                 <?php } ?>

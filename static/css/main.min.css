@@ -186,3 +186,19 @@ a.http_send,a:active.http_send,a:hover.http_send{
 #result{
     
 }
+.param-del,.param-del:hover,.param-del:active{
+    height: 30px;
+    line-height: 30px;
+    color: #c7254e;
+}
+.td-title{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+}
+.error{
+    color: #c7254e;
+}
+.full-width{
+    width: 100%;
+}

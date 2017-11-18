@@ -22,7 +22,7 @@ class Api extends Doc {
         $api_list=$api_data=[];
 
         foreach (glob(DATA.$type.'/*') as $filename) {
-            
+
             if($filename==$type.self::JSON_EXT) continue;
 
             if(is_dir($filename)){
@@ -36,6 +36,8 @@ class Api extends Doc {
                     $api_content=file_get_contents($secname);
 
                     $api_parse=json_decode($api_content,true);
+
+                    $api_parse['filename']=$type.'/'.$dir.'/'.basename($secname);
 
                     $api_list[$dirs[$dir]][$api_basename]=['name'=>$api_parse['title'],'url'=>'/api/app#'.$api_basename];
                     $api_data[$api_basename]=$api_parse;
@@ -160,6 +162,54 @@ class Api extends Doc {
             $common=json_decode($commonapi,true);
         }
         
+        $db=new DB();
+
+        $cat_list=[];
+
+        foreach ($api_list as $name=>$api) {
+            
+            $sql="insert into kf_api_cat(name,create_date) values (?,now())";
+
+            $cat_id=$db->insert($sql,'s',[$name]);
+
+            foreach ($api as $key=>$detail) {
+                
+                $cat_list[$key]=$cat_id;
+            }
+        }
+
+        foreach ($api_data as $key=>$api) {
+
+            $remark=$db->escape($api['desc']);
+            
+            $sql="INSERT INTO kf_api(title,code,type,cat_id,url,version,remark,create_date) values (?,'{$key}',1,'{$cat_list[$key]}','{$api['url']}','{$api['version']}','{$remark}',now())";
+
+            // $api_id=$db->insert($sql,'sssdssss',[$api['title'],$key,1,$]);
+
+            foreach ($api['params'] as $name=>$param) {
+
+                $must=$param['must']=='是'?1:0;
+
+                $remark=$db->escape($param['desc']);
+
+                $sql="insert into kf_api_params(name,api_id,type,must,remark,create_date) values ('{$name}',{$api_id},'{$param['type']}','{$must}','{$remark}',now())"; 
+
+                $db->insert($sql);   
+            }
+
+            foreach ($api['return'] as $name=>$param) {
+
+                $must=$param['must']=='是'?1:0;
+
+                $remark=$db->escape($param['desc']);
+
+                $sql="insert into kf_api_return(name,api_id,type,must,remark,create_date) values ('{$name}',{$api_id},'{$param['type']}','{$must}','{$remark}',now())"; 
+
+                $db->insert($sql);
+            }
+            
+        }
+        exit;
         $tab_selected=$type;
 
         $data=['api_list'=>$api_list,'tab_selected'=>$tab_selected];
@@ -173,7 +223,7 @@ class Api extends Doc {
         exit(0);
     }
 
-    public function getApiList($type=self::API_TYPE_APP){
+    public function getApiList1($type=self::API_TYPE_APP){
 
         $dirs=$this->getTypeCate($type);
 
@@ -205,40 +255,80 @@ class Api extends Doc {
         return $api_list;
     }
 
-
     /**
-     * 通过指定的key获取josn文件数据
-     * @param  string $type 指定api类型
-     * @param  string $key 指定api接口的key
+     * 获取接口基本信息
+     * @param  string $code 唯一值
      * @return array
      */
-    public function getJsonByKey($type,$key){
+    public function getApi($code){
 
-        foreach (glob(DATA.$type.'/*') as $filename) {
-            
-            if($filename==$type.self::JSON_EXT) continue;
+        $db=new DB();
+        // 接口基本信息
+        $api=$db->get("SELECT * FROM kf_api WHERE code='{$code}'");
 
-            if(is_dir($filename)){
+        if(empty($api)) return [];
+        // 请求参数
+        $params=$db->find("SELECT * FROM kf_api_params WHERE api_id=".$api['id']);        
+        // 返回参数
+        $return=$db->find("SELECT * FROM kf_api_return WHERE api_id=".$api['id']);
 
-                $dir=basename($filename);
+        $api['params']=$params;
 
-                foreach (glob($filename.'/*'.self::JSON_EXT) as $secname) {
-                    
-                    $api_basename=basename($secname,self::JSON_EXT);
+        $api['return']=$return;
 
-                    if($key==$api_basename){
+        return $api;
+    }
 
-                        $api_content=file_get_contents($secname);    
+    /**
+     * 获取接口列表
+     * @param  页面方法 $action 
+     * @return array
+     */
+    public function getApiList($action='api'){
 
-                        $api_parse=json_decode($api_content,true);
+        $db=new DB();
 
-                        return $api_parse;
-                    }
-                }
+        $cat_list=$this->getApiCat();
+        $api_list=$db->find("SELECT * FROM kf_api");
+        $params_list=$db->find("SELECT * FROM kf_api_params ORDER BY name ASC");        
+        $return_list=$db->find("SELECT * FROM kf_api_return ORDER BY name ASC");        
+
+        $cat_result=$params_result=$return_result=$api_result=[];
+
+        foreach($cat_list as $cat) $cat_result[$cat['id']]=$cat['name'];
+        foreach($params_list as $params) $params_result[$params['api_id']][]=$params;
+        foreach($return_list as $return) $return_result[$return['api_id']][]=$return;
+        
+        foreach ($api_list as $api) {
+            // 类别名称
+            $cat=$cat_result[$api['cat_id']];
+            // 组装请求参数
+            $api['params']=$params_result[$api['id']];
+            // 组装返回参数
+            $api['return']=$return_result[$api['id']];
+
+            if($action=='api'){
+
+                $api['side_url']='/api/app#'.$api['code'];
+            }elseif($action=='http'){
+                $api['side_url']='/api/http#'.$api['code'];
             }
+            // 按类别分组
+            $api_result[$cat][]=$api;
         }
 
-        return [];
+        return $api_result;
+    }
+
+    /**
+     * 获取api接口的类别 
+     * @return array
+     */
+    public function getApiCat(){
+
+        $db=new DB();
+
+        return $db->find("SELECT * FROM kf_api_cat");
     }
 
     /**
