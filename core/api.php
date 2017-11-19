@@ -182,9 +182,9 @@ class Api extends Doc {
 
             $remark=$db->escape($api['desc']);
             
-            $sql="INSERT INTO kf_api(title,code,type,cat_id,url,version,remark,create_date) values (?,'{$key}',1,'{$cat_list[$key]}','{$api['url']}','{$api['version']}','{$remark}',now())";
+            $sql="INSERT INTO kf_api(title,code,type,cat_id,url,version,remark,create_date) values ('{$api['title']}','{$key}',1,'{$cat_list[$key]}','{$api['url']}','{$api['version']}','{$remark}',now())";
 
-            // $api_id=$db->insert($sql,'sssdssss',[$api['title'],$key,1,$]);
+            $api_id=$db->insert($sql);
 
             foreach ($api['params'] as $name=>$param) {
 
@@ -307,6 +307,12 @@ class Api extends Doc {
             // 组装返回参数
             $api['return']=$return_result[$api['id']];
 
+            $example=$this->getApiExample($api['id']);
+
+            empty($example) && $example=$this->getApiExampleByApi($api);
+
+            $api['example']=$example;
+
             if($action=='api'){
 
                 $api['side_url']='/api/app#'.$api['code'];
@@ -329,6 +335,124 @@ class Api extends Doc {
         $db=new DB();
 
         return $db->find("SELECT * FROM kf_api_cat WHERE stat=1");
+    }
+
+    /**
+     * 获取接口的事例代码
+     * @param  int $id 接口id
+     * @return string
+     */
+    public function getApiExample($api_id){
+
+        $db=new DB();
+
+        $sql="SELECT code FROM kf_api_example WHERE stat=1 AND api_id=".intval($api_id)." LIMIT 1";
+
+        $result=$db->get($sql);
+
+        return $result['code'];
+    }
+
+    /**
+     * 通过参数组装事例对象
+     * @param  array $apidata 
+     * @return string
+     */
+    public function getApiExampleByApi($apidata){
+       
+       if($apidata['return']){
+
+            $example=[];
+            ksort($apidata['return']);
+
+            foreach ($apidata['return'] as $index=>$res) {
+
+                $desc="<span class='data-type'>[".$res['type']."]</span>".$res['desc'];
+
+                $name=$res['name'];
+
+                if(strpos($name, ".")!==FALSE){
+
+                    list($first,$second,$third,$four)=explode('.', $name);
+
+                    // 如果只存在二个参数 
+                    if(!$third){
+
+                        if($res['type']=='array'){
+
+                            $example[$first][$second]=array();
+                        }else{
+                            
+                            if(is_object($example[$first])){
+                                $example[$first]->$second=$desc;                                            
+                            }else{
+                                $example[$first][$second]=$desc;    
+                            }
+                        }
+                    }elseif(!$four){
+
+                        if(is_object($example[$first])){
+                            if(is_object($example->$first->$second)){
+                                $example->$first->$second->$third=$desc;        
+                            }elseif(is_array($example->$first->$second)){
+                                $example->$first->$second[$third]=$desc;        
+                            }
+                        }elseif(is_array($example[$first])){
+                            if(is_object($example[$first]->$second)){
+                                $example[$first]->$second->$third=$desc;        
+                            }elseif(is_array($example[$first]->$second)){
+                                $example[$first]->$second[$third]=$desc;        
+                            }
+                        }
+                    }else{
+                        if(is_object($example[$first])){
+                            if(is_object($example->$first->$second)){
+                                if(is_object($example->$first->$second->$third)){
+                                    $example->$first->$second->$third->$four=$desc;        
+                                }elseif(is_array($example->$first->$second->$third)){
+                                    $example->$first->$second->$third[$four]=$desc;        
+                                }
+                            }elseif(is_array($example->$first->$second)){
+                                if(is_object($example->$first->$second[$third])){
+                                    $example->$first->$second[$third]->$four=$desc;        
+                                }elseif(is_array($example->$first->$second[$third])){
+                                    $example->$first->$second[$third][$four]=$desc;        
+                                }
+                            }
+                        }elseif(is_array($example[$first])){
+                            if(is_object($example[$first]->$second)){
+                                if(is_object($example[$first]->$second->$third)){
+                                    $example[$first]->$second->$third->$four=$desc;     
+                                }elseif(is_array($example[$first]->$second->$third)){
+                                    $example[$first]->$second->$third[$four]=$desc;    
+                                }
+                            }elseif(is_array($example[$first]->$second)){
+                                if(is_object($example[$first]->$second[$third])){
+                                    $example[$first]->$second[$third]->$four=$desc;   
+                                }elseif(is_array($example[$first]->$second[$third])){
+                                    $example[$first]->$second[$third][$four]=$desc;
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    $example[$name]=($res['type']=='array' || $res['type']=='object')
+                        ?($res['type']=='array'?array():new stdClass())
+                        :$desc;
+                }
+            }
+
+            $example_result=[
+                'data'=>isset($example['data'])?$example['data']:$example,
+                'error_code'=>"[<span class='data-type'>int</span>]错误码:0 成功 1失败",
+                'error_msg'=>"[<span class='data-type'>string</span>]错误消息",
+                'api_version'=>"[<span class='data-type'>string</span>]1.0.0"
+            ];
+
+            return json_encode($example_result,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+        }
+
+        return '';
     }
 
     /**

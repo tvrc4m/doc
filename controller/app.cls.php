@@ -171,6 +171,38 @@ class AppController extends Api {
         }
     }
 
+    /**
+     * 保存example
+     * @return 
+     */
+    public function example($params){
+
+        $code=$params['code'];
+        $api_id=$params['api_id'];
+
+        $db=new DB();
+
+        // $code=$db->escape($code);
+        
+        $sql="SELECT id FROM kf_api_example WHERE stat=1 AND api_id=".intval($api_id);
+
+        $example=$db->get($sql);
+
+        if(empty($example)){
+
+            $sql="INSERT INTO kf_api_example (api_id,code,create_date) VALUES (?,?,NOW())";
+
+            $db->insert($sql,'is',[$api_id,$code]);
+        }else{
+
+            $sql="UPDATE kf_api_example SET code=?,update_date=NOW() WHERE id=?";
+
+            $db->update($sql,'si',[$code,$example['id']]);
+        }
+
+        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+    }
+
     public function actions(){
 
         return [
