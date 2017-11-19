@@ -66,7 +66,7 @@
                 </tr>
             </tfooter>
         </table>
-        <button type="button" class="btn-u" onclick="saveApi()" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">保存</button> 
+        <button type="button" class="btn-u" onclick="saveApi()" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">新增</button> 
         &nbsp;&nbsp;&nbsp;<span class="error"></span>
     </form>
 </div>
@@ -163,16 +163,12 @@
 </script>
 <script src="/static/js/template-web.js"></script>
 <script type="text/javascript">
-    var api=jQuery.parseJSON('<?php echo $data['api'];?>');
-    var base={"接口地址":{name:"url",value:api.url},"标题":{name:'title',value:api.title},"描述说明":{name:"remark",value:api.remark},"版本号":{name:"version",value:api.version},'类别':{name:"cat_id",value:api.cat_id,list:api.cats}};
-    var hidden_html = template("api_hidden", {hidden:{id:api.id}});
+    var cats=jQuery.parseJSON('<?php echo $data['cats'];?>');
+    var base={"接口地址":{name:"url",value:""},"标题":{name:'title',value:""},"描述说明":{name:"remark",value:""},"版本号":{name:"version",value:""},'类别':{name:"cat_id",value:0,list:cats}};
     var base_html = template("api_base_template", {base:base});
-    var req_html = template("api_params_template", {params:api.params});
-    var ret_html = template("api_return_template", {params:api.return});
+    var hidden_html = template("api_hidden", {hidden:{add:1}});
     $("#api_form").prepend(hidden_html);
     $("#base_body").append(base_html);
-    $("#request_body").append(req_html);
-    $("#return_body").append(ret_html);
     function paramDel(that){
         $(that).parents('tr').remove();
     }
@@ -272,22 +268,8 @@
             }
         })
     }
-    $("input[name=request_name]").on('focus',function(){
-        console.log(1111);
-        $(this).off('keydown').on('keydown',function(event){
-            console.log(3333);
-            if(event.keyCode==13){
-                addReqFeild();
-            }
-        });
-    })
-    $("input[name=return_name]").on('focus',function(){
-        console.log(1111);
-        $(this).off('keydown').on('keydown',function(event){
-            console.log(3333);
-            if(event.keyCode==13){
-                addRetFeild();
-            }
-        });
-    })
+    function notice(){
+
+
+    }
 </script>

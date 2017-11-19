@@ -27,10 +27,19 @@ class Doc {
 
     public function display($html,$data){
 
+        $actions=$this->actions();
+
+        $data['actions']=$actions;
+
         include_once(VIEW.'common/header.html');
 
         include_once(VIEW.$html);
 
         include_once(VIEW.'common/footer.html');
+    }
+
+    public function actions(){
+
+        return [];
     }
 }

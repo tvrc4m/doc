@@ -2,13 +2,34 @@
 
 class DocController extends Doc {
 
+    protected $data=[];
+
+    public function __construct(){
+
+        // $this->data['upload']=include_once(VIEW.'common/upload.html');
+        $this->data['tab_selected']='doc';
+        $this->data['api_list']=$this->getDocList();
+    }
+
     public function index($params){
 
         $doc=$params['doc'];
 
-        $api_list=$this->getDocList();
+        $this->display("doc/{$doc}.html",$this->data);
+    }
 
-        $this->display("doc/{$doc}.html",['api_list'=>$api_list,'tab_selected'=>'doc']);
+    public function pdf($params){
+
+        $doc=$params['doc'];
+
+        $filename="{$doc}.pdf";
+
+        $url="/static/doc/".$filename;
+
+        $this->data['filename']=$filename;
+        $this->data['url']=$url;
+
+        $this->display("doc/pdf.html",$this->data);
     }
 
     private function getDocList(){
@@ -20,6 +41,9 @@ class DocController extends Doc {
             ],
             'APP与JS交互文档'=>[
                 'app2js'=>['name'=>'app与js交互','url'=>'/doc/app2js#app2js'],
+            ],
+            '文档'=>[
+                
             ]
         ];
     }

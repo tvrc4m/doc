@@ -8,6 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no minimal-ui">
     <link rel="stylesheet" href="/static/css/main.min.css">
+    <link rel="stylesheet" href="/static/js/fancybox/jquery.fancybox.css">
     <script src="/static/js/jquery.min.js"></script>
 </head>
 
@@ -31,8 +32,9 @@
                         <li></li>
                         <li></li>
                         <li>
-                            <!-- <code><a class="api-edit" href="/api/cat" target="_blank">编辑</a></code> -->
-                            <button type="button" style="margin-top: 5px;padding: 3px 10px;" class="btn-u" style="">编辑类别</button> 
+                            <?php foreach($data['actions'] as $action){?>
+                                <button onclick="<?php echo $action['click'];?>" data-url="<?php echo $action['url'];?>" class="btn-u" style="font-size:12px;margin: 5px;padding: 5px;"><?php echo $action['name']?></button>
+                            <?php } ?>
                         </li>
                     </ul>
                 </div>
@@ -41,6 +43,11 @@
         <!-- m-header end-->
         <!--=== navbar end ===-->
     </header>
+    <script type="text/javascript">
+        function redirectPage(that){
+            document.location.href=$(that).data("url");
+        }
+    </script>
     <!--=== Content Part ===-->
     <div class="container content" style="position: relative;top: 65px;">
         <div class="row">

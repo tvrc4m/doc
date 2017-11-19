@@ -264,13 +264,13 @@ class Api extends Doc {
 
         $db=new DB();
         // 接口基本信息
-        $api=$db->get("SELECT * FROM kf_api WHERE code='{$code}'");
+        $api=$db->get("SELECT * FROM kf_api WHERE code='{$code}' AND stat=1");
 
         if(empty($api)) return [];
         // 请求参数
-        $params=$db->find("SELECT * FROM kf_api_params WHERE api_id=".$api['id']);        
+        $params=$db->find("SELECT * FROM kf_api_params WHERE stat=1 AND api_id=".$api['id']);        
         // 返回参数
-        $return=$db->find("SELECT * FROM kf_api_return WHERE api_id=".$api['id']);
+        $return=$db->find("SELECT * FROM kf_api_return WHERE stat=1 AND api_id=".$api['id']);
 
         $api['params']=$params;
 
@@ -289,9 +289,9 @@ class Api extends Doc {
         $db=new DB();
 
         $cat_list=$this->getApiCat();
-        $api_list=$db->find("SELECT * FROM kf_api");
-        $params_list=$db->find("SELECT * FROM kf_api_params ORDER BY name ASC");        
-        $return_list=$db->find("SELECT * FROM kf_api_return ORDER BY name ASC");        
+        $api_list=$db->find("SELECT * FROM kf_api WHERE stat=1");
+        $params_list=$db->find("SELECT * FROM kf_api_params WHERE stat=1 ORDER BY name ASC");        
+        $return_list=$db->find("SELECT * FROM kf_api_return WHERE stat=1 ORDER BY name ASC");        
 
         $cat_result=$params_result=$return_result=$api_result=[];
 
@@ -328,7 +328,7 @@ class Api extends Doc {
 
         $db=new DB();
 
-        return $db->find("SELECT * FROM kf_api_cat");
+        return $db->find("SELECT * FROM kf_api_cat WHERE stat=1");
     }
 
     /**

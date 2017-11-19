@@ -1,0 +1,21 @@
+<style type="text/css">
+    .doc-content{
+        height: 100%;
+        display: block;
+        position: relative;
+    }
+</style>
+<div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;height: 100%;">
+    <div id="paramInfo" class="headline">
+        <h2><?php echo $data['filename']; ?></h2>
+    </div>
+    <div class="doc-content">
+        <a href="<?php echo $data['url'];?>" class="media"></a>
+    </div>
+    <script src="/static/js/jquery.media.js"></script>
+    <script type="text/javascript">  
+        $(function() {  
+            $('a.media').media({width:'100%', height:'600px'});  
+        });
+</script> 
+</div>

@@ -27,6 +27,13 @@ class AppController extends Api {
         $this->export(self::API_TYPE_APP,$api);
     }
 
+    public function add($params){
+
+        $cats=$this->getApiCat();
+
+        $this->display("app/add.html",['tab_selected'=>'app','cats'=>json_encode($cats)]);
+    }
+
     /**
      * api编辑
      * @param  array $params 
@@ -36,13 +43,11 @@ class AppController extends Api {
 
         $code=$params['code'];
 
-        $api_list=$this->getApiList('api');
-
         $api=$this->getApi($code);
 
         $api['cats']=$this->getApiCat();
         // print_r($cat_list);exit;
-        $this->display("app/edit.html",['tab_selected'=>'app','api_list'=>$api_list,'api'=>json_encode($api,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)]);
+        $this->display("app/edit.html",['tab_selected'=>'app','api'=>json_encode($api,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)]);
     }
 
     /**
@@ -53,6 +58,7 @@ class AppController extends Api {
     public function save($data){
 
         $id=$data['id'];
+        $is_add=$data['add'];
         $title=$data['title'];
         $url=$data['url'];
         $cat_id=$data['cat_id'];
@@ -61,7 +67,7 @@ class AppController extends Api {
         $version=$data['version'];
         $remark=$data['remark'];
 
-        if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定接口']));
+        if(!$is_add && empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定接口']));
 
         if(empty($title)) exit(json_encode(['errno'=>-1,'errmsg'=>'接口标题不能为空']));
         if(empty($url)) exit(json_encode(['errno'=>-1,'errmsg'=>'接口地址不能为空']));
@@ -88,18 +94,29 @@ class AppController extends Api {
 
             $db->start();
 
-            $sql="UPDATE kf_api SET title=?,url=?,cat_id=?,code=?,version=?,remark=?,update_date=? WHERE id=?";
+            if($id){
 
-            $db->update($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),$id]);
+                $sql="UPDATE kf_api SET title=?,url=?,cat_id=?,code=?,version=?,remark=?,update_date=? WHERE id=?";
+
+                $db->update($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),$id]);
+            }elseif($is_add){
+
+                $sql="INSERT kf_api (title,url,cat_id,code,version,remark,create_date,stat) VALUES (?,?,?,?,?,?,?,?)";
+
+                $id=$db->insert($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),1]);
+            }else{
+
+                throw new Exception('不支持的操作');
+            }
 
             // params
             $params_exists=array_filter(array_column($params, 'id'));
 
             if(!empty($params_exists)){
 
-                $sql="DELETE FROM kf_api_params WHERE id NOT IN (?) AND api_id=?";
+                $sql="UPDATE kf_api_params SET stat=0 WHERE id NOT IN (".implode(',', $params_exists).") AND api_id=?";
 
-                $db->delete($sql,'si',[implode(',', $params_exists),$id]);
+                $db->update($sql,'i',[$id]);
             }
 
             foreach ($params as $name=>$param) {
@@ -119,12 +136,12 @@ class AppController extends Api {
 
             // return
             $return_exists=array_filter(array_column($return, 'id'));
-
+            
             if(!empty($return_exists)){
 
-                $sql="DELETE FROM kf_api_return WHERE id NOT IN (?) AND api_id=?";
-
-                $db->delete($sql,'si',[implode(',', $return_exists),$id]);
+                $sql="UPDATE kf_api_return SET stat=0 WHERE id NOT IN (".implode(',', $return_exists).") AND api_id=?";
+                
+                $db->update($sql,'i',[$id]);
             }
 
             foreach ($return as $name=>$ret) {
@@ -152,5 +169,13 @@ class AppController extends Api {
 
             exit(json_encode(['errno'=>-1,'errmsg'=>$e->getMessage()]));
         }
+    }
+
+    public function actions(){
+
+        return [
+            ['name'=>'类别管理','url'=>'/api/cat','click'=>'redirectPage(this)'],
+            ['name'=>'新增接口','url'=>'/api/app/add','click'=>'redirectPage(this)']
+        ];
     }
 }

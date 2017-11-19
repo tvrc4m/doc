@@ -1,0 +1,106 @@
+<div class="col-md-9" style="padding-right:15px;width: 100%;">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="warning">
+                <th width="110">名称</th>
+                <th width="110">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($data['cat_list'] as $cat){?>
+                <tr>
+                   <td><?php echo $cat['name'];?></td> 
+                   <td>
+                       <code><a class="cat-edit" onclick="editCat(this)" data-name="<?php echo $cat['name'];?>" data-id="<?php echo $cat['id'];?>">编辑</a></code>
+                       <code><a class="cat-del" onclick="delCat(this)" data-id="<?php echo $cat['id'];?>">删除</a></code>
+                   </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+    function editCat(that){
+        var name=$(that).data('name');
+        var id=$(that).data('id');
+        console.log(name);
+        $("#cat_modal input[name=name]").val(name);
+        $("#cat_modal input[name=id]").val(id);
+        document.getElementById("catBtnSave").removeEventListener('click',add,false);
+        document.getElementById("catBtnSave").addEventListener('click',edit,false);
+        modal('#cat_modal');
+    }
+    function addCat(){
+        $("#cat_modal input[name=name]").val('');
+        $("#cat_modal input[name=id]").val('');
+        document.getElementById("catBtnSave").removeEventListener('click',edit,false);
+        document.getElementById("catBtnSave").addEventListener('click',add,false);
+        modal('#cat_modal');
+    }
+    function delCat(that){
+        var id=$(that).data("id");
+        if(!id) alert("未指定类别");
+        if(window.confirm("只有未关联的接口可删除")){
+            $.ajax({
+                url:"/api/cat/del",
+                type:"POST",
+                dataType:"json",
+                data:{id:id},
+                success:function(data){
+                    if(data.errno==0){
+                        $(that).parents("tr").remove();
+                    }else{
+                        alert(data.errmsg);
+                    }
+                }
+            })
+        }
+    }
+    function add(){
+        var name=$("#cat_modal input[name=name]").val();
+        $.ajax({
+            url:"/api/cat/add",
+            type:"POST",
+            dataType:"json",
+            data:{name:name},
+            success:function(data){
+                if(data.errno==0){
+                    document.location.reload();
+                }else{
+                    alert(data.errmsg);
+                }
+            }
+        })
+    }
+    function edit(){
+        var name=$("#cat_modal input[name=name]").val();
+        var id=$("#cat_modal input[name=id]").val();
+        $.ajax({
+            url:"/api/cat/edit",
+            type:"POST",
+            dataType:"json",
+            data:{name:name,id:id},
+            success:function(data){
+                if(data.errno==0){
+                    document.location.reload();
+                }else{
+                    alert(data.errmsg);
+                }
+            }
+        })
+    }
+    function modal(content){
+        $.fancybox({
+            'padding': 20,
+            'autoSize': true,
+            'overlayShow':true,
+            'overlayOpacity':0.7,
+           // 'autoHeight': true,
+            'type': 'inline',
+            'scrolling': 'no',
+            'href': content
+        });
+    }
+</script>

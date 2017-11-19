@@ -90,6 +90,51 @@ class DB {
         mysqli_autocommit($this->db,TRUE);
     }
 
+
+    public function _query($sql,$type='',$params=[],$multi=1){
+
+        $res=[];
+
+        if($stmt=mysqli_prepare($this->db,$sql)){
+            
+            $refs=[];
+
+            if(empty($type) && $params){
+
+                array_unshift($params, $stmt,$type);
+
+                foreach ($params as $key=>$param) $refs[]=&$params[$key];
+
+                call_user_func_array('mysqli_stmt_bind_param', $refs);
+            }
+            
+            
+            if(mysqli_stmt_execute($stmt)){
+
+                $result=mysqli_stmt_get_result($stmt);
+
+                if($multi){
+
+                    while ($row=mysqli_fetch_array($result,MYSQL_ASSOC)) {
+                    
+                        $res[]=$row;
+                    }
+                }else{
+
+                    $res=mysqli_fetch_array($result,MYSQL_ASSOC);
+                }
+
+                mysqli_stmt_close($stmt);
+
+                return $res;
+            }
+
+            throw new Exception('执行失败:'.$sql.var_export($params,true));
+        }
+        
+        throw new Exception('sql解析错误:'.$sql."&nbsp;说明:".mysqli_error($this->db));
+    }
+
     public function _exec($sql,$type,$params){
 
         if($stmt=mysqli_prepare($this->db,$sql)){
