@@ -189,7 +189,11 @@
                 dataType:"json",
                 data:{api_id:api_id,code:code},
                 success:function(data){
-                    console.log(data);
+                    if(data.errno==0){
+                        alert('保存成功');
+                    }else{
+                        alert(data.errmsg);
+                    }
                 }
             })
         }
