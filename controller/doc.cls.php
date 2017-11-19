@@ -1,50 +1,115 @@
 <?php
 
-class DocController extends Doc {
-
-    protected $data=[];
-
-    public function __construct(){
-
-        // $this->data['upload']=include_once(VIEW.'common/upload.html');
-        $this->data['tab_selected']='doc';
-        $this->data['api_list']=$this->getDocList();
-    }
+class DocController extends Api {
 
     public function index($params){
 
-        $doc=$params['doc'];
+        $data['tab_selected']='doc';
 
-        $this->display("doc/{$doc}.html",$this->data);
+        $data['api_list']=$this->getDocList();
+
+        $data['doc']=$params['doc'];
+
+        $this->display("doc/detail.html",$data);
     }
 
-    public function pdf($params){
+    /**
+     * 获取文档详情
+     * @param  array $params 
+     * @return 
+     */
+    public function detail($params){
 
-        $doc=$params['doc'];
+        $id=$params['id'];
 
-        $filename="{$doc}.pdf";
+        if(empty($id)) exit('文档不存在');
 
-        $url="/static/doc/".$filename;
+        $sql="SELECT * FROM kf_doc WHERE id=".intval($id);
 
-        $this->data['filename']=$filename;
-        $this->data['url']=$url;
+        $db=new DB();
 
-        $this->display("doc/pdf.html",$this->data);
+        $detail=$db->get($sql);
+
+        $data['tab_selected']='doc';
+
+        $data['api_list']=$this->getDocList();
+
+        $data['detail']=$detail;
+
+        $this->display('doc/detail.html',$data);
     }
 
-    private function getDocList(){
+    /**
+     * 新建文档
+     * @param 
+     */
+    public function add($params){
+
+        $data['tab_selected']='doc';
+
+        $data['cats']=$this->getCatByType(self::CAT_TYPE_DOC);
+
+        $this->display("doc/add.html",$data);
+    }
+
+    public function edit($params){
+
+        $id=$params['id'];
+
+        $sql="SELECT * FROM kf_doc WHERE id=".intval($id);
+
+        $db=new DB();
+
+        $detail=$db->get($sql);
+
+        if(empty($detail)) exit('指定文档不存在');
+
+        $data['tab_selected']='doc';
+
+        $data['detail']=$detail;
+
+        $data['cats']=$this->getCatByType(self::CAT_TYPE_DOC);
+
+        $this->display("doc/edit.html",$data);
+    }
+
+    /**
+     * 保存文档
+     * @param  array $params 
+     * @return 
+     */
+    public function save($params){
+
+        $title=$params['title'];
+        $content=$params['content'];
+        $cat_id=$params['cat_id'];
+        $id=$params['id'];
+
+        if(empty($title)) exit('标题不能为空');
+        if(empty($content)) exit('内容不能为空');
+
+        $db=new DB();
+
+        if($id){
+
+            $sql="UPDATE kf_doc SET title=?,cat_id=?,content=?,update_date=NOW() WHERE id=?";
+
+            $db->update($sql,'sisi',[$title,$cat_id,$content,$id]);
+        }else{
+
+            $sql="INSERT INTO kf_doc (title,cat_id,content,stat,create_date) VALUES (?,?,?,1,NOW())";
+
+            $id=$db->insert($sql,'sis',[$title,$cat_id,$content]);
+        }
+
+        header("Location:/doc/detail/".$id);
+    }
+
+    protected function actions(){
 
         return [
-            '开发文档'=>[
-                'develop'=>['name'=>'开发规范','url'=>'/doc/develop#develop'],
-                'workflow'=>['name'=>'工作流','url'=>'/doc/workflow#workflow']
-            ],
-            'APP与JS交互文档'=>[
-                'app2js'=>['name'=>'app与js交互','url'=>'/doc/app2js#app2js'],
-            ],
-            '文档'=>[
-                
-            ]
+            ['name'=>'新建文档','url'=>'/doc/add','click'=>'redirectPage(this)'],
+            ['name'=>'类别管理','url'=>'/doc/cat','click'=>'redirectPage(this)'],
         ];
     }
 }

@@ -203,7 +203,7 @@ class AppController extends Api {
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
 
-    public function actions(){
+    protected function actions(){
 
         return [
             ['name'=>'类别管理','url'=>'/api/cat','click'=>'redirectPage(this)'],

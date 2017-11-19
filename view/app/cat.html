@@ -60,11 +60,12 @@
     }
     function add(){
         var name=$("#cat_modal input[name=name]").val();
+        var type=$("#cat_modal input[name=type]").val();
         $.ajax({
             url:"/api/cat/add",
             type:"POST",
             dataType:"json",
-            data:{name:name},
+            data:{name:name,type:type},
             success:function(data){
                 if(data.errno==0){
                     document.location.reload();

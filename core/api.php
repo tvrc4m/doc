@@ -9,6 +9,9 @@ class Api extends Doc {
     const JSON_EXT=".json";
     const EXAMPLE_EXT='.example';
 
+    const CAT_TYPE_API=1;
+    const CAT_TYPE_DOC=2;
+
     /**
      * 页面输出
      * @param  string $type 类型api
@@ -168,7 +171,7 @@ class Api extends Doc {
 
         foreach ($api_list as $name=>$api) {
             
-            $sql="insert into kf_api_cat(name,create_date) values (?,now())";
+            $sql="insert into kf_cat(name,create_date) values (?,now())";
 
             $cat_id=$db->insert($sql,'s',[$name]);
 
@@ -326,6 +329,30 @@ class Api extends Doc {
         return $api_result;
     }
 
+    public function getDocList(){
+
+        $db=new DB();
+
+        $cat_list=$this->getCatByType(self::CAT_TYPE_DOC);
+
+        $doc_list=$db->find("SELECT * FROM kf_doc WHERE stat=1");
+
+        $cat_result=$doc_result=[];
+
+        foreach($cat_list as $cat) $cat_result[$cat['id']]=$cat['name'];
+        
+        foreach ($doc_list as $doc) {
+            // 类别名称
+            $cat=$cat_result[$doc['cat_id']];
+
+            $doc['side_url']='/doc/detail/'.$doc['id'];
+            // 按类别分组
+            $doc_result[$cat][]=$doc;
+        }
+
+        return $doc_result;
+    }
+
     /**
      * 获取api接口的类别 
      * @return array
@@ -334,7 +361,19 @@ class Api extends Doc {
 
         $db=new DB();
 
-        return $db->find("SELECT * FROM kf_api_cat WHERE stat=1");
+        return $db->find("SELECT * FROM kf_cat WHERE type=1 AND stat=1");
+    }
+
+    /**
+     * 通过type获取指定的类别
+     * @param  int $type 
+     * @return array
+     */
+    public function getCatByType($type){
+
+        $db=new DB();
+
+        return $db->find("SELECT * FROM kf_cat WHERE type='{$type}' AND stat=1");
     }
 
     /**

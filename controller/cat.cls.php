@@ -6,11 +6,15 @@ class CatController extends Api {
      * api类别列表
      * @return 
      */
-    public function index(){
+    public function index($params){
 
-        $cat_list=$this->getApiCat();
+        $type=$params['type'];
 
-        $this->display("app/cat.html",['cat_list'=>$cat_list,'tab_selected'=>'app']);
+        $cat_list=$this->getCatByType($type);
+
+        $tab_selected=$type==self::CAT_TYPE_API?'app':'doc';
+
+        $this->display("app/cat.html",['cat_list'=>$cat_list,'tab_selected'=>$tab_selected,'type'=>$type]);
     }
 
     /**
@@ -28,13 +32,13 @@ class CatController extends Api {
 
         $db=new DB();
 
-        $sql="SELECT 1 FROM kf_api_cat WHERE id!={$id} AND name='{$name}'";
+        $sql="SELECT 1 FROM kf_cat WHERE id!={$id} AND name='{$name}'";
 
         $exists=$db->get($sql);
 
         if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能重复']));
 
-        $sql="UPDATE kf_api_cat SET name=? WHERE id=?";
+        $sql="UPDATE kf_cat SET name=? WHERE id=?";
 
         $db->update($sql,'si',[$name,$id]);
 
@@ -49,20 +53,23 @@ class CatController extends Api {
     public function add($params){
 
         $name=trim($params['name']);
+        $type=$params['type'];
 
         if(empty($name)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能为空']));
 
+        empty($type) && $type=1;
+
         $db=new DB();
 
-        $sql="SELECT 1 FROM kf_api_cat WHERE name='{$name}'";
+        $sql="SELECT 1 FROM kf_cat WHERE type='{$type}' AND name='{$name}'";
 
         $exists=$db->get($sql);
 
         if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能重复']));
 
-        $sql="INSERT INTO kf_api_cat (name,create_date) VALUES (?,NOW())";
+        $sql="INSERT INTO kf_cat (name,type,create_date) VALUES (?,?,NOW())";
 
-        $db->insert($sql,'s',[$name]);
+        $db->insert($sql,'si',[$name,$type]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
@@ -75,23 +82,45 @@ class CatController extends Api {
 
         $db=new DB();
 
-        $sql="SELECT count(*) as count FROM kf_api WHERE cat_id=".$id." AND stat=1";
+        $sql="SELECT * FROM kf_cat WHERE id=".intval($id);
 
-        $count=$db->get($sql);
+        $detail=$db->get($sql);
 
-        if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
+        if($detail['type']==1){
 
-        $sql="UPDATE kf_api_cat SET stat=0 WHERE id=?";
+            $sql="SELECT count(*) as count FROM kf_api WHERE cat_id=".$id." AND stat=1";
+
+            $count=$db->get($sql);
+
+            if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
+        }elseif($detail['type']==2){
+
+            $sql="SELECT count(*) as count FROM kf_doc WHERE cat_id=".$id." AND stat=1";
+
+            $count=$db->get($sql);
+
+            if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联文档,不能删除']));
+        }
+
+        $sql="UPDATE kf_cat SET stat=0 WHERE id=?";
 
         $db->update($sql,'i',[$id]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
 
-    public function actions(){
+    protected function actions(){
 
-        return [
-            ['name'=>'新增类别','url'=>'/api/cat/add','click'=>'addCat()']
-        ];
+        if($_GET['type']==self::CAT_TYPE_API){
+
+            return [
+                ['name'=>'新增类别','url'=>'/api/cat/add','click'=>'addCat()']
+            ];
+        }else{
+
+            return [
+                ['name'=>'新增类别','url'=>'/doc/cat/add','click'=>'addCat()']
+            ];
+        }
     }
 }

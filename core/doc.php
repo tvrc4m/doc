@@ -38,7 +38,7 @@ class Doc {
         include_once(VIEW.'common/footer.html');
     }
 
-    public function actions(){
+    protected function actions(){
 
         return [];
     }

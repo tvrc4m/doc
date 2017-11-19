@@ -1,0 +1,29 @@
+<div class="col-md-9" style="padding-left: 20px;padding-right:15px;width: 100%;">
+    <form id="doc_add" action="/doc/edit/save" method="POST">
+        <input type="hidden" name="id" value="<?php echo $data['detail']['id'];?>" />
+        <input placeholder="标题" type="text" value="<?php echo $data['detail']['title'];?>" name="title" class="form-control" />
+        <br>
+        <div style="margin: 5px 0">
+            <?php foreach($data['cats'] as $cat){?>
+                <input type="checkbox" class="cat_doc" <?php if($cat['id']==$data['detail']['cat_id']) echo 'checked';?> name="cat_id" value="<?php echo $cat['id'];?>" />&nbsp;<?php echo $cat['name'];?>&nbsp;&nbsp;
+            <?php } ?>
+        </div>
+        <textarea name="content" id="result" style="height: 300px;"><?php echo $data['detail']['content'];?></textarea>
+        <button type="submit" class="btn-u" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">确认</button> 
+    </form>
+    <script src="/static/js/ueditor/ueditor.config.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/js/ueditor/ueditor.all.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        var ue = UE.getEditor('result',{
+            autoHeight:true
+        });
+        $(".cat_doc").click(function(){
+            var current=$(this).val();
+            $(".cat_doc").each(function(i,item){
+                if($(item).prop("checked") && $(item).val()!=current){
+                    $(item).prop("checked",false);
+                }
+            })
+        })
+    </script>
+</div>
