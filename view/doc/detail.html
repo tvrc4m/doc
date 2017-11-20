@@ -1,9 +1,13 @@
 <div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
-    <div id="paramInfo" class="headline">
-        <h2><?php echo $data['detail']['title'];?></h2>
-        <code><a class="api-edit" href="/doc/edit/<?php echo $data['detail']['id'];?>">编辑</a></code>
-    </div>
-    <div>
-        <?php echo $data['detail']['content'];?>
-    </div>
+    <?php if($data['detail']){?>
+        <div id="paramInfo" class="headline">
+            <h2><?php echo $data['detail']['title'];?></h2>&nbsp;&nbsp;&nbsp;
+            <code><a class="api-edit" href="/doc/edit/<?php echo $data['detail']['id'];?>">编辑</a></code>
+        </div>
+        <div>
+            <?php echo $data['detail']['content'];?>
+        </div>
+    <?php }else{ ?>
+        
+    <?php }?>
 </div>

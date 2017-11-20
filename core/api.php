@@ -345,7 +345,9 @@ class Api extends Doc {
             // 类别名称
             $cat=$cat_result[$doc['cat_id']];
 
-            $doc['side_url']='/doc/detail/'.$doc['id'];
+            $doc['side_url']='/doc/detail/'.$doc['id'].'#'.$doc['id'];
+
+            $doc['code']=$doc['id'];
             // 按类别分组
             $doc_result[$cat][]=$doc;
         }

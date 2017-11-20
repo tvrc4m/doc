@@ -9,6 +9,7 @@ class DocController extends Api {
         $data['api_list']=$this->getDocList();
 
         $data['doc']=$params['doc'];
+        $data['current']=2;
 
         $this->display("doc/detail.html",$data);
     }
@@ -108,8 +109,8 @@ class DocController extends Api {
     protected function actions(){
 
         return [
-            ['name'=>'新建文档','url'=>'/doc/add','click'=>'redirectPage(this)'],
             ['name'=>'类别管理','url'=>'/doc/cat','click'=>'redirectPage(this)'],
+            ['name'=>'新建文档','url'=>'/doc/add','click'=>'redirectPage(this)'],
         ];
     }
 }
