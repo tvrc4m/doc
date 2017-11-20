@@ -253,23 +253,4 @@ class Api extends Doc {
 
         return '';
     }
-
-    /**
-     * 获取某类别下的分组
-     * @param  string $type 
-     * @return array
-     */
-    public function getTypeCate($type){
-
-        switch ($type) {
-
-            case self::API_TYPE_APP:
-            return ['channel'=>'频道','content'=>'内容','login'=>'登陆','bind'=>'绑定与解绑','user'=>'用户','other'=>'其他','live'=>'直播','message'=>'消息','live_v2'=>'直播一期','video'=>'视频一期','activity'=>'分享原创拉新活动'];
-            break;
-
-            case self::API_TYPE_WEB:
-            return ['channel'=>'频道','content'=>'内容','login'=>'登陆','user'=>'用户'];
-            break;
-        }
-    }
 }

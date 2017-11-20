@@ -18,7 +18,7 @@ class DocController extends Api {
 
         if(empty($id)) exit('文档不存在');
 
-        $sql="SELECT * FROM kf_doc WHERE id=".intval($id);
+        $sql="SELECT * FROM kf_doc WHERE stat=1 AND id=".intval($id);
 
         $db=new DB();
 
@@ -98,6 +98,26 @@ class DocController extends Api {
         }
 
         header("Location:/doc/detail/".$id);
+    }
+
+    /**
+     * 删除指定文档
+     * @param  array $params 
+     * @return 
+     */
+    public function del($params){
+
+        $id=$params['id'];
+
+        if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定文档']));
+
+        $sql="UPDATE kf_doc SET stat=0 WHERE id=?";
+
+        $db=new DB();
+
+        $db->update($sql,'i',[$id]);
+
+        exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
 
     protected function actions(){

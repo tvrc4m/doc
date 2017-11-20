@@ -2,7 +2,8 @@
     <?php if($data['detail']){?>
         <div id="paramInfo" class="headline">
             <h2><?php echo $data['detail']['title'];?></h2>&nbsp;&nbsp;&nbsp;
-            <code><a class="api-edit" href="/doc/edit/<?php echo $data['detail']['id'];?>">编辑</a></code>
+            <code><a class="doc-edit" href="/doc/edit/<?php echo $data['detail']['id'];?>">编辑</a></code>
+            <code><a class="doc-del" href="javascript:void(0);" onclick="delDoc(<?php echo $data['detail']['id'];?>)">删除</a></code>
         </div>
         <div>
             <?php echo $data['detail']['content'];?>
@@ -10,4 +11,23 @@
     <?php }else{ ?>
         
     <?php }?>
+    <script type="text/javascript">
+        function delDoc(docid){
+            if(window.confirm("是否确定要删除？")){
+                $.ajax({
+                    url:"/doc/del",
+                    type:"POST",
+                    dataType:"json",
+                    data:{id:docid},
+                    success:function(data){
+                        if(data.errno==0){
+                            document.location.href="/doc/";
+                        }else{
+                            alert(data.errmsg);
+                        }
+                    }
+                })
+            }
+        }
+    </script>
 </div>

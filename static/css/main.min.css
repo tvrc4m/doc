@@ -219,11 +219,11 @@ a.http_send,a:active.http_send,a:hover.http_send{
 .cat-edit,.cat-del{
     cursor: pointer;
 }
-.cat-edit,.cat-edit:hover,.cat-edit:active{
+.cat-edit,.cat-edit:hover,.cat-edit:active,.doc-edit,.doc-edit:hover,.doc-edit:active{
     color: #337ab7;
     text-decoration: none;
 }
-.cat-del,.cat-del:hover,.cat-del:active{
+.cat-del,.cat-del:hover,.cat-del:active,.doc-del,.doc-del:hover,.doc-del:active{
     color: #c7254e;
     text-decoration: none;
 }

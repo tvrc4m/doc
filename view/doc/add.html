@@ -8,7 +8,8 @@
             <?php } ?>
         </div>
         <textarea name="content" id="result" style="height: 300px;"></textarea>
-        <button type="submit" class="btn-u" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">新建</button> 
+        <button type="button" onclick="saveDoc()" class="btn-u" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">新建</button> 
+        &nbsp;&nbsp;&nbsp;<span class="error"></span>
     </form>
     <script src="/static/js/ueditor/ueditor.config.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/js/ueditor/ueditor.all.min.js" type="text/javascript" charset="utf-8"></script>
@@ -24,5 +25,23 @@
                 }
             })
         })
+        function saveDoc(){
+            var title=$("input[name=title]").val();
+            var cat_id=$("input[name=cat_id]:checked").val();
+            var content=ue.getContentTxt();
+            if(!title){
+                $(".error").text("标题不能为空");
+                return false;
+            }
+            if(!cat_id){
+                $(".error").text("必须选择一个类别");
+                return false;
+            }
+            if(!content){
+                $(".error").text("文档内容不能为空");
+                return false;
+            }
+            $("#doc_add").submit();
+        }
     </script>
 </div>
