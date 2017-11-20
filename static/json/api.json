@@ -1,0 +1,59 @@
+{
+  "common": {
+    "常规请求参数": {
+      "header.Platform": {
+        "desc": "app平台,ANDROID:安卓手机,IOS:苹果",
+        "must": "是",
+        "type": "string",
+        "version": {
+          "android": "v1.0.1",
+          "ios": "v2.0.6"
+        }
+      },
+      "heder.Version": {
+        "desc": "app版本号,如 2.0.7",
+        "must": "是",
+        "type": "string",
+        "version": "v1.0.1"
+      }
+    },
+    "常规返回参数": {
+      "api_version": {
+        "desc": "API版本号,如 2.0.7",
+        "must": "是",
+        "type": "string",
+        "version": "v1.0.1"
+      },
+      "data": {
+        "desc": "其他返回数据的封装载体",
+        "must": "否",
+        "type": [
+          "string",
+          "array"
+        ],
+        "version": "v1.0.1"
+      },
+      "error_code": {
+        "desc": "错误码,0:表示正常 其他数字:异常,出错等",
+        "must": "是",
+        "type": "int",
+        "version": "v1.0.1"
+      },
+      "error_msg": {
+        "desc": "错误消息",
+        "must": "是",
+        "type": "string",
+        "version": "v1.0.1"
+      }
+    }
+  },
+  "desc":[
+    "每个接口对应data目录下的一个json文件,api用文件夹来组织分组",
+    "json文件名的规范采用url中的控制器与方法名下划线转小写的形式",
+    "返回代码展示通过在相应目录下创建example目录,文件名与api一致，扩展名为.example形式",
+    "如果没有创建api的example,程序自动根据api返回值生成对应的example对象",
+    "api接口返回数据统一放在data结构中。在定义api返回值时,如果data是对象,data可不写。如果data是数组，那带上data.",
+    "api涉及到版本命令的命名是v开头的版本号"
+  ],
+  "api":"app"
+}

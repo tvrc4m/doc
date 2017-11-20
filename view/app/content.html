@@ -1,15 +1,15 @@
 <div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
-    <?php if($common['desc']){ ?>
+    <?php if($data['api_common']['desc']){ ?>
     <a href="#app"></a>
     <div id="paramInfo" class="headline">
         <h2>接口说明</h2>
     </div>
     <div class="alert alert-warning fade in">
-        <?php if(is_string($common['desc'])){?>
-        <?php echo $common['desc']; ?>
+        <?php if(is_string($data['api_common']['desc'])){?>
+        <?php echo $data['api_common']['desc']; ?>
         <?php }else{ ?>
         <ol>
-            <?php foreach($common['desc'] as $desc){?>
+            <?php foreach($data['api_common']['desc'] as $desc){?>
             <li>
                 <?php echo $desc;?>
             </li>
@@ -18,8 +18,8 @@
         <?php } ?>
     </div>
     <?php } ?>
-    <?php if($common['common']){ ?>
-    <?php foreach($common['common'] as $name=>$common){ ?>
+    <?php if($data['api_common']['common']){ ?>
+    <?php foreach($data['api_common']['common'] as $name=>$common){ ?>
     <div id="paramInfo" class="headline">
         <h2><?php echo $name; ?></h2>
     </div>

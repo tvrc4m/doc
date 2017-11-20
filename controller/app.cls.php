@@ -8,9 +8,11 @@ class AppController extends Api {
      */
     public function index(){
 
-        $api_list=$this->getApiList('api');
+        $api_common=$this->getCommonApi();
 
-        $this->display("app/content.html",['api_list'=>$api_list,'tab_selected'=>'app']);
+        $api_list=$this->getApiList('api');
+        
+        $this->display("app/content.html",['api_list'=>$api_list,'api_common'=>$api_common,'tab_selected'=>'app']);
     }
 
     /**
