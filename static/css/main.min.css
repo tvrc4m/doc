@@ -227,3 +227,6 @@ a.http_send,a:active.http_send,a:hover.http_send{
     color: #c7254e;
     text-decoration: none;
 }
+.notice{
+    color: #c7254e;
+}

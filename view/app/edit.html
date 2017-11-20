@@ -1,4 +1,5 @@
 <div class="col-md-9" style="padding-left: 20px;padding-right:15px;width: 100%;">
+    <em class="notice">关于字段类型说明：object指一维数组，array指二维数组,boolean指true,false两个值,0和1都指向int类型</em>
     <form id="api_form">
         <h4>基本信息</h4>
         <table class="table table-bordered table-striped">
@@ -11,7 +12,7 @@
             <tbody id="base_body"></tbody>
         </table>
         <h4>请求参数</h4>
-        <table class="table table-bordered table-striped">
+        <table id="request_table" class="table table-bordered table-striped">
             <thead>
                 <tr class="warning">
                     <th width="30"></th>
@@ -22,24 +23,25 @@
                     <th>说明</th>
                 </tr>
             </thead>
-            <tbody id="request_body"></tbody>
-            <tfooter>
+            <tfoot>
                 <tr>
                     <td colspan="10">
                         <input style="width: 150px;display: inline-block;" placeholder="字段名" type="text" value="" name="request_name" class="form-control" />
-                        <input class="req_type" type="checkbox" name="type" value="string">&nbsp;string
-                        <input class="req_type" type="checkbox" name="type" value="int">&nbsp;int
-                        <input class="req_type" type="checkbox" name="type" value="boolean">&nbsp;boolean
-                        <input class="req_type" type="checkbox" name="type" value="array">&nbsp;array
+                        <input class="req_type" type="checkbox" name="type" value="string" checked>&nbsp;string&nbsp;&nbsp;
+                        <input class="req_type" type="checkbox" name="type" value="int">&nbsp;int&nbsp;&nbsp;
+                        <input class="req_type" type="checkbox" name="type" value="boolean">&nbsp;boolean&nbsp;&nbsp;
+                        <input class="req_type" type="checkbox" name="type" value="array">&nbsp;array&nbsp;&nbsp;
+                        <input class="req_type" type="checkbox" name="type" value="object">&nbsp;object&nbsp;&nbsp;
                         <code>|</code>
                         <input class="req_must" type="checkbox" name="must" checked="" value="1" />&nbsp;必填
                         <code><a href="javascript:void(0);" onclick="addReqFeild()">添加请求字段</a></code>
                     </td>
                 </tr>
-            </tfooter>
+            </tfoot>
+            <tbody id="request_body"></tbody>
         </table>
         <h4>返回数据</h4>
-        <table class="table table-bordered table-striped">
+        <table id="return_table" class="table table-bordered table-striped">
             <thead>
                 <tr class="warning">
                     <th width="30"></th>
@@ -50,21 +52,22 @@
                     <th>说明</th>
                 </tr>
             </thead>
-            <tbody id="return_body"></tbody>
-            <tfooter>
+            <tfoot>
                 <tr>
                     <td colspan="10">
                         <input style="width: 150px;display: inline-block;" placeholder="字段名" type="text" value="" name="return_name" class="form-control" />
-                        <input class="return_type" type="checkbox" name="type" value="string">&nbsp;string
-                        <input class="return_type" type="checkbox" name="type" value="int">&nbsp;int
-                        <input class="return_type" type="checkbox" name="type" value="boolean">&nbsp;boolean
-                        <input class="return_type" type="checkbox" name="type" value="array">&nbsp;array
+                        <input class="return_type" type="checkbox" name="type" value="string" checked>&nbsp;string&nbsp;&nbsp;
+                        <input class="return_type" type="checkbox" name="type" value="int">&nbsp;int&nbsp;&nbsp;
+                        <input class="return_type" type="checkbox" name="type" value="boolean">&nbsp;boolean&nbsp;&nbsp;
+                        <input class="return_type" type="checkbox" name="type" value="array">&nbsp;array&nbsp;&nbsp;
+                        <input class="return_type" type="checkbox" name="type" value="object">&nbsp;object&nbsp;&nbsp;
                         <code>|</code>
                         <input class="return_must" type="checkbox" name="must" checked="" value="1" />&nbsp;必返
                         <code><a href="javascript:void(0);" onclick="addRetFeild()">添加返回字段</a></code>
                     </td>
                 </tr>
-            </tfooter>
+            </tfoot>
+            <tbody id="return_body"></tbody>
         </table>
         <button type="button" class="btn-u" onclick="saveApi()" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">保存</button> 
         &nbsp;&nbsp;&nbsp;<span class="error"></span>
@@ -215,6 +218,7 @@
         Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0"},enumerable:true});
         var ret_html = template("api_params_template", {params:params});
         $("#request_body").append(ret_html);
+        $("#request_table tr:last input[name*=remark]").focus();
         input.val("");
     }
     function addRetFeild(){
@@ -230,6 +234,7 @@
         Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0"},enumerable:true});
         var ret_html = template("api_return_template", {params:params});
         $("#return_body").append(ret_html);
+        $("#return_table tr:last input[name*=remark]").focus();
         input.val("");
     }
     function saveApi(){
@@ -273,18 +278,14 @@
         })
     }
     $("input[name=request_name]").on('focus',function(){
-        console.log(1111);
         $(this).off('keydown').on('keydown',function(event){
-            console.log(3333);
             if(event.keyCode==13){
                 addReqFeild();
             }
         });
     })
     $("input[name=return_name]").on('focus',function(){
-        console.log(1111);
         $(this).off('keydown').on('keydown',function(event){
-            console.log(3333);
             if(event.keyCode==13){
                 addRetFeild();
             }
