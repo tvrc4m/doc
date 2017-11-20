@@ -4,14 +4,7 @@ class DocController extends Api {
 
     public function index($params){
 
-        $data['tab_selected']='doc';
-
-        $data['api_list']=$this->getDocList();
-
-        $data['doc']=$params['doc'];
-        $data['current']=2;
-
-        $this->display("doc/detail.html",$data);
+        $this->detail(['id'=>2]);
     }
 
     /**
@@ -36,6 +29,7 @@ class DocController extends Api {
         $data['api_list']=$this->getDocList();
 
         $data['detail']=$detail;
+        $data['current']=$id;
 
         $this->display('doc/detail.html',$data);
     }
