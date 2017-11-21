@@ -118,7 +118,7 @@
                                 <?php echo $item['name']; ?>
                             </td>
                             <td>
-                                <?php echo $item['type']=='array'?'<code>'.$item['type'].'</code>':$item['type'];?></td>
+                                <?php echo ($item['type']=='array' || $item['type']=='object')?'<code>'.$item['type'].'</code>':$item['type'];?></td>
                             <td>
                                 <?php echo $item['must']==1?'是':'否';?>
                             </td>
@@ -163,7 +163,7 @@
                                 <?php echo $item['name']; ?>
                             </td>
                             <td>
-                                <?php echo $item['type']=='array'?'<code>'.$item['type'].'</code>':$item['type'];?></td>
+                                <?php echo ($item['type']=='array' || $item['type']=='object')?'<code>'.$item['type'].'</code>':$item['type'];?></td>
                             <td>
                                 <?php echo $item['must']==1?'是':'否';?>
                             </td>
