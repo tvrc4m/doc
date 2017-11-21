@@ -205,7 +205,7 @@
 <script src="/static/js/clipboard.min.js"></script>
 <script type="text/javascript">
 $(function() {
-    var clipboard = new Clipboard('.copy_api_url');
+    var clipboard = new Clipboard('.api-copy');
     clipboard.on('success', function(e) {
         e.clearSelection();
     });

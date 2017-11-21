@@ -27,6 +27,7 @@
     <form id="httpform" action="/http/run" method="POST">
         <input type="hidden" name="api_id" value="<?php echo $data['api']['id']; ?>" />
         <input type="hidden" name="url" value="<?php echo $data['api']['url']; ?>" />
+        <input type="hidden" name="code" value="<?php echo $data['api']['code']; ?>" />
         <input type="hidden" name="env" value="dev" />
         <table class="table hidden-xs" style="margin-bottom: 0;">
             <thead>
@@ -42,6 +43,7 @@
         <p></p>
         <code><a href="javascript:void(0);" onclick="enterFullscreen()">全屏</a></code>
         <code><a href="javascript:void(0);" onclick="saveExample()">保存为事例代码</a></code>
+        <code><a href="javascript:void(0);" onclick="goToApi()">查看该接口文档</a></code>
         <div id="result" class="result"></div>
     </form>
     <script src="/static/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -103,6 +105,7 @@
                     $(".api_url .label-primary").html(data.type==1?'POST':'GET');
                     $("input[name=api_id]").val(data.id);
                     $("input[name=url]").val(data.url);
+                    $("input[name=code]").val(data.code);
                     if(data.params){
                         var html="";
                         for(index in data.params){
@@ -196,6 +199,10 @@
                     }
                 }
             })
+        }
+        function goToApi(){
+            var code=$("input[name=code]").val();
+            document.location.href="/api/app#"+code;
         }
         $(function(){
             if(!current && document.location.hash){

@@ -33,7 +33,9 @@ class AppController extends Api {
 
         $cats=$this->getApiCat();
 
-        $this->display("app/add.html",['tab_selected'=>'app','cats'=>json_encode($cats)]);
+        $versions=$this->getAppVersion();
+
+        $this->display("app/add.html",['tab_selected'=>'app','versions'=>json_encode($versions),'cats'=>json_encode($cats)]);
     }
 
     /**
@@ -48,6 +50,8 @@ class AppController extends Api {
         $api=$this->getApi($code);
 
         $api['cats']=$this->getApiCat();
+
+        $api['versions']=$this->getAppVersion();
         // print_r($cat_list);exit;
         $this->display("app/edit.html",['tab_selected'=>'app','api'=>json_encode($api,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)]);
     }
@@ -209,6 +213,7 @@ class AppController extends Api {
 
         return [
             ['name'=>'类别管理','url'=>'/api/cat','click'=>'redirectPage(this)'],
+            ['name'=>'APP版本管理','url'=>'/api/version','click'=>'redirectPage(this)'],
             ['name'=>'新增接口','url'=>'/api/app/add','click'=>'redirectPage(this)']
         ];
     }

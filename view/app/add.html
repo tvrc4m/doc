@@ -90,6 +90,15 @@
                             <input class="api_cat" type="checkbox" {{if cat['id']==item['value']}}checked{{/if}} name="cat_id" value="{{cat['id']}}">&nbsp;{{cat['name']}}&nbsp;&nbsp;
                         {{/each}}
                     </div>
+                {{else if item['name']=='version'}}
+                    <div class="td-title">
+                        <select name="version">
+                            <option value="">--请选择版本号--</option>
+                            {{each item['list'] as version}}
+                                <option value="{{version['name']}}">{{version['name']}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
                 {{else}}
                     <input type="text" value="{{item['value']}}" name="{{item['name']}}" class="form-control" />
                 {{/if}}
@@ -123,7 +132,14 @@
                 </div>
             </td>
             <td>
-                <input type="text" value="{{item['version']}}" name="params[{{item['name']}}][version]" class="form-control" />
+                <div class="td-title">
+                    <select name="params[{{item['name']}}][version]">
+                        <option value="">--请选择版本号--</option>
+                        {{each item['versions'] as version}}
+                            <option value="{{version['name']}}">{{version['name']}}</option>
+                        {{/each}}
+                    </select>
+                </div>
             </td>
             <td>
                 <input type="text" value="{{item['remark']}}" name="params[{{item['name']}}][remark]" class="form-control" />
@@ -157,7 +173,14 @@
                 </div>
             </td>
             <td>
-                <input type="text" value="{{item['version']}}" name="return[{{item['name']}}][version]" class="form-control" />
+                <div class="td-title">
+                    <select name="return[{{item['name']}}][version]">
+                        <option value="">--请选择版本号--</option>
+                        {{each item['versions'] as version}}
+                            <option value="{{version['name']}}">{{version['name']}}</option>
+                        {{/each}}
+                    </select>
+                </div>
             </td>
             <td>
                 <input type="text" value="{{item['remark']}}" name="return[{{item['name']}}][remark]" class="form-control" />
@@ -168,7 +191,8 @@
 <script src="/static/js/template-web.js"></script>
 <script type="text/javascript">
     var cats=jQuery.parseJSON('<?php echo $data['cats'];?>');
-    var base={"接口地址":{name:"url",value:""},"标题":{name:'title',value:""},"描述说明":{name:"remark",value:""},"版本号":{name:"version",value:""},'类别':{name:"cat_id",value:0,list:cats}};
+    var versions=jQuery.parseJSON('<?php echo $data['versions'];?>');
+    var base={"接口地址":{name:"url",value:""},"标题":{name:'title',value:""},"描述说明":{name:"remark",value:""},"APP版本":{name:"version",value:"",list:versions},'类别':{name:"cat_id",value:0,list:cats}};
     var base_html = template("api_base_template", {base:base});
     var hidden_html = template("api_hidden", {hidden:{add:1}});
     $("#api_form").prepend(hidden_html);
@@ -212,7 +236,7 @@
             return false;
         }
         var params={};
-        Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0"},enumerable:true});
+        Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0",versions:versions},enumerable:true});
         var ret_html = template("api_params_template", {params:params});
         $("#request_body").append(ret_html);
         $("#request_table tr:last input[name*=remark]").focus();
@@ -228,7 +252,7 @@
             return false;
         }
         var params={};
-        Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0"},enumerable:true});
+        Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0",versions:versions},enumerable:true});
         var ret_html = template("api_return_template", {params:params});
         $("#return_body").append(ret_html);
         $("#return_table tr:last input[name*=remark]").focus();

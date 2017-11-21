@@ -125,6 +125,17 @@ class Api extends Doc {
     }
 
     /**
+     * 获取app版本号
+     * @return array
+     */
+    public function getAppVersion(){
+
+        $db=new DB();
+
+        return $db->find("SELECT * FROM kf_app_version WHERE stat=1");
+    }
+
+    /**
      * 通过type获取指定的类别
      * @param  int $type 
      * @return array
