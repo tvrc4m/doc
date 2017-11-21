@@ -30,6 +30,8 @@ class VersionController extends Api {
 
         if(empty($name)) exit(json_encode(['errno'=>-1,'errmsg'=>'版本号不能为空']));
 
+        if(!preg_match('/^v\d+\.\d+\.\d+$/', $name)) exit(json_encode(['errno'=>-1,'errmsg'=>'版本号须以v开头.eg: v1.1.0']));
+
         $db=new DB();
 
         $sql="SELECT 1 FROM kf_app_version WHERE stat=1 AND name='{$name}'";
@@ -44,7 +46,7 @@ class VersionController extends Api {
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
-    
+
     public function del($params){
 
         $id=trim($params['id']);
