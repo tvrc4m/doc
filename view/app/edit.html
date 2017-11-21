@@ -100,6 +100,7 @@
                             {{/each}}
                         </select>
                     </div>
+                    <code><a href="javascript:;" class="http_send" onclick="keepVersion()">统一所有参数</a></code>
                 {{else}}
                     <input type="text" value="{{item['value']}}" name="{{item['name']}}" class="form-control" />
                 {{/if}}
@@ -258,6 +259,15 @@
         $("#return_body").append(ret_html);
         $("#return_table tr:last input[name*=remark]").focus();
         input.val("");
+    }
+    function keepVersion(){
+        var version=$("select[name=version]").val();
+        if(!version){
+            alert("先选择APP版本");
+            return;
+        }
+        $("#request_table select[name*=version] option[value='"+version+"']").prop("selected",true);
+        $("#return_table select[name*=version] option[value='"+version+"']").prop("selected",true);
     }
     function saveApi(){
         var url=$("input[name=url]").val();
