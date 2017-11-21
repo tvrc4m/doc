@@ -166,7 +166,7 @@ class Api extends Doc {
 
             foreach ($apidata['return'] as $index=>$res) {
 
-                $desc="<span class='data-type'>[".$res['type']."]</span>".$res['desc'];
+                $desc="<span class='data-type'>[".$res['type']."]</span>".$res['remark'];
 
                 $name=$res['name'];
 
@@ -177,16 +177,25 @@ class Api extends Doc {
                     // 如果只存在二个参数 
                     if(!$third){
 
-                        if($res['type']=='array'){
+                        if(is_array($example[$first])){
 
-                            $example[$first][$second]=array();
-                        }else{
-                            
-                            if(is_object($example[$first])){
-                                $example[$first]->$second=$desc;                                            
+                            if($res['type']=='array'){
+
+                                $example[$first][0][$second]=array();    
+                            }elseif($res['type']=='object'){
+                                $example[$first][0][$second]=new stdClass();
                             }else{
-                                $example[$first][$second]=$desc;    
+                                $example[$first][0][$second]=$desc;
                             }
+                        }else{
+                            if($res['type']=='array'){
+
+                                $example[$first]->$second=array();    
+                            }elseif($res['type']=='object'){
+                                $example[$first]->$second=new stdClass();
+                            }else{
+                                $example[$first]->$second=$desc;
+                            }  
                         }
                     }elseif(!$four){
 
@@ -194,13 +203,13 @@ class Api extends Doc {
                             if(is_object($example->$first->$second)){
                                 $example->$first->$second->$third=$desc;        
                             }elseif(is_array($example->$first->$second)){
-                                $example->$first->$second[$third]=$desc;        
+                                $example->$first->$second[0][$third]=$desc;        
                             }
                         }elseif(is_array($example[$first])){
                             if(is_object($example[$first]->$second)){
-                                $example[$first]->$second->$third=$desc;        
+                                $example[$first][0]->$second->$third=$desc;        
                             }elseif(is_array($example[$first]->$second)){
-                                $example[$first]->$second[$third]=$desc;        
+                                $example[$first][0]->$second[0][$third]=$desc;        
                             }
                         }
                     }else{
@@ -209,29 +218,30 @@ class Api extends Doc {
                                 if(is_object($example->$first->$second->$third)){
                                     $example->$first->$second->$third->$four=$desc;        
                                 }elseif(is_array($example->$first->$second->$third)){
-                                    $example->$first->$second->$third[$four]=$desc;        
+                                    $example->$first->$second->$third[0][$four]=$desc;        
                                 }
                             }elseif(is_array($example->$first->$second)){
                                 if(is_object($example->$first->$second[$third])){
-                                    $example->$first->$second[$third]->$four=$desc;        
+                                    $example->$first->$second[0][$third]->$four=$desc;        
                                 }elseif(is_array($example->$first->$second[$third])){
-                                    $example->$first->$second[$third][$four]=$desc;        
+                                    $example->$first->$second[0][$third][0][$four]=$desc;        
                                 }
                             }
                         }elseif(is_array($example[$first])){
                             if(is_object($example[$first]->$second)){
                                 if(is_object($example[$first]->$second->$third)){
-                                    $example[$first]->$second->$third->$four=$desc;     
+                                    $example[$first][0]->$second->$third->$four=$desc;     
                                 }elseif(is_array($example[$first]->$second->$third)){
-                                    $example[$first]->$second->$third[$four]=$desc;    
+                                    $example[$first][0]->$second->$third[$four]=$desc;    
                                 }
                             }elseif(is_array($example[$first]->$second)){
                                 if(is_object($example[$first]->$second[$third])){
-                                    $example[$first]->$second[$third]->$four=$desc;   
+                                    $example[$first][0]->$second[0][$third]->$four=$desc;   
                                 }elseif(is_array($example[$first]->$second[$third])){
-                                    $example[$first]->$second[$third][$four]=$desc;
+                                    $example[$first][0]->$second[0][$third][0][$four]=$desc;
                                 }
                             }
+
                         }
                     }
                 }else{
@@ -240,7 +250,10 @@ class Api extends Doc {
                         :$desc;
                 }
             }
+            if($apidata['code']=='index_getlawlist'){
 
+                // print_r($example);exit;
+            }
             $example_result=[
                 'data'=>isset($example['data'])?$example['data']:$example,
                 'error_code'=>"[<span class='data-type'>int</span>]错误码:0 成功 1失败",
