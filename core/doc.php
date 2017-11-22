@@ -1,6 +1,6 @@
 <?php
 
-class Doc {
+class Doc extends Auth{
 
     const DOC_TYPE_APP  =   1;  // app接口文档
     const DOC_TYPE_PC   =   2;  // pc接口文档
@@ -24,6 +24,11 @@ class Doc {
      * @var array
      */
     protected $json;
+
+    public function __construct(){
+
+        // parent::__construct();
+    }
 
     public function display($html,$data){
 

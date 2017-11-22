@@ -5,6 +5,11 @@ class Api extends Doc {
     const CAT_TYPE_API=1;
     const CAT_TYPE_DOC=2;
 
+    public function __construct(){
+
+        parent::__construct();
+    }
+
     /**
      * 获取通用API说明文档
      * @return array

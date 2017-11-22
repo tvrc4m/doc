@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>登录看法APP</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="看法APP内部API文档">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no minimal-ui">
+    <script src="/static/js/jquery.min.js"></script>
+    <style type="text/css">
+        dt, label {
+            font-weight: 700;
+        }
+       
+        .col-sm-offset-2 {
+            margin-left: 16.66666%;
+        }
+        .col-sm-8 {
+            width: 50.66%;
+        }
+        .container {
+            width: 750px;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .content {
+            margin-top: 100px;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .container, .container-fluid {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .container, .container-fluid {
+            margin-right: auto;
+            margin-left: auto;
+        }
+        div.content div.login-inner-div {
+            position: relative;
+            border: 1px solid #e7ebed;
+        }
+        .sky-form {
+            margin: 0;
+            outline: none;
+            box-shadow: 0 0 20px rgba(0,0,0,.3);
+            font: 13px/1.55 NotoSansHans-Regular, AvenirNext-Regular, "proxima-nova", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Open Sans", "Helvetica Neue", Arial, sans-serif;
+            color: #666;
+        }
+            #form.sky-form {
+            border: none;
+        }
+        .sky-form {
+            box-shadow: none;
+            border: 1px solid #eee;
+        }
+        .reg-page {
+            color: #555;
+            padding: 30px;
+            background: #fefefe;
+            border: solid 1px #eee;
+            box-shadow: 0 0 3px #eee;
+        }
+        .reg-header {
+            color: #555;
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: solid 1px #eee;
+        }
+        .reg-header {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+        .reg-header h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .color-333 {
+            color: #333!important;
+        }
+        .font-20 {
+            font-size: 20px!important;
+        }
+        .mb-30 {
+            margin-bottom: 30px!important;
+        }
+        .sky-form section {
+            margin-bottom: 20px;
+        }
+        .reg-page label {
+            color: #777;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        .sky-form .input, .sky-form .select, .sky-form .textarea, .sky-form .radio, .sky-form .checkbox, .sky-form .toggle, .sky-form .button {
+            position: relative;
+            display: block;
+        }
+        p.invalid, em.invalid {
+            color: #ee9393;
+            font-style: normal;
+            font-size: 13px !important;
+        }
+        #form.sky-form input, #embed-captcha div.geetest_radar_btn {
+            border: 1px solid #e7ebed;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+        }
+        div.register-content form.reg-page input, div.register-content form.reg-page .btn, div.login-inner-div form.reg-page input, div.login-inner-div form.reg-page .btn {
+            height: 40px;
+        }
+        .sky-form .input input, .sky-form .select select, .sky-form .textarea textarea, .sky-form .radio i, .sky-form .checkbox i, .sky-form .toggle i, .sky-form .icon-append, .sky-form .icon-prepend {
+            border-color: #bbb;
+        }
+        .sky-form .input input {
+            height: 34px;
+            padding: 6px 12px;
+        }
+        button, input, select, textarea {
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+        #loginTelModal .sky-form .inout input[placeholder], [placeholder] {
+            color: #666!important;
+        }
+        .sky-form .input input, .sky-form .select select, .sky-form .textarea textarea, .sky-form .radio i, .sky-form .checkbox i, .sky-form .toggle i, .sky-form .icon-append, .sky-form .icon-prepend {
+            border-color: #e5e5e5;
+            -ms-transition: border-color 0.3s;
+            -moz-transition: border-color 0.3s;
+            -webkit-transition: border-color 0.3s;
+        }
+        .sky-form .input input, .sky-form .select select, .sky-form .textarea textarea {
+            display: block;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            width: 100%;
+            height: 39px;
+            padding: 8px 10px;
+            outline: none;
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 0;
+            background: #fff;
+            font: 15px/19px 'Open Sans', Helvetica, Arial, sans-serif;
+            color: #404040;
+            appearance: normal;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+        }
+        #form.sky-form button#submitButton {
+            width: 100%;
+        }
+        a#getCode, div.register-content form.reg-page button#submitButton, div.login.reg-page section.section-getCode a.btn, div.ldLogin button#submitButton {
+            border: none;
+        }
+        div.register-content form.reg-page input, div.register-content form.reg-page .btn, div.login-inner-div form.reg-page input, div.login-inner-div form.reg-page .btn {
+            height: 40px;
+        }
+
+        .pb-10 {
+            padding-bottom: 10px!important;
+        }
+
+        .pt-10 {
+            padding-top: 10px!important;
+        }
+
+        .btn-u {
+            background: #1abc9c;
+        }
+        .btn-u {
+            border: 1px solid #1ABC9C;
+            color: #fff;
+            cursor: pointer;
+            padding: 4px 13px;
+            position: relative;
+        }
+        .btn {
+            box-shadow: none;
+        }
+        .btn-u, .list-toggle:after {
+            font-size: 14px;
+            font-weight: 400;
+            display: inline-block;
+        }
+        .btn-u, .btn-u:hover, .link-bg-icon:hover, .link-icon:hover, .recent-work a:hover, .servive-block h2 a:hover, .sidebar-nav-v1 li a:hover, .topbar ul.lenguages li a:hover, .topbar-v1 .top-v1-data li a:hover {
+            text-decoration: none;
+        }
+        .btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.428571429;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px #f8f8f8 inset;
+            -webkit-text-fill-color: #333;
+            background-color: #f8f8f8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container content">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 login col-md-offset-3 col-sm-8 col-sm-offset-2 login-outer-div">
+                <div class="login-inner-div">
+                    <form class="login reg-page sky-form" id="form" method="POST" novalidate="novalidate">
+                        <!-- 扫码登录 -->
+                        <!-- 登录DIV -->
+                        <div id="ldLogin" class="ldLogin " style="display: block;">
+                            <div class="reg-header" style="border-bottom: none">
+                                <h2 class="color-333 font-20">账户登录</h2>
+                            </div>
+                            <!-- 邮箱登录 -->
+                            <div id="loginByEmail">
+                                <section class="mb-30">
+                                    <label class="input" style="margin-bottom: 0px;">
+                                        <input type="text" id="nick" name="nick" value="" placeholder="请输入用户名" />
+                                    </label>
+                                    <em for="nick" class="invalid"></em>
+                                </section>
+                                <section class="mb-30">
+                                    <label class="input">
+                                        <input type="password" id="password" name="pwd" placeholder="请输入密码" />
+                                    </label>
+                                </section>
+                            </div>
+                            <!-- 邮箱登录End -->
+                        </div>
+                        <!-- 登录DIV -->
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 text-center mb-20">
+                                <input type="hidden" name="aKey" value="">
+                                <input type="hidden" name="ltlKey" value="">
+                                <button class="btn btn-u pb-10 pt-10" type="button" onclick="login()" id="submitButton">登录</button>
+                                <p class="font-14 color-a0a0a1 lh-12 text-center">
+                                    <a href="/register" class="color-green">去注册</a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function login(){
+                var nick=$("input[name=nick]").val();
+                var password=$("input[name=pwd]").val();
+                if(!nick){
+                    alert("用户名不能为空");
+                    return false;
+                }
+                if(!password){
+                    alert("密码不能为空");
+                    return false;
+                }else if(password.length<6){
+                    alert("密码长度不能少于6位");
+                    return false;
+                }
+                $.ajax({
+                    url:"/login/do",
+                    type:"POST",
+                    dataType:"json",
+                    data:{nick:nick,pwd:password},
+                    success:function(data){
+                        if(data.errno==0){
+                            document.location.href="/";
+                        }else{
+                            alert(data.errmsg);
+                        }
+                    }
+                })
+            }
+        </script>
+    </div>
+</body>
+</head>
+</html>

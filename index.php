@@ -10,7 +10,10 @@ define('CTL',  ROOT.'/controller/');
 
 define('BASEURL', 'http://'.$_SERVER['HTTP_HOST']);
 
+session_start(['cookie_lifetime' => 86400]);
+
 include_once(CORE.'config.php');
+include_once(CORE.'auth.php');
 include_once(CORE.'doc.php');
 include_once(CORE.'api.php');
 include_once(CORE.'db.php');
