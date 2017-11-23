@@ -4,6 +4,7 @@ class Api extends Doc {
 
     const CAT_TYPE_API=1;
     const CAT_TYPE_DOC=2;
+    const CAT_TYPE_TEST_CASE=3;
 
     public function __construct(){
 

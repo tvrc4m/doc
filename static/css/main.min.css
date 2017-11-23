@@ -227,6 +227,10 @@ a.http_send,a:active.http_send,a:hover.http_send{
     color: #c7254e;
     text-decoration: none;
 }
+.api-case ,.api-case :hover,.api-case :active{
+    color: #5fba7d;
+    text-decoration: none;
+}
 .notice{
     color: #c7254e;
 }

@@ -12,9 +12,13 @@ class CatController extends Api {
 
         $cat_list=$this->getCatByType($type);
 
-        $tab_selected=$type==self::CAT_TYPE_API?'app':'doc';
+        switch ($type) {
+            case self::CAT_TYPE_API:$title='API类别管理';$tab_selected='app';break;
+            case self::CAT_TYPE_DOC:$title='文档类别管理';$tab_selected='doc';break;
+            case self::CAT_TYPE_TEST_CASE:$title='测试用例类别管理';$tab_selected='test';break;
+        }
 
-        $this->display("app/cat.html",['cat_list'=>$cat_list,'tab_selected'=>$tab_selected,'type'=>$type]);
+        $this->display("app/cat.html",['cat_list'=>$cat_list,'tab_selected'=>$tab_selected,'title'=>$title,'type'=>$type]);
     }
 
     /**
@@ -116,10 +120,15 @@ class CatController extends Api {
             return [
                 ['name'=>'新增类别','url'=>'/api/cat/add','click'=>'addCat()']
             ];
-        }else{
+        }elseif($_GET['type']==self::CAT_TYPE_DOC){
 
             return [
                 ['name'=>'新增类别','url'=>'/doc/cat/add','click'=>'addCat()']
+            ];
+        }elseif($_GET['type']==self::CAT_TYPE_TEST_CASE){
+
+            return [
+                ['name'=>'新增类别','url'=>'/test/cat/add','click'=>'addCat()']
             ];
         }
     }

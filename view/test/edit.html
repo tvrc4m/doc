@@ -1,0 +1,269 @@
+<div class="col-md-9" style="padding-left: 20px;padding-right:15px;width: 100%;">
+    <form id="test_case_form">
+        <h4>基本信息</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="110">字段</th>
+                    <th>值</th>
+                </tr>
+            </thead>
+            <tbody id="base_body"></tbody>
+        </table>
+        <h4>测试用例</h4>
+        <table id="request_table" class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="30"></th>
+                    <th>描述</th>
+                    <th width="110" class="text-center">操作</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="10">
+                        <button type="button" onclick="addTestCase()" class="btn-u" style="height:22px;padding:5px;font-size:12px;">添加测试用例</button> 
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody id="case_body"></tbody>
+        </table>
+        <button type="button" class="btn-u" onclick="saveApi()" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">新增</button> 
+        &nbsp;&nbsp;&nbsp;<span class="error"></span>
+    </form>
+</div>
+<div id="related_api_modal" style="display: none;">
+    <form style="width: 500px;" method="post" class="form-horizontal" novalidate="novalidate">
+        <input id="index" type="hidden" name="index" value="" />
+        <div class="text-center" style="margin-bottom: 10px;">
+            <select name="api_id" onchange="getApiRequest(this)">
+                <option value="">--请选择接口--</option>
+                <?php foreach($data['apis'] as $name=>$apis){ ?>
+                    <option disabled value=""><?php echo $name;?></option>
+                    <?php foreach($apis as $api){ ?>
+                        <option value="<?php echo $api['id'];?>">&nbsp;&nbsp;&nbsp;<?php echo $api['title'];?></option>
+                    <?php } ?>
+                <?php } ?>
+            </select>
+        </div>
+        <table id="request_table" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>请求参数</th>
+                    <th>参数值</th>
+                </tr>
+            </thead>
+            <tbody id="params_body">
+                
+            </tbody>
+        </table>
+        <br>
+        <div class="text-center">
+            <button onclick="saveApiBind()" class="btn btn-primary submit" type="button">保存</button>
+        </div>
+    </form>
+</div>
+<script id="api_hidden" type="text/html">
+    {{each hidden as value name}}
+        <input type="hidden" name="{{name}}" value="{{value}}">
+    {{/each}}
+</script>
+<script id="api_base_template" type="text/html">
+    {{each base as item name}}
+        <tr>
+            <td>
+                <span class="td-title">{{name}}</span>
+            </td>
+            <td>
+                {{if item['name']=='cat_id'}}
+                    <div class="td-title">
+                        <select name="cat_id">
+                            <option value="">--请选择类别--</option>
+                            {{each item['list'] as cat}}
+                                <option {{if item['value']==cat['id']}}selected{{/if}} value="{{cat['id']}}">{{cat['name']}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                {{else}}
+                    <input type="text" value="{{item['value']}}" name="{{item['name']}}" class="form-control" />
+                {{/if}}
+            </td>
+        </tr>
+    {{/each}}
+</script>
+<script type="text/html" id="case_template">
+    <tr>
+        <td>
+            <code><a href="javascript:void(0);" class="param-del" onclick="paramDel(this)">X</a></code>
+        </td>
+        <td>
+            <input type="text" value="{{e['content']}}" name="cases[{{index}}][content]" class="form-control" />
+            <input type="hidden" name="cases[{{index}}][id]" value="{{e['id']}}" />
+            <input type="hidden" name="cases[{{index}}][api_id]" value="{{e['api_id']}}" />
+            <input type="hidden" name="cases[{{index}}][api_params]" value="{{e['api_params']}}" />
+        </td>
+        <td>
+            <div class="td-title full-width text-center">
+                <code id="edit_api" style="{{if !e['api_id']}}display: none;{{/if}}"><a href="javascript:void(0);" onclick="editRelatedApi({{index}})">编辑关联接口</a></code>
+                <code id="add_api" style="{{if e['api_id']}}display: none;{{/if}}"><a href="javascript:void(0);" onclick="realatedApi({{index}})">关联接口</a></code>
+            </div>
+        </td>
+    </tr>
+</script>
+<script type="text/html" id="params_template">
+    {{each params as param}}
+        <tr>
+            <td>
+                <div class="td-title">{{param['name']}}</div>
+            </td>
+            <td>
+                <input type="text" value="" name="{{param['name']}}" class="form-control" />
+            </td>
+        </tr>
+    {{/each}}
+</script>
+<script src="/static/js/template-web.js"></script>
+<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+    var cats=jQuery.parseJSON('<?php echo $data['cats'];?>');
+    var test=jQuery.parseJSON('<?php echo $data['test'];?>');
+    var base={"测试标题":{name:"title",value:test.title},"描述说明":{name:"remark",value:test.remark},'类别':{name:"cat_id",value:test.cat_id,list:cats}};
+    console.log(test.cases);
+    var base_html = template("api_base_template", {base:base});
+    var case_html='';
+    $(test.cases).each(function(i,e){
+        case_html+=template("case_template", {e:e,index:i});
+    });
+    var hidden_html = template("api_hidden", {hidden:{id:test.id}});
+    $("#test_case_form").prepend(hidden_html);
+    $("#base_body").append(base_html);
+    $("#case_body").append(case_html);
+    function paramDel(that){
+        $(that).parents('tr').remove();
+    }
+    var i=(test.cases && test.cases.length) || 0;
+    console.log(i);
+    function addTestCase(){
+        var cases=[];
+        cases[i]={content:""};
+        console.log(cases);
+        var ret_html = template("case_template", {e:{content:''},index:i});
+        i++;
+        $("#case_body").append(ret_html);
+    }
+    function modal(content){
+        $.fancybox({
+            'padding': 20,
+            'autoSize': true,
+            'overlayShow':true,
+            'overlayOpacity':0.7,
+            'autoHeight': true,
+            'type': 'inline',
+            'scrolling': 'no',
+            'href': content
+        });
+    }
+    function realatedApi(index){
+        $("#index").val(index);
+        clearApiParams();
+        modal("#related_api_modal");
+    }
+    function editRelatedApi(index){
+        $("#index").val(index);
+        clearApiParams();
+        var api_id=$("input[name='cases["+index+"][api_id]']").val();
+        var api_params=$("input[name='cases["+index+"][api_params]']").val();
+        if(api_params){
+            api_params=JSON.parse(api_params);
+        }
+        $("select[name=api_id]").val(api_id);
+        getApiRequest("select[name=api_id]",function(){
+            for(name in api_params){
+                console.log(api_params[name]);
+                $("#params_body input[name="+name+"]").val(api_params[name]);
+            }
+            modal("#related_api_modal");
+        });
+    }
+    function getApiRequest(that,callback){
+        var api_id=$(that).val();
+        console.log(api_id);
+        $.ajax({
+            url:"/test/api_params",
+            type:"POST",
+            dataType:"json",
+            data:{api_id:api_id},
+            success:function(data){
+                var params_html = template("params_template", {params:data});
+                $("#params_body").html(params_html);
+                typeof(callback)=='function' && callback();
+            }
+        })
+    }
+    function clearApiParams(){
+        $("select[name=api_id]").val('');
+        $("#params_body").html("");
+    }
+    function saveApiBind(){
+        var index=$("#index").val();
+        var api_id=$("select[name=api_id]").val();
+        var params=$("#params_body input");
+        var paramstring='';
+        var realparams={};
+        if(!api_id){
+            return false;
+        }
+        params.each(function(i,e){
+            var name=$(e).attr('name'),v=$(e).val();
+            if(v && v.trim().length){
+                Object.defineProperty(realparams,name,{value:v,enumerable:true});
+            }
+        });
+        console.log(realparams);
+        $("input[name='cases["+index+"][api_id]']").val(api_id);
+        $("input[name='cases["+index+"][api_params]']").val(JSON.stringify(realparams));
+        if(api_id){
+          $("#edit_api").show();  
+          $("#api_api").hide();  
+        }else{
+            $("#edit_api").hide();  
+            $("#api_api").show();  
+        }
+        $.fancybox.close();
+    }
+    function saveApi(){
+        var title=$("input[name=title]").val();
+        var cat_id=$("select[name=cat_id]").val();
+        var cases=$("input[name*=cases][name*=content]");
+        if(!title){
+            $(".error").text("接口标题不能为空");
+            return false;
+        }
+        if(!cat_id){
+            $(".error").text("类别不能为空");
+            return false;
+        }
+        cases.each(function(i,item){
+            if(!$(item).val()){
+                console.log(item);
+                $(".error").text('测试用例说明不能为空');    
+                return false;
+            }
+        })
+        $.ajax({
+            url:"/test/add/save",
+            type:"POST",
+            dataType:"json",
+            data:$("#test_case_form").serialize(),
+            success:function(data){
+                if(data.errno==0){
+                    alert("修改成功");
+                    document.location.href=data.redirect;
+                }else{
+                    alert(data.errmsg);
+                }
+                console.log(data);
+            }
+        })
+    }
+</script>

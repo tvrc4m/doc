@@ -1,0 +1,62 @@
+<div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
+    <?php if($data['test']){?>
+        <div id="paramInfo" class="headline">
+            <h2><?php echo $data['test']['title'];?></h2>&nbsp;&nbsp;&nbsp;
+            <code><a class="doc-edit" href="/test/edit/<?php echo $data['test']['id'];?>">编辑</a></code>
+            <code><a class="doc-del" href="javascript:void(0);" onclick="delTest(<?php echo $data['test']['id'];?>)">删除</a></code>
+        </div>
+        <div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr class="warning">
+                        <th>用例</th>
+                        <th width="80">执行状态</th>
+                        <th width="110">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($data['cases'] as $case){ ?>
+                    <tr>
+                        <td>
+                            <?php echo $case['content']; ?>
+                        </td>
+                        <td>
+                            <?php if($case['run_status']==1){
+                                    echo '执行成功';
+                                }elseif($case['run_status']==0){
+                                    echo '未执行';
+                                }elseif($case['run_status']==-1){
+                                    echo '执行失败';
+                                }?>
+                        </td>
+                        <td>
+                            <code><a href="">执行</a></code>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    <?php }else{ ?>
+        
+    <?php }?>
+    <script type="text/javascript">
+        function delTest(test_id){
+            if(window.confirm("是否确定要删除？")){
+                $.ajax({
+                    url:"/test/del",
+                    type:"POST",
+                    dataType:"json",
+                    data:{id:test_id},
+                    success:function(data){
+                        if(data.errno==0){
+                            document.location.href="/test/";
+                        }else{
+                            alert(data.errmsg);
+                        }
+                    }
+                })
+            }
+        }
+    </script>
+</div>
