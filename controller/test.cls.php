@@ -145,7 +145,7 @@ class TestController extends Api {
 
                 $m_test->update($sql,'i',[$test_id]);
             }
-            
+
             foreach ($params['cases'] as $name=>$case) {
 
                 if($case['id']){
@@ -202,6 +202,39 @@ class TestController extends Api {
         $params=$m_api->getApiRequestParams($api_id);
 
         exit(json_encode($params));
+    }
+
+    /**
+     * 执行测试用例
+     * @return
+     */
+    public function run($params){
+
+        header('Content-Type:application/json');
+
+        $env=$params['env'];
+        $test_case_id=$params['test_case_id'];
+        empty($env) && $env='dev';
+
+        $m_test=require_model('test');
+        $m_api=require_model('api');
+
+        $test_case=$m_test->getTestCaseDetail($test_case_id);
+
+        $api_id=$test_case['api_id'];
+        $params=$test_case['api_params'];
+
+        if(empty($api_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未关联API接口']));
+
+        $api_detail=$m_api->getApi($api_id);
+
+        if(empty($api_detail)) exit(json_encode(['errno'=>-1,'errmsg'=>'关联API接口不存在']));
+
+        $result=run($env,$api_detail['url'],json_decode($params,true));
+
+        $result=json_encode(json_decode($result,true),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        exit(json_encode(['errno'=>0,'errmsg'=>'','data'=>$result]));
     }
 
     private function getSideBar(){

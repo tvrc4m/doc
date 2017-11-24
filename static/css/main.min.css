@@ -237,3 +237,11 @@ a.http_send,a:active.http_send,a:hover.http_send{
 .btn-a{
     color: #c7254e;
 }
+.btn-g,.btn-g:active,.btn-g:hover{
+    background-color: #14892c;
+}
+@media (max-width: 960px){
+    .navbar-right{
+        display: none !important;
+    }
+}

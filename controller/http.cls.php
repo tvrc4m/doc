@@ -30,37 +30,13 @@ class HttpController extends Api {
 
         $url=$params['url'];
 
-        $environment=[
-            'test'=>'http://test.vrcdkj.cn/',
-            'dev'=>'http://dev.vrcdkj.cn/',
-            'staging'=>'http://staging.vrcdkj.cn/',
-            // 'live'=>'https://www.kanfanews.com/',
-            'live'=>'https://www.vrcdkj.cn/',
-        ];
+        unset($params['url']);
+        unset($params['env']);
 
-        $domain=$environment[$env];
-
-        if($env=='live') $params['test_code']='fdj837fb&30*83b*&73hf_kgjjg&hhf';
-
-        empty($params['page']) && $params['page']=1;
-        empty($params['pcount']) && $params['pcount']=20;
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $domain.$url);
-        // echo $domain.$url;exit;
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-        
-        $result = curl_exec($ch);
-        
-        curl_close($ch);
+        $result=run($dev,$url,$params);
 
         echo $result;
-
+        
         exit;
     }
 }

@@ -16,6 +16,13 @@ class TestModel extends DB{
         return $this->find($sql);
     }
 
+    public function getTestCaseDetail($test_cast_id){
+
+        $sql="SELECT * FROM kf_test_case WHERE id=".intval($test_cast_id);
+
+        return $this->get($sql);
+    }
+
     public function addTest($title,$cat_id,$remark=''){
 
         $sql="INSERT INTO kf_test (title,cat_id,remark,stat,create_date) VALUES (?,?,?,1,NOW())";

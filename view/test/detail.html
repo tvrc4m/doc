@@ -9,9 +9,8 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr class="warning">
-                        <th>用例</th>
-                        <th width="80">执行状态</th>
-                        <th width="110">操作</th>
+                        <th>测试用例</th>
+                        <th class="text-center" width="110">操作</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,17 +19,13 @@
                         <td>
                             <?php echo $case['content']; ?>
                         </td>
-                        <td>
-                            <?php if($case['run_status']==1){
-                                    echo '执行成功';
-                                }elseif($case['run_status']==0){
-                                    echo '未执行';
-                                }elseif($case['run_status']==-1){
-                                    echo '执行失败';
-                                }?>
+                        <td class="text-center">
+                            <button type="button" data-test_case_id="<?php echo $case['id'];?>" class="btn-u case-btn" style="height:24px;padding:5px 8px;font-size:11px;">执行</button> 
                         </td>
-                        <td>
-                            <code><a href="">执行</a></code>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="run_result"></div>
                         </td>
                     </tr>
                     <?php } ?>
@@ -58,5 +53,34 @@
                 })
             }
         }
+        $(".case-btn").on('click',function(){
+            var test_case_id=$(this).data("test_case_id");
+            var that=this;
+            $.ajax({
+                url:"/test/run",
+                type:"POST",
+                dataType:"json",
+                data:{test_case_id:test_case_id},
+                beforeSend:function(){
+                    $(that).text("正在请求中...");
+                },
+                success:function(data){
+                    if(data.errno==0){
+                        $(that).text("查看执行结果");
+                        // console.log(data.data);
+                        $(that).parents('tr').next().find('.run_result').html(data.data);   
+                    }else{
+                        $(that).text("执行报错");
+                        alert(data.errmsg); 
+                    }
+                },
+                complete:function(){
+
+                },
+                error:function(){
+                    $(that).text("请求失败");
+                }
+            })
+        })
     </script>
 </div>
