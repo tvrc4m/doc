@@ -18,7 +18,7 @@ class HttpModel extends DB{
 
     public function addUserHttp($user_id,$title,$cat_id,$api_id,$api_params='',$api_return='',$is_public=1){
 
-        $sql="INSERT INTO kf_user_http ($user_id,title,cat_id,api_id,api_params,api_return,is_public,stat,create_date) VALUES (?,?,?,?,?,?,?,1,NOW())";
+        $sql="INSERT INTO kf_user_http (user_id,title,cat_id,api_id,api_params,api_return,is_public,stat,create_date) VALUES (?,?,?,?,?,?,?,1,NOW())";
 
         return $this->insert($sql,'isiissi',[$user_id,$title,$cat_id,$api_id,$api_params,$api_return,$is_public]);
     }
