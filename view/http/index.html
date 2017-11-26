@@ -2,6 +2,7 @@
 
     <div id="paramInfo" class="headline">
         <h2><?php echo $data['api']['title'];?></h2>
+        <code><a class="http_send" href="javascript:void(0);" onclick="goToApi()">查看文档</a></code>
     </div>
     <p class="api_url">
         <span class="label label-primary"><?php echo strtoupper($data['api']['type']==1?"post":"get");?></span> 
@@ -43,7 +44,6 @@
         <p></p>
         <code><a href="javascript:void(0);" onclick="enterFullscreen()">全屏</a></code>
         <code><a href="javascript:void(0);" onclick="saveExample()">保存为事例代码</a></code>
-        <code><a href="javascript:void(0);" onclick="goToApi()">查看该接口文档</a></code>
         <div id="result" class="result"></div>
     </form>
     <script src="/static/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>

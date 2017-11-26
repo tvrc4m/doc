@@ -230,13 +230,17 @@
             $(".error").text("类别不能为空");
             return false;
         }
+        var status=1;
         cases.each(function(i,item){
-            if(!$(item).val()){
+            var v=$(item).val();
+            if(!v || v.trim().length==0){
                 console.log(item);
                 $(".error").text('测试用例说明不能为空');    
+                status=0;
                 return false;
             }
         })
+        if(!status) return fasle;
         $.ajax({
             url:"/test/add/save",
             type:"POST",

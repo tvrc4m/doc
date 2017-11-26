@@ -5,6 +5,16 @@
             <code><a class="doc-edit" href="/test/edit/<?php echo $data['test']['id'];?>">编辑</a></code>
             <code><a class="doc-del" href="javascript:void(0);" onclick="delTest(<?php echo $data['test']['id'];?>)">删除</a></code>
         </div>
+        <div style="margin-bottom: 5px;">
+            执行环境:&nbsp;&nbsp;
+            <input class="env" type="checkbox" name="env" value="test" />&nbsp;TEST&nbsp;&nbsp;
+            <input class="env"  type="checkbox" name="env" value="dev" checked />&nbsp;DEV&nbsp;&nbsp;
+            <input class="env"  type="checkbox" name="env" value="staging" />&nbsp;STAGING&nbsp;&nbsp;
+            <input class="env"  type="checkbox" name="env" value="live" />&nbsp;LIVE&nbsp;&nbsp;
+            <div style="width: 110px;display: inline-block;float: right;text-align: center">
+                <button type="button" class="btn-u run-all" style="height:24px;padding:5px 8px;font-size:11px;">执行全部</button> 
+            </div>
+        </div>
         <div>
             <table class="table table-bordered table-striped">
                 <thead>
@@ -23,9 +33,9 @@
                             <button type="button" data-test_case_id="<?php echo $case['id'];?>" class="btn-u case-btn" style="height:24px;padding:5px 8px;font-size:11px;">执行</button> 
                         </td>
                     </tr>
-                    <tr>
+                    <tr style="display: none;">
                         <td colspan="2">
-                            <div class="run_result"></div>
+                            <div class="run_result">&nbsp;&nbsp;没有数据</div>
                         </td>
                     </tr>
                     <?php } ?>
@@ -36,6 +46,14 @@
         
     <?php }?>
     <script type="text/javascript">
+        $(".env").click(function(){
+            var current=$(this).val();
+            $(".env").each(function(i,item){
+                if($(item).prop("checked") && $(item).val()!=current){
+                    $(item).prop("checked",false);
+                }
+            })
+        })
         function delTest(test_id){
             if(window.confirm("是否确定要删除？")){
                 $.ajax({
@@ -53,34 +71,52 @@
                 })
             }
         }
-        $(".case-btn").on('click',function(){
-            var test_case_id=$(this).data("test_case_id");
-            var that=this;
+        $(document).on('click',".case-btn:not('.waiting'):not('.over')",function(){
+            var self=this;
+            if($(self).hasClass('waiting')) return false;
+            $(self).addClass("waiting");
+            var test_case_id=$(self).data("test_case_id");
+            var env=$("input[name=env]:checked").val();
+            if(!env){
+                alert("请先选择执行环境");
+                $(self).removeClass("waiting");
+                return false;
+            }
             $.ajax({
                 url:"/test/run",
                 type:"POST",
                 dataType:"json",
                 data:{test_case_id:test_case_id},
                 beforeSend:function(){
-                    $(that).text("正在请求中...");
+                    $(self).text("正在请求中...");
                 },
                 success:function(data){
                     if(data.errno==0){
-                        $(that).text("查看执行结果");
-                        // console.log(data.data);
-                        $(that).parents('tr').next().find('.run_result').html(data.data);   
+                        $(self).text("查看结果");
+                        console.log(data.data);
+                        $(self).parents('tr').next().find('.run_result').html(data.data.replace(/\n/g,'<br>').replace(/\s/g,'&nbsp;'));   
                     }else{
-                        $(that).text("执行报错");
+                        $(self).text("执行报错");
                         alert(data.errmsg); 
                     }
                 },
                 complete:function(){
-
+                    $(self).removeClass("waiting");
+                    $(self).addClass("over");
                 },
                 error:function(){
-                    $(that).text("请求失败");
+                    $(self).text("请求失败");
+                    $(self).removeClass("waiting");
+                    $(self).addClass("over");
                 }
             })
+            return false;
+        })
+        $("tr:odd").on('click',function(){
+            $(this).next().toggle();
+        })
+        $(".run-all").on('click',function(){
+            $(".case-btn").trigger('click');
         })
     </script>
 </div>

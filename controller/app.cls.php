@@ -178,6 +178,24 @@ class AppController extends Api {
     }
 
     /**
+     * 获取接口关联的测试用例
+     * @return 
+     */
+    public function case($params){
+
+        $api_id=$params['id'];
+
+        $m_api=require_model("api");
+        $m_test=require_model("test");
+
+        $api=$m_api->getApi($api_id);
+
+        $tests=$m_test->getApiTestCast($api_id);
+
+        $this->display("app/case.html",['api'=>$api,'tests'=>$tests,'tab_selected'=>'app']);
+    }
+
+    /**
      * 保存example
      * @return 
      */

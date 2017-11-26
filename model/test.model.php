@@ -71,4 +71,33 @@ class TestModel extends DB{
 
         return $this->find($sql);
     }
+
+    public function getApiTestCast($api_id){
+
+        $cases=$this->find("SELECT * FROM kf_test_case WHERE stat=1 AND api_id=".intval($api_id));
+
+        $result=[];
+
+        if($cases){
+
+            $test_id_list=array_column($cases, 'test_id');
+            
+            $tests=$this->find("SELECT * FROM kf_test WHERE id IN (".implode(',', $test_id_list).")");
+
+            foreach ($tests as $test) {
+                
+                foreach ($cases as $case) {
+                    
+                    if($test['id']==$case['test_id']){
+
+                        $test['cases'][]=$case;
+                    }
+                }
+
+                $result[]=$test;
+            }
+        }
+        // print_r($result);exit;
+        return $result;
+    }
 }
