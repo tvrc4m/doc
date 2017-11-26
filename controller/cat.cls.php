@@ -72,9 +72,9 @@ class CatController extends Api {
 
         if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能重复']));
 
-        $sql="INSERT INTO kf_cat (name,type,user_id,create_date) VALUES (?,?,?,NOW())";
+        $m_cat=require_model('cat');
 
-        $db->insert($sql,'si',[$name,$type,$this->user_id]);
+        $m_cat->addCat($this->user_id,$name,$type);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }

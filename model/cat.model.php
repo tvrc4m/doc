@@ -28,10 +28,10 @@ class CatModel extends DB{
         return $this->find($sql);
     }
 
-    public function addCat($name,$type){
+    public function addCat($user_id,$name,$type){
 
-        $sql="INSERT INTO kf_cat (name,type,stat,create_date) VALUES (?,?,1,NOW())";
+        $sql="INSERT INTO kf_cat (user_id,name,type,stat,create_date) VALUES (?,?,?,1,NOW())";
 
-        return $this->insert($sql,'si',[$name,$type]);
+        return $this->insert($sql,'isi',[$user_id,$name,$type]);
     }
 }
