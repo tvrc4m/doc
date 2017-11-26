@@ -9,6 +9,15 @@ class ApiModel extends DB{
         return $this->get($sql);
     }
 
+    public function getApiParams($api_id){
+
+        $api=$this->getApi($api_id);
+
+        $api['params']=$this->getApiRequestParams($api_id);
+
+        return $api;
+    }
+
     public function addApi($title,$cat_id,$remark=''){
 
         $sql="INSERT INTO kf_test (title,cat_id,remark,stat,create_date) VALUES (?,?,?,1,NOW())";

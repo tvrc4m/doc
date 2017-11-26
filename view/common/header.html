@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>看法APP - API文档</title>
+    <title>看法APP - <?php echo $data['title'];?></title>
     <meta name="keywords" content="">
     <meta name="description" content="看法APP内部API文档">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -40,6 +40,12 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
                         <li style="margin-top: 8px;margin-right: 5px;">@<?php echo $_SESSION['user']['nick'];?></li>
+                        <li id="my" class="<?php echo $data['tab_selected']=='my'?'active':'';?>">
+                            <a href="javascript:void(0);">我的</a>
+                            <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
+                                <li class="menu-title font-16"><a href="/http/my" style="border-bottom:none">我发起的请求</a></li>
+                            </ul>
+                        </li>
                         <li><a href="/logout">退出</a></li>
                     </ul>
                 </div>
@@ -59,6 +65,9 @@
             <!-- Begin Sidebar Menu -->
             <?php if($data['api_list']){ ?>
             <div class="" style="position: fixed;z-index: 99;width: auto;max-width: 280px;">
+                <?php if(!empty($data['title'])){ ?>
+                    <h5 style="margin-left: 10px;"><?php echo $data['title'];?></h5>
+                <?php } ?>
                 <ul class="doc-nav list-group sidebar-nav-v1" id="sidebar-nav">
                     <?php foreach($data['api_list'] as $parent=>$list){ ?>
                         <li id="sdknode-api" class="list-group-item list-toggle sidebar-submenu">
@@ -108,6 +117,11 @@
                     menu.addClass('active');
                     $(".sidebar-submenu ul li a.active").removeClass("active");
                     $(this).addClass("active");
+                })
+                $("#my,#my .dropdown-menu").on('mouseover',function(){
+                    $("#my .dropdown-menu").show();
+                }).on('mouseout',function(){
+                    $("#my .dropdown-menu").hide();
                 })
             </script>
             <?php } ?>

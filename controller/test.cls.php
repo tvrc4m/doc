@@ -23,7 +23,7 @@ class TestController extends Api {
             break;
         }
         
-        $this->display("test/detail.html",['api_list'=>$api_list,'current'=>$current,'test'=>$test,'cases'=>$cases,'tab_selected'=>'test']);
+        $this->display("test/detail.html",['api_list'=>$api_list,'current'=>$current,'test'=>$test,'cases'=>$cases,'title'=>'测试用例','tab_selected'=>'test']);
     }
 
     /**
@@ -62,7 +62,7 @@ class TestController extends Api {
         $cats=$m_cat->getCatsByType(CAT_TYPE_TEST_CASE);
         $apis=$m_api->getAllCatApi();
         // print_r($apis);exit;
-        $this->display("test/add.html",['tab_selected'=>'test','cats'=>json_encode($cats),'apis'=>$apis]);
+        $this->display("test/add.html",['tab_selected'=>'test','cats'=>json_encode($cats),'apis'=>$apis,'title'=>'新增测试用例']);
     }
 
     /**
@@ -93,7 +93,7 @@ class TestController extends Api {
         $cats=$m_cat->getCatsByType(CAT_TYPE_TEST_CASE);
         $apis=$m_api->getAllCatApi();
 
-        $this->display("test/edit.html",['tab_selected'=>'test','cats'=>json_encode($cats),'apis'=>$apis,'test'=>json_encode($test,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)]);
+        $this->display("test/edit.html",['tab_selected'=>'test','cats'=>json_encode($cats),'apis'=>$apis,'test'=>json_encode($test,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP),'title'=>'编辑测试用例']);
     }
 
     /**

@@ -29,6 +29,7 @@
         <input type="hidden" name="api_id" value="<?php echo $data['api']['id']; ?>" />
         <input type="hidden" name="url" value="<?php echo $data['api']['url']; ?>" />
         <input type="hidden" name="code" value="<?php echo $data['api']['code']; ?>" />
+        <input type="hidden" name="user_http_id" value="" />
         <input type="hidden" name="env" value="dev" />
         <table class="table hidden-xs" style="margin-bottom: 0;">
             <thead>
@@ -40,7 +41,7 @@
             </thead>
             <tbody id="api_params"></tbody>
         </table>
-        <button id="httprun" type="button" class="btn-u" style="height:26px;padding:5px 8px;font-size:12px;width:48px;">发送</button> 
+        <button id="httprun" type="button" class="btn-u" style="height:26px;padding:5px 8px;font-size:12px;width:48px;">请求</button> 
         <button id="httpsave" type="button" class="btn-u" style="height:26px;padding:5px 8px;font-size:12px;width:48px;">保存</button> 
         <p></p>
         <code><a href="javascript:void(0);" onclick="enterFullscreen()">全屏</a></code>
@@ -49,7 +50,7 @@
     </form>
     <script src="/static/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-        var current="",full=0;
+        var current='<?php echo $data['current'];?>',full=0;
         var editor = ace.edit("result");
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/javascript");
@@ -94,36 +95,37 @@
             })
         })
         $("a[key]").on('click',function(){
-            var key=$(this).attr("key");
+            var user_http_id=$(this).attr("key");
             $.ajax({
-                url:"/api/http/get",
+                url:"/http/history",
                 type:"GET",
                 dataType:"json",
-                data:{key:key},
+                data:{id:user_http_id},
                 success:function(data){
-                    $(".headline h2").html(data.title);
-                    $(".api_url em").html(data.url);
-                    $(".api_url .label-primary").html(data.type==1?'POST':'GET');
-                    $("input[name=api_id]").val(data.id);
-                    $("input[name=url]").val(data.url);
-                    $("input[name=code]").val(data.code);
-                    if(data.params){
+                    $(".headline h2").html(data.api.title);
+                    $(".api_url em").html(data.api.url);
+                    $(".api_url .label-primary").html(data.api.type==1?'POST':'GET');
+                    $("input[name=user_http_id]").val(data.id);
+                    $("input[name=api_id]").val(data.api.id);
+                    $("input[name=url]").val(data.api.url);
+                    $("input[name=code]").val(data.api.code);
+                    if(data.api.params){
                         var html="";
-                        for(index in data.params){
+                        for(index in data.api.params){
                             html+='<tr>';
-                            if(data.params[index]['must']==1){
-                                html+='<td class="text-center console-index td-bottom" style="width: 100px;"><code>*</code>'+data.params[index].name+'</td>';
+                            if(data.api.params[index]['must']==1){
+                                html+='<td class="text-center console-index td-bottom" style="width: 100px;"><code>*</code>'+data.api.params[index].name+'</td>';
                             }else{
-                                html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+data.params[index].name+'</td>';
+                                html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+data.api.params[index].name+'</td>';
                             }
                             html+='<td class="text-center td-bottom" style="width: 100px;">';
-                            html+='<input type="text" name="'+data.params[index].name+'" />';
+                            html+='<input type="text" name="'+data.api.params[index].name+'" value="'+data.api.params[index].value+'" />';
                             html+='</td>';
-                            html+='<td class="text-center td-bottom text-left">'+data.params[index].remark+'</td>';
+                            html+='<td class="text-center td-bottom text-left">'+data.api.params[index].remark+'</td>';
                             html+='</tr>';
                         }
                         $("#api_params").html(html);
-                        editor.setValue("");
+                        editor.setValue(data.api_return);
                     }
                 }
             })
@@ -265,13 +267,7 @@
         });
     }
     $("#httpsave").on('click',function(){
-        modal('#http_save_modal');
-    })
-    function httpSave(){
-        var title=$("#http_form input[name=title]").val();
-        var is_public=$("#http_form input[name=is_public]:checked").val();
-        var cat_id=$("#http_form select[name=cat_id]").val();
-        var api_id=$("input[name=api_id]").val();
+        var user_http_id=$("input[name=user_http_id]").val();
         var api_params=$("#api_params input").serialize();
         var api_return=editor.getValue();
         console.log(api_params)
@@ -280,7 +276,7 @@
             url:'/http/save',
             type:'POST',
             dataType:'json',
-            data:{title:title,api_id:api_id,api_params:api_params,api_return:api_return,is_public:is_public,cat_id:cat_id},
+            data:{user_http_id:user_http_id,api_params:api_params,api_return:api_return},
             success:function(data){
                 if(data.errno==0){
                     alert('保存成功');
@@ -290,5 +286,5 @@
                 }
             }
         })
-    }
+    })
 </script>

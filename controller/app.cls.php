@@ -12,7 +12,7 @@ class AppController extends Api {
 
         $api_list=$this->getApiList('api');
         
-        $this->display("app/content.html",['api_list'=>$api_list,'api_common'=>$api_common,'tab_selected'=>'app']);
+        $this->display("app/content.html",['api_list'=>$api_list,'api_common'=>$api_common,'title'=>'APP接口文档','tab_selected'=>'app']);
     }
 
     /**
@@ -35,7 +35,7 @@ class AppController extends Api {
 
         $versions=$this->getAppVersion();
 
-        $this->display("app/add.html",['tab_selected'=>'app','versions'=>json_encode($versions),'cats'=>json_encode($cats)]);
+        $this->display("app/add.html",['tab_selected'=>'app','versions'=>json_encode($versions),'cats'=>json_encode($cats),'title'=>'添加APP接口文档']);
     }
 
     /**
@@ -53,7 +53,7 @@ class AppController extends Api {
 
         $api['versions']=$this->getAppVersion();
         // print_r($cat_list);exit;
-        $this->display("app/edit.html",['tab_selected'=>'app','api'=>json_encode($api,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP)]);
+        $this->display("app/edit.html",['tab_selected'=>'app','api'=>json_encode($api,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP),'title'=>'编辑APP接口文档']);
     }
 
     /**

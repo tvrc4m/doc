@@ -2,6 +2,8 @@
 
 class Auth {
 
+    protected $user_id;
+
     public function __construct(){
 
         $user_id=$_SESSION['token'];
@@ -15,6 +17,8 @@ class Auth {
         $user=$db->get($sql);
 
         if(empty($user)) header("Location:/login");
+
+        $this->user_id=$user['id'];
 
         $_SESSION['user']=$user;
     }

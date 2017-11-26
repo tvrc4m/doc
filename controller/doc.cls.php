@@ -30,6 +30,7 @@ class DocController extends Api {
 
         $data['detail']=$detail;
         $data['current']=$id;
+        $data['title']=$detail['title'];
 
         $this->display('doc/detail.html',$data);
     }
