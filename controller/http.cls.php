@@ -27,7 +27,7 @@ class HttpController extends Api {
         $m_cat=require_model('cat');
         $m_http=require_model('http');
 
-        $user_http=$m_http->getUserHttp($this->user_id);
+        $user_http=$m_http->getUserAndPublicHttp($this->user_id);
 
         $cats=$m_cat->getCatsByType(self::CAT_TYPE_HTTP);
 
@@ -128,7 +128,7 @@ class HttpController extends Api {
             if(empty($title)) exit(json_encode(['errno'=>-1,'errmsg'=>'未设置标题']));
             if(empty($cat_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'类别不能为空']));
 
-            $m_http->addUserHttp($title,$cat_id,$api_id,json_encode($api_params),$api_return,$is_public);
+            $m_http->addUserHttp($this->user_id,$title,$cat_id,$api_id,json_encode($api_params),$api_return,$is_public);
         }
 
         exit(json_encode(['errno'=>0]));

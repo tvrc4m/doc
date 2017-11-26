@@ -9,11 +9,18 @@ class HttpModel extends DB{
         return $this->find($sql);
     }
 
-    public function addUserHttp($title,$cat_id,$api_id,$api_params='',$api_return='',$is_public=1){
+    public function getUserAndPublicHttp($user_id){
 
-        $sql="INSERT INTO kf_user_http (title,cat_id,api_id,api_params,api_return,is_public,stat,create_date) VALUES (?,?,?,?,?,?,1,NOW())";
+        $sql="SELECT * FROM kf_user_http WHERE stat=1 AND (user_id={$user_id} OR is_public=1)";
 
-        return $this->insert($sql,'siissi',[$title,$cat_id,$api_id,$api_params,$api_return,$is_public]);
+        return $this->find($sql);
+    }
+
+    public function addUserHttp($user_id,$title,$cat_id,$api_id,$api_params='',$api_return='',$is_public=1){
+
+        $sql="INSERT INTO kf_user_http ($user_id,title,cat_id,api_id,api_params,api_return,is_public,stat,create_date) VALUES (?,?,?,?,?,?,?,1,NOW())";
+
+        return $this->insert($sql,'isiissi',[$user_id,$title,$cat_id,$api_id,$api_params,$api_return,$is_public]);
     }
 
     /**

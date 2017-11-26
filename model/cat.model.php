@@ -21,6 +21,13 @@ class CatModel extends DB{
         return $this->find($sql);
     }
 
+    public function getUserCatByType($user_id,$type){
+
+        $sql="SELECT * FROM kf_cat WHERE stat=1 AND user_id=".intval($user_id)." AND type=".intval($type);
+
+        return $this->find($sql);
+    }
+
     public function addCat($name,$type){
 
         $sql="INSERT INTO kf_cat (name,type,stat,create_date) VALUES (?,?,1,NOW())";

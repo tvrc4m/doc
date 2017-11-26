@@ -1,12 +1,12 @@
+<?php if($data['api_list']){ ?>
 <div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
-
     <div id="paramInfo" class="headline">
-        <h2><?php echo $data['api']['title'];?></h2>
+        <h2></h2>
         <code><a class="http_send" href="javascript:void(0);" onclick="goToApi()">查看文档</a></code>
     </div>
     <p class="api_url">
-        <span class="label label-primary"><?php echo strtoupper($data['api']['type']==1?"post":"get");?></span> 
-        <em><?php echo $data['api']['url']; ?></em>
+        <span class="label label-primary"></span> 
+        <em></em>
         <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
     </p>
     <div class="container-fluid env-container">
@@ -26,9 +26,9 @@
         </div>
     </div>
     <form id="httpform" action="/http/run" method="POST">
-        <input type="hidden" name="api_id" value="<?php echo $data['api']['id']; ?>" />
-        <input type="hidden" name="url" value="<?php echo $data['api']['url']; ?>" />
-        <input type="hidden" name="code" value="<?php echo $data['api']['code']; ?>" />
+        <input type="hidden" name="api_id" value="" />
+        <input type="hidden" name="url" value="" />
+        <input type="hidden" name="code" value="" />
         <input type="hidden" name="user_http_id" value="" />
         <input type="hidden" name="env" value="dev" />
         <table class="table hidden-xs" style="margin-bottom: 0;">
@@ -217,6 +217,12 @@
         })
     </script>
 </div>
+<?php }else{ ?>
+    <div class="text-center" style="margin-top: 50px;font-size: 14px;font-weight: 600;">
+        <p>目前还没有保存请求</p>
+        <code><a class="http_send" href="/api/http#channel_getlist">发起请求->保存按钮</a></code>
+    </div>
+<?php }?>
 <div id="http_save_modal" style="display: none">
     <form id="http_form" method="post" class="form-horizontal" novalidate="novalidate">
         <table class="table no-border">

@@ -71,8 +71,9 @@
                 })
             }
         }
-        $(document).on('click',".case-btn:not('.waiting'):not('.over')",function(){
+        $(document).on('click',".case-btn:not('.waiting'):not('.over')",function(event){
             var self=this;
+            console.log(1111);
             if($(self).hasClass('waiting')) return false;
             $(self).addClass("waiting");
             var test_case_id=$(self).data("test_case_id");
@@ -112,11 +113,12 @@
             })
             return false;
         })
-        $("tr:odd").on('click',function(){
-            $(this).next().toggle();
-        })
+        $(document).on('click',".case-btn.over",function(event){
+            $(this).parents("tr").next().toggle();
+        });
         $(".run-all").on('click',function(){
             $(".case-btn").trigger('click');
+            return false;
         })
     </script>
 </div>
