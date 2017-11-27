@@ -47,7 +47,7 @@ class TestController extends Api {
 
         $current=$test_id;
 
-        $this->display("test/detail.html",['api_list'=>$api_list,'test'=>$test,'cases'=>$cases,'current'=>$current,'tab_selected'=>'test']);
+        $this->display("test/detail.html",['api_list'=>$api_list,'test'=>$test,'cases'=>$cases,'current'=>$current,'title'=>'测试用例','tab_selected'=>'test']);
     }
 
     /**

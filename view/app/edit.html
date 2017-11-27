@@ -188,7 +188,8 @@
 </script>
 <script src="/static/js/template-web.js"></script>
 <script type="text/javascript">
-    var api=jQuery.parseJSON('<?php echo $data['api'];?>');
+    var apistr='<?php echo $data['api'];?>';
+    var api=jQuery.parseJSON(apistr.replace(/\n/g,''));
     var base={"接口地址":{name:"url",value:api.url},"标题":{name:'title',value:api.title},"描述说明":{name:"remark",value:api.remark},"版本号":{name:"version",value:api.version,list:api.versions},'类别':{name:"cat_id",value:api.cat_id,list:api.cats}};
     var hidden_html = template("api_hidden", {hidden:{id:api.id}});
     var base_html = template("api_base_template", {base:base});
