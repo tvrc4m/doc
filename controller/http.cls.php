@@ -85,6 +85,17 @@ class HttpController extends Api {
         exit(json_encode($user_http));
     }
 
+    public function del($params){
+
+        $user_http_id=$params['id'];
+
+        $m_http=require_model('http');
+
+        $m_http->delUserHttp($user_http_id,$this->user_id);
+
+        exit(json_encode(['errno'=>0]));
+    }
+
     /**
      * 执行
      * @return 

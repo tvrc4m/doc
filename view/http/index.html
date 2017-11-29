@@ -284,6 +284,7 @@
             success:function(data){
                 if(data.errno==0){
                     alert('保存成功');
+                    $("#http_form input[name=title]").val("");
                     $.fancybox.close();
                 }else{
                     alert(data.errmsg);

@@ -40,6 +40,13 @@ class HttpModel extends DB{
         $this->update($sql,'ssii',[$api_params,$api_return,$user_http_id,$user_id]);
     }
 
+    public function delUserHttp($user_http_id,$user_id){
+
+        $sql="UPDATE kf_user_http SET stat=0 WHERE id=? AND user_id=?";
+
+        return $this->update($sql,'ii',[$user_http_id,$user_id]);
+    }
+
     public function getUserHttpDetail($user_http_id){
 
         return $this->get("SELECT * FROM kf_user_http WHERE stat=1 AND id=".intval($user_http_id));

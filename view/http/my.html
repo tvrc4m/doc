@@ -2,7 +2,8 @@
 <div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
     <div id="paramInfo" class="headline">
         <h2></h2>
-        <code><a class="http_send" href="javascript:void(0);" onclick="goToApi()">查看文档</a></code>
+        <code><a class="api-copy" href="javascript:void(0);" onclick="goToApi()">查看文档</a></code>
+        <code><a class="http_send" href="javascript:void(0);" onclick="delReq()">删除</a></code>
     </div>
     <p class="api_url">
         <span class="label label-primary"></span> 
@@ -72,11 +73,9 @@
                     $(that).attr("disabled","disabled");
                 },
                 success:function(data){
-                    console.log(data);
                     try{
                         var json=JSON.parse(data);
                         var str=JSON.stringify(json,null,4);
-                        console.log(editor);
                         editor.setValue(str);
                         editor.moveCursorTo(0, 0);
                     }catch(error){
@@ -206,6 +205,25 @@
         function goToApi(){
             var code=$("input[name=code]").val();
             document.location.href="/api/app#"+code;
+        }
+        function delReq(){
+            var user_http_id=$("input[name=user_http_id]").val();
+            if(window.confirm("确定是否要删除吗?")){
+                $.ajax({
+                    url:"/http/del",
+                    type:"POST",
+                    dataType:"json",
+                    data:{id:user_http_id},
+                    success:function(data){
+                        if(data.errno==0){
+                            alert('删除成功');
+                            document.location.href="/http/my";
+                        }else{
+                            alert(data.errmsg);
+                        }
+                    }
+                })
+            }
         }
         $(function(){
             if(!current && document.location.hash){
