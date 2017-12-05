@@ -4,11 +4,11 @@
     <div id="paramInfo" class="headline">
         <h2>接口说明</h2>
     </div>
-    <div class="alert alert-warning fade in">
+    <div class="alert alert-warning fade in no-bottom">
         <?php if(is_string($data['api_common']['desc'])){?>
         <?php echo $data['api_common']['desc']; ?>
         <?php }else{ ?>
-        <ol>
+        <ol style="margin-bottom: 0">
             <?php foreach($data['api_common']['desc'] as $desc){?>
             <li>
                 <?php echo $desc;?>
