@@ -47,6 +47,8 @@
         <p></p>
         <code><a href="javascript:void(0);" onclick="enterFullscreen()">全屏</a></code>
         <code><a href="javascript:void(0);" onclick="saveExample()">保存为事例代码</a></code>
+        <code id="fixed"><a href="javascript:void(0);" onclick="disableScroll()">向上固定</a></code>
+        <code id="unfixed" style="display: none;"><a href="javascript:void(0);" onclick="enableScroll()">取消固定</a></code>
         <div id="result" class="result"></div>
     </form>
     <script src="/static/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -177,6 +179,27 @@
             }else{
                 $("#result").css({height:'660px',width:'95%'});
             }
+        }
+        function preventWhell(event){
+            event.preventDefault(0);
+        }
+        function preventArrow(event){
+            if(event.key == "ArrowDown" || event.key == "ArrowUp"){
+                event.preventDefault();
+            }
+        }
+        function disableScroll(){
+            window.addEventListener("wheel",preventWhell);
+            window.addEventListener("keydown",preventArrow);
+            window.scrollTo(0,document.body.offsetHeight-document.getElementById("result").offsetHeight-20);
+            $("#unfixed").show();
+            $("#fixed").hide();
+        }
+        function enableScroll(){
+            window.removeEventListener("wheel",preventWhell);
+            window.removeEventListener("keydown",preventArrow);
+            $("#unfixed").hide();
+            $("#fixed").show();
         }
         function saveExample(){
             var api_id=$('input:hidden[name=api_id]').val();
