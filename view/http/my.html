@@ -96,6 +96,8 @@
             })
         })
         $("a[key]").on('click',function(){
+            enableScroll();
+            scrollStart();
             var user_http_id=$(this).attr("key");
             $.ajax({
                 url:"/http/history",
@@ -200,6 +202,9 @@
             window.removeEventListener("keydown",preventArrow);
             $("#unfixed").hide();
             $("#fixed").show();
+        }
+        function scrollStart(){
+            window.scrollTo(0,0);
         }
         function saveExample(){
             var api_id=$('input:hidden[name=api_id]').val();

@@ -96,6 +96,8 @@
             })
         })
         $("a[key]").on('click',function(){
+            enableScroll();
+            scrollStart();
             var key=$(this).attr("key");
             $.ajax({
                 url:"/api/http/get",
@@ -198,6 +200,9 @@
             window.removeEventListener("keydown",preventArrow);
             $("#unfixed").hide();
             $("#fixed").show();
+        }
+        function scrollStart(){
+            window.scrollTo(0,0);
         }
         function saveExample(){
             var api_id=$('input:hidden[name=api_id]').val();
