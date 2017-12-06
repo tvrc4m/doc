@@ -24,6 +24,7 @@ Copyright (c) 2014 Daniel Eden
 
 html,body{
     /* height: 100%; */
+    min-height: 100%;
 }
 .container {
     width: 100% important;

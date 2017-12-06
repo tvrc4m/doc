@@ -4,6 +4,7 @@
         <thead>
             <tr class="warning">
                 <th width="110">名称</th>
+                <th width="110">备注说明</th>
                 <th width="110">操作</th>
             </tr>
         </thead>
@@ -11,7 +12,9 @@
             <?php foreach($data['version_list'] as $version){?>
                 <tr>
                    <td><?php echo $version['name'];?></td> 
+                   <td><?php echo $version['remark'];?></td> 
                    <td>
+                       <code><a class="version-del" onclick="editVersion(this)" data-id="<?php echo $version['id'];?>" data-name="<?php echo $version['name'];?>" data-remark="<?php echo $version['remark'];?>">编辑</a></code>
                        <code><a class="version-del" onclick="delVersion(this)" data-id="<?php echo $version['id'];?>">删除</a></code>
                    </td>
                 </tr>
@@ -19,22 +22,42 @@
         </tbody>
     </table>
 </div>
-
+<div id="version_modal" class="cat-modal" style="display: none">
+    <form style="width: 500px;" method="post" class="form-horizontal" novalidate="novalidate">
+        <div class="text-center">
+            <label><font class="must-required">*</font>名称</label>
+            <input style="width: 350px" type="text" name="name" value="" />
+            <input type="hidden" name="id" value="" />
+        </div>
+        <br>
+        <div class="text-center">
+            <label>备注</label>
+            <input style="width: 350px" type="text" name="remark" value="" />
+        </div>
+        <br>
+        <div class="text-center">
+            <button id="versionBtnSave" class="btn btn-primary submit" type="button">提交</button>
+        </div>
+    </form>
+</div>
 <script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
     function editVersion(that){
         var name=$(that).data('name');
+        var remark=$(that).data('remark');
         var id=$(that).data('id');
         console.log(name);
-        $("#version_modal input[name=name]").val(name);
+        $("#version_modal input[name=name]").val(name).prop("disabled","disabled");
+        $("#version_modal input[name=remark]").val(remark);
         $("#version_modal input[name=id]").val(id);
         document.getElementById("versionBtnSave").removeEventListener('click',add,false);
         document.getElementById("versionBtnSave").addEventListener('click',edit,false);
         modal('#version_modal');
     }
     function addVersion(){
-        $("#version_modal input[name=name]").val('');
+        $("#version_modal input[name=name]").val('').prop("disabled",null);
         $("#version_modal input[name=id]").val('');
+        $("#version_modal input[name=remark]").val('');
         document.getElementById("versionBtnSave").removeEventListener('click',edit,false);
         document.getElementById("versionBtnSave").addEventListener('click',add,false);
         modal('#version_modal');
@@ -60,12 +83,13 @@
     }
     function add(){
         var name=$("#version_modal input[name=name]").val();
+        var remark=$("#version_modal input[name=remark]").val();
         var type=$("#version_modal input[name=type]").val();
         $.ajax({
             url:"/api/version/add",
             type:"POST",
             dataType:"json",
-            data:{name:name,type:type},
+            data:{name:name,remark:remark,type:type},
             success:function(data){
                 if(data.errno==0){
                     document.location.reload();
@@ -77,12 +101,13 @@
     }
     function edit(){
         var name=$("#version_modal input[name=name]").val();
+        var remark=$("#version_modal input[name=remark]").val();
         var id=$("#version_modal input[name=id]").val();
         $.ajax({
             url:"/api/version/edit",
             type:"POST",
             dataType:"json",
-            data:{name:name,id:id},
+            data:{remark:remark,id:id},
             success:function(data){
                 if(data.errno==0){
                     document.location.reload();

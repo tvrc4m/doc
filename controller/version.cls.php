@@ -27,6 +27,7 @@ class VersionController extends Api {
     public function add($params){
 
         $name=trim($params['name']);
+        $remark=trim($params['remark']);
 
         if(empty($name)) exit(json_encode(['errno'=>-1,'errmsg'=>'版本号不能为空']));
 
@@ -40,9 +41,26 @@ class VersionController extends Api {
 
         if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'版本号不能重复']));
 
-        $sql="INSERT INTO kf_app_version (name,stat,create_date) VALUES (?,1,NOW())";
+        $sql="INSERT INTO kf_app_version (name,remark,stat,create_date) VALUES (?,?,1,NOW())";
 
-        $db->insert($sql,'s',[$name]);
+        $db->insert($sql,'ss',[$name,$remark]);
+
+        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+    }
+
+    /**
+     * version编辑
+     * @param  array $params 
+     * @return 
+     */
+    public function edit($params){
+
+        $version_id=$params['id'];
+        $remark=trim($params['remark']);
+
+        $m_version=require_model('version');
+
+        $m_version->updateVersion($version_id,$remark);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
