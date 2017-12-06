@@ -153,7 +153,7 @@ a.on {
 .result{
     display: block;
     height: 800px;
-    width: 95%;
+    width: 100%;
 }
 .container, .container-fluid {
     padding-left: 15px;

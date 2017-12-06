@@ -16,7 +16,7 @@ class VersionController extends Api {
 
         $tab_selected=$type='app';
 
-        $this->display("app/version.html",['version_list'=>$version_list,'tab_selected'=>$tab_selected]);
+        $this->display("app/version.html",['version_list'=>$version_list,'title'=>'APP版本管理','tab_selected'=>$tab_selected]);
     }
 
     /**
