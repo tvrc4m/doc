@@ -2,46 +2,46 @@
 
 class TestModel extends DB{
 
+    protected $table='kf_test';
+
     public function getTest($test_id){
 
-        $sql="SELECT * FROM kf_test WHERE id=".intval($test_id);
-
-        return $this->get($sql);
+        return $this->getById('kf_test',$test_id);
     }
 
     public function getTestCase($test_id){
 
-        $sql="SELECT * FROM kf_test_case WHERE stat=1 AND test_id=".intval($test_id);
+        return $this->find('kf_test_case',['stat'=>1,'test_id'=>$test_id]);
 
-        return $this->find($sql);
+        // $sql="SELECT * FROM kf_test_case WHERE stat=1 AND test_id=".intval($test_id);
+
+        // return $this->exec($sql);
     }
 
     public function getTestCaseDetail($test_cast_id){
 
-        $sql="SELECT * FROM kf_test_case WHERE id=".intval($test_cast_id);
-
-        return $this->get($sql);
+        return $this->getById('kf_test_case',$test_cast_id);
     }
 
     public function addTest($title,$cat_id,$remark=''){
 
-        $sql="INSERT INTO kf_test (title,cat_id,remark,stat,create_date) VALUES (?,?,?,1,NOW())";
-
-        return $this->insert($sql,'sis',[$title,$cat_id,$remark]);
+        return $this->insert('kf_test',['title'=>$title,'cat_id'=>$cat_id,'remark'=>$remark,'stat'=>1,'create_date'=>'NOW()']);
     }
 
     public function addTestCase($test_id,$content,$api_id=0,$api_params=''){
 
-        $sql="INSERT INTO kf_test_case (test_id,content,api_id,api_params,stat,create_date) VALUES (?,?,?,?,1,NOW())";
-
-        return $this->insert($sql,'isis',[$test_id,$content,$api_id,$api_params]);
+        return $this->insert('kf_test_case',
+            ['test_id'=>$test_id,'content'=>$content,'api_id'=>$api_id,'api_params'=>$api_params,'stat'=>1,'create_date'=>'NOW()']
+        );
     }
 
     public function updateTest($test_id,$title,$cat_id,$remark){
 
-        $sql="UPDATE kf_test SET title=?,cat_id=?,remark=?,update_date=NOW() WHERE id=?";
-
-        $this->update($sql,'sisi',[$title,$cat_id,$remark,$test_id]);
+        return $this->update(
+            'kf_test',
+            ['title'=>$title,'cat_id'=>$cat_id,'remark'=>$remark,'update_date'=>date('Y-m-d H:i:s')],
+            ['id'=>$test_id]
+        );
     }
 
     /**
@@ -56,9 +56,10 @@ class TestModel extends DB{
      */
     public function updateTestCase($test_id,$case_id,$content,$api_id=0,$api_params='',$stat){
 
-        $sql="UPDATE kf_test_case SET content=?,stat=?,api_id=?,api_params=?,update_date=NOW() WHERE test_id=? AND id=?";
-
-        $this->update($sql,'sissii',[$content,$stat,$api_id,$api_params,$test_id,$case_id]);
+        return $this->update('kf_test_case',
+            ['content'=>$content,'stat'=>$stat,'api_id'=>$api_id,'api_params'=>$api_params,'update_date'=>date('Y-m-d H:i:s')],
+            ['test_id'=>$test_id,'id'=>$case_id]
+        );
     }
 
     /**
@@ -67,14 +68,12 @@ class TestModel extends DB{
      */
     public function getAllTest(){
 
-        $sql="SELECT * FROM kf_test WHERE stat=1";
-
-        return $this->find($sql);
+        return $this->exec("SELECT * FROM kf_test WHERE stat=1");
     }
 
     public function getApiTestCast($api_id){
 
-        $cases=$this->find("SELECT * FROM kf_test_case WHERE stat=1 AND api_id=".intval($api_id));
+        $cases=$this->exec("SELECT * FROM kf_test_case WHERE stat=1 AND api_id=".intval($api_id));
 
         $result=[];
 
@@ -82,7 +81,7 @@ class TestModel extends DB{
 
             $test_id_list=array_column($cases, 'test_id');
             
-            $tests=$this->find("SELECT * FROM kf_test WHERE id IN (".implode(',', $test_id_list).")");
+            $tests=$this->exec("SELECT * FROM kf_test WHERE id IN (".implode(',', $test_id_list).")");
 
             foreach ($tests as $test) {
                 

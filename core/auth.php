@@ -10,11 +10,9 @@ class Auth {
         
         empty($user_id) && header("Location:/login");
 
-        $sql="SELECT * FROM kf_user WHERE stat=1 AND id=".intval($user_id);
-
         $db=new DB();
 
-        $user=$db->get($sql);
+        $user=$db->get('kf_user',['stat'=>1,'id'=>$user_id]);
 
         if(empty($user)) header("Location:/login");
 

@@ -104,12 +104,12 @@ class AppController extends Api {
 
                 $sql="UPDATE kf_api SET title=?,url=?,cat_id=?,code=?,version=?,remark=?,update_date=? WHERE id=?";
 
-                $db->update($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),$id]);
+                $db->exec($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),$id]);
             }elseif($is_add){
 
                 $sql="INSERT kf_api (title,url,cat_id,code,version,remark,create_date,stat) VALUES (?,?,?,?,?,?,?,?)";
 
-                $id=$db->insert($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),1]);
+                $id=$db->exec($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),1]);
             }else{
 
                 throw new Exception('不支持的操作');
@@ -122,7 +122,7 @@ class AppController extends Api {
 
                 $sql="UPDATE kf_api_params SET stat=0 WHERE id NOT IN (".implode(',', $params_exists).") AND api_id=?";
 
-                $db->update($sql,'i',[$id]);
+                $db->exec($sql,'i',[$id]);
             }
 
             foreach ($params as $name=>$param) {
@@ -131,12 +131,12 @@ class AppController extends Api {
 
                     $sql="UPDATE kf_api_params SET name=?,type=?,must=?,version=?,remark=?,update_date=? WHERE id=?";
 
-                    $db->update($sql,'ssisssi',[$name,$param['type'],intval($param['must']),$param['version'],$param['remark'],date('Y-m-d H:i:s'),$param['id']]);
+                    $db->exec($sql,'ssisssi',[$name,$param['type'],intval($param['must']),$param['version'],$param['remark'],date('Y-m-d H:i:s'),$param['id']]);
                 }else{
 
                     $sql="INSERT INTO kf_api_params (name,type,must,version,remark,create_date,api_id) VALUES (?,?,?,?,?,?,?)";
 
-                    $db->insert($sql,'ssisssi',[$name,$param['type'],intval($param['must']),$param['version'],$param['remark'],date('Y-m-d H:i:s'),$id]);
+                    $db->exec($sql,'ssisssi',[$name,$param['type'],intval($param['must']),$param['version'],$param['remark'],date('Y-m-d H:i:s'),$id]);
                 }
             }
 
@@ -147,7 +147,7 @@ class AppController extends Api {
 
                 $sql="UPDATE kf_api_return SET stat=0 WHERE id NOT IN (".implode(',', $return_exists).") AND api_id=?";
                 
-                $db->update($sql,'i',[$id]);
+                $db->exec($sql,'i',[$id]);
             }
 
             foreach ($return as $name=>$ret) {
@@ -156,12 +156,12 @@ class AppController extends Api {
 
                     $sql="UPDATE kf_api_return SET name=?,type=?,must=?,version=?,remark=?,update_date=? WHERE id=?";
 
-                    $db->update($sql,'ssisssi',[$name,$ret['type'],intval($ret['must']),$ret['version'],$ret['remark'],date('Y-m-d H:i:s'),$ret['id']]);
+                    $db->exec($sql,'ssisssi',[$name,$ret['type'],intval($ret['must']),$ret['version'],$ret['remark'],date('Y-m-d H:i:s'),$ret['id']]);
                 }else{
 
                     $sql="INSERT INTO kf_api_return (name,type,must,version,remark,create_date,api_id) VALUES (?,?,?,?,?,?,?)";
 
-                    $db->insert($sql,'ssisssi',[$name,$ret['type'],intval($ret['must']),$ret['version'],$ret['remark'],date('Y-m-d H:i:s'),$id]);
+                    $db->exec($sql,'ssisssi',[$name,$ret['type'],intval($ret['must']),$ret['version'],$ret['remark'],date('Y-m-d H:i:s'),$id]);
                 }
             }
 
@@ -210,18 +210,18 @@ class AppController extends Api {
         
         $sql="SELECT id FROM kf_api_example WHERE stat=1 AND api_id=".intval($api_id);
 
-        $example=$db->get($sql);
+        $example=$db->one($sql);
 
         if(empty($example)){
 
             $sql="INSERT INTO kf_api_example (api_id,code,create_date) VALUES (?,?,NOW())";
 
-            $db->insert($sql,'is',[$api_id,$code]);
+            $db->exec($sql,'is',[$api_id,$code]);
         }else{
 
             $sql="UPDATE kf_api_example SET code=?,update_date=NOW() WHERE id=?";
 
-            $db->update($sql,'si',[$code,$example['id']]);
+            $db->exec($sql,'si',[$code,$example['id']]);
         }
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));

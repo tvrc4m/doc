@@ -32,13 +32,13 @@ class Api extends Doc {
 
         $db=new DB();
         // 接口基本信息
-        $api=$db->get("SELECT * FROM kf_api WHERE code='{$code}' AND stat=1");
+        $api=$db->one("SELECT * FROM kf_api WHERE code='{$code}' AND stat=1");
 
         if(empty($api)) return [];
         // 请求参数
-        $params=$db->find("SELECT * FROM kf_api_params WHERE stat=1 AND api_id=".$api['id']);        
+        $params=$db->exec("SELECT * FROM kf_api_params WHERE stat=1 AND api_id=".$api['id']);        
         // 返回参数
-        $return=$db->find("SELECT * FROM kf_api_return WHERE stat=1 AND api_id=".$api['id']);
+        $return=$db->exec("SELECT * FROM kf_api_return WHERE stat=1 AND api_id=".$api['id']);
 
         $api['params']=$params;
 
@@ -57,9 +57,9 @@ class Api extends Doc {
         $db=new DB();
 
         $cat_list=$this->getApiCat();
-        $api_list=$db->find("SELECT * FROM kf_api WHERE stat=1");
-        $params_list=$db->find("SELECT * FROM kf_api_params WHERE stat=1 ORDER BY name ASC");        
-        $return_list=$db->find("SELECT * FROM kf_api_return WHERE stat=1 ORDER BY name ASC");        
+        $api_list=$db->find('kf_api',['stat'=>1]);
+        $params_list=$db->find('kf_api_params',['stat'=>1],['name'=>'asc']);        
+        $return_list=$db->find('kf_api_return',['stat'=>1],['name'=>'asc']);        
 
         $cat_result=$params_result=$return_result=$api_result=[];
 
@@ -100,7 +100,7 @@ class Api extends Doc {
 
         $cat_list=$this->getCatByType(self::CAT_TYPE_DOC);
 
-        $doc_list=$db->find("SELECT * FROM kf_doc WHERE stat=1");
+        $doc_list=$db->find('kf_doc',['stat'=>1]);
 
         $cat_result=$doc_result=[];
 
@@ -128,7 +128,7 @@ class Api extends Doc {
 
         $db=new DB();
 
-        return $db->find("SELECT * FROM kf_cat WHERE type=1 AND stat=1");
+        return $db->exec("SELECT * FROM kf_cat WHERE type=1 AND stat=1");
     }
 
     /**
@@ -139,7 +139,7 @@ class Api extends Doc {
 
         $db=new DB();
 
-        return $db->find("SELECT * FROM kf_app_version WHERE stat=1");
+        return $db->exec("SELECT * FROM kf_app_version WHERE stat=1");
     }
 
     /**
@@ -151,7 +151,7 @@ class Api extends Doc {
 
         $db=new DB();
 
-        return $db->find("SELECT * FROM kf_cat WHERE type='{$type}' AND stat=1");
+        return $db->exec("SELECT * FROM kf_cat WHERE type='{$type}' AND stat=1");
     }
 
     /**
@@ -165,7 +165,7 @@ class Api extends Doc {
 
         $sql="SELECT code FROM kf_api_example WHERE stat=1 AND api_id=".intval($api_id)." LIMIT 1";
 
-        $result=$db->get($sql);
+        $result=$db->one($sql);
 
         return $result['code'];
     }

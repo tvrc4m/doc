@@ -141,9 +141,14 @@ class TestController extends Api {
 
             if(!empty($case_exists)){
 
-                $sql="UPDATE kf_test_case SET stat=0 WHERE id NOT IN (".implode(',', $case_exists).") AND test_id=?";
+                $m_test->update('kf_test_case',
+                    ['stat'=>0],
+                    ['id'=>['$non'=>$case_exists],'test_id'=>$test_id]
+                );
 
-                $m_test->update($sql,'i',[$test_id]);
+                // $sql="UPDATE kf_test_case SET stat=0 WHERE id NOT IN (".implode(',', $case_exists).") AND test_id=?";
+
+                // $m_test->update($sql,'i',[$test_id]);
             }
 
             foreach ($params['cases'] as $name=>$case) {

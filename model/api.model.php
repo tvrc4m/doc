@@ -4,9 +4,7 @@ class ApiModel extends DB{
 
     public function getApi($api_id){
 
-        $sql="SELECT * FROM kf_api WHERE id=".intval($api_id);
-
-        return $this->get($sql);
+        return $this->getById('kf_api',$api_id);
     }
 
     public function getApiParams($api_id){
@@ -22,7 +20,7 @@ class ApiModel extends DB{
 
         $sql="INSERT INTO kf_test (title,cat_id,remark,stat,create_date) VALUES (?,?,?,1,NOW())";
 
-        return $this->insert($sql,'sis',[$title,$cat_id,$remark]);
+        return $this->exec($sql,'sis',[$title,$cat_id,$remark]);
     }
 
     /**
@@ -32,7 +30,7 @@ class ApiModel extends DB{
 
         $sql="UPDATE kf_test SET title=?,cat_id=?,remark=?,update_date=NOW() WHERE id=?";
 
-        $this->update($sql,'sisi',[$title,$cat_id,$remark,$test_id]);
+        $this->exec($sql,'sisi',[$title,$cat_id,$remark,$test_id]);
     }
 
     /**
@@ -42,7 +40,7 @@ class ApiModel extends DB{
      */
     public function getApiRequestParams($api_id){
 
-        return $this->find("SELECT * FROM kf_api_params WHERE stat=1 AND api_id=".intval($api_id));
+        return $this->exec("SELECT * FROM kf_api_params WHERE stat=1 AND api_id=".intval($api_id));
     }
 
     /**
@@ -53,14 +51,14 @@ class ApiModel extends DB{
 
         $sql="SELECT * FROM kf_api WHERE stat=1";
 
-        return $this->find($sql);
+        return $this->exec($sql);
     }
 
     public function getAllCatApi(){
 
-        $api_list=$this->find("SELECT * FROM kf_api WHERE stat=1");
+        $api_list=$this->exec("SELECT * FROM kf_api WHERE stat=1");
 
-        $cat_list=$this->find("SELECT id,name FROM kf_cat WHERE type=1 AND stat=1");
+        $cat_list=$this->exec("SELECT id,name FROM kf_cat WHERE type=1 AND stat=1");
 
         $cat_result=$api_result=[];
 

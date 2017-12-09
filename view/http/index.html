@@ -191,6 +191,7 @@
         function disableScroll(){
             window.addEventListener("wheel",preventWhell);
             window.addEventListener("keydown",preventArrow);
+            document.getElementById("result").style.height=(window.innerHeight-20-65)+"px";
             window.scrollTo(0,document.body.offsetHeight-document.getElementById("result").offsetHeight-20);
             $("#unfixed").show();
             $("#fixed").hide();

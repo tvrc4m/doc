@@ -6,6 +6,6 @@ class VersionModel extends DB{
 
         $sql="UPDATE kf_app_version SET remark=? WHERE id=?";
 
-        return $this->update($sql,'si',[$remark,$version_id]);
+        return $this->exec($sql,'si',[$remark,$version_id]);
     }
 }

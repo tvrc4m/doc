@@ -22,7 +22,7 @@ class DocController extends Api {
 
         $db=new DB();
 
-        $detail=$db->get($sql);
+        $detail=$db->one($sql);
 
         $data['tab_selected']='doc';
 
@@ -52,11 +52,9 @@ class DocController extends Api {
 
         $id=$params['id'];
 
-        $sql="SELECT * FROM kf_doc WHERE id=".intval($id);
-
         $db=new DB();
 
-        $detail=$db->get($sql);
+        $detail=$db->getById('kf_doc',$id);
 
         if(empty($detail)) exit('指定文档不存在');
 
@@ -90,12 +88,12 @@ class DocController extends Api {
 
             $sql="UPDATE kf_doc SET title=?,cat_id=?,content=?,update_date=NOW() WHERE id=?";
 
-            $db->update($sql,'sisi',[$title,$cat_id,$content,$id]);
+            $db->exec($sql,'sisi',[$title,$cat_id,$content,$id]);
         }else{
 
             $sql="INSERT INTO kf_doc (title,cat_id,content,stat,create_date) VALUES (?,?,?,1,NOW())";
 
-            $id=$db->insert($sql,'sis',[$title,$cat_id,$content]);
+            $id=$db->exec($sql,'sis',[$title,$cat_id,$content]);
         }
 
         header("Location:/doc/detail/".$id);
@@ -116,7 +114,7 @@ class DocController extends Api {
 
         $db=new DB();
 
-        $db->update($sql,'i',[$id]);
+        $db->exec($sql,'i',[$id]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
