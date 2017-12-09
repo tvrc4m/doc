@@ -125,6 +125,8 @@
 <script src="/static/js/template-web.js"></script>
 <script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
+var aaa=<?php echo $data['cats'];?>;
+console.log(aaa);
     var cats=jQuery.parseJSON('<?php echo $data['cats'];?>');
     var test=jQuery.parseJSON('<?php echo $data['test'];?>');
      console.log(test);
