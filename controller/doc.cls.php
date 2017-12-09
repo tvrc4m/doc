@@ -20,7 +20,7 @@ class DocController extends Api {
 
         $sql="SELECT * FROM kf_doc WHERE stat=1 AND id=".intval($id);
 
-        $db=new DB();
+        $db=db();
 
         $detail=$db->one($sql);
 
@@ -52,7 +52,7 @@ class DocController extends Api {
 
         $id=$params['id'];
 
-        $db=new DB();
+        $db=db();
 
         $detail=$db->getById('kf_doc',$id);
 
@@ -82,7 +82,7 @@ class DocController extends Api {
         if(empty($title)) exit('标题不能为空');
         if(empty($content)) exit('内容不能为空');
 
-        $db=new DB();
+        $db=db();
 
         if($id){
 
@@ -112,7 +112,7 @@ class DocController extends Api {
 
         $sql="UPDATE kf_doc SET stat=0 WHERE id=?";
 
-        $db=new DB();
+        $db=db();
 
         $db->exec($sql,'i',[$id]);
 

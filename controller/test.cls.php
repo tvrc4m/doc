@@ -187,7 +187,7 @@ class TestController extends Api {
 
         $sql="UPDATE kf_test SET stat=0 WHERE id=?";
 
-        $db=new DB();
+        $db=db();
 
         $db->update($sql,'i',[$test_id]);
 

@@ -96,7 +96,7 @@ class AppController extends Api {
 
         try{
 
-            $db=new DB();
+            $db=db();
 
             $db->start();
 
@@ -204,7 +204,7 @@ class AppController extends Api {
         $code=$params['code'];
         $api_id=$params['api_id'];
 
-        $db=new DB();
+        $db=db();
 
         // $code=$db->escape($code);
         

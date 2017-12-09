@@ -13,6 +13,11 @@ function require_model($class){
     return new $classname();
 }
 
+function db(){
+
+    return DB::init();
+}
+
 function run($env,$url,$params){
 
     $environment=getEnvList();

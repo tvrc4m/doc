@@ -24,7 +24,7 @@ class RegisterController{
 
         $sql="SELECT nick,pwd FROM kf_user WHERE nick='{$nick}' AND stat=1";
 
-        $db=new DB();
+        $db=db();
 
         $user=$db->one($sql);
 

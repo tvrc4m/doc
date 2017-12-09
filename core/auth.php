@@ -10,7 +10,7 @@ class Auth {
         
         empty($user_id) && header("Location:/login");
 
-        $db=new DB();
+        $db=db();
 
         $user=$db->get('kf_user',['stat'=>1,'id'=>$user_id]);
 

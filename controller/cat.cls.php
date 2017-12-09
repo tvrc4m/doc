@@ -36,7 +36,7 @@ class CatController extends Api {
         if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定类别']));
         if(empty($name)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能为空']));
 
-        $db=new DB();
+        $db=db();
 
         $sql="SELECT 1 FROM kf_cat WHERE id!={$id} AND name='{$name}'";
 
@@ -65,7 +65,7 @@ class CatController extends Api {
 
         empty($type) && $type=1;
 
-        $db=new DB();
+        $db=db();
 
         $sql="SELECT 1 FROM kf_cat WHERE type='{$type}' AND name='{$name}'";
 
@@ -86,7 +86,7 @@ class CatController extends Api {
 
         if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定类别']));
 
-        $db=new DB();
+        $db=db();
 
         $sql="SELECT * FROM kf_cat WHERE id=".intval($id);
 

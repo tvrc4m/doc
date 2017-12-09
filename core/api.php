@@ -31,7 +31,7 @@ class Api extends Doc {
      */
     public function getApi($code){
 
-        $db=new DB();
+        $db=db();
         // 接口基本信息
         $api=$db->one("SELECT * FROM kf_api WHERE code='{$code}' AND stat=1");
 
@@ -55,7 +55,7 @@ class Api extends Doc {
      */
     public function getApiList($action='api'){
 
-        $db=new DB();
+        $db=db();
 
         $cat_list=$this->getApiCat();
         $api_list=$db->find('kf_api',['stat'=>1]);
@@ -97,7 +97,7 @@ class Api extends Doc {
 
     public function getDocList(){
 
-        $db=new DB();
+        $db=db();
 
         $cat_list=$this->getCatByType(self::CAT_TYPE_DOC);
 
@@ -127,7 +127,7 @@ class Api extends Doc {
      */
     public function getApiCat(){
 
-        $db=new DB();
+        $db=db();
 
         return $db->exec("SELECT * FROM kf_cat WHERE type=1 AND stat=1");
     }
@@ -138,7 +138,7 @@ class Api extends Doc {
      */
     public function getAppVersion(){
 
-        $db=new DB();
+        $db=db();
 
         return $db->exec("SELECT * FROM kf_app_version WHERE stat=1");
     }
@@ -150,7 +150,7 @@ class Api extends Doc {
      */
     public function getCatByType($type){
 
-        $db=new DB();
+        $db=db();
 
         return $db->exec("SELECT * FROM kf_cat WHERE type='{$type}' AND stat=1");
     }
@@ -162,7 +162,7 @@ class Api extends Doc {
      */
     public function getApiExample($api_id){
 
-        $db=new DB();
+        $db=db();
 
         $sql="SELECT code FROM kf_api_example WHERE stat=1 AND api_id=".intval($api_id)." LIMIT 1";
 

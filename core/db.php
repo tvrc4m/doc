@@ -2,7 +2,33 @@
 
 class DB {
 
+    /**
+     * mysqli链接句柄
+     * @var file resource
+     */
     private $_link;
+
+    /**
+     * object
+     * @var 静态实例对象
+     */
+    static $instance=null;
+
+    /**
+     * 禁止初始化
+     */
+    private function __construct(){}
+
+    /**
+     * 单例方法
+     * @return object
+     */
+    public static function init(){
+
+        !self::$instance && self::$instance=new self();
+
+        return self::$instance;
+    }
 
     public function one($sql){
 
@@ -256,19 +282,9 @@ class DB {
 
     /**
      * 构建sql字符串
-     * @param  string $table  表名
-     * @param  string|array $fileds 要返回的字段
-     * @param    $where  [description]
-     * @param  [type] $sort   [description]
-     * @param  [type] $limit  [description]
-     * @param  [type] $group  [description]
-     * @return [type]         [description]
-     */
-    /**
-     * 构建sql字符串
      * @param  string $table  
-     * @param  array  $where  查询条件,会转化成参数化sql传入
      * @param  string|array $fileds 要返回的数据，为空时返回全部字段
+     * @param  array  $where  查询条件,会转化成参数化sql传入
      * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
      * @param  string|int|array $limit  limit条件。可选值有 limit|skip,limit|[limit]|[skip,limit]
      * @param  string|array $group  分组条件
@@ -403,14 +419,17 @@ class DB {
 
         if($stmt=mysqli_prepare($this->_link,$sql)){
             
-            array_unshift($params, $stmt,$type);
+            if($type && $params){
 
-            $refs=[];
+                array_unshift($params, $stmt,$type);
 
-            foreach ($params as $key=>$param) $refs[]=&$params[$key];
+                $refs=[];
 
-            call_user_func_array('mysqli_stmt_bind_param', $refs);
-            
+                foreach ($params as $key=>$param) $refs[]=&$params[$key];
+
+                call_user_func_array('mysqli_stmt_bind_param', $refs);
+            }
+
             $status=mysqli_stmt_execute($stmt);
 
             if($status && $select){

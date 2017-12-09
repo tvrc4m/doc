@@ -8,7 +8,7 @@ class VersionController extends Api {
      */
     public function index($params){
 
-        $db=new DB();
+        $db=db();
 
         $sql="SELECT * FROM kf_app_version WHERE stat=1";
 
@@ -33,7 +33,7 @@ class VersionController extends Api {
 
         if(!preg_match('/^v\d+\.\d+\.\d+$/', $name)) exit(json_encode(['errno'=>-1,'errmsg'=>'版本号须以v开头.eg: v1.1.0']));
 
-        $db=new DB();
+        $db=db();
 
         $sql="SELECT 1 FROM kf_app_version WHERE stat=1 AND name='{$name}'";
 
@@ -71,7 +71,7 @@ class VersionController extends Api {
 
         if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定类别']));
 
-        $db=new DB();
+        $db=db();
 
         $sql="SELECT * FROM kf_app_version WHERE id=".intval($id);
 
