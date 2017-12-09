@@ -4,33 +4,9 @@ class DB {
 
     private $_link;
 
-    /**
-     * 构造函数，初始化并链接mysql
-     */
-    public function __construct(){
-
-        $this->_link=mysqli_connect(MYSQL_HOST,MYSQL_NAME,MYSQL_PWD,MYSQL_DB);
-
-        if(!$this->_link){
-
-            exit(mysqli_connect_error());
-        }
-
-        mysqli_set_charset($this->_link,'utf8');
-    }
-
-    /**
-     * 通过id获取数据
-     * @param  string $table  表名
-     * @param  string|array $fields 
-     * @return array
-     */
-    public function getById($table,$id,$fields=null){
-
-        return $this->get($table,$fields,['id'=>$id]);
-    }
-
     public function one($sql){
+
+        $this->ping();
 
         $result=mysqli_query($this->_link,$sql);
 
@@ -41,22 +17,63 @@ class DB {
         return $data;
     }
 
+    /**
+     * 获取多条数据
+     * @param  string $table  
+     * @param  array  $where  查询条件,会转化成参数化sql传入
+     * @param  string|array $fileds 要返回的数据，为空时返回全部字段
+     * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
+     * @param  string|array $group  分组条件
+     * @return array
+     */
     public function find($table,$where=[],$fileds='*',$sort=null,$limit=null,$group=null){
 
         list($sql,$strtype,$params)=$this->_build_sql($table,$fields,$where,$sort,$limit,$group);
 
-        return $this->_exec($sql,$strtype,$params,$select=1,$multi=true);
+        return $this->_exec($sql,$strtype,$params,$select=1);
     }
 
-    public function get($table,$where=[],$fileds='*',$sort=[],$group=[]){
+    /**
+     * 获取单一数据
+     * @param  string $table  
+     * @param  array  $where  查询条件,会转化成参数化sql传入
+     * @param  string|array $fileds 要返回的数据，为空时返回全部字段
+     * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
+     * @param  string|array $group  分组条件
+     * @return array
+     */
+    public function get($table,$where=[],$fileds='*',$sort=null,$group=null){
 
         list($sql,$strtype,$params)=$this->_build_sql($table,$fields,$where,$sort,$limit=1,$group);
 
-        $result=$this->_exec($sql,$strtype,$params,$select=1,$multi=false);
+        $result=$this->_exec($sql,$strtype,$params,$select=1);
 
         return $result?$result[0]:[];
     }
 
+    /**
+     * 通过id获取数据
+     * @param  string $table  表名
+     * @param  string $id     自增id
+     * @param  string|array $fields 
+     * @return array
+     */
+    public function getById($table,$id,$fields=null){
+
+        return $this->get($table,$fields,['id'=>$id]);
+    }
+
+    /**
+     * 执行sql,包含SELECT,UPDATE,INSERT,DELETE等语句。支持参数化sql
+     * SELECT 返回数组
+     * UPDATE 成功时返回true,失败时抛异常
+     * INSERT 插入数据，成功时返回对应的id
+     * DELETE 删除数据 返回true|false
+     * @param  string $sql     
+     * @param  string $strtype 参数化类型列表
+     * @param  array $params   参数化具体的值
+     * @return int|boolean|array
+     */
     public function exec($sql,$strtype,$params){
 
         $select=0;
@@ -70,7 +87,12 @@ class DB {
         return $result;
     }
 
-
+    /**
+     * 插入表数据
+     * @param  string $table 
+     * @param  array $data  表数据
+     * @return last insert id
+     */
     public function insert($table,$data){
 
         $params=[];
@@ -93,9 +115,9 @@ class DB {
 
     /**
      * 更新sql
-     * @param  string $sql    更新语句
-     * @param  string $type   参数类型列表
-     * @param  array $params  参数值
+     * @param  string $table  表名
+     * @param  array $type    要更新的值
+     * @param  array $where   要过滤的数据，必须传递where,避免误更新所有数据
      * @return 
      */
     public function update($table,$set,$where){
@@ -112,22 +134,32 @@ class DB {
 
         $sql='UPDATE '.$table.' SET '.substr($sql,0, -1);
 
+        if(empty($where)) throw new Exception('更新未指定where');
+
         $this->_build_where($where,$sql,$strtype,$params);
-        echo $sql.PHP_EOL;
+        
         return $this->_exec($sql,$strtype,$params);
 
     }
 
+    /**
+     * 删除数据，必须指定where条件，避免误删所有数据
+     * @param  string $table 
+     * @param  array $where 要过滤的条件
+     * @return boolean 是否删除成功
+     */
     public function delete($table,$where){
 
         $sql='DELETE FROM '.$table;
+
+        if(empty($where)) throw new Exception('更新未指定where');
 
         $this->_build_where($where,$sql,$strtype='',$params=[]);
 
         return $this->_exec($sql,$strtype,$params);
     }
     /**
-     * 开启事务
+     * 开启事务。!!只支持Innodb引擎!!
      * @return 
      */
     public function start(){
@@ -199,6 +231,14 @@ class DB {
         throw new Exception('sql解析错误:'.$sql."&nbsp;说明:".mysqli_error($this->_link));
     }
 
+    /**
+     * 绑定参数化对应的值
+     * @param  string $name         字段名
+     * @param  string|int $value    字段值
+     * @param  string &$strtype     参数化类型
+     * @param  array &$params       参数化对应的参数数组
+     * @return 
+     */
     public function _bind_params($name,$value,&$strtype,&$params){
         if(is_numeric($value)){
             $strtype.=intval($value)==$value?'i':'d';
@@ -212,10 +252,28 @@ class DB {
         }else{
             throw new Exception('不支持这类型:'.var_export($params['where']));
         }
-        return $sqls;
     }
 
-
+    /**
+     * 构建sql字符串
+     * @param  string $table  表名
+     * @param  string|array $fileds 要返回的字段
+     * @param    $where  [description]
+     * @param  [type] $sort   [description]
+     * @param  [type] $limit  [description]
+     * @param  [type] $group  [description]
+     * @return [type]         [description]
+     */
+    /**
+     * 构建sql字符串
+     * @param  string $table  
+     * @param  array  $where  查询条件,会转化成参数化sql传入
+     * @param  string|array $fileds 要返回的数据，为空时返回全部字段
+     * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
+     * @param  string|int|array $limit  limit条件。可选值有 limit|skip,limit|[limit]|[skip,limit]
+     * @param  string|array $group  分组条件
+     * @return array
+     */
     public function _build_sql($table,$fileds='*',$where=[],$sort=null,$limit=null,$group=null){
 
         empty($fileds) && $fileds='*';
@@ -333,13 +391,16 @@ class DB {
 
     /**
      * 执行sql,主要用于insert,update,deletet等DML语句
-     * @param  string $sql    
-     * @param  string $type   
-     * @param  string $params 
+     * @param  string $sql    sql语句
+     * @param  string $type   参数化类型
+     * @param  string $params 参数化对应的参数值数组
+     * @param  boolean $select 指定是否是select查询  
      * @return 
      */
-    public function _exec($sql,$type,$params,$select=false,$multi=true){
-        
+    public function _exec($sql,$type,$params,$select=false){
+
+        $this->ping();
+
         if($stmt=mysqli_prepare($this->_link,$sql)){
             
             array_unshift($params, $stmt,$type);
@@ -374,7 +435,6 @@ class DB {
 
                     foreach ($bind as $k=>$v) $result[$i][$k]=$v;
                     $i++;
-                    if(!$multi) break;
                 }
             }
 
@@ -388,6 +448,34 @@ class DB {
         throw new Exception('sql解析错误:'.$sql."&nbsp;说明:".mysqli_error($this->_link));
     }
 
+    /**
+     * 建立链接,如若无法成功建立，则抛异常
+     * @return 
+     */
+    private function _connect(){
+
+        $this->_link=mysqli_connect(MYSQL_HOST,MYSQL_NAME,MYSQL_PWD,MYSQL_DB);
+
+        if(!$this->_link) throw new Exception(mysqli_connect_error());
+
+        mysqli_set_charset($this->_link,'utf8');
+    }
+
+    /**
+     * ping链接是否还有效
+     * @return boolean
+     */
+    public function ping(){
+
+        if(!mysqli_ping($this->_link)) $this->_connect();
+
+        return true;
+    }
+    /**
+     * 对特殊字符转义
+     * @param  string $str 
+     * @return string
+     */
     public function escape($str){
 
         return mysqli_real_escape_string($this->_link,$str);

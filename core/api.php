@@ -6,6 +6,7 @@ class Api extends Doc {
     const CAT_TYPE_DOC=2;
     const CAT_TYPE_TEST_CASE=3;
     const CAT_TYPE_HTTP=4;
+    const CAT_TYPE_CLASS_PHP=5;
 
     public function __construct(){
 

@@ -26,7 +26,7 @@ class RegisterController{
 
         $db=new DB();
 
-        $user=$db->get($sql);
+        $user=$db->one($sql);
 
         if(!empty($user)) exit(json_encode(['errno'=>-1,'errmsg'=>'用户已存在']));
 
@@ -34,7 +34,7 @@ class RegisterController{
 
         $sql="INSERT INTO kf_user (nick,realname,pwd,stat,create_date) VALUES (?,?,?,0,NOW())";
 
-        $user_id=$db->insert($sql,'sss',[$nick,$realname,$pwd]);
+        $user_id=$db->exec($sql,'sss',[$nick,$realname,$pwd]);
 
         $_SESSION['token']=$user_id;
 

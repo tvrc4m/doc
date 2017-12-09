@@ -25,7 +25,7 @@ class LoginController{
 
         $db=new DB();
 
-        $user=$db->get($sql);
+        $user=$db->one($sql);
 
         if(empty($user)) exit(json_encode(['errno'=>-1,'errmsg'=>'用户不存在或者等待审核中']));
 
