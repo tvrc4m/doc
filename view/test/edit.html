@@ -126,6 +126,7 @@
 <script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
     var cats=jQuery.parseJSON('<?php echo $data['cats'];?>');
+    console.log(cats);
     var test=jQuery.parseJSON('<?php echo $data['test'];?>');
     var base={"测试标题":{name:"title",value:test.title},"描述说明":{name:"remark",value:test.remark},'类别':{name:"cat_id",value:test.cat_id,list:cats}};
     console.log(test.cases);
