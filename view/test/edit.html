@@ -125,10 +125,11 @@
 <script src="/static/js/template-web.js"></script>
 <script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
+var aaa=<?php echo $data['test'];?>;
+console.log(aaa);
     var cats=jQuery.parseJSON('<?php echo $data['cats'];?>');
     var test=jQuery.parseJSON('<?php echo $data['test'];?>');
     var base={"测试标题":{name:"title",value:test.title},"描述说明":{name:"remark",value:test.remark},'类别':{name:"cat_id",value:test.cat_id,list:cats}};
-    console.log(test.cases);
     var base_html = template("api_base_template", {base:base});
     var case_html='';
     $(test.cases).each(function(i,e){
