@@ -8,11 +8,9 @@ class VersionController extends Api {
      */
     public function index($params){
 
-        $db=db();
+        $db=DB::init();
 
-        $sql="SELECT * FROM kf_app_version WHERE stat=1";
-
-        $version_list=$db->find($sql);
+        $version_list=$db->find('kf_app_version',['stat'=>1]);
 
         $tab_selected=$type='app';
 
@@ -37,13 +35,13 @@ class VersionController extends Api {
 
         $sql="SELECT 1 FROM kf_app_version WHERE stat=1 AND name='{$name}'";
 
-        $exists=$db->get($sql);
+        $exists=$db->one($sql);
 
         if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'版本号不能重复']));
 
         $sql="INSERT INTO kf_app_version (name,remark,stat,create_date) VALUES (?,?,1,NOW())";
 
-        $db->insert($sql,'ss',[$name,$remark]);
+        $db->exec($sql,'ss',[$name,$remark]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
@@ -71,33 +69,23 @@ class VersionController extends Api {
 
         if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定类别']));
 
-        $db=db();
+        $db=DB::init();
 
-        $sql="SELECT * FROM kf_app_version WHERE id=".intval($id);
+        $detail=$db->getById('kf_app_version',$id);
 
-        $detail=$db->get($sql);
+        $count=$db->count('kf_api',['version'=>$detail['name'],'stat'=>1]);
 
-        $sql="SELECT count(*) as count FROM kf_api WHERE version='{$detail['name']}' AND stat=1";
+        if($count>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
 
-        $count=$db->get($sql);
+        $count=$db->count('kf_api_params',['version'=>$detail['name'],'stat'=>1]);
 
-        if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
+        if($count>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
 
-        $sql="SELECT count(*) as count FROM kf_api_params WHERE version='{$detail['name']}' AND stat=1";
+        $count=$db->count('kf_api_return',['version'=>$detail['name'],'stat'=>1]);
 
-        $count=$db->get($sql);
-
-        if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
-
-        $sql="SELECT count(*) as count FROM kf_api_return WHERE version='{$detail['name']}' AND stat=1";
-
-        $count=$db->get($sql);
-
-        if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
+        if($count>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
     
-        $sql="UPDATE kf_app_version SET stat=0 WHERE id=?";
-
-        $db->update($sql,'i',[$id]);
+        $db->update('kf_app_version',['stat'=>0],['id'=>$id]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }

@@ -9,6 +9,12 @@ class DB {
     private $_link;
 
     /**
+     * 表前缀
+     * @var string
+     */
+    protected $prefix;
+
+    /**
      * object
      * @var 静态实例对象
      */
@@ -87,6 +93,19 @@ class DB {
     public function getById($table,$id,$fields=null){
 
         return $this->get($table,$fields,['id'=>$id]);
+    }
+
+    /**
+     * 获取个数
+     * @param  string $table 表名
+     * @param  array  $where 
+     * @return int 返回个数
+     */
+    public function count($table,$where=[]){
+
+        $result=$this->get($table,$where,['count(*) as count']);
+
+        return $result?$result['count']:0;
     }
 
     /**
