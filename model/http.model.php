@@ -49,6 +49,6 @@ class HttpModel extends Model{
 
     public function getUserHttpDetail($user_http_id){
 
-        return $this->get('kf_user_http',['stat'=>1,'id'=>$user_http_id]);
+        return $this->db->get('kf_user_http',['stat'=>1,'id'=>$user_http_id]);
     }
 }
