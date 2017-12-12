@@ -18,11 +18,9 @@ class DocController extends Api {
 
         if(empty($id)) exit('文档不存在');
 
-        $sql="SELECT * FROM kf_doc WHERE stat=1 AND id=".intval($id);
+        $db=DB::init();
 
-        $db=db();
-
-        $detail=$db->one($sql);
+        $detail=$db->get('kf_doc',['stat'=>1,'id'=>$id]);
 
         $data['tab_selected']='doc';
 
@@ -52,7 +50,7 @@ class DocController extends Api {
 
         $id=$params['id'];
 
-        $db=db();
+        $db=DB::init();
 
         $detail=$db->getById('kf_doc',$id);
 
@@ -82,18 +80,14 @@ class DocController extends Api {
         if(empty($title)) exit('标题不能为空');
         if(empty($content)) exit('内容不能为空');
 
-        $db=db();
+        $db=DB::init();
 
         if($id){
 
-            $sql="UPDATE kf_doc SET title=?,cat_id=?,content=?,update_date=NOW() WHERE id=?";
-
-            $db->exec($sql,'sisi',[$title,$cat_id,$content,$id]);
+            $db->update('kf_doc',['title'=>$title,'cat_id'=>$cat_id,'content'=>$content,'update_date'=>date('Y-m-d H:i:s')],['id'=>$id]);
         }else{
 
-            $sql="INSERT INTO kf_doc (title,cat_id,content,stat,create_date) VALUES (?,?,?,1,NOW())";
-
-            $id=$db->exec($sql,'sis',[$title,$cat_id,$content]);
+            $id=$db->insert('kf_doc',['title'=>$title,'cat_id'=>$cat_id,'content'=>$content,'update_date'=>date('Y-m-d H:i:s')]);
         }
 
         header("Location:/doc/detail/".$id);
@@ -110,11 +104,9 @@ class DocController extends Api {
 
         if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定文档']));
 
-        $sql="UPDATE kf_doc SET stat=0 WHERE id=?";
+        $db=DB::init();
 
-        $db=db();
-
-        $db->exec($sql,'i',[$id]);
+        $db->update('kf_doc',['stat'=>0],['id'=>$id]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
