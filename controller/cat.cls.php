@@ -36,17 +36,11 @@ class CatController extends Api {
         if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定类别']));
         if(empty($name)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能为空']));
 
-        $db=db();
-
-        $sql="SELECT 1 FROM kf_cat WHERE id!={$id} AND name='{$name}'";
-
-        $exists=$db->one($sql);
+        $exists=t('cat')->get(['id'=>['$not'=>$id],'name'=>$name]);
 
         if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能重复']));
 
-        $sql="UPDATE kf_cat SET name=? WHERE id=?";
-
-        $db->exec($sql,'si',[$name,$id]);
+        t('cat')->update(['name'=>$name],['id'=>$id]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
@@ -65,11 +59,7 @@ class CatController extends Api {
 
         empty($type) && $type=1;
 
-        $db=db();
-
-        $sql="SELECT 1 FROM kf_cat WHERE type='{$type}' AND name='{$name}'";
-
-        $exists=$db->one($sql);
+        $exists=t('cat')->get(['type'=>$type,'name'=>$name],$fields='1');
 
         if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能重复']));
 
@@ -86,45 +76,20 @@ class CatController extends Api {
 
         if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定类别']));
 
-        $db=db();
+        $detail=t('cat')->getById($id);
 
-        $sql="SELECT * FROM kf_cat WHERE id=".intval($id);
-
-        $detail=$db->one($sql);
-
-        if($detail['type']==self::CAT_TYPE_API){
-
-            $sql="SELECT count(*) as count FROM kf_api WHERE cat_id=".$id." AND stat=1";
-
-            $count=$db->one($sql);
-
-            if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联接口,不能删除']));
-        }elseif($detail['type']==self::CAT_TYPE_DOC){
-
-            $sql="SELECT count(*) as count FROM kf_doc WHERE cat_id=".$id." AND stat=1";
-
-            $count=$db->one($sql);
-
-            if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联文档,不能删除']));
-        }elseif($detail['type']==self::CAT_TYPE_TEST_CASE){
-
-            $sql="SELECT count(*) as count FROM kf_test WHERE cat_id=".$id." AND stat=1";
-
-            $count=$db->one($sql);
-
-            if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联测试用例,不能删除']));
-        }elseif($detail['type']==self::CAT_TYPE_HTTP){
-
-            $sql="SELECT count(*) as count FROM kf_user_http WHERE cat_id=".$id." AND stat=1";
-
-            $count=$db->one($sql);
-
-            if($count['count']>0) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联请求,不能删除']));
+        switch ($detail['type']) {
+            case self::CAT_TYPE_API:$table='api';break;
+            case self::CAT_TYPE_DOC:$table='doc';break;
+            case self::CAT_TYPE_TEST_CASE:$table='test';break;
+            case self::CAT_TYPE_HTTP:$table='user_http';break;
         }
 
-        $sql="UPDATE kf_cat SET stat=0 WHERE id=?";
+        $count=t($table)->count(['cat_id'=>$id,'stat'=>1]);
 
-        $db->exec($sql,'i',[$id]);
+        if($count) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联数据,不能删除']));
+
+        t('cat')->update(['stat'=>0],['id'=>$id]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }

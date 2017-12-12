@@ -10,9 +10,7 @@ class Auth {
         
         empty($user_id) && header("Location:/login");
 
-        $db=db();
-
-        $user=$db->get('kf_user',['stat'=>1,'id'=>$user_id]);
+        $user=t('user')->get(['stat'=>1,'id'=>$user_id]);
 
         if(empty($user)) header("Location:/login");
 

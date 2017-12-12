@@ -18,9 +18,7 @@ class DocController extends Api {
 
         if(empty($id)) exit('文档不存在');
 
-        $db=DB::init();
-
-        $detail=$db->get('kf_doc',['stat'=>1,'id'=>$id]);
+        $detail=t('doc')->get(['stat'=>1,'id'=>$id]);
 
         $data['tab_selected']='doc';
 
@@ -50,9 +48,7 @@ class DocController extends Api {
 
         $id=$params['id'];
 
-        $db=DB::init();
-
-        $detail=$db->getById('kf_doc',$id);
+        $detail=t('doc')->getById($id);
 
         if(empty($detail)) exit('指定文档不存在');
 
@@ -80,14 +76,14 @@ class DocController extends Api {
         if(empty($title)) exit('标题不能为空');
         if(empty($content)) exit('内容不能为空');
 
-        $db=DB::init();
+        $doc_data=['title'=>$title,'cat_id'=>$cat_id,'content'=>$content];
 
         if($id){
 
-            $db->update('kf_doc',['title'=>$title,'cat_id'=>$cat_id,'content'=>$content,'update_date'=>date('Y-m-d H:i:s')],['id'=>$id]);
+            t('doc')->update($doc_data,['id'=>$id]);
         }else{
 
-            $id=$db->insert('kf_doc',['title'=>$title,'cat_id'=>$cat_id,'content'=>$content,'update_date'=>date('Y-m-d H:i:s')]);
+            $id=t('doc')->insert($doc_data);
         }
 
         header("Location:/doc/detail/".$id);
@@ -104,9 +100,7 @@ class DocController extends Api {
 
         if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定文档']));
 
-        $db=DB::init();
-
-        $db->update('kf_doc',['stat'=>0],['id'=>$id]);
+        t('doc')->update(['stat'=>0],['id'=>$id]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }

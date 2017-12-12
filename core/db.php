@@ -9,10 +9,22 @@ class DB {
     private $_link;
 
     /**
+     * 表名
+     * @var string
+     */
+    protected $table='';
+
+    /**
      * 表前缀
      * @var string
      */
-    protected $prefix;
+    protected $prefix='kf_';
+
+    /**
+     * 字符编码
+     * @var string
+     */
+    protected $charset='utf8';
 
     /**
      * object
@@ -36,6 +48,89 @@ class DB {
         return self::$instance;
     }
 
+    /**
+     * 获取多条数据
+     * @param  array  $where  查询条件,会转化成参数化sql传入
+     * @param  string|array $fields 要返回的数据，为空时返回全部字段
+     * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
+     * @param  string|array $group  分组条件
+     * @return array
+     */
+    public function find($where=[],$fields='*',$sort=null,$limit=null,$group=null){
+
+        list($sql,$strtype,$params)=$this->_build_sql($fields,$join=null,$where,$sort,$limit,$group);
+
+        return $this->_exec($sql,$strtype,$params,$select=1);
+    }
+
+    /**
+     * 获取单一数据
+     * @param  array  $where  查询条件,会转化成参数化sql传入
+     * @param  string|array $fields 要返回的数据，为空时返回全部字段
+     * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
+     * @param  string|array $group  分组条件
+     * @return array
+     */
+    public function get($where=[],$fields='*',$sort=null,$group=null){
+
+        list($sql,$strtype,$params)=$this->_build_sql($fields,$join=null,$where,$sort,$limit=1,$group);
+
+        $result=$this->_exec($sql,$strtype,$params,$select=1);
+
+        return $result?$result[0]:[];
+    }
+    /**
+     * 获取个数
+     * @param  array  $where 
+     * @return int 返回个数
+     */
+    public function count($where=[]){
+
+        $result=$this->get($where,['count(*) as count']);
+
+        return $result?$result['count']:0;
+    }
+
+    /**
+     * 表连接查询 
+     * $db->join('content',['left'=>'content_article','on'=>['content.id'=>'content_article.cid']],['type'=>2],null,null,10);
+     * $db->join('content',[
+     * ['left'=>'content_article','on'=>['content.id'=>'content_article.cid']],
+     * ['left'=>'channel_content','on'=>['channel_content.cid'=>'content.id']]
+     * ],['content.type'=>2,'channel_content.chan_id'=>118],'content.title',null,10);
+     * @param  array $join    支持多个表连接查询。可是一维数组或二维数组
+     * @param  aray  $where   查询条件
+     * @param  mixed $fields  string或array。支持带表名
+     * @param  mixed $sort    排序
+     * @param  miexed $limit  
+     * @param  mixed $group  
+     * @return array
+     */
+    public function join($join,$where=[],$fields='*',$sort=null,$limit=null,$group=null){
+
+        list($sql,$strtype,$params)=$this->_build_sql($fields,$join,$where,$sort,$limit,$group);
+        
+        $result=$this->_exec($sql,$strtype,$params,$select=1);
+
+        return $result;
+    }
+
+    /**
+     * 通过id获取数据
+     * @param  string $id     自增id
+     * @param  string|array $fields 
+     * @return array
+     */
+    public function getById($id,$fields=null){
+
+        return $this->get(['id'=>$id],$fields);
+    }
+
+    /**
+     * 获取单条数据
+     * @param  string $sql 
+     * @return array
+     */
     public function one($sql){
 
         $this->ping();
@@ -50,62 +145,28 @@ class DB {
     }
 
     /**
-     * 获取多条数据
-     * @param  string $table  
-     * @param  array  $where  查询条件,会转化成参数化sql传入
-     * @param  string|array $fileds 要返回的数据，为空时返回全部字段
-     * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
-     * @param  string|array $group  分组条件
+     * 查询sql
+     * @param  string $sql 
      * @return array
      */
-    public function find($table,$where=[],$fileds='*',$sort=null,$limit=null,$group=null){
+    public function query($sql){
 
-        list($sql,$strtype,$params)=$this->_build_sql($table,$fields,$where,$sort,$limit,$group);
+        $this->ping();
 
-        return $this->_exec($sql,$strtype,$params,$select=1);
-    }
+        $result=mysqli_query($this->_link,$sql);
 
-    /**
-     * 获取单一数据
-     * @param  string $table  
-     * @param  array  $where  查询条件,会转化成参数化sql传入
-     * @param  string|array $fileds 要返回的数据，为空时返回全部字段
-     * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
-     * @param  string|array $group  分组条件
-     * @return array
-     */
-    public function get($table,$where=[],$fileds='*',$sort=null,$group=null){
+        if(!$result) throw new Exception(mysqli_error($this->_link));
 
-        list($sql,$strtype,$params)=$this->_build_sql($table,$fields,$where,$sort,$limit=1,$group);
+        $data=[];
 
-        $result=$this->_exec($sql,$strtype,$params,$select=1);
+        while ($row=mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+            
+            $data[]=$row;
+        }
 
-        return $result?$result[0]:[];
-    }
+        mysqli_free_result($result);
 
-    /**
-     * 通过id获取数据
-     * @param  string $table  表名
-     * @param  string $id     自增id
-     * @param  string|array $fields 
-     * @return array
-     */
-    public function getById($table,$id,$fields=null){
-
-        return $this->get($table,['id'=>$id],$fields);
-    }
-
-    /**
-     * 获取个数
-     * @param  string $table 表名
-     * @param  array  $where 
-     * @return int 返回个数
-     */
-    public function count($table,$where=[]){
-
-        $result=$this->get($table,$where,['count(*) as count']);
-
-        return $result?$result['count']:0;
+        return $data;
     }
 
     /**
@@ -121,8 +182,6 @@ class DB {
      */
     public function exec($sql,$strtype,$params){
 
-        $select=0;
-
         if(preg_match('/^\s*select/i', $sql)==1) $select=1;        
 
         $result=$this->_exec($sql,$strtype,$params,$select);
@@ -134,11 +193,12 @@ class DB {
 
     /**
      * 插入表数据
-     * @param  string $table 
      * @param  array $data  表数据
      * @return last insert id
      */
-    public function insert($table,$data){
+    public function insert($data){
+
+        $data['create_date']=date('Y-m-d H:i:s');
 
         $params=[];
         $sql=$strtype='';
@@ -151,7 +211,7 @@ class DB {
             $this->_bind_params($name,$value,$strtype,$params);
         }
 
-        $sql='INSERT INTO '.$table.'('.substr($sql,0, -1).') VALUES ('.substr($tmp,0, -1).')';
+        $sql='INSERT INTO '.$this->prefix.$this->table.'('.substr($sql,0, -1).') VALUES ('.substr($tmp,0, -1).')';
         
         $this->_exec($sql,$strtype,$params);
 
@@ -160,12 +220,13 @@ class DB {
 
     /**
      * 更新sql
-     * @param  string $table  表名
      * @param  array $type    要更新的值
      * @param  array $where   要过滤的数据，必须传递where,避免误更新所有数据
      * @return 
      */
-    public function update($table,$set,$where){
+    public function update($set,$where){
+
+        $set['update_date']=date('Y-m-d H:i:s');
 
         $params=[];
         $sql=$strtype='';
@@ -177,11 +238,11 @@ class DB {
             $sqls[]=$this->_bind_params($name,$value,$strtype,$params);
         }
 
-        $sql='UPDATE '.$table.' SET '.substr($sql,0, -1);
+        $sql='UPDATE '.$this->prefix.$this->table.' SET '.substr($sql,0, -1);
 
         if(empty($where)) throw new Exception('更新未指定where');
 
-        $this->_build_where($where,$sql,$strtype,$params);
+        $this->_build_where($sql,$where,$strtype,$params);
         
         return $this->_exec($sql,$strtype,$params);
 
@@ -189,26 +250,38 @@ class DB {
 
     /**
      * 删除数据，必须指定where条件，避免误删所有数据
-     * @param  string $table 
      * @param  array $where 要过滤的条件
      * @return boolean 是否删除成功
      */
-    public function delete($table,$where){
+    public function delete($where){
 
-        $sql='DELETE FROM '.$table;
+        $sql='DELETE FROM '.$this->prefix.$this->table;
+
+        $params=[];
+        $strtype='';
 
         if(empty($where)) throw new Exception('更新未指定where');
 
-        $this->_build_where($where,$sql,$strtype='',$params=[]);
+        $this->_build_where($sql,$where,$strtype,$params);
 
         return $this->_exec($sql,$strtype,$params);
+    }
+
+    /**
+     * 设置表名
+     * @param string $table(省略表前缀)
+     */
+    public function setTable($table){
+
+        $this->table=$table;
     }
     /**
      * 开启事务。!!只支持Innodb引擎!!
      * @return 
      */
     public function start(){
-
+        // 先建立链接
+        $this->ping();
         mysqli_autocommit($this->_link,FALSE);
         mysqli_begin_transaction($this->_link);
     }
@@ -231,51 +304,6 @@ class DB {
         mysqli_autocommit($this->_link,TRUE);
     }
 
-
-    public function _query($sql,$type='',$params=[],$multi=1){
-
-        $res=[];
-
-        if($stmt=mysqli_prepare($this->_link,$sql)){
-            
-            $refs=[];
-
-            if(empty($type) && $params){
-
-                array_unshift($params, $stmt,$type);
-
-                foreach ($params as $key=>$param) $refs[]=&$params[$key];
-
-                call_user_func_array('mysqli_stmt_bind_param', $refs);
-            }
-            
-            
-            if(mysqli_stmt_execute($stmt)){
-
-                $result=mysqli_stmt_get_result($stmt);
-
-                if($multi){
-
-                    while ($row=mysqli_fetch_array($result,MYSQL_ASSOC)) {
-                    
-                        $res[]=$row;
-                    }
-                }else{
-
-                    $res=mysqli_fetch_array($result,MYSQL_ASSOC);
-                }
-
-                mysqli_stmt_close($stmt);
-
-                return $res;
-            }
-
-            throw new Exception('执行失败:'.$sql.var_export($params,true));
-        }
-        
-        throw new Exception('sql解析错误:'.$sql."&nbsp;说明:".mysqli_error($this->_link));
-    }
-
     /**
      * 绑定参数化对应的值
      * @param  string $name         字段名
@@ -295,32 +323,42 @@ class DB {
             $strtype.='s';
             $params[]=implode(',', $value);
         }else{
-            throw new Exception('不支持这类型:'.var_export($params['where']));
+            echo $name;
+            throw new Exception('不支持这类型:'.var_export($value));
         }
     }
 
     /**
      * 构建sql字符串
-     * @param  string $table  
-     * @param  string|array $fileds 要返回的数据，为空时返回全部字段
+     * @param  string|array $fields 要返回的数据，为空时返回全部字段
      * @param  array  $where  查询条件,会转化成参数化sql传入
      * @param  string|array $sort   排序条件。array时可['sort1name','sort2name'] 或 ['sort1name'=>'asc','sort2name'=>'desc']
      * @param  string|int|array $limit  limit条件。可选值有 limit|skip,limit|[limit]|[skip,limit]
      * @param  string|array $group  分组条件
      * @return array
      */
-    public function _build_sql($table,$fileds='*',$where=[],$sort=null,$limit=null,$group=null){
+    public function _build_sql($fields='*',$join=null,$where=[],$sort=null,$limit=null,$group=null){
 
-        empty($fileds) && $fileds='*';
+        if(empty($fields) || $fields=='*'){
+            $fields='*';    
+        }else{
 
-        is_array($fileds) && $fileds=implode(',', $fileds);
+            is_string($fields) && $fields=explode(',', $fields);
 
-        $sql='SELECT '.$fileds.' FROM '.$table.' ';
+            array_walk($fields, function(&$v){
+                if(strpos($v, '.')!==false) $v=$this->prefix.$v;
+            });
+
+            $fields=implode(',', $fields);
+        }
+
+        $sql='SELECT '.$fields.' FROM '.$this->prefix.$this->table.' ';
 
         $params=[];
         $strtype='';
 
-        $this->_build_where($where,$sql,$strtype,$params);
+        $this->_build_join($sql,$join);
+        $this->_build_where($sql,$where,$strtype,$params);
         $this->_build_group($sql,$group);
         $this->_build_sort($sql,$sort);
         $this->_build_limit($sql,$limit);
@@ -328,7 +366,51 @@ class DB {
         return [$sql,$strtype,$params];
     }
 
-    public function _build_where($where,&$sql,&$strtype,&$params){
+    private function _build_join(&$sql,$join=[]){
+
+        if(empty($join)) return;
+        // 只有一级结构
+        if(isset($join['left']) || isset($join['right']) || isset($join['inner'])){
+
+            $this->_build_join_($sql,$join);
+        }else{
+            // 支持多个链接查询 
+            foreach ($join as $v) {
+                
+                $this->_build_join_($sql,$v);
+            }
+        }
+    }
+
+    private function _build_join_(&$sql,$join){
+
+        if(isset($join['left'])){
+
+            $sql.=' LEFT JOIN '.$this->prefix.$join['left'];
+        }elseif(isset($join['right'])){
+
+            $sql.=' RIGHT JOIN '.$this->prefix.$join['right'];
+        }elseif(isset($join['inner'])){
+
+            $sql.=' INNER JOIN '.$this->prefix.$join['inner'];
+        }else{
+
+            throw new Exception('不支持该join类型:'.var_export($join));
+        }
+        $tmp='';
+
+        foreach ($join['on'] as $k=>$v) {
+
+            if(strpos($k, '.')!==false) $k=$this->prefix.$k;
+            if(strpos($v, '.')!==false) $v=$this->prefix.$v;
+            
+            $tmp.=$k.'='.$v.' AND ';
+        }
+
+        $sql.=' ON '.substr($tmp, 0,-4);
+    }
+
+    private function _build_where(&$sql,$where,&$strtype,&$params){
 
         if($where && is_array($where)){
 
@@ -336,32 +418,31 @@ class DB {
             
             foreach ($where as $name=>$value) {
 
+                if(strpos($name, '.')!==false) $name=$this->prefix.$name;
+
                 if(is_array($value)){
 
-                    if(count($value)!=count($value,1)){
+                    $k=key($value);
 
-                        foreach ($value as $k=>$v) {
+                    if($k==='$like'){
 
-                            if(is_array($v)){
+                        $sql.=$name.' LIKE ? AND ';
 
-                                if($k=='$non'){
+                        $this->_bind_params($name,'%'.$value[$k].'%',$strtype,$params);
+                    }elseif($k==='$non'){
+                        
+                        $sql.=$name.' NOT IN ('.implode(',', $value[$k]).') AND ';
+                    }elseif($k==='$not'){
 
-                                    $sql.=$name.' NOT IN ('.implode(',', $v).') AND '; 
-                                    
-                                }else{
+                        assert(!is_array($value),"not选项不允许值为数组");
 
-                                    $sql.=$name.' IN ('.implode(',', $v).') AND ';   
-                                }
-                            }elseif($k=='$or'){
+                        $sql.=$name.'!=?';
 
-                                $sql.=$name.'=? OR  '; // 要预留两个空格
-                            }
-                        }
+                        $this->_bind_params($name,$value,$strtype,$params);
                     }else{
-                    
+
                         $sql.=$name.' IN ('.implode(',', $value).') AND ';
                     }
-                    
                 }else{
 
                     $sql.=$name.'=? AND ';
@@ -374,7 +455,7 @@ class DB {
         }
     }
 
-    public function _build_sort(&$sql,$sort=[]){
+    private function _build_sort(&$sql,$sort=[]){
 
         if(!$sort) return;
 
@@ -385,16 +466,18 @@ class DB {
             $sql.=$sort;
         }elseif(is_array($sort)){
 
-            foreach ($sort as $k=>$v) $sql.=is_numeric($k)?$sql.=$v.',':$sql.=$k.' '.$v.',';
+            $tmp='';
 
-            $sql=substr($sql, 0,-1);
+            foreach ($sort as $k=>$v) $tmp.=is_numeric($k)?$v.',':$k.' '.$v.',';
+
+            $sql.=substr($tmp, 0,-1);
         }else{
 
             throw new Exception('sort数据格式不对:'.var_export($sort,true));
         }
     }
 
-    public function _build_group(&$sql,$group=null){
+    private function _build_group(&$sql,$group=null){
 
         if(!$group) return;
 
@@ -409,7 +492,7 @@ class DB {
         }
     }
 
-    public function _build_limit(&$sql,$limit=null){
+    private function _build_limit(&$sql,$limit=null){
 
         if(!$limit) return;
 
@@ -440,12 +523,12 @@ class DB {
             
             if($type && $params){
 
-                array_unshift($params, $stmt,$type);
-
                 $refs=[];
 
                 foreach ($params as $key=>$param) $refs[]=&$params[$key];
 
+                array_unshift($refs, $stmt,$type);
+                
                 call_user_func_array('mysqli_stmt_bind_param', $refs);
             }
 
@@ -456,13 +539,23 @@ class DB {
                 $meta=mysqli_stmt_result_metadata($stmt);
 
                 $fields=mysqli_fetch_fields($meta);
-
+                // print_r($fields);
                 $bind=[];
 
-                foreach ($fields as $field) $bind[$field->name]=&${$field->name};
+                foreach ($fields as $field){
+
+                    if(isset($bind[$field->name])){
+                        $bind[$field->table.'.'.$field->name]=&${$field->table.'_'.$field->name};
+                        ${$field->table.'_'.$field->name}=true;
+                    }else{
+                        $bind[$field->name]=&${$field->name};
+                        ${$field->name}=true;
+                    }
+                } 
 
                 $vals=array_merge([$stmt],$bind);
-
+                // print_r(count($vals));exit;
+                // print_r($vals);exit;
                 call_user_func_array('mysqli_stmt_bind_result', $vals);
                     
                 $result=[];
@@ -496,7 +589,9 @@ class DB {
 
         if(!$this->_link) throw new Exception(mysqli_connect_error());
 
-        mysqli_set_charset($this->_link,'utf8');
+        !empty(MYSQL_CHARSET) && $this->charset=MYSQL_CHARSET;
+
+        mysqli_set_charset($this->_link,$this->charset);
     }
 
     /**
@@ -505,7 +600,7 @@ class DB {
      */
     public function ping(){
 
-        if(!mysqli_ping($this->_link)) $this->_connect();
+        if(!$this->_link || !mysqli_ping($this->_link)) $this->_connect();
 
         return true;
     }
@@ -523,4 +618,18 @@ class DB {
 
         $this->_link && mysqli_close($this->_link);
     }
+}
+
+/**
+ * 初始化db实现并指定表
+ * @param  string $table 表名(省略表前缀)
+ * @return object
+ */
+function t($table){
+    // 初始化，单例模式
+    $db=DB::init();
+    // 指定表名
+    $db->setTable($table);
+
+    return $db;
 }

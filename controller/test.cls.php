@@ -10,15 +10,13 @@ class TestController extends Api {
 
         $api_list=$this->getSideBar();
 
-        $m_test=require_model('test');
-
         foreach ($api_list as $cat) {
             
             $test=$cat[0];
 
             $current=$test['id'];
 
-            $cases=$m_test->getTestCase($current);
+            $cases=t('test_case')->find(['stat'=>1,'test_id'=>$test['id']]);
 
             break;
         }
@@ -37,13 +35,11 @@ class TestController extends Api {
 
         empty($test_id) && exit('测试用例不存在');
 
-        $m_test=require_model('test');
-
         $api_list=$this->getSideBar();
 
-        $test=$m_test->getTest($test_id);
+        $test=t('test')->getById($test_id);
 
-        $cases=$m_test->getTestCase($test_id);
+        $cases=t('test_case')->find(['test_id'=>$test_id,'stat'=>1]);
 
         $current=$test_id;
 
@@ -74,11 +70,9 @@ class TestController extends Api {
 
         $test_id=$params['id'];
 
-        $m_test=require_model('test');
+        $test=t('test')->getById($test_id);
 
-        $test=$m_test->getTest($test_id);
-
-        $cases=$m_test->getTestCase($test_id);
+        $cases=t('test_case')->find(['test_id'=>$test_id,'stat'=>1]);
 
         foreach ($cases as $case) {
             
@@ -119,18 +113,16 @@ class TestController extends Api {
 
         try{
 
-            $m_test=require_model('test');
+            $db=DB::init();
 
-            $m_test->start();
+            $db->start();
 
             if($test_id){
 
-                $m_test->updateTest($test_id,$title,$cat_id,$remark);
-
+                t('test')->update(['title'=>$title,'cat_id'=>$cat_id,'remark'=>$remark],['id'=>$test_id]);
             }elseif($is_add){
 
-                $test_id=$m_test->addTest($title,$cat_id,$remark);
-
+                t('test')->insert(['title'=>$title,'cat_id'=>$cat_id,'remark'=>$remark]);
             }else{
 
                 throw new Exception('不支持的操作');
@@ -141,34 +133,29 @@ class TestController extends Api {
 
             if(!empty($case_exists)){
 
-                $m_test->update('kf_test_case',
-                    ['stat'=>0],
-                    ['id'=>['$non'=>$case_exists],'test_id'=>$test_id]
-                );
-
-                // $sql="UPDATE kf_test_case SET stat=0 WHERE id NOT IN (".implode(',', $case_exists).") AND test_id=?";
-
-                // $m_test->update($sql,'i',[$test_id]);
+                t('test_case')->update(['stat'=>0],['id'=>['$non'=>$case_exists],'test_id'=>$test_id]);
             }
 
             foreach ($params['cases'] as $name=>$case) {
 
+                $case_data=['test_id'=>$test_id,'content'=>$case['content'],'api_id'=>$case['api_id'],'api_params'=>$case['api_params'],'stat'=>1];
+
                 if($case['id']){
 
-                    $m_test->updateTestCase($test_id,$case['id'],$case['content'],$case['api_id'],$case['api_params'],1);
+                    t('test_case')->update($case_data,['id'=>$case['id']]);
                 }else{
 
-                    $m_test->addTestCase($test_id,$case['content'],$case['api_id'],$case['api_params']);
+                    t('test_case')->insert($case_data);
                 }
             }
 
-            $m_test->commit();
+            $db->commit();
 
             exit(json_encode(['errno'=>0,'redirect'=>'/test/detail/'.$test_id.'#'.$test_id]));
 
         }catch(Exception $e){
 
-            $m_test->rollback();
+            $db->rollback();
 
             exit(json_encode(['errno'=>-1,'errmsg'=>$e->getMessage()]));
         }
@@ -185,11 +172,7 @@ class TestController extends Api {
 
         if(empty($test_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定测试']));
 
-        $sql="UPDATE kf_test SET stat=0 WHERE id=?";
-
-        $db=db();
-
-        $db->update($sql,'i',[$test_id]);
+        t('test')->update(['stat'=>0],['id'=>$test_id]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
@@ -202,9 +185,7 @@ class TestController extends Api {
 
         $api_id=$params['api_id'];
 
-        $m_api=require_model('api');
-
-        $params=$m_api->getApiRequestParams($api_id);
+        $params=t('api_params')->find(['stat'=>1,'api_id'=>$api_id]);
 
         exit(json_encode($params));
     }
@@ -224,7 +205,7 @@ class TestController extends Api {
         $m_test=require_model('test');
         $m_api=require_model('api');
 
-        $test_case=$m_test->getTestCaseDetail($test_case_id);
+        $test_case=t('test_case')->getById($test_case_id);
 
         $api_id=$test_case['api_id'];
         $params=$test_case['api_params'];
@@ -244,10 +225,9 @@ class TestController extends Api {
 
     private function getSideBar(){
 
-        $m_test=require_model('test');
         $m_cat=require_model('cat');
 
-        $test_list=$m_test->getAllTest();
+        $test_list=t('test')->find(['stat'=>1]);
         $test_cat=$m_cat->getCatsByType(CAT_TYPE_TEST_CASE);
 
         $cat_list=$api_list=[];

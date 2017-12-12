@@ -54,11 +54,9 @@ class HttpController extends Api {
 
     public function history($params){
 
-        $use_http_id=$params['id'];
+        $user_http_id=$params['id'];
 
-        $m_http=require_model('http');
-
-        $user_http=$m_http->getUserHttpDetail($use_http_id);
+        $user_http=t('user_http')->get(['stat'=>1,'id'=>$user_http_id]);
 
         if(!empty($user_http)){
 
@@ -89,9 +87,7 @@ class HttpController extends Api {
 
         $user_http_id=$params['id'];
 
-        $m_http=require_model('http');
-
-        $m_http->delUserHttp($user_http_id,$this->user_id);
+        t('user_http')->update(['stat'=>0],['id'=>$user_http_id,'user_id'=>$this->user_id]);
 
         exit(json_encode(['errno'=>0]));
     }
@@ -128,18 +124,16 @@ class HttpController extends Api {
         $cat_id=$params['cat_id'];
         $user_http_id=$params['user_http_id'];
 
-        $m_http=require_model("http");
-
         if($user_http_id){
 
-            $m_http->updateUserHttpParamsAndReturn($user_http_id,$this->user_id,json_encode($api_params),$api_return);
+            t('user_http')->update(['api_params'=>json_encode($api_params),'api_return'=>$api_return],['id'=>$user_http_id,'user_id'=>$this->user_id]);
         }else{
 
             if(empty($api_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未关联接口id']));
             if(empty($title)) exit(json_encode(['errno'=>-1,'errmsg'=>'未设置标题']));
             if(empty($cat_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'类别不能为空']));
 
-            $m_http->addUserHttp($this->user_id,$title,$cat_id,$api_id,json_encode($api_params),$api_return,$is_public);
+            t('user_http')->insert(['user_id'=>$this->user_id,'title'=>$title,'cat_id'=>$cat_id,'api_id'=>$api_id,'api_params'=>json_encode($api_params),'api_return'=>$api_return,'is_public'=>$is_public]);
         }
 
         exit(json_encode(['errno'=>0]));

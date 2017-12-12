@@ -74,8 +74,8 @@
                 <div id="paramInfo" class="headline">
                     <h2><?php echo $param['title']; ?></h2>
                     <?php if($key && $param['url']){ ?>
-                        <code><a class="api-copy" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api/app#'.$key;?>">拷贝链接</a></code>
-                        <code><a class="api-edit" href="/api/app/edit/<?php echo $key;?>">编辑</a></code>
+                        <code><a class="api-copy" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api#'.$key;?>">拷贝链接</a></code>
+                        <code><a class="api-edit" href="/api/edit/<?php echo $key;?>">编辑</a></code>
                         <code><a class="api-case" href="/api/case/<?php echo $param['id'];?>">查看测试用例</a></code>
                         <code><a class="http_send" href="/api/http#<?php echo $key;?>" target="_blank">发起请求</a></code>
                     <?php } ?>

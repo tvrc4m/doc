@@ -21,9 +21,7 @@ class LoginController{
         if(empty($pwd)) exit(json_encode(['errno'=>-1,'errmsg'=>'密码不能为空']));
         if(strlen($pwd)<6) exit(json_encode(['errno'=>-1,'errmsg'=>'密码最小长度为6位']));
 
-        $db=DB::init();
-
-        $user=$db->get('kf_user',['nick'=>$nick,'stat'=>1],'id,nick,pwd');
+        $user=t('user')->get(['nick'=>$nick,'stat'=>1],'id,nick,pwd');
 
         if(empty($user)) exit(json_encode(['errno'=>-1,'errmsg'=>'用户不存在或者等待审核中']));
 

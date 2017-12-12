@@ -25,7 +25,7 @@ $app=$_GET['app'];
 
 $act=$_GET['act'];
 
-empty($app) && $app='app';
+empty($app) && $app='api';
 
 empty($act) && $act='index';
 

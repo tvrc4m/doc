@@ -30,20 +30,14 @@ class Api extends Doc {
      * @return array
      */
     public function getApi($code){
-
-        $db=db();
         // 接口基本信息
-        $api=$db->one("SELECT * FROM kf_api WHERE code='{$code}' AND stat=1");
+        $api=t('api')->get(['code'=>$code,'stat'=>1]);
 
         if(empty($api)) return [];
         // 请求参数
-        $params=$db->exec("SELECT * FROM kf_api_params WHERE stat=1 AND api_id=".$api['id']);        
+        $api['params']=t('api_params')->find(['stat'=>1,'api_id'=>$api['id']]);
         // 返回参数
-        $return=$db->exec("SELECT * FROM kf_api_return WHERE stat=1 AND api_id=".$api['id']);
-
-        $api['params']=$params;
-
-        $api['return']=$return;
+        $api['return']=t('api_return')->find(['stat'=>1,'api_id'=>$api['id']]);
 
         return $api;
     }
@@ -54,13 +48,11 @@ class Api extends Doc {
      * @return array
      */
     public function getApiList($action='api'){
-
-        $db=db();
-
-        $cat_list=$this->getApiCat();
-        $api_list=$db->find('kf_api',['stat'=>1]);
-        $params_list=$db->find('kf_api_params',['stat'=>1],['name'=>'asc']);        
-        $return_list=$db->find('kf_api_return',['stat'=>1],['name'=>'asc']);        
+        // 获取API类别
+        $cat_list=t('cat')->find(['type'=>self::CAT_TYPE_API,'stat'=>1]);
+        $api_list=t('api')->find(['stat'=>1]);
+        $params_list=t('api_params')->find(['stat'=>1],null,['name'=>'asc']);        
+        $return_list=t('api_return')->find(['stat'=>1],null,['name'=>'asc']);
 
         $cat_result=$params_result=$return_result=$api_result=[];
 
@@ -76,7 +68,9 @@ class Api extends Doc {
             // 组装返回参数
             $api['return']=$return_result[$api['id']];
 
-            $example=$this->getApiExample($api['id']);
+            $example=t('api_example')->get(['stat'=>1,'api_id'=>$api['id']]);
+
+            !empty($example) && $example=$example['code'];
 
             empty($example) && $example=$this->getApiExampleByApi($api);
 
@@ -84,7 +78,7 @@ class Api extends Doc {
 
             if($action=='api'){
 
-                $api['side_url']='/api/app#'.$api['code'];
+                $api['side_url']='/api#'.$api['code'];
             }elseif($action=='http'){
                 $api['side_url']='/api/http#'.$api['code'];
             }
@@ -97,11 +91,9 @@ class Api extends Doc {
 
     public function getDocList(){
 
-        $db=db();
-
         $cat_list=$this->getCatByType(self::CAT_TYPE_DOC);
 
-        $doc_list=$db->find('kf_doc',['stat'=>1]);
+        $doc_list=t('doc')->find(['stat'=>1]);
 
         $cat_result=$doc_result=[];
 
@@ -122,25 +114,12 @@ class Api extends Doc {
     }
 
     /**
-     * 获取api接口的类别 
-     * @return array
-     */
-    public function getApiCat(){
-
-        $db=db();
-
-        return $db->exec("SELECT * FROM kf_cat WHERE type=1 AND stat=1");
-    }
-
-    /**
      * 获取app版本号
      * @return array
      */
     public function getAppVersion(){
 
-        $db=db();
-
-        return $db->exec("SELECT * FROM kf_app_version WHERE stat=1");
+        return t('app_version')->find(['stat'=>1]);
     }
 
     /**
@@ -150,25 +129,7 @@ class Api extends Doc {
      */
     public function getCatByType($type){
 
-        $db=db();
-
-        return $db->exec("SELECT * FROM kf_cat WHERE type='{$type}' AND stat=1");
-    }
-
-    /**
-     * 获取接口的事例代码
-     * @param  int $id 接口id
-     * @return string
-     */
-    public function getApiExample($api_id){
-
-        $db=db();
-
-        $sql="SELECT code FROM kf_api_example WHERE stat=1 AND api_id=".intval($api_id)." LIMIT 1";
-
-        $result=$db->one($sql);
-
-        return $result['code'];
+        return t('cat')->find(['type'=>$type,'stat'=>1]);
     }
 
     /**

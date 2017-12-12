@@ -1,6 +1,6 @@
 <?php
 
-class AppController extends Api {
+class ApiController extends Api {
 
     /**
      * app全部的api接口
@@ -12,30 +12,20 @@ class AppController extends Api {
 
         $api_list=$this->getApiList('api');
         
-        $this->display("app/content.html",['api_list'=>$api_list,'api_common'=>$api_common,'title'=>'APP接口文档','tab_selected'=>'app']);
+        $this->display("api/content.html",['api_list'=>$api_list,'api_common'=>$api_common,'title'=>'APP接口文档','tab_selected'=>'app']);
     }
 
     /**
-     * 指定的某个api接口
-     * @param array $params 接收GET请求数组
-     * @return 
+     * 添加api接口
+     * @param array $params 
      */
-    public function detail($params){
-
-        $api=$params['api'];
-
-        empty($api) && exit('api接口地址不存在');
-
-        $this->export(self::API_TYPE_APP,$api);
-    }
-
     public function add($params){
 
-        $cats=$this->getApiCat();
+        $cats=$this->getCatByType(self::CAT_TYPE_API);
 
         $versions=$this->getAppVersion();
 
-        $this->display("app/add.html",['tab_selected'=>'app','versions'=>json_encode($versions),'cats'=>json_encode($cats),'title'=>'添加APP接口文档']);
+        $this->display("api/add.html",['tab_selected'=>'app','versions'=>json_encode($versions),'cats'=>json_encode($cats),'title'=>'添加APP接口文档']);
     }
 
     /**
@@ -49,11 +39,11 @@ class AppController extends Api {
 
         $api=$this->getApi($code);
 
-        $api['cats']=$this->getApiCat();
+        $api['cats']=$this->getCatByType(self::CAT_TYPE_API);
 
         $api['versions']=$this->getAppVersion();
         // print_r($cat_list);exit;
-        $this->display("app/edit.html",['tab_selected'=>'app','api'=>json_encode($api,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP),'title'=>'编辑APP接口文档']);
+        $this->display("api/edit.html",['tab_selected'=>'app','api'=>json_encode($api,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP),'title'=>'编辑APP接口文档']);
     }
 
     /**
@@ -96,20 +86,18 @@ class AppController extends Api {
 
         try{
 
-            $db=db();
+            $db=DB::init();
 
             $db->start();
 
+            $api_data=['title'=>$title,'url'=>$url,'cat_id'=>$cat_id,'code'=>$code,'version'=>$version,'remark'=>$remark];
+
             if($id){
 
-                $sql="UPDATE kf_api SET title=?,url=?,cat_id=?,code=?,version=?,remark=?,update_date=? WHERE id=?";
-
-                $db->exec($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),$id]);
+                t('api')->update($api_data,['id'=>$id]);
             }elseif($is_add){
 
-                $sql="INSERT kf_api (title,url,cat_id,code,version,remark,create_date,stat) VALUES (?,?,?,?,?,?,?,?)";
-
-                $id=$db->exec($sql,'ssissssi',[$title,$url,$cat_id,$code,$version,$remark,date('Y-m-d H:i:s'),1]);
+                t('api')->insert($api_data);
             }else{
 
                 throw new Exception('不支持的操作');
@@ -120,23 +108,19 @@ class AppController extends Api {
 
             if(!empty($params_exists)){
 
-                $sql="UPDATE kf_api_params SET stat=0 WHERE id NOT IN (".implode(',', $params_exists).") AND api_id=?";
-
-                $db->exec($sql,'i',[$id]);
+                t('api_params')->update(['stat'=>0],['id'=>['$non'=>$params_exists],'api_id'=>$id]);
             }
 
             foreach ($params as $name=>$param) {
 
+                $api_params_data=['name'=>$name,'type'=>$param['type'],'must'=>intval($param['must']),'version'=>$param['version'],'remark'=>$param['remark']];
+
                 if($param['id']){
 
-                    $sql="UPDATE kf_api_params SET name=?,type=?,must=?,version=?,remark=?,update_date=? WHERE id=?";
-
-                    $db->exec($sql,'ssisssi',[$name,$param['type'],intval($param['must']),$param['version'],$param['remark'],date('Y-m-d H:i:s'),$param['id']]);
+                    t('api_params')->update($api_params_data,['id'=>$param['id']]);
                 }else{
 
-                    $sql="INSERT INTO kf_api_params (name,type,must,version,remark,create_date,api_id) VALUES (?,?,?,?,?,?,?)";
-
-                    $db->exec($sql,'ssisssi',[$name,$param['type'],intval($param['must']),$param['version'],$param['remark'],date('Y-m-d H:i:s'),$id]);
+                    t('api_params')->insert($api_params_data);
                 }
             }
 
@@ -145,29 +129,25 @@ class AppController extends Api {
             
             if(!empty($return_exists)){
 
-                $sql="UPDATE kf_api_return SET stat=0 WHERE id NOT IN (".implode(',', $return_exists).") AND api_id=?";
-                
-                $db->exec($sql,'i',[$id]);
+                t('api_return')->update(['stat'=>0],['id'=>['$non'=>$return_exists],'api_id'=>$id]);
             }
 
             foreach ($return as $name=>$ret) {
 
+                $api_ret_data=['name'=>$name,'type'=>$ret['type'],'must'=>intval($ret['must']),'version'=>$ret['version'],'remark'=>$ret['remark']];
+
                 if($ret['id']){
 
-                    $sql="UPDATE kf_api_return SET name=?,type=?,must=?,version=?,remark=?,update_date=? WHERE id=?";
-
-                    $db->exec($sql,'ssisssi',[$name,$ret['type'],intval($ret['must']),$ret['version'],$ret['remark'],date('Y-m-d H:i:s'),$ret['id']]);
+                    t('api_return')->update($api_ret_data,['id'=>$ret['id']]);
                 }else{
 
-                    $sql="INSERT INTO kf_api_return (name,type,must,version,remark,create_date,api_id) VALUES (?,?,?,?,?,?,?)";
-
-                    $db->exec($sql,'ssisssi',[$name,$ret['type'],intval($ret['must']),$ret['version'],$ret['remark'],date('Y-m-d H:i:s'),$id]);
+                    t('api_return')->insert($api_ret_data);
                 }
             }
 
             $db->commit();
 
-            exit(json_encode(['errno'=>0,'redirect'=>'/api/app#'.$code]));
+            exit(json_encode(['errno'=>0,'redirect'=>'/api#'.$code]));
 
         }catch(Exception $e){
 
@@ -192,11 +172,12 @@ class AppController extends Api {
 
         $tests=$m_test->getApiTestCast($api_id);
 
-        $this->display("app/case.html",['api'=>$api,'tests'=>$tests,'tab_selected'=>'app']);
+        $this->display("api/case.html",['api'=>$api,'tests'=>$tests,'tab_selected'=>'app']);
     }
 
     /**
      * 保存example
+     * @params array
      * @return 
      */
     public function example($params){
@@ -204,24 +185,14 @@ class AppController extends Api {
         $code=$params['code'];
         $api_id=$params['api_id'];
 
-        $db=db();
-
-        // $code=$db->escape($code);
-        
-        $sql="SELECT id FROM kf_api_example WHERE stat=1 AND api_id=".intval($api_id);
-
-        $example=$db->one($sql);
+        $example=t('api_example')->get(['stat'=>1,'api_id'=>$api_id]);
 
         if(empty($example)){
 
-            $sql="INSERT INTO kf_api_example (api_id,code,create_date) VALUES (?,?,NOW())";
-
-            $db->exec($sql,'is',[$api_id,$code]);
+            t('api_example')->insert(['api_id'=>$api_id,'code'=>$code]);
         }else{
 
-            $sql="UPDATE kf_api_example SET code=?,update_date=NOW() WHERE id=?";
-
-            $db->exec($sql,'si',[$code,$example['id']]);
+            t('api_example')->insert(['code'=>$code],['id'=>$example['id']]);
         }
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
@@ -231,8 +202,8 @@ class AppController extends Api {
 
         return [
             ['name'=>'类别管理','url'=>'/api/cat','click'=>'redirectPage(this)'],
-            ['name'=>'APP版本管理','url'=>'/api/version','click'=>'redirectPage(this)'],
-            ['name'=>'新增接口','url'=>'/api/app/add','click'=>'redirectPage(this)']
+            ['name'=>'APP版本管理','url'=>'/version','click'=>'redirectPage(this)'],
+            ['name'=>'新增接口','url'=>'/api/add','click'=>'redirectPage(this)']
         ];
     }
 }
