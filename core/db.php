@@ -92,7 +92,7 @@ class DB {
      */
     public function getById($table,$id,$fields=null){
 
-        return $this->get($table,$fields,['id'=>$id]);
+        return $this->get($table,['id'=>$id],$fields);
     }
 
     /**
