@@ -13,6 +13,15 @@ class CertController extends BaseAuth{
      */
     protected $show_header=false;
 
+    public function __construct(){
+
+        parent::__construct();
+
+        $this->css[]='/static/css/certification.css';
+        $this->css[]='/static/css/certificate.css';
+        $this->css[]='/static/css/login.css';
+    }
+
     /**
      * 身份认证
      * @return

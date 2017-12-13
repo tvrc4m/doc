@@ -55,6 +55,12 @@ class Base{
      */
     protected $show_header=true;
 
+    public function __construct(){
+        // 加载全局css和js
+        $this->css=['/static/css/main.min.css','/static/js/fancybox/jquery.fancybox.css'];
+        $this->js=['/static/js/jquery.min.js'];
+    }
+
     /**
      * 要呈现的html
      * @param  string $html 文件路径
@@ -67,7 +73,9 @@ class Base{
 
         $data['actions']=$actions;
         $data['show_header']=$this->show_header;
-
+        $data['css']=$this->css;
+        $data['js']=$this->js;
+        // print_r($data);exit;
         include_once(VIEW.'common/header.html');
 
         include_once(VIEW.$html);
@@ -131,7 +139,7 @@ class BaseAuth extends Base{
 
     public function __construct(){
 
-        // parent::__construct();
+        parent::__construct();
 
         $user_id=$_SESSION['token'];
         

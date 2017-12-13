@@ -10,7 +10,7 @@ class CatController extends BaseAuth {
 
         $type=$params['id'];
         
-        $cat_list=$this->getCatByType($type);
+        $cat_list=t('cat')->find(['type'=>$type,'stat'=>1]);
 
         switch ($type) {
             case self::CAT_TYPE_API:$title='API类别管理';$tab_selected='app';break;
