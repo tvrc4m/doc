@@ -1,0 +1,139 @@
+.login-nav .navbar-nav>.active>a, .login-nav .navbar-nav>.active>a:hover, .login-nav .navbar-nav>.active>a:focus,
+.register-nav .navbar-nav>.active>a, .register-nav .navbar-nav>.active>a:hover, .register-nav .navbar-nav>.active>a:focus {
+    background: none !important;
+}
+.login-nav li a,
+.register-nav li a{
+    border-bottom: 1px solid #ebebeb;
+}
+p.invalid, em.invalid {color: #ee9393;font-style: normal;font-size:13px !important;}
+ul.login-ul>li.active>a:hover,
+ul.register-ul>li.active>a:hover{
+    border-bottom: 2px solid #1abc9c !important;
+}
+ul.register-ul,
+ul.login-ul {
+width: 100%;margin-left:0px;padding-left:0px;padding-right:0px
+}
+ul.login-ul>li>a:hover,
+ul.register-ul>li>a:hover{
+    border-bottom: 1px solid #ebebeb !important;
+}
+div.content div.login-inner-div {
+    padding-left: 6%;
+    padding-right: 6%;
+    position: relative;
+    border: 1px solid #e7ebed;
+}
+div.content div.login-outer-div {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+#form.sky-form {
+    border: none;
+}
+#form.sky-form input,
+div#personal-certificate input,
+#embed-captcha div.geetest_radar_btn{
+    border: 1px solid #e7ebed;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+#form.sky-form button#submitButton{
+    width: 100%;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-text-fill-color: #333;
+}
+div.third-part-login {
+    background-color: #f8f9f9;
+    border: 1px solid #e7ebed;
+    border-top: none;
+}
+div.third-part-login img.third-img{
+}
+form.login section.phonenumber input[name='tel'],
+div#personal-certificate input[name='tel'],
+div.register-content section.phonenumber input[name='tel'] {
+    border-left: none !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-left-radius: 0px !important;
+}
+div#embed-captcha div.geetest_holder {
+    width: 99.9% !important;
+    min-width: 99.9%;
+}
+div.register-content #form {
+    border: 1px solid #e7ebed;
+    padding: 10%;
+}
+.reg-header {
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+/*CSS伪类用法*/
+p.login-third-part:after, p.login-third-part:before {
+    background: #e7e6e7;
+    content: "";
+    height: 1px;
+    position: absolute;
+    width: 11%;
+    top: 7px;
+}
+
+/*调整背景横线的左右距离*/
+p.login-third-part:before {
+    left: 13%;
+}
+
+p.login-third-part:after {
+    right: 13%;
+}
+.breadcrumbs {
+    border-bottom: none;
+    background: none;
+}
+div.register-content form.reg-page input,
+div.register-content form.reg-page .btn,
+div#personal-certificate input,
+div#personal-certificate .btn,
+div.login-inner-div form.reg-page input,
+div.login-inner-div form.reg-page .btn{
+    height: 40px;
+}
+div#personal-certificate label {
+    width: 100%;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #878f92 !important;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+    color: #878f92 !important;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+    color: #878f92 !important;
+}
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: #878f92 !important;
+}
+div.third-part-login img.third-img {
+    cursor: pointer;
+}
+.checkbox input[name='termofservice'] + i:after {
+    top: 1px;
+    left: -1px;
+}
+.sky-form .checkbox input[name='termofservice'] + i {
+    width: 15px;
+    height: 15px;
+}
+a#getCode,
+div.register-content form.reg-page button#submitButton, 
+div.login.reg-page section.section-getCode a.btn,
+div.ldLogin button#submitButton {
+    border: none;
+}
+a.geetest_logo, a.geetest_success_logo, a.geetest_copyright {
+    display: none;
+}

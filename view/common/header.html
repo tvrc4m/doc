@@ -13,118 +13,136 @@
 </head>
 
 <body>
-    <header style="position: fixed;top: 0;height: 40px;z-index: 99;width: 100%">
-        <!--=== navbar start ===-->
-        <div class="container header-navbar navbar navbar-default" role="navigation" style="">
-            <!-- pc header start -->
-            <div class="container container-menu pc-header hidden-xs hidden-sm">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header" style="margin-left:20px;margin-right: 20px;">
-                    <a href="/">
-                        <img id="logo-header" class="img-logo" src="https://kanfaimage.oss-cn-beijing.aliyuncs.com/20170809/adminuser_150225954278251.png?x-oss-process=image/resize,m_fill,w_120,h_120" alt="Logo" width="36" height="36" />
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse navbar-responsive-collapse in">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="<?php echo $data['tab_selected']=='app'?'active':'';?>"><a href="/api">APP接口文档</a></li>
-                        <li class="<?php echo $data['tab_selected']=='http'?'active':'';?>"><a href="/api/http#channel_getlist">APP发起请求</a></li>
-                        <!-- <li class="<?php echo $data['tab_selected']=='php'?'active':'';?>"><a href="/php/">PHP类文档</a></li> -->
-                        <li class="<?php echo $data['tab_selected']=='test'?'active':'';?>"><a href="/test/">测试用例</a></li>
-                        <li class="<?php echo $data['tab_selected']=='doc'?'active':'';?>"><a href="/doc/">开发文档</a></li>
-                        <li></li>
-                        <li></li>
-                        <li>
-                            <?php foreach($data['actions'] as $action){?>
-                                <button onclick="<?php echo $action['click'];?>" data-url="<?php echo $action['url'];?>" class="btn-u" style="font-size:12px;margin: 5px;padding: 5px;"><?php echo $action['name']?></button>
-                            <?php } ?>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
-                        <li style="margin-top: 8px;margin-right: 5px;">@<?php echo $_SESSION['user']['nick'];?></li>
-                        <li id="my" class="<?php echo $data['tab_selected']=='my'?'active':'';?>">
-                            <a href="javascript:void(0);">我的</a>
-                            <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
-                                <li class="menu-title font-16"><a href="/http/my" style="border-bottom:none">我发起的请求</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/logout">退出</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- m-header end-->
-        <!--=== navbar end ===-->
-    </header>
-    <script type="text/javascript">
-        function redirectPage(that){
-            document.location.href=$(that).data("url");
-        }
-    </script>
-    <!--=== Content Part ===-->
-    <div class="container content" style="position: relative;top: 52px;">
-        <div class="row">
-            <!-- Begin Sidebar Menu -->
-            <?php if($data['api_list']){ ?>
-            <div class="" style="position: fixed;z-index: 99;width: auto;max-width: 280px;">
-                <?php if(!empty($data['title'])){ ?>
-                    <h5 style="margin-left: 10px;"><?php echo $data['title'];?></h5>
-                <?php } ?>
-                <ul class="doc-nav list-group sidebar-nav-v1" id="sidebar-nav">
-                    <?php foreach($data['api_list'] as $parent=>$list){ ?>
-                        <li id="sdknode-api" class="list-group-item list-toggle sidebar-submenu">
-                            <a data-toggle="collapse" href="javascript:void(0);"><?php echo $parent; ?></a>
-                            <ul id="collapse-api" class="collapse">
-                                <?php foreach($list as $key=>$v){ ?>
-                                    <li>
-                                        <a key="<?php echo $v['code'];?>" href="<?php echo $v['side_url'];?>">
-                                            <i class="fa fa-file-text-o"></i>
-                                            <?php echo $v['title']; ?>
-                                        </a>
-                                    </li>
+    <?php if($data['show_header']){ ?>
+        <header style="position: fixed;top: 0;height: 40px;z-index: 99;width: 100%">
+            <!--=== navbar start ===-->
+            <div class="container header-navbar navbar navbar-default" role="navigation" style="">
+                <!-- pc header start -->
+                <div class="container container-menu pc-header hidden-xs hidden-sm">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header" style="margin-left:20px;margin-right: 20px;">
+                        <a href="/">
+                            <img id="logo-header" class="img-logo" src="https://kanfaimage.oss-cn-beijing.aliyuncs.com/20170809/adminuser_150225954278251.png?x-oss-process=image/resize,m_fill,w_120,h_120" alt="Logo" width="36" height="36" />
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-responsive-collapse in">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="<?php echo $data['tab_selected']=='app'?'active':'';?>"><a href="/api">APP接口文档</a></li>
+                            <li class="<?php echo $data['tab_selected']=='http'?'active':'';?>"><a href="/http#channel_getlist">APP发起请求</a></li>
+                            <!-- <li class="<?php echo $data['tab_selected']=='php'?'active':'';?>"><a href="/php/">PHP类文档</a></li> -->
+                            <li class="<?php echo $data['tab_selected']=='test'?'active':'';?>"><a href="/test/">测试用例</a></li>
+                            <li class="<?php echo $data['tab_selected']=='doc'?'active':'';?>"><a href="/doc/">开发文档</a></li>
+                            <li></li>
+                            <li></li>
+                            <li>
+                                <?php foreach($data['actions'] as $action){?>
+                                    <button onclick="<?php echo $action['click'];?>" data-url="<?php echo $action['url'];?>" class="btn-u" style="font-size:12px;margin: 5px;padding: 5px;"><?php echo $action['name']?></button>
                                 <?php } ?>
-                            </ul>
-                        </li>
-                    <?php } ?>
-                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
+                            <li style="margin-top: 8px;margin-right: 5px;">@<?php echo $_SESSION['user']['nick'];?></li>
+                            <li id="my" class="<?php echo $data['tab_selected']=='my'?'active':'';?>">
+                                <a href="javascript:void(0);">我的</a>
+                                <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
+                                    <li class="menu-title font-16"><a href="/http/my" style="border-bottom:none">我发起的请求</a></li>
+                                </ul>
+                            </li>
+                            <li id="setting" class="<?php echo $data['tab_selected']=='setting'?'active':'';?>">
+                                <a href="javascript:void(0);">设置</a>
+                                <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
+                                    <li class="menu-title font-16"><a href="/user/info" style="border-bottom:none">个人设置</a></li>
+                                    <li class="menu-title font-16"><a href="/user/site" style="border-bottom:none">站点设置</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/logout">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <!-- End Sidebar Menu -->
-            <script type="text/javascript">
-                var key="<?php echo $data['current'];?>";
-                var hash=document.location.hash;
-                if(hash && $(hash)){
-                    key=hash.substr(1);
-                }
-                if(key){
-                    var cls="a[key='"+key+"']";
-                    $(cls).parents('ul').show();
-                    $(cls).addClass('active');
-                }
-                $("a[data-toggle]").click(function(){
-                    var menu=$(this).parent('li');
-                    var submenu=$(this).siblings('.collapse');
-                    var display=submenu.css('display');
-                    if(display=='none'){
-                        $(".collapse").hide();
+            <!-- m-header end-->
+            <!--=== navbar end ===-->
+        </header>
+        <script type="text/javascript">
+            function redirectPage(that){
+                document.location.href=$(that).data("url");
+            }
+        </script>
+        <!--=== Content Part ===-->
+        <div class="container content" style="position: relative;top: 52px;">
+            <div class="row">
+                <!-- Begin Sidebar Menu -->
+                <?php if($data['api_list']){ ?>
+                <div class="" style="position: fixed;z-index: 99;width: auto;max-width: 280px;">
+                    <?php if(!empty($data['title'])){ ?>
+                        <h5 style="margin-left: 10px;"><?php echo $data['title'];?></h5>
+                    <?php } ?>
+                    <ul class="doc-nav list-group sidebar-nav-v1" id="sidebar-nav">
+                        <?php foreach($data['api_list'] as $parent=>$list){ ?>
+                            <li id="sdknode-api" class="list-group-item list-toggle sidebar-submenu">
+                                <a data-toggle="collapse" href="javascript:void(0);"><?php echo $parent; ?></a>
+                                <ul id="collapse-api" class="collapse">
+                                    <?php foreach($list as $key=>$v){ ?>
+                                        <li>
+                                            <a key="<?php echo $v['code'];?>" data-id="<?php echo $v['id'];?>" href="<?php echo $v['side_url'];?>">
+                                                <i class="fa fa-file-text-o"></i>
+                                                <?php echo $v['title']; ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <!-- End Sidebar Menu -->
+                <script type="text/javascript">
+                    var key="<?php echo $data['current'];?>";
+                    var hash=document.location.hash;
+                    if(hash && $(hash)){
+                        key=hash.substr(1);
+                    }
+                    if(key){
+                        var cls="a[key='"+key+"']";
+                        $(cls).parents('ul').show();
+                        $(cls).addClass('active');
+                    }
+                    $("a[data-toggle]").click(function(){
+                        var menu=$(this).parent('li');
+                        var submenu=$(this).siblings('.collapse');
+                        var display=submenu.css('display');
+                        if(display=='none'){
+                            $(".collapse").hide();
+                            menu.addClass('active');
+                            submenu.show();
+                        }else{
+                            menu.removeClass('active');
+                            submenu.hide();
+                        } 
+                    })
+                    $("a[key]").click(function(){
+                        var menu=$(this).parents('ul').parents('li');
+                        $(".sidebar-submenu").removeClass('active');
                         menu.addClass('active');
-                        submenu.show();
-                    }else{
-                        menu.removeClass('active');
-                        submenu.hide();
-                    } 
-                })
-                $("a[key]").click(function(){
-                    var menu=$(this).parents('ul').parents('li');
-                    $(".sidebar-submenu").removeClass('active');
-                    menu.addClass('active');
-                    $(".sidebar-submenu ul li a.active").removeClass("active");
-                    $(this).addClass("active");
-                })
-            </script>
-            <?php } ?>
-            <script type="text/javascript">
-                $("#my,#my .dropdown-menu").on('mouseover',function(){
-                    $("#my .dropdown-menu").show();
-                }).on('mouseout',function(){
-                    $("#my .dropdown-menu").hide();
-                })
-            </script>
+                        $(".sidebar-submenu ul li a.active").removeClass("active");
+                        $(this).addClass("active");
+                    })
+                </script>
+                <?php } ?>
+                <script type="text/javascript">
+                    $("#my,#my .dropdown-menu").on('mouseover',function(){
+                        $("#my .dropdown-menu").show();
+                    }).on('mouseout',function(){
+                        $("#my .dropdown-menu").hide();
+                    })
+                    $("#setting,#setting .dropdown-menu").on('mouseover',function(){
+                        $("#setting .dropdown-menu").show();
+                    }).on('mouseout',function(){
+                        $("#setting .dropdown-menu").hide();
+                    })
+                </script>
+
+    <?php }else{ ?>
+        <div class="container content" style="position: relative;top: 52px;">
+            <div class="row">
+    <?php } ?>

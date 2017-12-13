@@ -98,12 +98,12 @@
         $("a[key]").on('click',function(){
             enableScroll();
             scrollStart();
-            var key=$(this).attr("key");
+            var api_id=$(this).data("id");
             $.ajax({
-                url:"/api/http/get",
+                url:"/http/get",
                 type:"GET",
                 dataType:"json",
-                data:{key:key},
+                data:{id:api_id},
                 success:function(data){
                     $(".headline h2").html(data.title);
                     $(".api_url em").html(data.url);
@@ -232,7 +232,7 @@
         }
         function goToApi(){
             var code=$("input[name=code]").val();
-            document.location.href="/api/app#"+code;
+            document.location.href="/api#"+code;
         }
         $(function(){
             if(!current && document.location.hash){

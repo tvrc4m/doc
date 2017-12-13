@@ -14,22 +14,30 @@ define('BASEURL', 'http://'.$_SERVER['HTTP_HOST']);
 session_start(['cookie_lifetime' => 86400]);
 
 include_once(CORE.'config.php');
-include_once(CORE.'auth.php');
+include_once(CORE.'base.php');
 include_once(CORE.'doc.php');
-include_once(CORE.'api.php');
 include_once(CORE.'db.php');
 include_once(CORE.'model.php');
 include_once(CORE.'function.php');
 
+// 模块目录
+$module=$_GET['module'];
+// 控制器名
 $app=$_GET['app'];
-
+// 方法名
 $act=$_GET['act'];
 
 empty($app) && $app='api';
 
 empty($act) && $act='index';
 
-$filepath=CTL.$app.'.cls.php';
+if($module){
+
+    $filepath=CTL.$module.'/'.$app.'.cls.php';
+}else{
+    
+    $filepath=CTL.$app.'.cls.php';
+}
 
 if(!file_exists($filepath)) exit('未找到指定api');
 

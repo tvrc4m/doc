@@ -1,6 +1,6 @@
 <?php
 
-class VersionController extends Api {
+class VersionController extends baseAuth {
 
     /**
      * app版本号列表

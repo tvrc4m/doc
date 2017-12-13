@@ -1,0 +1,203 @@
+.headline h1 {
+    color:#56bc94
+}
+.alert img {
+    width:24px;
+    height:24px;
+    margin-right:10px;
+    margin-top: -2px; 
+}
+.alert-nobackground {
+    background-color:#fff;
+}
+.alert-nobackground {
+   font-size:18px;
+}
+.alert-nobackground li{
+   font-size:20px;
+}
+.alert-success {
+    color:#56bc94
+}
+.certification .sky-form {
+    border:none;
+}
+.priviliege h4 {
+    color:#56bc94
+}
+
+.apicode {display:block; word-break:break-all; overflow:auto; padding:10px;}
+.sky-form .input a {
+  height: 34px;
+  padding: 6px 12px;
+}
+
+.sky-form .input a
+{
+  border-width: 1px;
+  font-size: 14px;
+  color: #404040;
+}
+
+/*drop menu style*/
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.clearfix::after {
+    clear: both;
+}
+.sms-bind-modal .choose_phone {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-image: none;
+    border-radius: none;
+    border: 1px solid #ddd;
+    padding: 0;
+    position: relative;
+}
+.sms-bind-modal .choose_phone .selector {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: transparent;
+    border-color: -moz-use-text-color #eeeeee -moz-use-text-color -moz-use-text-color;
+    border-image: none;
+    border-radius: 0;
+    border-style: none solid none none;
+    border-width: medium 1px medium medium;
+    height: 34px;
+    line-height: 34px;
+    width: 100%;
+}
+.dropdown-toggle:active, .open .dropdown-toggle {
+    outline: 0 none;
+}
+.sms-bind-modal .choose_phone .dropdown-menu {
+    background-color: #fafafa;
+    border-radius: 0 0 5px 5px;
+    left: -1px;
+    max-height: 380px;
+    overflow-y: auto;
+    top: 52px;
+    width: auto;
+}
+.open > .dropdown-menu {
+    display: block;
+}
+.dropdown-menu-calling-code {
+    border-color: #d9d9d9;
+    margin-top: 10px;
+}
+.dropdown-menu-calling-code {
+    background-clip: padding-box;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    float: left;
+    left: 0;
+    list-style: outside none none;
+    margin: 2px 0 0;
+    min-width: 160px;
+    padding: 5px 0;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+    top: 31px;
+    width:auto;
+}
+.sms-bind-modal .choose_phone .dropdown-menu li {
+    background-color: #fafafa;
+}
+.dropdown-menu > li {
+    line-height: 20px;
+}
+.dropdown-menu > li > a {
+    clear: both;
+    color: #3f3f3f;
+    display: block;
+    font-weight: normal;
+    line-height: 20px;
+    padding: 3px 20px;
+    white-space: nowrap;
+}
+.sms-bind-modal .choose_phone .dropdown-menu li .nation_code {
+    display: inline-block;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:active,
+.dropdown-menu > li > a,
+.dropdown-menu > li > a:focus {
+    color: #3f3f3f;
+}
+.uploadPicSection .image {
+    width: 200px;
+    height: 150px;
+    background-color: #fff;
+    border: #CCC dashed 1px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.uploadPicSection .image.add:before {
+    content: "\f067";
+}
+.uploadPicSection .image:before, .uploadPicSection .image .bg-pic:before{
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 40px;
+    color: #eee;
+    line-height: 100px;
+    text-align: center;
+    width: 100%;
+}
+.uploadPicSection div.div-idcard {
+    display: flex;
+}
+.uploadPicSection div.div-idcard .a-idcard-exam {
+    margin-top: 2px;
+    margin-left: 10px;
+}
+.uploadPicSection div.uploadPic .bg-pic {
+    background-size:contain !important;
+    background-position:center !important;
+    height:148px
+}
+.uploadPicSection div.uploadPic .bg-pic:hover::before{
+    content: "\f01e";
+    color: #666;
+    line-height: 140px;
+}
+section#companyOrgCodeSection .div-idcard span {
+    margin-left: 10px;
+    margin-top: 2px;
+    color: #878f95;
+}
+#certificationForm footer button.btn-u {
+  outline: none;
+}
+#certificationForm input::-webkit-input-placeholder { /* WebKit browsers*/ 
+opacity: 0.5;
+}
+#certificationForm input:-moz-placeholder {  /* Mozilla Firefox 4 to 18*/ 
+opacity: 0.5;
+}
+#certificationForm input::-moz-placeholder {  /* Mozilla Firefox 19+*/ 
+opacity: 0.5;
+}
+#certificationForm input:-ms-input-placeholder { /* Internet Explorer 10+*/ 
+opacity: 0.5;
+}
+

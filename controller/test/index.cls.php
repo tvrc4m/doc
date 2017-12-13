@@ -1,6 +1,6 @@
 <?php
 
-class TestController extends Api {
+class IndexController extends BaseAuth {
 
     /**
      * app全部的api接口
@@ -52,10 +52,9 @@ class TestController extends Api {
      */
     public function add($params){
 
-        $m_cat=require_model('cat');
         $m_api=require_model('api');
 
-        $cats=$m_cat->getCatsByType(CAT_TYPE_TEST_CASE);
+        $cats=$this->_get_test_cat();
         $apis=$m_api->getAllCatApi();
         // print_r($apis);exit;
         $this->display("test/add.html",['tab_selected'=>'test','cats'=>json_encode($cats),'apis'=>$apis,'title'=>'新增测试用例']);
@@ -84,7 +83,7 @@ class TestController extends Api {
         $m_cat=require_model('cat');
         $m_api=require_model('api');
 
-        $cats=$m_cat->getCatsByType(CAT_TYPE_TEST_CASE);
+        $cats=$this->_get_test_cat();
         $apis=$m_api->getAllCatApi();
 
         $this->display("test/edit.html",['tab_selected'=>'test','cats'=>json_encode($cats),'apis'=>$apis,'test'=>json_encode($test,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP),'title'=>'编辑测试用例']);
@@ -225,10 +224,8 @@ class TestController extends Api {
 
     private function getSideBar(){
 
-        $m_cat=require_model('cat');
-
         $test_list=t('test')->find(['stat'=>1]);
-        $test_cat=$m_cat->getCatsByType(CAT_TYPE_TEST_CASE);
+        $test_cat=$this->_get_test_cat();
 
         $cat_list=$api_list=[];
 
@@ -248,8 +245,17 @@ class TestController extends Api {
     protected function actions(){
 
         return [
-            ['name'=>'类别管理','url'=>'/test/cat','click'=>'redirectPage(this)'],
+            ['name'=>'类别管理','url'=>'/cat/'.self::CAT_TYPE_TEST_CASE,'click'=>'redirectPage(this)'],
             ['name'=>'新增测试用例','url'=>'/test/add','click'=>'redirectPage(this)']
         ];
+    }
+
+    /**
+     * 获取test关联的cat
+     * @return array
+     */
+    private function _get_test_cat(){
+
+        return t('cat')->find(['type'=>self::CAT_TYPE_TEST_CASE,'stat'=>1]);
     }
 }

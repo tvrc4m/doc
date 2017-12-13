@@ -1,6 +1,6 @@
 <?php
 
-class LoginController{
+class LoginController extends Base{
 
     public function index($params){
 

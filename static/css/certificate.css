@@ -1,0 +1,97 @@
+.timeline-green-span {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background: #29bb9c;
+    display: inline-block;
+    border-radius: 50%;
+    color: #fff;
+}
+.timeline-gray-span{
+    width: 10px;
+    height: 10px;
+    line-height: 20px;
+    background: #ececec;
+    display: inline-block;
+    margin-top: 5px;
+    border-radius: 50%;
+}
+span.span-center:nth-child(1):before {
+    background: #ececec;
+    content: "";
+    height: 3px;
+    position: absolute;
+    width: 79%;
+    top: 9px;
+    left: -39%;
+}
+span.span-center:nth-child(1):after {
+    background: #ececec;
+    content: "";
+    height: 3px;
+    position: absolute;
+    width: 79%;
+    top: 9px;
+    right: -39%;
+}
+div.box-green {
+    border: solid 2px #29bb9c;
+    border-radius: 4px;
+    background-color: #eefdfa;
+}
+div.box-gray {
+    border: solid 2px #e7ebed;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+span.span-green {
+    border: solid 2px #29bb9c;
+    border-radius: 4px;
+    background-color: #eefdfa;
+    width: 38%;
+    display: block;
+    float: left;
+    margin-bottom: 40px;
+}
+span.span-gray {
+    border: solid 2px #e7ebed;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    width: 38%;
+    display: block;
+    float: left;
+    margin-bottom: 40px;
+}
+span.span-region,
+div.box-identity {
+    cursor: pointer;
+}
+div.certificate-div .form-group {
+}
+.uploadPicSection .image:before, .uploadPicSection .image .bg-pic:before {
+    font-size: 40px;
+    color: #a0a0a1;
+    line-height: 1;
+    text-align: center;
+    padding-top: 21%;
+}
+.uploadPicSection .image {
+    border: #CCC dashed 2px;
+    background: #f8f8f8;
+}
+p.invalid, em.invalid {
+    float: left;
+}
+.uploadPicSection div.uploadPic .bg-pic:hover::before {
+    line-height: 1;
+}
+.uploadPicSection div.uploadPic .bg-pic {
+    height: 100%;
+}
+.uploadPicSection .image {
+    width: 100%;
+}
+#certificationForm input[readonly],
+#certificationForm a[disabled] {
+    cursor: not-allowed;
+}

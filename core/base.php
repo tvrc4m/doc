@@ -1,0 +1,152 @@
+<?php
+
+class Base{
+
+    /**
+     * cat类型分组
+     */
+    const CAT_TYPE_API=1;
+    const CAT_TYPE_DOC=2;
+    const CAT_TYPE_TEST_CASE=3;
+    const CAT_TYPE_HTTP=4;
+    const CAT_TYPE_CLASS_PHP=5;
+
+    /**
+     * 用户身份
+     */
+    const USER_TYPE_PERSION=1; #个人
+    const USER_TYPE_COMPANY=2; #企业
+
+    /**
+     * 用户认证状态
+     */
+    const USER_CERT_STATUS_NONE=0; #未认证
+    const USER_CERT_STATUS_CHECK=1; #正在审核中
+    const USER_CERT_STATUS_OK=2; #认证通过
+    const USER_CERT_STATUS_ERR=3; #认证失败
+
+    /**
+     * header page content
+     * @var string
+     */
+    protected $header;
+
+    /**
+     * footer page content
+     * @var string
+     */
+    protected $footer;
+
+    /**
+     * 要传递的js文件
+     * @var array
+     */
+    protected $js=[];
+
+    /**
+     * 要传递的css文件
+     * @var array
+     */
+    protected $css=[];
+
+    /**
+     * 是否显示header
+     * @var boolean
+     */
+    protected $show_header=true;
+
+    /**
+     * 要呈现的html
+     * @param  string $html 文件路径
+     * @param  array $data  要传递的数组
+     * @return 
+     */
+    public function display($html,$data){
+
+        $actions=$this->actions();
+
+        $data['actions']=$actions;
+        $data['show_header']=$this->show_header;
+
+        include_once(VIEW.'common/header.html');
+
+        include_once(VIEW.$html);
+
+        include_once(VIEW.'common/footer.html');
+    }
+
+    /**
+     * 支持的操作列表
+     * @return array
+     */
+    protected function actions(){
+
+        return [];
+    }
+
+    /**
+     * json--输出错误
+     * @param  int $errno  错误码
+     * @param  string|array $errmsg 错误文本
+     * @return json
+     */
+    protected function error($errno,$errmsg){
+
+        header('Content-type: application/json');
+
+        exit(json_encode(['errono'=>$errno,'errmsg'=>$errmsg]));
+    }
+
+    /**
+     * json--成功输出
+     * @param  返回的数据 $data 
+     * @return json
+     */
+    protected function ok($data=[]){
+
+        header('Content-type: application/json');
+
+        exit(json_encode(['errno'=>0,'errmsg'=>'','data'=>$data]));
+    }
+}
+
+/**
+ * 需要登陆的基类
+ */
+class BaseAuth extends Base{
+
+    /**
+     * 登陆用户id
+     * @var integer
+     */
+    protected $user_id;
+
+    protected $user;
+
+    /**
+     * 是否跳过身份认证过程
+     * @var boolean
+     */
+    protected $skip_cert_auth=false;
+
+    public function __construct(){
+
+        // parent::__construct();
+
+        $user_id=$_SESSION['token'];
+        
+        empty($user_id) && header("Location:/login");
+
+        $user=t('user')->get(['stat'=>1,'id'=>$user_id]);
+
+        if(empty($user)) header("Location:/login");
+
+        $this->user_id=$user['id'];
+        $this->user=$user;
+
+        $_SESSION['user']=$user;
+        // print_r($user);exit;
+        if(!$this->skip_cert_auth && in_array($user['cert_status'], [self::USER_CERT_STATUS_NONE,self::USER_CERT_STATUS_ERR])) 
+            header("Location:/account/cert/index");
+    }
+}

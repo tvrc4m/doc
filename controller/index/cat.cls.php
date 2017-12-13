@@ -1,6 +1,6 @@
 <?php
 
-class CatController extends Api {
+class CatController extends BaseAuth {
 
     /**
      * api类别列表
@@ -8,8 +8,8 @@ class CatController extends Api {
      */
     public function index($params){
 
-        $type=$params['type'];
-
+        $type=$params['id'];
+        
         $cat_list=$this->getCatByType($type);
 
         switch ($type) {
