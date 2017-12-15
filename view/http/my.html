@@ -10,22 +10,7 @@
         <em></em>
         <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
     </p>
-    <div class="container-fluid env-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8">
-                    <div class="row text-center feed_backmenu">
-                        <div class="env col-md-2 col-sm-2"><a href="javascript:void(0);" data-env="test" class="">TEST</a></div>
-                        <div class="env col-md-2 col-sm-2"><a href="javascript:void(0);" data-env="dev" class="cur">DEV</a></div>
-                        <div class="env col-md-2 col-sm-2"><a href="javascript:void(0);" data-env="staging" class="">STAGING</a></div>
-                        <div class="env col-md-2 col-sm-2"><a href="javascript:void(0);" data-env="live" class="">LIVE</a></div>
-                    </div>
-                </div>
-                <div class="col-lg-2"></div>
-            </div>
-        </div>
-    </div>
+    <?php echo $this->getTestHtml(3);?>
     <form id="httpform" action="/http/run" method="POST">
         <input type="hidden" name="api_id" value="" />
         <input type="hidden" name="url" value="" />

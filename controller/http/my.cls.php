@@ -4,12 +4,9 @@ class MyController extends BaseAuth{
 
     public function index($params){
 
-        $m_http=require_model('http');
-
-        $user_http=$m_http->getUserAndPublicHttp($this->user_id);
-
+        $user_http=$this->m_http->getUserAndPublicHttp($this->user_id);
         $cats=$this->_get_http_cat();
-
+        
         $result=[];
 
         foreach ($cats as $cat) {
@@ -28,7 +25,7 @@ class MyController extends BaseAuth{
             }
         }
 
-        $this->display('http/my.html',['api_list'=>$result,'current'=>$current,'title'=>'我发起的请求','tab_selected'=>'my']);
+        $this->display('http/my.html',['api_list'=>$result,'test_env'=>$test_env,'current'=>$current,'title'=>'我发起的请求','tab_selected'=>'my']);
     }
 
     /**
@@ -46,9 +43,7 @@ class MyController extends BaseAuth{
 
             $api_params=json_decode($user_http['api_params'],true);
 
-            $m_api=require_model('api');
-
-            $api=$m_api->getApiParams($user_http['api_id']);
+            $api=$this->m_api->getApiParams($user_http['api_id']);
 
             foreach ($api['params'] as &$param) {
                 
@@ -80,7 +75,7 @@ class MyController extends BaseAuth{
 
         exit(json_encode(['errno'=>0]));
     }
-    
+
     /**
      * 获取http关联的cat
      * @return array

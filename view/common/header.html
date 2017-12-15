@@ -29,7 +29,19 @@
                         </a>
                     </div>
                     <div class="collapse navbar-collapse navbar-responsive-collapse in">
+                        <!-- <div class="nav navbar-left">
+                            <div class="app-select">
+                                dev
+                            </div>
+                        </div> -->
                         <ul class="nav navbar-nav navbar-left">
+                            <li class="menu-parent">
+                                <a href="javascript:;">DEV</a>
+                                <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -30px;">
+                                    <li class="menu-title font-16"><a href="/account/info" style="border-bottom:none">DEV</a></li>
+                                    <li class="menu-title font-16"><a href="/account/setting/index" style="border-bottom:none">STAGING</a></li>
+                                </ul>
+                            </li>
                             <li class="<?php echo $data['tab_selected']=='app'?'active':'';?>"><a href="/api">接口文档</a></li>
                             <li class="<?php echo $data['tab_selected']=='http'?'active':'';?>"><a href="/http#channel_getlist">发起请求</a></li>
                             <!-- <li class="<?php echo $data['tab_selected']=='php'?'active':'';?>"><a href="/php/">PHP类文档</a></li> -->
@@ -46,14 +58,14 @@
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
                             <?php if($data['user_id']){ ?>
                                 <li style="margin-top: 8px;margin-right: 5px;">@<?php echo $_SESSION['user']['nick'];?></li>
-                                <li id="my" class="<?php echo $data['tab_selected']=='my'?'active':'';?>">
+                                <li id="my" class="menu-parent <?php echo $data['tab_selected']=='my'?'active':'';?>">
                                     <a href="javascript:void(0);">我的</a>
                                     <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
                                         <li class="menu-title font-16"><a href="/http/my" style="border-bottom:none">我发起的请求</a></li>
                                         <li class="menu-title font-16"><a href="/account/app/" style="border-bottom:none">我的应用</a></li>
                                     </ul>
                                 </li>
-                                <li id="setting" class="<?php echo $data['tab_selected']=='setting'?'active':'';?>">
+                                <li id="setting" class="menu-parent <?php echo $data['tab_selected']=='setting'?'active':'';?>">
                                     <a href="javascript:void(0);">设置</a>
                                     <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
                                         <li class="menu-title font-16"><a href="/account/info" style="border-bottom:none">个人设置</a></li>
@@ -139,15 +151,15 @@
                 </script>
                 <?php } ?>
                 <script type="text/javascript">
-                    $("#my,#my .dropdown-menu").on('mouseover',function(){
-                        $("#my .dropdown-menu").show();
+                    $(".menu-parent").on('mouseover',function(){
+                        $(this).children('.dropdown-menu').show();
                     }).on('mouseout',function(){
-                        $("#my .dropdown-menu").hide();
-                    })
-                    $("#setting,#setting .dropdown-menu").on('mouseover',function(){
-                        $("#setting .dropdown-menu").show();
+                        $(this).children('.dropdown-menu').hide();
+                    });
+                    $(".menu-parent .dropdown-menu").on('mouseover',function(){
+                        $(this).show();
                     }).on('mouseout',function(){
-                        $("#setting .dropdown-menu").hide();
+                        $(this).hide();
                     })
                 </script>
 

@@ -265,6 +265,7 @@ CREATE TABLE kf_user_app_test_env(
     id int AUTO_INCREMENT PRIMARY KEY,
     name varchar(50) NOT NULL COMMENT '测试环境名称',
     url varchar(50) NOT NULL COMMENT '测试环境url地址',
+    is_default boolean default 0 COMMENT '是否是默认测试环境',
     user_id int NOT NULL COMMENT '登陆用户id',
     company_id int default 0 COMMENT '公司id',
     app_id int COMMENT '关联的应用id',

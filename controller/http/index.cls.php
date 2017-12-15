@@ -5,10 +5,10 @@ class IndexController extends BaseAuth {
     public function index($params){
 
         $api_list=$this->getApiList('http');
-
+        
         $cats=$this->_get_http_cat();
 
-        $this->display('http/index.html',['api_list'=>$api_list,'cats'=>$cats,'title'=>'发起请求','tab_selected'=>'http']);
+        $this->display('http/index.html',['api_list'=>$api_list,'test_env'=>$test_env,'cats'=>$cats,'title'=>'发起请求','tab_selected'=>'http']);
     }
 
     public function get($params){

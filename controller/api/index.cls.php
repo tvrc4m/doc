@@ -166,11 +166,9 @@ class IndexController extends BaseAuth {
 
         $api_id=$params['id'];
 
-        $m_test=require_model("test");
-
         $api=t('api')->getById($api_id);
 
-        $tests=$m_test->getApiTestCast($api_id);
+        $tests=$this->m_test->getApiTestCast($api_id);
 
         $this->display("api/case.html",['api'=>$api,'tests'=>$tests,'tab_selected'=>'app']);
     }

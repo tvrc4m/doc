@@ -17,6 +17,7 @@
                     <th width="30"></th>
                     <th>测试环境名称</th>
                     <th>域名</th>
+                    <th class="text-center" style="width: 82px;">设成默认</th>
                 </tr>
             </thead>
             <tfoot>
@@ -60,6 +61,9 @@
         </td>
         <td>
             <input type="text" value="{{e['url']}}" name="test_env[{{index}}][url]" class="form-control" />
+        </td>
+         <td class="text-center">
+            <input type="checkbox" value="1" {{if e['is_default']}}checked{{/if}} name="test_env[{{index}}][is_default]" />
         </td>
     </tr>
 </script>
@@ -151,4 +155,7 @@
             }
         })
     }
+    $("input[type=checkbox]").click(function(){
+        $("input[type=checkbox]").not(this).prop("checked",null);
+    })
 </script>

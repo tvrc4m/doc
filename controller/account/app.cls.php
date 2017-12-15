@@ -86,7 +86,7 @@ class AppController extends BaseAuth{
 
             foreach ($test_env as $name=>$env) {
 
-                $env_data=['app_id'=>$app_id,'user_id'=>$this->user_id,'name'=>$env['name'],'url'=>$env['url'],'stat'=>1];
+                $env_data=['app_id'=>$app_id,'user_id'=>$this->user_id,'name'=>$env['name'],'url'=>$env['url'],'is_default'=>intval($env['is_default']),'stat'=>1];
                 // print_r($env_data);
                 if($env['id']){
 

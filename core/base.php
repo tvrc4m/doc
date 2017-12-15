@@ -139,6 +139,44 @@ class Base{
 
         exit(json_encode(['errno'=>0,'errmsg'=>'','data'=>$data]));
     }
+
+    /**
+     * 获取某个页面
+     * @param  string $page
+     * @param  array $data
+     * @return string
+     */
+    public function fetch($page,$data){
+
+        return include_once(VIEW.$page);
+    }
+
+    /**
+     * get test html
+     * @param   $page [description]
+     * @return [type]       [description]
+     */
+    public function getTestHtml($app_id){
+
+        $test_env=$this->m_app->getAppTestEnv($app_id);
+
+        $this->fetch('http/env.html',['test_env'=>$test_env]);
+    }
+    /**
+     * 调用model方法
+     * @param  string $name 
+     * @return 
+     */
+    public function __get($name){
+        // 如果以m_开头，则作为model调用
+        if(strncmp($name,'m_',2)==0){
+
+            return require_model(substr($name,2));
+        }else{
+
+            exit('未定义属性:'.$name);
+        }
+    }
 }
 
 /**
