@@ -22,65 +22,14 @@
         </tbody>
     </table>
 </div>
-
-<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
-    function editApp(that){
-        var name=$(that).data('name');
-        var id=$(that).data('id');
-        console.log(name);
-        $("#app_modal input[name=name]").val(name);
-        $("#app_modal input[name=id]").val(id);
-        document.getElementById("appBtnSave").removeEventListener('click',add,false);
-        document.getElementById("appBtnSave").addEventListener('click',edit,false);
-        modal('#app_modal');
-    }
     function delApp(that){
         var id=$(that).data("id");
-        if(!id) alert("未指定类别");
-        if(window.confirm("只有未关联的接口可删除")){
-            $.ajax({
-                url:"/account/app/del",
-                type:"POST",
-                dataType:"json",
-                data:{id:id},
-                success:function(data){
-                    if(data.errno==0){
-                        $(that).parents("tr").remove();
-                    }else{
-                        alert(data.errmsg);
-                    }
-                }
+        if(!id) vk.notice("未指定应用");
+        if(window.confirm("确定要删除应用?")){
+            vk.post("account/app/del",{id:id},null,function(){
+                $(that).parents("tr").remove();
             })
         }
-    }
-    function add(){
-        var name=$("#app_modal input[name=name]").val();
-        var type=$("#app_modal input[name=type]").val();
-        $.ajax({
-            url:"/api/app/add",
-            type:"POST",
-            dataType:"json",
-            data:{name:name,type:type},
-            success:function(data){
-                if(data.errno==0){
-                    document.loappion.reload();
-                }else{
-                    alert(data.errmsg);
-                }
-            }
-        })
-    }
-    function modal(content){
-        $.fancybox({
-            'padding': 20,
-            'autoSize': true,
-            'overlayShow':true,
-            'overlayOpacity':0.7,
-           // 'autoHeight': true,
-            'type': 'inline',
-            'scrolling': 'no',
-            'href': content
-        });
     }
 </script>

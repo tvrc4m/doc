@@ -70,12 +70,12 @@ class AppController extends BaseAuth{
                 t('user_app')->update($app_data,['id'=>$app_id]);
             }elseif($is_add){
 
-                $api_id=t('user_app')->insert($app_data);
+                $app_id=t('user_app')->insert($app_data);
             }else{
 
                 throw new Exception('不支持的操作');
             }
-
+            
             // params
             $test_env_exists=array_filter(array_column($params['test_env'], 'id'));
 

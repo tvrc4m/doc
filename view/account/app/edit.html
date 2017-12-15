@@ -33,11 +33,7 @@
         &nbsp;&nbsp;&nbsp;<span class="error"></span>
     </form>
 </div>
-<script id="api_hidden" type="text/html">
-    {{each hidden as value name}}
-        <input type="hidden" name="{{name}}" value="{{value}}">
-    {{/each}}
-</script>
+<?php $this->fetch("template/hidden.tpl");?>
 <script id="api_base_template" type="text/html">
     {{each base as item name}}
         <tr>
@@ -80,14 +76,11 @@
     {{/each}}
 </script>
 <script src="/static/js/template-web.js"></script>
-<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
     var app=JSON.parse('<?php echo $data['app'];?>');
     var base={"应用名称":{name:"name",value:app.name},"描述说明":{name:"remark",value:app.remark}};  
-    var base_html = template("api_base_template", {base:base});
-    var hidden_html = template("api_hidden", {hidden:{id:app.id}});
-    $("#app_form").prepend(hidden_html);
-    $("#base_body").append(base_html);
+    vk.parse("#base_body","api_base_template", {base:base});
+    vk.parse("#app_form","hidden_template", {hidden:{id:app.id}});
     function paramDel(that){
         $(that).parents('tr').remove();
     }
@@ -103,18 +96,6 @@
         var ret_html = template("app_template", {e:{name:'',url:''},index:i});
         i++;
         $("#test_body").append(ret_html);
-    }
-    function modal(content){
-        $.fancybox({
-            'padding': 20,
-            'autoSize': true,
-            'overlayShow':true,
-            'overlayOpacity':0.7,
-            'autoHeight': true,
-            'type': 'inline',
-            'scrolling': 'no',
-            'href': content
-        });
     }
     function saveApp(){
         var name=$("input[name=name]").val();
@@ -139,23 +120,9 @@
                 return false;
             }
         })
-        $.ajax({
-            url:"/account/app/save",
-            type:"POST",
-            dataType:"json",
-            data:$("#app_form").serialize(),
-            success:function(data){
-                if(data.errno==0){
-                    alert("修改成功");
-                    document.location.href=data.redirect;
-                }else{
-                    alert(data.errmsg);
-                }
-                console.log(data);
-            }
-        })
+        vk.post("/account/app/save",$("#app_form").serialize(),null,function(data){
+            document.location.href=data.redirect;
+        });
     }
-    $("input[type=checkbox]").click(function(){
-        $("input[type=checkbox]").not(this).prop("checked",null);
-    })
+    vk.check2radio("input[type=checkbox]");
 </script>

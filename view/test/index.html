@@ -14,19 +14,9 @@
     <script type="text/javascript">
         function delDoc(docid){
             if(window.confirm("是否确定要删除？")){
-                $.ajax({
-                    url:"/test/del",
-                    type:"POST",
-                    dataType:"json",
-                    data:{id:docid},
-                    success:function(data){
-                        if(data.errno==0){
-                            document.location.href="/test/";
-                        }else{
-                            alert(data.errmsg);
-                        }
-                    }
-                })
+                vk.post("/test/del",{id:docid},null,function(){
+                    document.location.href="/test/";
+                });
             }
         }
     </script>

@@ -263,23 +263,9 @@
         </table>
     </form>
 </div>
-<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
-    function modal(content){
-        $.fancybox({
-            'padding': 20,
-            // 'width':500,
-            'autoSize': true,
-            'overlayShow':true,
-            'overlayOpacity':0.7,
-            // 'autoHeight': true,
-            'type': 'inline',
-            'scrolling': 'no',
-            'href': content
-        });
-    }
     $("#httpsave").on('click',function(){
-        modal('#http_save_modal');
+        vk.modal('#http_save_modal');
     })
     function httpSave(){
         var title=$("#http_form input[name=title]").val();
@@ -290,20 +276,9 @@
         var api_return=editor.getValue();
         console.log(api_params)
         console.log(api_return)
-        $.ajax({
-            url:'/http/save',
-            type:'POST',
-            dataType:'json',
-            data:{title:title,api_id:api_id,api_params:api_params,api_return:api_return,is_public:is_public,cat_id:cat_id},
-            success:function(data){
-                if(data.errno==0){
-                    alert('保存成功');
-                    $("#http_form input[name=title]").val("");
-                    $.fancybox.close();
-                }else{
-                    alert(data.errmsg);
-                }
-            }
+        vk.post("/http/save",{title:title,api_id:api_id,api_params:api_params,api_return:api_return,is_public:is_public,cat_id:cat_id},null,function(){
+            $("#http_form input[name=title]").val("");
+            vk.close();
         })
     }
 </script>

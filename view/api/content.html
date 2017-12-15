@@ -209,10 +209,11 @@ $(function() {
     var clipboard = new Clipboard('.api-copy');
     clipboard.on('success', function(e) {
         e.clearSelection();
+        vk.notice("复制成功");
     });
 
     clipboard.on('error', function(e) {
-        alert("拷贝失败,请手动拷贝");
+        vk.notice("拷贝失败,请手动拷贝");
     });
     $(".expand_example").on('click', function() {
         var example = $(this).parent().next(".example");

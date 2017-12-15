@@ -63,11 +63,7 @@
         </div>
     </form>
 </div>
-<script id="api_hidden" type="text/html">
-    {{each hidden as value name}}
-        <input type="hidden" name="{{name}}" value="{{value}}">
-    {{/each}}
-</script>
+<?php $this->fetch("template/hidden.tpl");?>
 <script id="api_base_template" type="text/html">
     {{each base as item name}}
         <tr>
@@ -123,7 +119,6 @@
     {{/each}}
 </script>
 <script src="/static/js/template-web.js"></script>
-<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 var aaa=<?php echo $data['test'];?>;
 console.log(aaa);
@@ -135,7 +130,7 @@ console.log(aaa);
     $(test.cases).each(function(i,e){
         case_html+=template("case_template", {e:e,index:i});
     });
-    var hidden_html = template("api_hidden", {hidden:{id:test.id}});
+    var hidden_html = template("hidden_template", {hidden:{id:test.id}});
     $("#test_case_form").prepend(hidden_html);
     $("#base_body").append(base_html);
     $("#case_body").append(case_html);
@@ -152,22 +147,10 @@ console.log(aaa);
         i++;
         $("#case_body").append(ret_html);
     }
-    function modal(content){
-        $.fancybox({
-            'padding': 20,
-            'autoSize': true,
-            'overlayShow':true,
-            'overlayOpacity':0.7,
-            'autoHeight': true,
-            'type': 'inline',
-            'scrolling': 'no',
-            'href': content
-        });
-    }
     function realatedApi(index){
         $("#index").val(index);
         clearApiParams();
-        modal("#related_api_modal");
+        vk.modal("#related_api_modal");
     }
     function editRelatedApi(index){
         $("#index").val(index);
@@ -183,22 +166,16 @@ console.log(aaa);
                 console.log(api_params[name]);
                 $("#params_body input[name="+name+"]").val(api_params[name]);
             }
-            modal("#related_api_modal");
+            vk.modal("#related_api_modal");
         });
     }
     function getApiRequest(that,callback){
         var api_id=$(that).val();
         console.log(api_id);
-        $.ajax({
-            url:"/test/api_params",
-            type:"POST",
-            dataType:"json",
-            data:{api_id:api_id},
-            success:function(data){
-                var params_html = template("params_template", {params:data});
-                $("#params_body").html(params_html);
-                typeof(callback)=='function' && callback();
-            }
+        vk.post("/test/api_params",{api_id:api_id},null,function(){
+            var params_html = template("params_template", {params:data});
+            $("#params_body").html(params_html);
+            typeof(callback)=='function' && callback();
         })
     }
     function clearApiParams(){
@@ -230,41 +207,19 @@ console.log(aaa);
             $(".edit_api_"+index).hide();
             $(".add_api_"+index).show();
         }
-        $.fancybox.close();
+        vk.close();
     }
     function saveApi(){
         var title=$("input[name=title]").val();
         var cat_id=$("select[name=cat_id]").val();
         var cases=$("input[name*=cases][name*=content]");
-        if(!title){
-            $(".error").text("接口标题不能为空");
-            return false;
-        }
-        if(!cat_id){
-            $(".error").text("类别不能为空");
-            return false;
-        }
+        if(vk.check_empty(title,"接口标题不能为空")) return false;
+        if(vk.check_empty(cat_id,"类别不能为空")) return false;
         cases.each(function(i,item){
-            if(!$(item).val()){
-                console.log(item);
-                $(".error").text('测试用例说明不能为空');    
-                return false;
-            }
+            if(vk.check_empty($(item).val(),"测试用例说明不能为空")) return false;
         })
-        $.ajax({
-            url:"/test/save",
-            type:"POST",
-            dataType:"json",
-            data:$("#test_case_form").serialize(),
-            success:function(data){
-                if(data.errno==0){
-                    alert("修改成功");
-                    document.location.href=data.redirect;
-                }else{
-                    alert(data.errmsg);
-                }
-                console.log(data);
-            }
+        vk.post("/test/save",$("#test_case_form").serialize(),null,function(data){
+            document.location.href=data.redirect;
         })
     }
 </script>

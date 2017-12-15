@@ -72,11 +72,7 @@
         &nbsp;&nbsp;&nbsp;<span class="error"></span>
     </form>
 </div>
-<script id="api_hidden" type="text/html">
-    {{each hidden as value name}}
-        <input type="hidden" name="{{name}}" value="{{value}}">
-    {{/each}}
-</script>
+<?php $this->fetch("template/hidden.tpl");?>
 <script id="api_base_template" type="text/html">
     {{each base as item name}}
         <tr>
@@ -195,37 +191,16 @@
     var versions=jQuery.parseJSON('<?php echo $data['versions'];?>');
     var base={"接口地址":{name:"url",value:""},"标题":{name:'title',value:""},"描述说明":{name:"remark",value:""},"APP版本":{name:"version",value:"",list:versions},'类别':{name:"cat_id",value:0,list:cats}};
     var base_html = template("api_base_template", {base:base});
-    var hidden_html = template("api_hidden", {hidden:{add:1}});
+    var hidden_html = template("hidden_template", {hidden:{add:1}});
     $("#api_form").prepend(hidden_html);
     $("#base_body").append(base_html);
     function paramDel(that){
         $(that).parents('tr').remove();
     }
     $(function(){
-        $(".return_type").click(function(){
-            var current=$(this).val();
-            $(".return_type").each(function(i,item){
-                if($(item).prop("checked") && $(item).val()!=current){
-                    $(item).prop("checked",false);
-                }
-            })
-        })
-        $(".req_type").click(function(){
-            var current=$(this).val();
-            $(".req_type").each(function(i,item){
-                if($(item).prop("checked") && $(item).val()!=current){
-                    $(item).prop("checked",false);
-                }
-            })
-        })
-        $(".api_cat").click(function(){
-            var current=$(this).val();
-            $(".api_cat").each(function(i,item){
-                if($(item).prop("checked") && $(item).val()!=current){
-                    $(item).prop("checked",false);
-                }
-            })
-        })
+        vk.check2radio(".api_cat");
+        vk.check2radio(".req_type");
+        vk.check2radio(".return_type");
     })
     function addReqFeild(){
         var input=$("input[name=request_name]");
@@ -273,39 +248,14 @@
         var title=$("input[name=title]").val();
         var cat_id=$("input[name=cat_id]:checked").val();
         var params=$("select[name*=type]");
-        if(!url){
-            $(".error").text('接口地址不能为空');
-            return false;
-        }
-        if(!title){
-            $(".error").text("接口标题不能为空");
-            return false;
-        }
-        if(!cat_id){
-            $(".error").text("类别不能为空");
-            return false;
-        }
+        if(vk.check_empty(url,"接口地址不能为空")) return false;
+        if(vk.check_empty(title,"接口标题不能为空")) return false;
+        if(vk.check_empty(cat_id,"类别不能为空")) return false;
         params.each(function(i,item){
-            if(!$(item).val()){
-                console.log(item);
-                $(".error").text('参数类型不能为空');    
-                return false;
-            }
+            if(vk.check_empty($(item).val(),"参数类型不能为空")) return false;
         })
-        $.ajax({
-            url:"/api/app/save",
-            type:"POST",
-            dataType:"json",
-            data:$("#api_form").serialize(),
-            success:function(data){
-                if(data.errno==0){
-                    alert("修改成功");
-                    document.location.href=data.redirect;
-                }else{
-                    alert(data.errmsg);
-                }
-                console.log(data);
-            }
+        vk.post("/api/app/save",$("#api_form").serialize(),null,function(){
+            document.location.href=data.redirect;
         })
     }
     $("input[name=request_name]").on('focus',function(){
@@ -322,8 +272,4 @@
             }
         });
     })
-    function notice(){
-
-
-    }
 </script>

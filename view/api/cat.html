@@ -20,8 +20,6 @@
         </tbody>
     </table>
 </div>
-
-<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
     function editCat(that){
         var name=$(that).data('name');
@@ -31,78 +29,36 @@
         $("#cat_modal input[name=id]").val(id);
         document.getElementById("catBtnSave").removeEventListener('click',add,false);
         document.getElementById("catBtnSave").addEventListener('click',edit,false);
-        modal('#cat_modal');
+        vk.model("#cat_modal");
     }
     function addCat(){
         $("#cat_modal input[name=name]").val('');
         $("#cat_modal input[name=id]").val('');
         document.getElementById("catBtnSave").removeEventListener('click',edit,false);
         document.getElementById("catBtnSave").addEventListener('click',add,false);
-        modal('#cat_modal');
+        vk.model("#cat_modal");
     }
     function delCat(that){
         var id=$(that).data("id");
         if(!id) alert("未指定类别");
         if(window.confirm("只有未关联的接口可删除")){
-            $.ajax({
-                url:"/api/cat/del",
-                type:"POST",
-                dataType:"json",
-                data:{id:id},
-                success:function(data){
-                    if(data.errno==0){
-                        $(that).parents("tr").remove();
-                    }else{
-                        alert(data.errmsg);
-                    }
-                }
+            vk.post("/api/cat/del",{id:id},null,function(){
+                $(that).parents("tr").remove();
             })
         }
     }
     function add(){
         var name=$("#cat_modal input[name=name]").val();
         var type=$("#cat_modal input[name=type]").val();
-        $.ajax({
-            url:"/api/cat/add",
-            type:"POST",
-            dataType:"json",
-            data:{name:name,type:type},
-            success:function(data){
-                if(data.errno==0){
-                    document.location.reload();
-                }else{
-                    alert(data.errmsg);
-                }
-            }
+        vk.post("/api/cat/add",{name:name,type:type},null,function(){
+            document.location.reload();
         })
     }
     function edit(){
         var name=$("#cat_modal input[name=name]").val();
         var id=$("#cat_modal input[name=id]").val();
-        $.ajax({
-            url:"/api/cat/edit",
-            type:"POST",
-            dataType:"json",
-            data:{name:name,id:id},
-            success:function(data){
-                if(data.errno==0){
-                    document.location.reload();
-                }else{
-                    alert(data.errmsg);
-                }
-            }
+        vk.post("/api/cat/edit",{name:name,id:id},null,function(){
+            document.location.reload();
         })
-    }
-    function modal(content){
-        $.fancybox({
-            'padding': 20,
-            'autoSize': true,
-            'overlayShow':true,
-            'overlayOpacity':0.7,
-           // 'autoHeight': true,
-            'type': 'inline',
-            'scrolling': 'no',
-            'href': content
-        });
     }
 </script>

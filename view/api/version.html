@@ -4,8 +4,8 @@
         <thead>
             <tr class="warning">
                 <th width="110">名称</th>
-                <th width="110">备注说明</th>
-                <th width="110">操作</th>
+                <th>备注说明</th>
+                <th style="width: 110px;" class="text-center">操作</th>
             </tr>
         </thead>
         <tbody>
@@ -13,7 +13,7 @@
                 <tr>
                    <td><?php echo $version['name'];?></td> 
                    <td><?php echo $version['remark'];?></td> 
-                   <td>
+                   <td class="text-center">
                        <code><a class="version-del" onclick="editVersion(this)" data-id="<?php echo $version['id'];?>" data-name="<?php echo $version['name'];?>" data-remark="<?php echo $version['remark'];?>">编辑</a></code>
                        <code><a class="version-del" onclick="delVersion(this)" data-id="<?php echo $version['id'];?>">删除</a></code>
                    </td>
@@ -40,7 +40,6 @@
         </div>
     </form>
 </div>
-<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
     function editVersion(that){
         var name=$(that).data('name');
@@ -52,7 +51,7 @@
         $("#version_modal input[name=id]").val(id);
         document.getElementById("versionBtnSave").removeEventListener('click',add,false);
         document.getElementById("versionBtnSave").addEventListener('click',edit,false);
-        modal('#version_modal');
+        vk.modal('#version_modal');
     }
     function addVersion(){
         $("#version_modal input[name=name]").val('').prop("disabled",null);
@@ -60,73 +59,31 @@
         $("#version_modal input[name=remark]").val('');
         document.getElementById("versionBtnSave").removeEventListener('click',edit,false);
         document.getElementById("versionBtnSave").addEventListener('click',add,false);
-        modal('#version_modal');
+        vk.modal('#version_modal');
     }
     function delVersion(that){
         var id=$(that).data("id");
         if(!id) alert("未指定类别");
         if(window.confirm("只有未关联的接口可删除?")){
-            $.ajax({
-                url:"/api/version/del",
-                type:"POST",
-                dataType:"json",
-                data:{id:id},
-                success:function(data){
-                    if(data.errno==0){
-                        $(that).parents("tr").remove();
-                    }else{
-                        alert(data.errmsg);
-                    }
-                }
-            })
+            vk.post("/api/version/del",{id:id},null,function(){
+                 $(that).parents("tr").remove();
+            });
         }
     }
     function add(){
         var name=$("#version_modal input[name=name]").val();
         var remark=$("#version_modal input[name=remark]").val();
         var type=$("#version_modal input[name=type]").val();
-        $.ajax({
-            url:"/api/version/add",
-            type:"POST",
-            dataType:"json",
-            data:{name:name,remark:remark,type:type},
-            success:function(data){
-                if(data.errno==0){
-                    document.location.reload();
-                }else{
-                    alert(data.errmsg);
-                }
-            }
-        })
+        vk.post("/api/version/add",{name:name,remark:remark,type:type},null,function(){
+             document.location.reload();
+        });
     }
     function edit(){
         var name=$("#version_modal input[name=name]").val();
         var remark=$("#version_modal input[name=remark]").val();
         var id=$("#version_modal input[name=id]").val();
-        $.ajax({
-            url:"/api/version/edit",
-            type:"POST",
-            dataType:"json",
-            data:{remark:remark,id:id},
-            success:function(data){
-                if(data.errno==0){
-                    document.location.reload();
-                }else{
-                    alert(data.errmsg);
-                }
-            }
-        })
-    }
-    function modal(content){
-        $.fancybox({
-            'padding': 20,
-            'autoSize': true,
-            'overlayShow':true,
-            'overlayOpacity':0.7,
-           // 'autoHeight': true,
-            'type': 'inline',
-            'scrolling': 'no',
-            'href': content
+        vk.post("/api/version/edit",{remark:remark,id:id},null,function(){
+             document.location.reload();
         });
     }
 </script>

@@ -202,18 +202,8 @@
                 alert("example为空");
                 return false;
             }
-            $.ajax({
-                url:"/api/example/save",
-                type:"POST",
-                dataType:"json",
-                data:{api_id:api_id,code:code},
-                success:function(data){
-                    if(data.errno==0){
-                        alert('保存成功');
-                    }else{
-                        alert(data.errmsg);
-                    }
-                }
+            vk.post("/api/example/save",{api_id:api_id,code:code},null,function(){
+                vk.notice("保存成功");
             })
         }
         function goToApi(){
@@ -223,19 +213,8 @@
         function delReq(){
             var user_http_id=$("input[name=user_http_id]").val();
             if(window.confirm("确定是否要删除吗?")){
-                $.ajax({
-                    url:"/http/my/del",
-                    type:"POST",
-                    dataType:"json",
-                    data:{id:user_http_id},
-                    success:function(data){
-                        if(data.errno==0){
-                            alert('删除成功');
-                            document.location.href="/http/my";
-                        }else{
-                            alert(data.errmsg);
-                        }
-                    }
+                vk.post("/http/my/del",{id:user_http_id},null,function(){
+                    document.location.href="/http/my";
                 })
             }
         }
@@ -289,40 +268,13 @@
         </table>
     </form>
 </div>
-<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
-    function modal(content){
-        $.fancybox({
-            'padding': 20,
-            // 'width':500,
-            'autoSize': true,
-            'overlayShow':true,
-            'overlayOpacity':0.7,
-            // 'autoHeight': true,
-            'type': 'inline',
-            'scrolling': 'no',
-            'href': content
-        });
-    }
     $("#httpsave").on('click',function(){
         var user_http_id=$("input[name=user_http_id]").val();
         var api_params=$("#api_params input").serialize();
         var api_return=editor.getValue();
-        console.log(api_params)
-        console.log(api_return)
-        $.ajax({
-            url:'/http/save',
-            type:'POST',
-            dataType:'json',
-            data:{user_http_id:user_http_id,api_params:api_params,api_return:api_return},
-            success:function(data){
-                if(data.errno==0){
-                    alert('保存成功');
-                    $.fancybox.close();
-                }else{
-                    alert(data.errmsg);
-                }
-            }
+        vk.post("/http/save",{user_http_id:user_http_id,api_params:api_params,api_return:api_return},null,function(){
+            vk.close();
         })
     })
 </script>

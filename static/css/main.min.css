@@ -270,3 +270,10 @@ table.no-border td{
 .dropdown-menu{
     z-index: 10000;
 }
+
+.fancybox-notice {
+  text-align: center; }
+  .fancybox-notice .fancybox-skin {
+    background-color: #0696fa; }
+  .fancybox-notice .fancybox-inner {
+    color: #ffFFFf; }

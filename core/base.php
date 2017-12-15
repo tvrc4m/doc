@@ -76,7 +76,7 @@ class Base{
     public function __construct(){
         // 加载全局css和js
         $this->css=['/static/css/main.min.css','/static/js/fancybox/jquery.fancybox.css'];
-        $this->js=['/static/js/jquery.min.js'];
+        $this->js=['/static/js/jquery.min.js','/static/js/fancybox/jquery.fancybox.pack.js','/static/js/global.js'];
 
         // 获取登陆用户id
         $this->user_id=$_SESSION['token'];

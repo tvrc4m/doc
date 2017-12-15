@@ -122,7 +122,6 @@
     </form>
 </div>
 <script src="/static/js/template-web.js"></script>
-<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
     var cats=jQuery.parseJSON('<?php echo $data['cats'];?>');
     var base={"测试标题":{name:"title",value:""},"描述说明":{name:"remark",value:""},'类别':{name:"cat_id",value:0,list:cats}};
@@ -139,22 +138,10 @@
         i++;
         $("#case_body").append(ret_html);
     }
-    function modal(content){
-        $.fancybox({
-            'padding': 20,
-            'autoSize': true,
-            'overlayShow':true,
-            'overlayOpacity':0.7,
-            'autoHeight': true,
-            'type': 'inline',
-            'scrolling': 'no',
-            'href': content
-        });
-    }
     function realatedApi(index){
         $("#index").val(index);
          clearApiParams();
-        modal("#related_api_modal");
+        vk.modal("#related_api_modal");
     }
     function clearApiParams(){
         $("select[name=api_id]").val('');
@@ -163,16 +150,10 @@
     function getApiRequest(that,callback){
         var api_id=$(that).val();
         console.log(api_id);
-        $.ajax({
-            url:"/test/api_params",
-            type:"POST",
-            dataType:"json",
-            data:{api_id:api_id},
-            success:function(data){
-                var params_html = template("params_template", {params:data});
-                $("#params_body").html(params_html);
-                typeof(callback)=='function' && callback();
-            }
+        vk.post("/test/api_params",{api_id:api_id},null,function(){
+            var params_html = template("params_template", {params:data});
+            $("#params_body").html(params_html);
+            typeof(callback)=='function' && callback();
         })
     }
     function editRelatedApi(index){
@@ -189,7 +170,7 @@
                 console.log(api_params[name]);
                 $("#params_body input[name="+name+"]").val(api_params[name]);
             }
-            modal("#related_api_modal");
+            vk.modal("#related_api_modal");
         });
     }
     function saveApiBind(){
@@ -222,39 +203,13 @@
         var title=$("input[name=title]").val();
         var cat_id=$("select[name=cat_id]").val();
         var cases=$("input[name*=cases][name*=content]");
-        if(!title){
-            $(".error").text("接口标题不能为空");
-            return false;
-        }
-        if(!cat_id){
-            $(".error").text("类别不能为空");
-            return false;
-        }
-        var status=1;
+        if(vk.check_empty(title,"接口标题不能为空")) return false;
+        if(vk.check_empty(cat_id,"类别不能为空")) return false;
         cases.each(function(i,item){
-            var v=$(item).val();
-            if(!v || v.trim().length==0){
-                console.log(item);
-                $(".error").text('测试用例说明不能为空');    
-                status=0;
-                return false;
-            }
+            if(vk.check_empty($(item).val(),"测试用例说明不能为空")) return false;
         })
-        if(!status) return fasle;
-        $.ajax({
-            url:"/test/save",
-            type:"POST",
-            dataType:"json",
-            data:$("#test_case_form").serialize(),
-            success:function(data){
-                if(data.errno==0){
-                    alert("修改成功");
-                    document.location.href=data.redirect;
-                }else{
-                    alert(data.errmsg);
-                }
-                console.log(data);
-            }
+        vk.post("/test/save",$("#test_case_form").serialize(),null,function(data){
+            document.location.href=data.redirect;
         })
     }
 </script>

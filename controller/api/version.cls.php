@@ -10,9 +10,9 @@ class VersionController extends BaseAuth {
 
         $version_list=t('app_version')->find(['stat'=>1]);
 
-        $tab_selected=$type='app';
+        $tab_selected=$type='api';
 
-        $this->display("app/version.html",['version_list'=>$version_list,'title'=>'APP版本管理','tab_selected'=>$tab_selected]);
+        $this->display("api/version.html",['version_list'=>$version_list,'title'=>'APP版本管理','tab_selected'=>$tab_selected]);
     }
 
     /**
