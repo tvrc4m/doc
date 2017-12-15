@@ -1,0 +1,154 @@
+<div class="col-md-9" style="padding-left: 20px;padding-right:15px;width: 100%;">
+    <form id="app_form">
+        <h4>应用信息</h4>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="110">字段</th>
+                    <th>值</th>
+                </tr>
+            </thead>
+            <tbody id="base_body"></tbody>
+        </table>
+        <h4>测试环境</h4>
+        <table id="test_env_table" class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="30"></th>
+                    <th>测试环境名称</th>
+                    <th>域名</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="10">
+                        <button type="button" onclick="addAppTestEnv()" class="btn-u btn-g" style="height:22px;padding:5px;font-size:12px;">添加测试环境</button> 
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody id="test_body"></tbody>
+        </table>
+        <button type="button" class="btn-u" onclick="saveApp()" style="height:36px;font-size:16px;width:66px;margin-bottom: 20px;">创建</button> 
+        &nbsp;&nbsp;&nbsp;<span class="error"></span>
+    </form>
+</div>
+<script id="api_hidden" type="text/html">
+    {{each hidden as value name}}
+        <input type="hidden" name="{{name}}" value="{{value}}">
+    {{/each}}
+</script>
+<script id="api_base_template" type="text/html">
+    {{each base as item name}}
+        <tr>
+            <td>
+                <span class="td-title">{{name}}</span>
+            </td>
+            <td>
+                <input type="text" value="{{item['value']}}" name="{{item['name']}}" class="form-control" />
+            </td>
+        </tr>
+    {{/each}}
+</script>
+<script type="text/html" id="app_template">
+    <tr>
+        <td>
+            <code><a href="javascript:void(0);" class="param-del" onclick="paramDel(this)">X</a></code>
+        </td>
+        <td>
+            <input type="text" value="{{e['name']}}" name="test_env[{{index}}][name]" class="form-control" />
+            <input type="hidden" name="test_env[{{index}}][id]" value="{{e['id']}}" />
+        </td>
+        <td>
+            <input type="text" value="{{e['url']}}" name="test_env[{{index}}][url]" class="form-control" />
+        </td>
+    </tr>
+</script>
+<script type="text/html" id="params_template">
+    {{each params as param}}
+        <tr>
+            <td>
+                <div class="td-title">{{param['name']}}</div>
+            </td>
+            <td>
+                <input type="text" value="" name="{{param['name']}}" class="form-control" />
+            </td>
+        </tr>
+    {{/each}}
+</script>
+<script src="/static/js/template-web.js"></script>
+<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+    var app=JSON.parse('<?php echo $data['app'];?>');
+    var base={"应用名称":{name:"name",value:app.name},"描述说明":{name:"remark",value:app.remark}};  
+    var base_html = template("api_base_template", {base:base});
+    var hidden_html = template("api_hidden", {hidden:{id:app.id}});
+    $("#app_form").prepend(hidden_html);
+    $("#base_body").append(base_html);
+    function paramDel(that){
+        $(that).parents('tr').remove();
+    }
+    var test_env_html='';
+    var i=0;
+    console.log(app.test_env)
+    $(app.test_env).each(function(i,e){
+        test_env_html+=template("app_template", {e:e,index:i});
+        i++;
+    });
+    test_env_html && $("#test_body").append(test_env_html);
+    function addAppTestEnv(){
+        var ret_html = template("app_template", {e:{name:'',url:''},index:i});
+        i++;
+        $("#test_body").append(ret_html);
+    }
+    function modal(content){
+        $.fancybox({
+            'padding': 20,
+            'autoSize': true,
+            'overlayShow':true,
+            'overlayOpacity':0.7,
+            'autoHeight': true,
+            'type': 'inline',
+            'scrolling': 'no',
+            'href': content
+        });
+    }
+    function saveApp(){
+        var name=$("input[name=name]").val();
+        var remark=$("input[name=remark]").val();
+        var test_env_name=$("input[name*=test_env][name*=name]");
+        var test_env_url=$("input[name*=test_env][name*=url]");
+        if(!name){
+            $(".error").text("应用名称不能为空");
+            return false;
+        }
+        test_env_name.each(function(i,item){
+            if(!$(item).val()){
+                console.log(item);
+                $(".error").text('测试环境名称不能为空');    
+                return false;
+            }
+        })
+        test_env_url.each(function(i,item){
+            if(!$(item).val()){
+                console.log(item);
+                $(".error").text('测试环境域名不能为空');    
+                return false;
+            }
+        })
+        $.ajax({
+            url:"/account/app/save",
+            type:"POST",
+            dataType:"json",
+            data:$("#app_form").serialize(),
+            success:function(data){
+                if(data.errno==0){
+                    alert("修改成功");
+                    document.location.href=data.redirect;
+                }else{
+                    alert(data.errmsg);
+                }
+                console.log(data);
+            }
+        })
+    }
+</script>

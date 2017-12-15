@@ -1,6 +1,6 @@
 <?php
 
-class VersionController extends baseAuth {
+class VersionController extends BaseAuth {
 
     /**
      * app版本号列表

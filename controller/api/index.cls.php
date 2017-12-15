@@ -11,7 +11,7 @@ class IndexController extends BaseAuth {
         $commonapi=file_get_contents(ROOT.'/static/json/api.json');
         $api_common=json_decode($commonapi,true);
 
-        $api_list=$this->getApiList('api');
+        $api_list=$this->getApiList();
         
         $this->display("api/content.html",['api_list'=>$api_list,'api_common'=>$api_common,'title'=>'APP接口文档','tab_selected'=>'app']);
     }
@@ -212,7 +212,7 @@ class IndexController extends BaseAuth {
      * @param  页面方法 $action 
      * @return array
      */
-    public function getApiList($action='api'){
+    public function getApiList(){
         // 获取API类别
         $cat_list=$this->_get_api_cat();
         $api_list=t('api')->find(['stat'=>1]);
@@ -241,12 +241,7 @@ class IndexController extends BaseAuth {
 
             $api['example']=$example;
 
-            if($action=='api'){
-
-                $api['side_url']='/api#'.$api['code'];
-            }elseif($action=='http'){
-                $api['side_url']='/http#'.$api['code'];
-            }
+            $api['side_url']='/api#'.$api['code'];
             // 按类别分组
             $api_result[$cat][]=$api;
         }

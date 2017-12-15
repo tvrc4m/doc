@@ -38,7 +38,7 @@ if($module){
     
     $filepath=CTL.$app.'.cls.php';
 }
-
+// echo $filepath;exit;
 if(!file_exists($filepath)) exit('未找到指定api');
 
 include_once($filepath);

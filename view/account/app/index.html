@@ -1,0 +1,86 @@
+<div class="col-md-9" style="padding-right:15px;width: 100%;">
+    <h5><?php echo $data['title'];?></h5>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="warning">
+                <th width="150">名称</th>
+                <th>备注</th>
+                <th width="110" class="text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($data['app_list'] as $app){?>
+                <tr>
+                   <td><?php echo $app['name'];?></td> 
+                   <td><?php echo $app['remark'];?></td> 
+                   <td class="text-center">
+                       <code><a class="app-edit" href="/account/app/edit/<?php echo $app['id'];?>">编辑</a></code>
+                       <code><a class="app-del" onclick="delApp(this)" data-id="<?php echo $app['id'];?>">删除</a></code>
+                   </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<script src="/static/js/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+    function editApp(that){
+        var name=$(that).data('name');
+        var id=$(that).data('id');
+        console.log(name);
+        $("#app_modal input[name=name]").val(name);
+        $("#app_modal input[name=id]").val(id);
+        document.getElementById("appBtnSave").removeEventListener('click',add,false);
+        document.getElementById("appBtnSave").addEventListener('click',edit,false);
+        modal('#app_modal');
+    }
+    function delApp(that){
+        var id=$(that).data("id");
+        if(!id) alert("未指定类别");
+        if(window.confirm("只有未关联的接口可删除")){
+            $.ajax({
+                url:"/account/app/del",
+                type:"POST",
+                dataType:"json",
+                data:{id:id},
+                success:function(data){
+                    if(data.errno==0){
+                        $(that).parents("tr").remove();
+                    }else{
+                        alert(data.errmsg);
+                    }
+                }
+            })
+        }
+    }
+    function add(){
+        var name=$("#app_modal input[name=name]").val();
+        var type=$("#app_modal input[name=type]").val();
+        $.ajax({
+            url:"/api/app/add",
+            type:"POST",
+            dataType:"json",
+            data:{name:name,type:type},
+            success:function(data){
+                if(data.errno==0){
+                    document.loappion.reload();
+                }else{
+                    alert(data.errmsg);
+                }
+            }
+        })
+    }
+    function modal(content){
+        $.fancybox({
+            'padding': 20,
+            'autoSize': true,
+            'overlayShow':true,
+            'overlayOpacity':0.7,
+           // 'autoHeight': true,
+            'type': 'inline',
+            'scrolling': 'no',
+            'href': content
+        });
+    }
+</script>

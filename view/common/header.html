@@ -30,8 +30,8 @@
                     </div>
                     <div class="collapse navbar-collapse navbar-responsive-collapse in">
                         <ul class="nav navbar-nav navbar-left">
-                            <li class="<?php echo $data['tab_selected']=='app'?'active':'';?>"><a href="/api">APP接口文档</a></li>
-                            <li class="<?php echo $data['tab_selected']=='http'?'active':'';?>"><a href="/http#channel_getlist">APP发起请求</a></li>
+                            <li class="<?php echo $data['tab_selected']=='app'?'active':'';?>"><a href="/api">接口文档</a></li>
+                            <li class="<?php echo $data['tab_selected']=='http'?'active':'';?>"><a href="/http#channel_getlist">发起请求</a></li>
                             <!-- <li class="<?php echo $data['tab_selected']=='php'?'active':'';?>"><a href="/php/">PHP类文档</a></li> -->
                             <li class="<?php echo $data['tab_selected']=='test'?'active':'';?>"><a href="/test/">测试用例</a></li>
                             <li class="<?php echo $data['tab_selected']=='doc'?'active':'';?>"><a href="/doc/">开发文档</a></li>
@@ -44,21 +44,27 @@
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right" style="margin-right: 100px;">
-                            <li style="margin-top: 8px;margin-right: 5px;">@<?php echo $_SESSION['user']['nick'];?></li>
-                            <li id="my" class="<?php echo $data['tab_selected']=='my'?'active':'';?>">
-                                <a href="javascript:void(0);">我的</a>
-                                <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
-                                    <li class="menu-title font-16"><a href="/http/my" style="border-bottom:none">我发起的请求</a></li>
-                                </ul>
-                            </li>
-                            <li id="setting" class="<?php echo $data['tab_selected']=='setting'?'active':'';?>">
-                                <a href="javascript:void(0);">设置</a>
-                                <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
-                                    <li class="menu-title font-16"><a href="/user/info" style="border-bottom:none">个人设置</a></li>
-                                    <li class="menu-title font-16"><a href="/user/site" style="border-bottom:none">站点设置</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/logout">退出</a></li>
+                            <?php if($data['user_id']){ ?>
+                                <li style="margin-top: 8px;margin-right: 5px;">@<?php echo $_SESSION['user']['nick'];?></li>
+                                <li id="my" class="<?php echo $data['tab_selected']=='my'?'active':'';?>">
+                                    <a href="javascript:void(0);">我的</a>
+                                    <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
+                                        <li class="menu-title font-16"><a href="/http/my" style="border-bottom:none">我发起的请求</a></li>
+                                        <li class="menu-title font-16"><a href="/account/app/" style="border-bottom:none">我的应用</a></li>
+                                    </ul>
+                                </li>
+                                <li id="setting" class="<?php echo $data['tab_selected']=='setting'?'active':'';?>">
+                                    <a href="javascript:void(0);">设置</a>
+                                    <ul class="dropdown-menu text-left" style="padding:5px;margin-left: -60px;">
+                                        <li class="menu-title font-16"><a href="/account/info" style="border-bottom:none">个人设置</a></li>
+                                        <li class="menu-title font-16"><a href="/account/setting/index" style="border-bottom:none">站点设置</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/logout">退出</a></li>
+                            <?}else{?>
+                                <li><a href="/register">注册</a></li>
+                                <li><a href="/login">登陆</a></li>
+                            <?php }?>
                         </ul>
                     </div>
                 </div>
@@ -146,6 +152,6 @@
                 </script>
 
     <?php }else{ ?>
-        <div class="container content" style="position: relative;top: 52px;">
+        <div class="container content" style="position: relative;">
             <div class="row">
     <?php } ?>

@@ -55,10 +55,31 @@ class Base{
      */
     protected $show_header=true;
 
+    /**
+     * 是否显示header的login部分
+     * @var boolean
+     */
+    protected $show_header_login=true;
+
+    /**
+     * 登陆用户id
+     * @var integer
+     */
+    protected $user_id=0;
+
+    /**
+     * 公司id
+     * @var integer
+     */
+    protected $company_id=0;
+
     public function __construct(){
         // 加载全局css和js
         $this->css=['/static/css/main.min.css','/static/js/fancybox/jquery.fancybox.css'];
         $this->js=['/static/js/jquery.min.js'];
+
+        // 获取登陆用户id
+        $this->user_id=$_SESSION['token'];
     }
 
     /**
@@ -67,14 +88,16 @@ class Base{
      * @param  array $data  要传递的数组
      * @return 
      */
-    public function display($html,$data){
+    protected function display($html,$data){
 
         $actions=$this->actions();
 
         $data['actions']=$actions;
         $data['show_header']=$this->show_header;
+        $data['show_header_login']=$this->show_header_login;
         $data['css']=$this->css;
         $data['js']=$this->js;
+        $data['user_id']=$this->user_id;
         // print_r($data);exit;
         include_once(VIEW.'common/header.html');
 
@@ -123,14 +146,7 @@ class Base{
  */
 class BaseAuth extends Base{
 
-    /**
-     * 登陆用户id
-     * @var integer
-     */
-    protected $user_id;
-
     protected $user;
-
     /**
      * 是否跳过身份认证过程
      * @var boolean
@@ -141,11 +157,9 @@ class BaseAuth extends Base{
 
         parent::__construct();
 
-        $user_id=$_SESSION['token'];
-        
-        empty($user_id) && header("Location:/login");
+        empty($this->user_id) && header("Location:/login");
 
-        $user=t('user')->get(['stat'=>1,'id'=>$user_id]);
+        $user=t('user')->get(['stat'=>1,'id'=>$this->user_id]);
 
         if(empty($user)) header("Location:/login");
 
