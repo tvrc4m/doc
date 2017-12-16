@@ -2,9 +2,13 @@
 
 class LoginController extends Base{
 
+    protected $bar_login=true;
+
     public function index($params){
 
-        include_once(VIEW."common/login.html");
+        $this->css[]="/static/css/login.css";
+
+        $this->display("common/login.html");
     }
 
     /**

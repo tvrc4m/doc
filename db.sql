@@ -224,6 +224,7 @@ CREATE TABLE kf_service(
     title varchar(50) NOT NULL COMMENT '服务名称',
     type tinyint default 0 COMMENT '服务类型',
     price float default 0 COMMENT '价格。为0代表免费',
+    app_count int default 1 COMMENT '允许创建的应用数量,-1代表不受限',
     test_env_count int default 0 COMMENT '-1代表不受限',
     api_count int default 0 COMMENT '-1代表不受限',
     user_count int default 0 COMMENT '-1代表不受限',

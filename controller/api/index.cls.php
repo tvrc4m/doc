@@ -3,6 +3,11 @@
 class IndexController extends BaseAuth {
 
     /**
+     * 选中bar
+     * @var boolean
+     */
+    protected $bar_api=true;
+    /**
      * app全部的api接口
      * @return 
      */

@@ -1,0 +1,42 @@
+<div class="row-fluid margin-bottom-20 margin-bottom-xs-0">
+    <div class="" id="header" style="padding-left:20px;padding-right:20px;">
+        <div class="price_top_title text-center">不同方案，适应各种需求</div>
+        <div class="price_top_content text-center">我们提供多种方案和版本，对每个团队与个人有求必应。</div>
+    </div>
+</div>
+<div class="container content">
+    <!-- Pricing -->
+    <div class="row margin-bottom-20 margin-bottom-xs-0">
+        <?php foreach($data['service'] as $name=>$service){ ?>
+            <div class="<?php echo $data['col_md'];?> col-sm-12 item-free">
+                <div class="pricing text-center">
+                    <div class="pricing-head">
+                        <h3><?php echo $name;?></h3>
+                        <h4><i>￥ </i><?php echo $service['price']; ?><i></i> <span>/月</span></h4>
+                    </div>
+                    <div class="pricing-footer">
+                        <?php if($service['price']>0){ ?>
+                        <a class="btn btn-detail-store-top btn-valid-buy" href="/account/price/buy">购买</a>
+                        <?php }else{?>
+                            <a class="btn btn-detail-store-top btn-valid-buy" href="/account/app/add">免费使用</a>
+                        <?php }?>
+                    </div>
+                    <ul class="pricing-content list-unstyled">
+                        <?php foreach($service['service'] as $service_name){ ?>
+                        <li>
+                            <?php echo $service_name; ?>
+                        </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <!--/row-->
+    <!-- End Pricing -->
+    <div class="row">
+        <div class="col-md-12 text-center onpure_title margin-bottom-30 margin-bottom-xs-0">
+            如果您需要更多服务，请直接联系我们 tvrc4m@itsvk.com </div>
+    </div>
+    <hr class="margin-bottom-60">
+</div>

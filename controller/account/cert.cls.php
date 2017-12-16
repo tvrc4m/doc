@@ -11,7 +11,7 @@ class CertController extends BaseAuth{
      * 不显示header
      * @var boolean
      */
-    protected $show_header=false;
+    protected $show_header=true;
 
     public function __construct(){
 
@@ -20,6 +20,8 @@ class CertController extends BaseAuth{
         $this->css[]='/static/css/certification.css';
         $this->css[]='/static/css/certificate.css';
         $this->css[]='/static/css/login.css';
+        $this->js[]='/static/js/jquery.ui.widget.js';
+        $this->js[]='/static/js/jquery.fileupload.js';
     }
 
     /**
@@ -93,5 +95,10 @@ class CertController extends BaseAuth{
         }
 
         $this->ok();
+    }
+
+    protected function getLeftNavBar(){
+
+        return [];
     }
 }

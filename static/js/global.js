@@ -44,6 +44,14 @@
         })
     };
 
+    VK.prototype.activeTab = function(cls,name) {
+        $(cls).on('click',function(){
+            $(this).addClass("active");
+            $(cls).not(this).removeClass("active");
+            if(name) $("input[name="+name+"]").val($(this).data("bind"));
+        })
+    };
+
     VK.prototype.val = function(name) {
         return $("input[name="+name+"]").val();
     };

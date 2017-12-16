@@ -1,0 +1,39 @@
+<div class="col-md-6 col-md-offset-3 login col-md-offset-3 col-sm-8 col-sm-offset-2 login-outer-div">
+    <div class="login-inner-div">
+        <form class="login reg-page sky-form" id="form" method="POST" novalidate="novalidate">
+            <!-- 扫码登录 -->
+            <!-- 登录DIV -->
+            <div id="ldLogin" class="ldLogin " style="display: block;">
+                <div class="reg-header" style="border-bottom: none">
+                    <h2 class="color-333 font-20">账户登录</h2>
+                </div>
+                <!-- 邮箱登录 -->
+                <div id="loginByEmail">
+                    <section class="mb-30">
+                        <label class="input" style="margin-bottom: 0px;">
+                            <input type="text" id="nick" name="nick" value="" placeholder="请输入用户名" />
+                        </label>
+                        <em for="nick" class="invalid"></em>
+                    </section>
+                    <section class="mb-30">
+                        <label class="input">
+                            <input type="password" id="password" name="pwd" placeholder="请输入密码" />
+                        </label>
+                    </section>
+                </div>
+                <!-- 邮箱登录End -->
+            </div>
+            <!-- 登录DIV -->
+            <div class="row">
+                <div class="col-md-12 col-xs-12 text-center mb-20">
+                    <input type="hidden" name="aKey" value="">
+                    <input type="hidden" name="ltlKey" value="">
+                    <button class="btn btn-u pb-10 pt-10" type="button" onclick="login()" id="submitButton">登录</button>
+                    <p class="font-14 color-a0a0a1 lh-12 text-center" style="margin-top:15px">
+                        <a href="/register" class="color-green">去注册</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

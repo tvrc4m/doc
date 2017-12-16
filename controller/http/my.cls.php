@@ -1,6 +1,11 @@
 <?php
 
 class MyController extends BaseAuth{
+    /**
+     * 选中我的navbar
+     * @var boolean
+     */
+    protected $bar_my=true;
 
     public function index($params){
 

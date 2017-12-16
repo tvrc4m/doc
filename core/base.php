@@ -61,6 +61,8 @@ class Base{
      */
     protected $show_header_login=true;
 
+    protected $bar_selected='active';
+
     /**
      * 登陆用户id
      * @var integer
@@ -98,6 +100,8 @@ class Base{
         $data['css']=$this->css;
         $data['js']=$this->js;
         $data['user_id']=$this->user_id;
+        $data['navbar']['left']=$this->getLeftNavBar();
+        $data['navbar']['right']=$this->getRightNavBar();
         // print_r($data);exit;
         include_once(VIEW.'common/header.html');
 
@@ -174,8 +178,52 @@ class Base{
             return require_model(substr($name,2));
         }else{
 
-            exit('未定义属性:'.$name);
+            // exit('未定义属性:'.$name);
         }
+    }
+
+    protected function getLeftNavBar(){
+
+        if($this->user_id){
+
+            return  
+            [
+                ['name'=>'接口文档','url'=>'/api','selected'=>$this->bar_api?$this->bar_selected:'','children'=>[]],
+                ['name'=>'发起请求','url'=>'/http','selected'=>$this->bar_http?$this->bar_selected:'','children'=>[]],
+                ['name'=>'测试用例','url'=>'/test','selected'=>$this->bar_test?$this->bar_selected:'','children'=>[]],
+            ];
+        }
+
+        return 
+        [
+            ['name'=>'首页','url'=>'/','selected'=>$this->bar_home?$this->bar_selected:''],
+            ['name'=>'价格','url'=>'/account/price/index','selected'=>$this->bar_price?$this->bar_selected:'']
+        ];
+    }
+
+    protected function getRightNavBar(){
+
+        if($this->user_id){
+
+            return 
+            [
+                ['name'=>'我的','url'=>'/http','selected'=>$this->bar_my?$this->bar_selected:'','children'=>[
+                    ['name'=>'我发起的请求','url'=>'/http/my/index'],
+                    ['name'=>'我的应用','url'=>'/account/app/index'],
+                ]], 
+                ['name'=>'价格','url'=>'/account/price/index','selected'=>$this->bar_price?$this->bar_selected:''],
+                ['name'=>'设置','url'=>'/http','selected'=>$this->bar_setting?$this->bar_selected:'','children'=>[]],
+                ['name'=>'@'.$_SESSION['user']['nick'],'selected'=>$this->bar_self?$this->bar_selected:'','children'=>[
+                    ['name'=>'退出','url'=>'/logout','selected'=>'','children'=>[]],        
+                ]],
+           ];
+        }
+
+        return 
+        [
+            ['name'=>'注册','url'=>'/register','selected'=>$this->bar_register?$this->bar_selected:'','children'=>[]], 
+            ['name'=>'登陆','url'=>'/login','selected'=>$this->bar_login?$this->bar_selected:'','children'=>[]]
+       ];
     }
 }
 

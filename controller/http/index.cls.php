@@ -2,6 +2,12 @@
 
 class IndexController extends BaseAuth {
 
+    /**
+     * 选中bar
+     * @var boolean
+     */
+    protected $bar_http=true;
+
     public function index($params){
 
         $api_list=$this->getApiList('http');
@@ -21,10 +27,6 @@ class IndexController extends BaseAuth {
         
         exit(json_encode($api));
     }
-
-    
-
-    
 
     /**
      * 执行

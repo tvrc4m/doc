@@ -424,25 +424,20 @@ class DB {
 
                     $k=key($value);
 
-                    if($k==='$like'){
+                    $v=is_array($value[$k])?implode(',', $value[$k]):$value[$k];
 
-                        $sql.=$name.' LIKE ? AND ';
-
-                        $this->_bind_params($name,'%'.$value[$k].'%',$strtype,$params);
-                    }elseif($k==='$non'){
-                        
-                        $sql.=$name.' NOT IN ('.implode(',', $value[$k]).') AND ';
-                    }elseif($k==='$not'){
-
-                        assert(!is_array($value),"not选项不允许值为数组");
-
-                        $sql.=$name.'!=?';
-
-                        $this->_bind_params($name,$value,$strtype,$params);
-                    }else{
-
-                        $sql.=$name.' IN ('.implode(',', $value).') AND ';
+                    switch ($k) {
+                        case '$gt':$sql.=$name.'>? AND ';break;
+                        case '$gte':$sql.=$name.'>=? AND ';break;
+                        case '$lt':$sql.=$name.'<? AND ';break;
+                        case '$lte':$sql.=$name.'<=? AND ';break;
+                        case '$like':$sql.=$name.' LIKE ? AND ';$v='%'.$v.'%';break;
+                        case '$non':$sql.=$name.' NOT IN (?) AND ';break;
+                        case '$not':$sql.=$name.'!=?';break;
+                        default:$sql.=$name.' IN (?) AND ';break;
                     }
+                    
+                    $this->_bind_params($name,$v,$strtype,$params);
                 }else{
 
                     $sql.=$name.'=? AND ';

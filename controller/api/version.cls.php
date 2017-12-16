@@ -3,6 +3,12 @@
 class VersionController extends BaseAuth {
 
     /**
+     * 选中bar
+     * @var boolean
+     */
+    protected $bar_api=true;
+
+    /**
      * app版本号列表
      * @return 
      */

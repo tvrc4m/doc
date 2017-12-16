@@ -2,6 +2,12 @@
 
 class AppController extends BaseAuth{
 
+    /**
+     * 选中我的navbar
+     * @var boolean
+     */
+    protected $bar_my=true;
+
     public function index(){
 
         $app=t('user_app')->find(['user_id'=>$this->user_id,'stat'=>1]);

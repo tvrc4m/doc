@@ -2,9 +2,13 @@
 
 class RegisterController extends Base{
 
+    protected $bar_register=true;
+
     public function index($params){
 
-        include_once(VIEW."common/register.html");
+        $this->css[]="/static/css/login.css";
+
+        $this->display("common/register.html");
     }
 
     /**

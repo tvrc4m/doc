@@ -1,0 +1,59 @@
+<div class="container content choose-product">
+    <form id="pay_form" method="post" novalidate="novalidate">
+        <input type="hidden" name="service" value="" />
+        <input type="hidden" name="month" value="" />
+        <h1>购买服务</h1>
+        <h5>根据您的需求可以有多种套餐进行选择</h5>
+        <div class="container-fluid text-center">
+            <div class="headline">
+                <h2>选择服务类型</h2>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <?php foreach($data['services'] as $service){?>
+                    <div class="col-md-3">
+                        <div product-name="advanced" class="plan-box product-item" data-bind="<?php echo $service['id'];?>">
+                            <div>
+                                <div>
+                                    <?php echo $service['title'];?>
+                                </div>
+                            </div>
+                            <div>
+                                <div><i class="fa fa-check-circle"></i></div>
+                                <div><small>￥ </small>
+                                    <?php echo $service['price'];?><small> / 月</small></div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php }?>
+                </div>
+            </div>
+            <div class="headline">
+                <h2>选择购买时长</h2>
+            </div>
+            <div class="row sky-form">
+                <div class="col-md-12">
+                    <div class="buy-month active">
+                        一月
+                    </div>
+                    <div class="buy-month">
+                        三月
+                    </div>
+                    <div class="buy-month">
+                        半年
+                    </div>
+                    <div class="buy-month">
+                        一年
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <button type="submit" id="paySubmit" class="btn-u">微信支付</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    vk.activeTab(".product-item", "service");
+    vk.activeTab(".buy-month", "service");
+</script>
