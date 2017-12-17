@@ -204,7 +204,7 @@ class IndexController extends BaseAuth {
     protected function actions(){
 
         return [
-            ['name'=>'类别管理','url'=>'/cat/'.self::CAT_TYPE_API,'click'=>'redirectPage(this)'],
+            ['name'=>'类别管理','url'=>'/app/cat/'.self::CAT_TYPE_API,'click'=>'redirectPage(this)'],
             ['name'=>'APP版本管理','url'=>'/api/version','click'=>'redirectPage(this)'],
             ['name'=>'新增接口','url'=>'/api/add','click'=>'redirectPage(this)']
         ];

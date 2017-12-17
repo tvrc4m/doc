@@ -56,11 +56,9 @@ class Base{
     protected $show_header=true;
 
     /**
-     * 是否显示header的login部分
-     * @var boolean
+     * 选中的样式名
+     * @var string
      */
-    protected $show_header_login=true;
-
     protected $bar_selected='active';
 
     /**
@@ -74,6 +72,12 @@ class Base{
      * @var integer
      */
     protected $company_id=0;
+
+    /**
+     * 当前选择的应用id
+     * @var int
+     */
+    protected $app_id=0;
 
     public function __construct(){
         // 加载全局css和js
@@ -225,6 +229,15 @@ class Base{
             ['name'=>'登陆','url'=>'/login','selected'=>$this->bar_login?$this->bar_selected:'','children'=>[]]
        ];
     }
+
+    /**
+     * 获取操作按钮的权限及显示隐藏
+     * @return 
+     */
+    protected function getActionRole(){
+
+
+    }
 }
 
 /**
@@ -243,7 +256,9 @@ class BaseAuth extends Base{
 
         parent::__construct();
 
-        empty($this->user_id) && header("Location:/login");
+        $request='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+        empty($this->user_id) && header("Location:/login?back=".urlencode($request));
 
         $user=t('user')->get(['stat'=>1,'id'=>$this->user_id]);
 

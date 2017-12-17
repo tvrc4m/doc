@@ -1,26 +1,33 @@
 <div class="col-md-9" style="padding-right:15px;width: 100%;">
-    <h5><?php echo $data['title'];?></h5>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr class="warning">
-                <th width="150">名称</th>
-                <th>备注</th>
-                <th width="110" class="text-center">操作</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach($data['app_list'] as $app){?>
-                <tr>
-                   <td><?php echo $app['name'];?></td> 
-                   <td><?php echo $app['remark'];?></td> 
-                   <td class="text-center">
-                       <code><a class="app-edit" href="/account/app/edit/<?php echo $app['id'];?>">编辑</a></code>
-                       <code><a class="app-del" onclick="delApp(this)" data-id="<?php echo $app['id'];?>">删除</a></code>
-                   </td>
+    <?php if($data['app_list']){ ?>
+        <h5><?php echo $data['title'];?></h5>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="warning">
+                    <th width="150">名称</th>
+                    <th>备注</th>
+                    <th width="110" class="text-center">操作</th>
                 </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach($data['app_list'] as $app){?>
+                    <tr>
+                       <td><?php echo $app['name'];?></td> 
+                       <td><?php echo $app['remark'];?></td> 
+                       <td class="text-center">
+                           <code><a class="app-edit" href="/account/app/edit/<?php echo $app['id'];?>">编辑</a></code>
+                           <code><a class="app-del" onclick="delApp(this)" data-id="<?php echo $app['id'];?>">删除</a></code>
+                       </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    <?  }else{  ?>
+        <div class="text-center">
+            <p>你目前还没创建应用</p>
+            <a class="btn-u" href="/account/app/add" style="font-size:12px;margin: 5px;padding: 5px;">创建应用</a>
+        </div>
+    <?php }?>
 </div>
 <script type="text/javascript">
     function delApp(that){

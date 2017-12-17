@@ -8,7 +8,9 @@ class LoginController extends Base{
 
         $this->css[]="/static/css/login.css";
 
-        $this->display("common/login.html");
+        $back=empty($params['back'])?'':urldecode($params['back']);
+
+        $this->display("common/login.html",['back'=>$back]);
     }
 
     /**

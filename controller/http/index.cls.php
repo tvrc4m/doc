@@ -78,7 +78,7 @@ class IndexController extends BaseAuth {
     protected function actions(){
 
         return [
-            ['name'=>'类别管理','url'=>'/cat/'.self::CAT_TYPE_HTTP,'click'=>'redirectPage(this)'],
+            ['name'=>'类别管理','url'=>'/app/cat/'.self::CAT_TYPE_HTTP,'click'=>'redirectPage(this)'],
         ];
     }
 

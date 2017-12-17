@@ -1,6 +1,7 @@
 <div class="col-md-6 col-md-offset-3 login login-outer-div">
     <div class="login-inner-div">
         <form class="login reg-page sky-form" id="form" method="POST" novalidate="novalidate">
+            <input type="hidden" name="back" value="<?php echo $data['back'];?>" />
             <!-- 扫码登录 -->
             <!-- 登录DIV -->
             <div id="ldLogin" class="ldLogin " style="display: block;">
@@ -41,29 +42,16 @@
 function login(){
     var nick=$("input[name=nick]").val();
     var password=$("input[name=pwd]").val();
-    if(!nick){
-        alert("用户名不能为空");
+    if(vk.check_empty(nick,"用户名不能为空")) return false;
+    if(vk.check_empty(password,"密码长度不能少于6位")) return false;
+    else if(password.length<6){
+        vk.notice("密码长度不能少于6位");
         return false;
     }
-    if(!password){
-        alert("密码不能为空");
-        return false;
-    }else if(password.length<6){
-        alert("密码长度不能少于6位");
-        return false;
-    }
-    $.ajax({
-        url:"/login/do",
-        type:"POST",
-        dataType:"json",
-        data:{nick:nick,pwd:password},
-        success:function(data){
-            if(data.errno==0){
-                document.location.href="/";
-            }else{
-                alert(data.errmsg);
-            }
-        }
-    })
+    vk.post("/login/do",{nick:nick,pwd:password},function(){
+        var back=vk.val("back");
+        if(back) document.location.href=back;
+        else document.location.href="/";
+    });
 }
 </script>

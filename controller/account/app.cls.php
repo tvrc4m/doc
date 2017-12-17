@@ -8,9 +8,13 @@ class AppController extends BaseAuth{
      */
     protected $bar_my=true;
 
+    protected $call_method_actions=true;
+
     public function index(){
 
         $app=t('user_app')->find(['user_id'=>$this->user_id,'stat'=>1]);
+
+        if(empty($app)) $this->call_method_actions=false;
 
         $title='我的应用';
 
@@ -22,6 +26,8 @@ class AppController extends BaseAuth{
      * @param 
      */
     public function add($params){
+
+        $this->call_method_actions=false;
 
         $this->display('account/app/add.html',[]);
     }
@@ -133,6 +139,8 @@ class AppController extends BaseAuth{
     public function actions(){
 
         // TODO::检测是否到达应用限制
+
+        if(!$this->call_method_actions) return;
 
         return [
             ['name'=>'新增应用','url'=>'/account/app/add','click'=>'redirectPage(this)']

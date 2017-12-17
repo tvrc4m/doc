@@ -97,7 +97,7 @@ class CatController extends BaseAuth {
     protected function actions(){
 
         return [
-            ['name'=>'新增类别','url'=>'/cat/add?type='.$_GET['type'],'click'=>'addCat()']
+            ['name'=>'新增类别','url'=>'/app/cat/add?type='.$_GET['type'],'click'=>'addCat()']
         ];
     }
 }

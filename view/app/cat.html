@@ -3,15 +3,15 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr class="warning">
-                <th width="110">名称</th>
-                <th width="110">操作</th>
+                <th>名称</th>
+                <th class="text-center" style="width: 110px;">操作</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach($data['cat_list'] as $cat){?>
                 <tr>
                    <td><?php echo $cat['name'];?></td> 
-                   <td>
+                   <td class="text-center">
                        <code><a class="cat-edit" onclick="editCat(this)" data-name="<?php echo $cat['name'];?>" data-id="<?php echo $cat['id'];?>">编辑</a></code>
                        <code><a class="cat-del" onclick="delCat(this)" data-id="<?php echo $cat['id'];?>">删除</a></code>
                    </td>
@@ -29,20 +29,20 @@
         $("#cat_modal input[name=id]").val(id);
         document.getElementById("catBtnSave").removeEventListener('click',add,false);
         document.getElementById("catBtnSave").addEventListener('click',edit,false);
-        vk.model("#cat_modal");
+        vk.modal("#cat_modal");
     }
     function addCat(){
         $("#cat_modal input[name=name]").val('');
         $("#cat_modal input[name=id]").val('');
         document.getElementById("catBtnSave").removeEventListener('click',edit,false);
         document.getElementById("catBtnSave").addEventListener('click',add,false);
-        vk.model("#cat_modal");
+        vk.modal("#cat_modal");
     }
     function delCat(that){
         var id=$(that).data("id");
         if(!id) alert("未指定类别");
         if(window.confirm("只有未关联的接口可删除")){
-            vk.post("/api/cat/del",{id:id},null,function(){
+            vk.post("/app/cat/del",{id:id},null,function(){
                 $(that).parents("tr").remove();
             })
         }
@@ -50,14 +50,14 @@
     function add(){
         var name=$("#cat_modal input[name=name]").val();
         var type=$("#cat_modal input[name=type]").val();
-        vk.post("/api/cat/add",{name:name,type:type},null,function(){
+        vk.post("/app/cat/add",{name:name,type:type},null,function(){
             document.location.reload();
         })
     }
     function edit(){
         var name=$("#cat_modal input[name=name]").val();
         var id=$("#cat_modal input[name=id]").val();
-        vk.post("/api/cat/edit",{name:name,id:id},null,function(){
+        vk.post("/app/cat/edit",{name:name,id:id},null,function(){
             document.location.reload();
         })
     }

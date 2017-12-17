@@ -48,6 +48,11 @@
                                             <?php }?>
                                         </li>
                                     <?php } ?>
+                                    <li>
+                                    <?php foreach($data['actions'] as $action){?>
+                                        <button onclick="<?php echo $action['click'];?>" data-url="<?php echo $action['url'];?>" class="btn-u" style="font-size:12px;margin: 5px;padding: 5px;"><?php echo $action['name']?></button>
+                                    <?php } ?>
+                                    </li>
                                 </ul>
                             <?php }?>
                             <?php if($data['navbar']['right']){ ?>
