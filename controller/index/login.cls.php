@@ -23,15 +23,15 @@ class LoginController extends Base{
         $nick=$params['nick'];
         $pwd=$params['pwd'];
 
-        if(empty($nick)) exit(json_encode(['errno'=>-1,'errmsg'=>'昵称不能为空']));
-        if(empty($pwd)) exit(json_encode(['errno'=>-1,'errmsg'=>'密码不能为空']));
-        if(strlen($pwd)<6) exit(json_encode(['errno'=>-1,'errmsg'=>'密码最小长度为6位']));
+        if(empty($nick)) $this->error('昵称不能为空');
+        if(empty($pwd)) $this->error('密码不能为空');
+        if(strlen($pwd)<6) $this->error('密码最小长度为6位');
 
         $user=t('user')->get(['nick'=>$nick,'stat'=>1],'id,nick,pwd');
 
-        if(empty($user)) exit(json_encode(['errno'=>-1,'errmsg'=>'用户不存在或者等待审核中']));
+        if(empty($user)) $this->error('用户不存在或者等待审核中');
 
-        if(md5(sha1($pwd))!=$user['pwd']) exit(json_encode(['errno'=>-1,'errmsg'=>'密码不正确']));
+        if(md5(sha1($pwd))!=$user['pwd']) $this->error('密码不正确');
 
         $_SESSION['token']=$user['id'];
 

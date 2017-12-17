@@ -117,7 +117,7 @@ class IndexController extends BaseAuth {
 
         $id=$params['id'];
 
-        if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定文档']));
+        if(empty($id)) $this->error('未指定文档');
 
         t('doc')->update(['stat'=>0],['id'=>$id]);
 

@@ -159,9 +159,9 @@ dt, label {
             text-align: center;
         }
         .content {
-            margin-top: 100px;
+            /*margin-top: 100px;*/
             padding-top: 40px;
-            padding-bottom: 40px;
+            /*padding-bottom: 40px;*/
         }
 
         .container, .container-fluid {

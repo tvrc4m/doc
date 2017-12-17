@@ -65,9 +65,9 @@ class IndexController extends BaseAuth {
             t('user_http')->update(['api_params'=>json_encode($api_params),'api_return'=>$api_return],['id'=>$user_http_id,'user_id'=>$this->user_id]);
         }else{
 
-            if(empty($api_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未关联接口id']));
-            if(empty($title)) exit(json_encode(['errno'=>-1,'errmsg'=>'未设置标题']));
-            if(empty($cat_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'类别不能为空']));
+            if(empty($api_id)) $this->error('未关联接口id');
+            if(empty($title)) $this->error('未设置标题');
+            if(empty($cat_id)) $this->error('类别不能为空');
 
             t('user_http')->insert(['user_id'=>$this->user_id,'title'=>$title,'cat_id'=>$cat_id,'api_id'=>$api_id,'api_params'=>json_encode($api_params),'api_return'=>$api_return,'is_public'=>$is_public]);
         }

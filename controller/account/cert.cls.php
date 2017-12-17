@@ -30,8 +30,8 @@ class CertController extends BaseAuth{
      */
     public function index(){
 
-        if($this->user['cert_status']==self::USER_CERT_STATUS_OK) header('/user');
-        if($this->user['cert_status']==self::USER_CERT_STATUS_CHECK) header('/account/cert/verify');
+        if($this->user['cert_status']==self::USER_CERT_STATUS_OK) go('/user');
+        if($this->user['cert_status']==self::USER_CERT_STATUS_CHECK) go('/account/cert/verify');
 
         $data=['cert_status'=>$this->user['cert_status'],'phone'=>$this->user['phone'],'email'=>$this->user['email'],'realname'=>$this->user['realname'],'card_no'=>$this->user['card_no'],'user_type'=>$this->user['is_company']==1?2:1];
 
@@ -46,7 +46,18 @@ class CertController extends BaseAuth{
 
         $cert_status=$this->user['cert_status'];
 
-        $this->display('account/verify.html',['cert_status'=>$cert_status]);
+        switch ($cert_status) {
+            case self::USER_CERT_STATUS_NONE:
+                go("/account/cert/index");break;
+            case self::USER_CERT_STATUS_CHECK:
+                $cert_text='正在审核中...即将完成审核,请耐心等待<br>如果比较着急发邮件提醒我们: tvrc4m@itsvk.com';break;
+            case self::USER_CERT_STATUS_OK:
+                $cert_text='恭喜你完成身份认证<br><a class="btn-u" href="/account/app/add">创建应用</a>';break;
+            case self::USER_CERT_STATUS_ERR:
+                $cert_text='认证失败,请重新填写身份信息<br><a class="btn-u" href="/account/cert/index">重新修改</a>';break;
+        }
+
+        $this->display('account/verify.html',['cert_text'=>$cert_text]);
     }
 
     /**
@@ -63,12 +74,12 @@ class CertController extends BaseAuth{
         $idcard=$params['idcard'];
         $company=$params['company'];
         // $company=$params['company'];
-        if($user_type!=self::USER_TYPE_COMPANY && $user_type!=self::USER_TYPE_PERSION) $this->error(-1,'不支持该用户类型');
-        if(empty($realname)) $this->error(-1,'真实姓名不能为空');
-        if(empty($phone)) $this->error(-1,'手机号不能为空');
-        if(!preg_match('/(\d{11})/', $phone)) $this->error(-1,'手机号格式不对');
-        if(empty($email)) $this->error(-1,'邮箱不能为空');
-        if(!preg_match('/^[^@]+@\w+\.\w+/', $email)) $this->error(-1,'邮箱格式不对'); #TODO::正则待优化
+        if($user_type!=self::USER_TYPE_COMPANY && $user_type!=self::USER_TYPE_PERSION) $this->error('不支持该用户类型');
+        if(empty($realname)) $this->error('真实姓名不能为空');
+        if(empty($phone)) $this->error('手机号不能为空');
+        if(!preg_match('/(\d{11})/', $phone)) $this->error('手机号格式不对');
+        if(empty($email)) $this->error('邮箱不能为空');
+        if(!preg_match('/^[^@]+@\w+\.\w+/', $email)) $this->error('邮箱格式不对'); #TODO::正则待优化
 
         $db=DB::init();
 
@@ -91,7 +102,7 @@ class CertController extends BaseAuth{
 
             $db->rollback();
 
-            $this->error(-1,'操作异常,请稍后操作');
+            $this->error('操作异常,请稍后操作');
         }
 
         $this->ok();

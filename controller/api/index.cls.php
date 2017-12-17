@@ -69,21 +69,21 @@ class IndexController extends BaseAuth {
         $version=$data['version'];
         $remark=$data['remark'];
 
-        if(!$is_add && empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定接口']));
+        if(!$is_add && empty($id)) $this->error('未指定接口');
 
-        if(empty($title)) exit(json_encode(['errno'=>-1,'errmsg'=>'接口标题不能为空']));
-        if(empty($url)) exit(json_encode(['errno'=>-1,'errmsg'=>'接口地址不能为空']));
-        if(empty($cat_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'接口类型不能为空']));
+        if(empty($title)) $this->error('接口标题不能为空');
+        if(empty($url)) $this->error('接口地址不能为空');
+        if(empty($cat_id)) $this->error('接口类型不能为空');
         
         foreach ($params as $name=>$param) {
-            if(empty($name) || is_numeric($name))  exit(json_encode(['errno'=>-1,'errmsg'=>'请求参数名不能为空或为数字']));
-            if(empty($param['type']))  exit(json_encode(['errno'=>-1,'errmsg'=>'请求参数类型不能为空']));
+            if(empty($name) || is_numeric($name))  $this->error('请求参数名不能为空或为数字');
+            if(empty($param['type']))  $this->error('请求参数类型不能为空');
         }
 
         // 返回参数检测
         foreach ($return as $name=>$param) {
-            if(empty($name) || is_numeric($name))  exit(json_encode(['errno'=>-1,'errmsg'=>'返回参数名不能为空或为数字']));
-            if(empty($param['type']))  exit(json_encode(['errno'=>-1,'errmsg'=>'返回参数类型不能为空']));
+            if(empty($name) || is_numeric($name))  $this->error('返回参数名不能为空或为数字');
+            if(empty($param['type']))  $this->error('返回参数类型不能为空');
         }
 
         list($app,$controller,$action)=explode('/', $url);
@@ -96,7 +96,7 @@ class IndexController extends BaseAuth {
 
             $db->start();
 
-            $api_data=['title'=>$title,'url'=>$url,'cat_id'=>$cat_id,'code'=>$code,'version'=>$version,'remark'=>$remark];
+            $api_data=['app_id'=>$this->app_id,'title'=>$title,'url'=>$url,'cat_id'=>$cat_id,'code'=>$code,'version'=>$version,'remark'=>$remark];
 
             if($id){
 
@@ -119,7 +119,7 @@ class IndexController extends BaseAuth {
 
             foreach ($params as $name=>$param) {
 
-                $api_params_data=['name'=>$name,'type'=>$param['type'],'must'=>intval($param['must']),'version'=>$param['version'],'remark'=>$param['remark']];
+                $api_params_data=['app_id'=>$this->app_id,'name'=>$name,'type'=>$param['type'],'must'=>intval($param['must']),'version'=>$param['version'],'remark'=>$param['remark']];
 
                 if($param['id']){
 
@@ -140,7 +140,7 @@ class IndexController extends BaseAuth {
 
             foreach ($return as $name=>$ret) {
 
-                $api_ret_data=['name'=>$name,'type'=>$ret['type'],'must'=>intval($ret['must']),'version'=>$ret['version'],'remark'=>$ret['remark']];
+                $api_ret_data=['app_id'=>$this->app_id,'name'=>$name,'type'=>$ret['type'],'must'=>intval($ret['must']),'version'=>$ret['version'],'remark'=>$ret['remark']];
 
                 if($ret['id']){
 
@@ -205,7 +205,7 @@ class IndexController extends BaseAuth {
 
         return [
             ['name'=>'类别管理','url'=>'/app/cat/'.self::CAT_TYPE_API,'click'=>'redirectPage(this)'],
-            ['name'=>'APP版本管理','url'=>'/api/version','click'=>'redirectPage(this)'],
+            ['name'=>'APP版本管理','url'=>'/api/version/index','click'=>'redirectPage(this)'],
             ['name'=>'新增接口','url'=>'/api/add','click'=>'redirectPage(this)']
         ];
     }
@@ -218,9 +218,9 @@ class IndexController extends BaseAuth {
     public function getApiList(){
         // 获取API类别
         $cat_list=$this->_get_api_cat();
-        $api_list=t('api')->find(['stat'=>1]);
-        $params_list=t('api_params')->find(['stat'=>1],null,['name'=>'asc']);        
-        $return_list=t('api_return')->find(['stat'=>1],null,['name'=>'asc']);
+        $api_list=t('api')->find(['app_id'=>$this->app_id,'stat'=>1]);
+        $params_list=t('api_params')->find(['app_id'=>$this->app_id,'stat'=>1],null,['name'=>'asc']);        
+        $return_list=t('api_return')->find(['app_id'=>$this->app_id,'stat'=>1],null,['name'=>'asc']);
 
         $cat_result=$params_result=$return_result=$api_result=[];
 
@@ -373,7 +373,7 @@ class IndexController extends BaseAuth {
      */
     private function _get_api_cat(){
 
-        return t('cat')->find(['type'=>self::CAT_TYPE_API,'stat'=>1]);
+        return t('cat')->find(['type'=>self::CAT_TYPE_API,'app_id'=>$this->app_id,'stat'=>1]);
     }
 
     /**
@@ -382,6 +382,6 @@ class IndexController extends BaseAuth {
      */
     private function _get_api_version(){
 
-        return t('app_version')->find(['stat'=>1]);
+        return t('app_version')->find(['stat'=>1,'app_id'=>$this->app_id]);
     }
 }

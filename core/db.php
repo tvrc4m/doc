@@ -431,9 +431,10 @@ class DB {
                         case '$gte':$sql.=$name.'>=? AND ';break;
                         case '$lt':$sql.=$name.'<? AND ';break;
                         case '$lte':$sql.=$name.'<=? AND ';break;
-                        case '$like':$sql.=$name.' LIKE ? AND ';$v='%'.$v.'%';break;
+                        case '$inc':$sql.=$name.'='.$name.'+? AND ';break;
+                        case '$like':$sql.=$name.' LIKE ? AND ';$v='%'.$v.'% AND ';break;
                         case '$non':$sql.=$name.' NOT IN (?) AND ';break;
-                        case '$not':$sql.=$name.'!=?';break;
+                        case '$not':$sql.=$name.'!=? AND ';break;
                         default:$sql.=$name.' IN (?) AND ';break;
                     }
                     

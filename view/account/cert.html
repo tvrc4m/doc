@@ -1,156 +1,154 @@
-    <div class="col-md-8 col-md-offset-2 login col-md-offset-3 col-sm-10 col-sm-offset-1 col-xs-12">
-        <div class="login-inner-div certificate-div text-center" style="padding: 10% 15% 10% 15%;">
-            <form id="certificationForm" method="post" novalidate="novalidate">
-                <!-- 选择身份 -->
-                <div class="container-fluid" style="display: -webkit-box;">
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <span class="timeline timeline-green-span">1</span>
-                        <p class="mt-10 color-a0a0a1">选择身份</p>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <span class="timeline span-center timeline-gray-span"></span>
-                        <p class="mt-10 color-a0a0a1">填写资料</p>
-                    </div>
-                    <div class="col-md-4 col-sm-4 col-xs-4">
-                        <span class="timeline timeline-gray-span"></span>
-                        <p class="mt-10 color-a0a0a1">完成认证</p>
-                    </div>
+<div class="col-md-8 col-md-offset-2 login col-md-offset-3 col-sm-10 col-sm-offset-1 col-xs-12">
+    <div class="login-inner-div certificate-div text-center" style="padding: 10% 15% 10% 15%;">
+        <form id="certificationForm" method="post" novalidate="novalidate">
+            <!-- 选择身份 -->
+            <div class="container-fluid" style="display: -webkit-box;">
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <span class="timeline timeline-green-span">1</span>
+                    <p class="mt-10 color-a0a0a1">选择身份</p>
                 </div>
-                <input type="hidden" name="user_type" value="<?php echo $data['user_type'];?>">
-                <input type="hidden" name="cert_status" value="<?php echo $data['cert_status'];?>">
-                <div class="row" id="person-identity">
-                    <p class="color-333 text-left mt-40 mb-70 ">请选择身份：</p>
-                    <div class="col-md-5 col-sm-6 pt-60 pb-30 mb-10 box-identity box-green" data-type="personal">
-                        <img src="/static/images/personal_green.png">
-                        <p class="color-333 font-16 mt-10 mt-25 mb-35">个人</p>
-                        <p class="color-a0a0a1">需要提供：手机号、邮箱、身份证号及照片等</p>
-                    </div>
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-5 col-sm-6 pt-60 pb-30 mb-10 box-identity box-gray" data-type="enterprise">
-                        <img src="/static/images/enterprise_gray.png" style="height: 34px">
-                        <p class="color-333 font-16 mt-10 mt-25 mb-35">企业</p>
-                        <p class="color-a0a0a1">需要提供：联系人、企业名称、营业执照号及照片等</p>
-                    </div>
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <span class="timeline span-center timeline-gray-span"></span>
+                    <p class="mt-10 color-a0a0a1">填写资料</p>
                 </div>
-                <!-- 选择身份 END -->
-                <div class="row hide" id="personal-certificate">
-                     <!-- 真实姓名 -->
-                    <div class="form-group mt-40 " id="realname-certificate">
-                        <label class="font-normal color-a0a0a1 text-left mb-20" for="realname">真实姓名</label>
-                        <input class="form-control" type="text" name="realname" id="realname" value="<?php echo $data['realname'];?>" placeholder="请输入真实姓名">
-                    </div>
-                    <!-- 真实姓名 END -->
-                    <!-- 手机号码-->
-                    <div class="form-group text-left mt-40" id="tel-certificate">
-                        <label class="font-normal color-a0a0a1 text-left mb-20" for="phone">手机号码</label>
-                        <input type="text" name="phone" id="phone" class="pl-15" value="<?php echo $data['phone'];?>" placeholder="请输入手机号码" style="width: 100%;">
-                        <em for="phone" class="invalid"></em>
-                        <div class="row mt-30" id="get-code-div" style="padding-top: 10px;">
-                            <div class="col-md-8 col-sm-7 col-xs-6">
-                                <input class="form-control" type="text" name="phoneCode" id="phoneCode" placeholder="请输入您收到的验证码">
-                            </div>
-                            <div class="col-md-4 col-sm-5 col-xs-6">
-                                <a type="button" id="getCode" class="btn btn-u pull-right" style="padding-top: 11px;padding-bottom: 5px;">获取验证码</a>
-                            </div>
+                <div class="col-md-4 col-sm-4 col-xs-4">
+                    <span class="timeline timeline-gray-span"></span>
+                    <p class="mt-10 color-a0a0a1">完成认证</p>
+                </div>
+            </div>
+            <input type="hidden" name="user_type" value="<?php echo $data['user_type'];?>">
+            <input type="hidden" name="cert_status" value="<?php echo $data['cert_status'];?>">
+            <div class="row" id="person-identity">
+                <p class="color-333 text-left mt-40 mb-70 ">请选择身份：</p>
+                <div class="col-md-5 col-sm-6 pt-60 pb-30 mb-10 box-identity box-green" data-type="personal">
+                    <p class="color-333 font-16 mt-10 mt-25 mb-35">个人</p>
+                    <p class="color-a0a0a1">需要提供：手机号、邮箱、身份证号及照片等</p>
+                </div>
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-5 col-sm-6 pt-60 pb-30 mb-10 box-identity box-gray" data-type="enterprise">
+                    <p class="color-333 font-16 mt-10 mt-25 mb-35">企业</p>
+                    <p class="color-a0a0a1">需要提供：联系人、企业名称、营业执照号及照片等</p>
+                </div>
+            </div>
+            <!-- 选择身份 END -->
+            <div class="row hide" id="personal-certificate">
+                 <!-- 真实姓名 -->
+                <div class="form-group mt-40 " id="realname-certificate">
+                    <label class="font-normal color-a0a0a1 text-left mb-20" for="realname">真实姓名</label>
+                    <input class="form-control" type="text" name="realname" id="realname" value="<?php echo $data['realname'];?>" placeholder="请输入真实姓名">
+                </div>
+                <!-- 真实姓名 END -->
+                <!-- 手机号码-->
+                <div class="form-group text-left mt-40" id="tel-certificate">
+                    <label class="font-normal color-a0a0a1 text-left mb-20" for="phone">手机号码</label>
+                    <input type="text" name="phone" id="phone" class="pl-15" value="<?php echo $data['phone'];?>" placeholder="请输入手机号码" style="width: 100%;">
+                    <em for="phone" class="invalid"></em>
+                    <div class="row mt-30" id="get-code-div" style="padding-top: 10px;">
+                        <div class="col-md-8 col-sm-7 col-xs-6">
+                            <input class="form-control" type="text" name="phoneCode" id="phoneCode" placeholder="请输入您收到的验证码">
                         </div>
-                        <em for="telCode" class="invalid"></em>
-                    </div>
-                    <!-- 手机号码End -->
-                    <!-- 邮箱 -->
-                    <div class="" id="email-certificate">
-                        <div class="form-group text-left mt-40">
-                            <label class="font-normal color-a0a0a1 text-left mb-20" for="email">邮箱</label>
-                            <input type="text" class="form-control" id="email" name="email" value="<?php echo $data['email'];?>" placeholder="请输入邮箱地址" />
-                            <em for="email" class="invalid"></em>
+                        <div class="col-md-4 col-sm-5 col-xs-6">
+                            <a type="button" id="getCode" class="btn btn-u pull-right" style="padding-top: 11px;padding-bottom: 5px;">获取验证码</a>
                         </div>
                     </div>
-                    <!-- 邮箱End -->
-                    <!-- 公司名 -->
-                    <div class="form-group mt-40" id="company-name">
-                        <label class="font-normal color-a0a0a1 text-left mb-20" for="company">企业名称</label>
-                        <input class="form-control" type="text" name="company" id="company" value="" placeholder="请输入企业名称" />
+                    <em for="telCode" class="invalid"></em>
+                </div>
+                <!-- 手机号码End -->
+                <!-- 邮箱 -->
+                <div class="" id="email-certificate">
+                    <div class="form-group text-left mt-40">
+                        <label class="font-normal color-a0a0a1 text-left mb-20" for="email">邮箱</label>
+                        <input type="text" class="form-control" id="email" name="email" value="<?php echo $data['email'];?>" placeholder="请输入邮箱地址" />
+                        <em for="email" class="invalid"></em>
                     </div>
-                    <!-- 公司名 END -->
-                    <!-- 选择地区 -->
-                    <div class="form-group mt-40 hide" id="address-certificate">
-                        <input type="text" class="form-control hide" id="province" name="province" value="" placeholder="">
-                        <input type="text" class="form-control hide" id="city" name="city" value="" placeholder="">
-                        <label class="font-normal color-a0a0a1 text-left mb-20" for="idcard">选择地区</label>
-                        <input class="form-control" type="text" id="location" name="location" value="" placeholder="请选择城市" readonly="" style="cursor:pointer">
-                    </div>
-                    <!-- 选择地区 END -->
-                    <!-- 身份证 -->
-                    <div class="form-group mt-40 hide" id="idcard-certificate">
-                        <label class="font-normal color-a0a0a1 text-left mb-20" for="idcard">身份证号</label>
-                        <input class="form-control" type="text" name="idcard" id="idcard" value="<?php echo $data['card_no'];?>" placeholder="请输入身份证号">
-                        <section id="idcardPicSection" class="uploadPicSection mt-40">
-                            <input class="hidden" type="text" value="" name="idcardFront">
-                            <input class="hidden" type="text" value="" name="idcardReverse">
-                            <div class="div-idcard">
-                                <label class="font-normal color-a0a0a1 text-left mb-20">身份证照片</label>
-                                <input type="file" name="cardno_front" id="cardno_front" class="hidden" />
-                                <input type="file" name="cardno_front" id="cardno_back" class="hidden" />
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12" style="margin-bottom:15px">
-                                    <div class="uploadPic" onclick="$('#cardno_front').click();" role="imageUploader" data-type="idcard" data-name="idcardFront">
-                                        <div class="image add pull-left" style="width: 45%;">
-                                            <p class="text-center mt-10">上传身份证<span class="color-2abb9d">正面</span>照片</p>
-                                            
-                                        </div>
+                </div>
+                <!-- 邮箱End -->
+                <!-- 公司名 -->
+                <div class="form-group mt-40" id="company-name">
+                    <label class="font-normal color-a0a0a1 text-left mb-20" for="company">企业名称</label>
+                    <input class="form-control" type="text" name="company" id="company" value="" placeholder="请输入企业名称" />
+                </div>
+                <!-- 公司名 END -->
+                <!-- 选择地区 -->
+                <div class="form-group mt-40 hide" id="address-certificate">
+                    <input type="text" class="form-control hide" id="province" name="province" value="" placeholder="">
+                    <input type="text" class="form-control hide" id="city" name="city" value="" placeholder="">
+                    <label class="font-normal color-a0a0a1 text-left mb-20" for="idcard">选择地区</label>
+                    <input class="form-control" type="text" id="location" name="location" value="" placeholder="请选择城市" readonly="" style="cursor:pointer">
+                </div>
+                <!-- 选择地区 END -->
+                <!-- 身份证 -->
+                <div class="form-group mt-40 hide" id="idcard-certificate">
+                    <label class="font-normal color-a0a0a1 text-left mb-20" for="idcard">身份证号</label>
+                    <input class="form-control" type="text" name="idcard" id="idcard" value="<?php echo $data['card_no'];?>" placeholder="请输入身份证号">
+                    <section id="idcardPicSection" class="uploadPicSection mt-40">
+                        <input class="hidden" type="text" value="" name="idcardFront">
+                        <input class="hidden" type="text" value="" name="idcardReverse">
+                        <div class="div-idcard">
+                            <label class="font-normal color-a0a0a1 text-left mb-20">身份证照片</label>
+                            <input type="file" name="cardno_front" id="cardno_front" class="hidden" />
+                            <input type="file" name="cardno_front" id="cardno_back" class="hidden" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="margin-bottom:15px">
+                                <div class="uploadPic" onclick="$('#cardno_front').click();" role="imageUploader" data-type="idcard" data-name="idcardFront">
+                                    <div class="image add pull-left" style="width: 45%;">
+                                        <p class="text-center mt-10">上传身份证<span class="color-2abb9d">正面</span>照片</p>
+                                        
                                     </div>
-                                    <div class="uploadPic" onclick="$('#cardno_back').click();" role="imageUploader" data-type="idcard" data-name="idcardReverse">
-                                        <div class="image add pull-left " style="margin-left: 10%;width: 45%;">
-                                            <p class="text-center mt-10">上传身份证<span class="color-2abb9d">反面</span>照片</p>
-                                            
-                                        </div>
+                                </div>
+                                <div class="uploadPic" onclick="$('#cardno_back').click();" role="imageUploader" data-type="idcard" data-name="idcardReverse">
+                                    <div class="image add pull-left " style="margin-left: 10%;width: 45%;">
+                                        <p class="text-center mt-10">上传身份证<span class="color-2abb9d">反面</span>照片</p>
+                                        
                                     </div>
                                 </div>
                             </div>
-                        </section>
-                    </div>
-                    <!-- 身份证 END -->
-                    <!-- 营业执照 -->
-                    <div class="form-group mt-40 hide" id="license-certificate">
-                        <label class="font-normal color-a0a0a1 text-left mb-20" for="license">营业执照号码</label>
-                        <input class="form-control" type="text" name="license" id="license" value="" placeholder="请输入营业执照号码">
-                        <section id="idcardPicSection" class="uploadPicSection mt-40">
-                            <input class="hidden" type="text" value="" name="orgCode">
-                            <div class="div-license">
-                                <label class="font-normal color-a0a0a1 text-left mb-20">营业执照照片 *<a href="" data-toggle="modal" data-target="#myModalLicense" class="color-2abb9d a-idcard-exam">示例</a></label>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12" style="margin-bottom:15px">
-                                    <div class="uploadPic" role="imageUploader" data-type="orgCode" data-name="orgCode">
-                                        <div class="image add pull-left" style="width: 45%;">
-                                            <p class="text-center mt-10">上传营业执照<span class="color-2abb9d">正面</span>照片</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <!-- 营业执照 END-->
-                    <section id="section-captcha" class="section-captcha mb-30 hidden">
-                        <div id="embed-captcha"></div>
-                        <p id="wait" class="hide" style="font-style: normal;">正在加载验证码......</p>
-                        <p>
-                        </p>
-                        <p id="notice" class="hide invalid">请先完成验证</p>
-                        <p id="fail" class="hide invalid"></p>
+                        </div>
                     </section>
-                    <!-- 底部按钮 -->
-                    <div class="form-group mt-40" id="">
-                        <a type="button" onclick="return window.location.reload()" class="btn btn-default pull-left col-md-3" style="padding-top: 11px;padding-bottom: 5px;">上一步</a>
-                        <button type="button" id="certBtn" class="btn btn-u pull-right col-md-3" style="padding-top: 11px;padding-bottom: 5px;">提交</button>
-                    </div>
-                    <!-- 底部按钮 END -->
                 </div>
-                <!-- 认证 END -->
-            </form>
-        </div>
+                <!-- 身份证 END -->
+                <!-- 营业执照 -->
+                <div class="form-group mt-40 hide" id="license-certificate">
+                    <label class="font-normal color-a0a0a1 text-left mb-20" for="license">营业执照号码</label>
+                    <input class="form-control" type="text" name="license" id="license" value="" placeholder="请输入营业执照号码">
+                    <section id="idcardPicSection" class="uploadPicSection mt-40">
+                        <input class="hidden" type="text" value="" name="orgCode">
+                        <div class="div-license">
+                            <label class="font-normal color-a0a0a1 text-left mb-20">营业执照照片</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="margin-bottom:15px">
+                                <div class="uploadPic" role="imageUploader" data-type="orgCode" data-name="orgCode">
+                                    <div class="image add pull-left" style="width: 45%;">
+                                        <p class="text-center mt-10">上传营业执照<span class="color-2abb9d">正面</span>照片</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- 营业执照 END-->
+                <section id="section-captcha" class="section-captcha mb-30 hidden">
+                    <div id="embed-captcha"></div>
+                    <p id="wait" class="hide" style="font-style: normal;">正在加载验证码......</p>
+                    <p>
+                    </p>
+                    <p id="notice" class="hide invalid">请先完成验证</p>
+                    <p id="fail" class="hide invalid"></p>
+                </section>
+                <!-- 底部按钮 -->
+                <div class="form-group mt-40" id="">
+                    <a type="button" onclick="return window.location.reload()" class="btn btn-default pull-left col-md-3" style="padding-top: 11px;padding-bottom: 5px;">上一步</a>
+                    <button type="button" id="certBtn" class="btn btn-u pull-right col-md-3" style="padding-top: 11px;padding-bottom: 5px;">提交</button>
+                </div>
+                <!-- 底部按钮 END -->
+            </div>
+            <!-- 认证 END -->
+        </form>
     </div>
+</div>
 <script type="text/javascript">
     $("div[data-type=personal]").on('click',function(){
         $("#company-name,#license-certificate").addClass("hide");

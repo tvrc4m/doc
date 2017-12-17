@@ -10,7 +10,7 @@ class CatController extends BaseAuth {
 
         $type=$params['id'];
         
-        $cat_list=t('cat')->find(['type'=>$type,'stat'=>1]);
+        $cat_list=t('cat')->find(['type'=>$type,'app_id'=>$this->app_id,'stat'=>1]);
 
         switch ($type) {
             case self::CAT_TYPE_API:$title='API类别管理';$tab_selected='app';break;
@@ -33,12 +33,12 @@ class CatController extends BaseAuth {
         $id=$params['id'];
         $name=trim($params['name']);
 
-        if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定类别']));
-        if(empty($name)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能为空']));
+        if(empty($id)) $this->error('未指定类别');
+        if(empty($name)) $this->error('名称不能为空');
 
         $exists=t('cat')->get(['id'=>['$not'=>$id],'name'=>$name]);
 
-        if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能重复']));
+        if(!empty($exists)) $this->error('名称不能重复');
 
         t('cat')->update(['name'=>$name],['id'=>$id]);
 
@@ -55,17 +55,15 @@ class CatController extends BaseAuth {
         $name=trim($params['name']);
         $type=$params['type'];
 
-        if(empty($name)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能为空']));
+        if(empty($name)) $this->error('名称不能为空');
 
         empty($type) && $type=1;
 
-        $exists=t('cat')->get(['type'=>$type,'name'=>$name],$fields='1');
+        $exists=t('cat')->get(['type'=>$type,'name'=>$name,'app_id'=>$this->app_id],$fields='1');
 
-        if(!empty($exists)) exit(json_encode(['errno'=>-1,'errmsg'=>'名称不能重复']));
+        if(!empty($exists)) $this->error('名称不能重复');
 
-        $m_cat=require_model('cat');
-
-        $m_cat->addCat($this->user_id,$name,$type);
+        t('cat')->insert(['user_id'=>$this->user_id,'app_id'=>$this->app_id,'name'=>$name,'type'=>$type,'stat'=>1]);
 
         exit(json_encode(['errno'=>0,'errmsg'=>'']));
     }
@@ -74,7 +72,7 @@ class CatController extends BaseAuth {
 
         $id=trim($params['id']);
 
-        if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定类别']));
+        if(empty($id)) $this->error('未指定类别');
 
         $detail=t('cat')->getById($id);
 
@@ -87,7 +85,7 @@ class CatController extends BaseAuth {
 
         $count=t($table)->count(['cat_id'=>$id,'stat'=>1]);
 
-        if($count) exit(json_encode(['errno'=>-1,'errmsg'=>'有关联数据,不能删除']));
+        if($count) $this->error('有关联数据,不能删除');
 
         t('cat')->update(['stat'=>0],['id'=>$id]);
 

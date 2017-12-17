@@ -108,12 +108,12 @@ class IndexController extends BaseAuth {
         $test_id=$params['id'];
         $is_add=$params['add'];
 
-        if(empty($title)) exit(json_encode(['errno'=>-1,'errmsg'=>'测试标题不能为空']));
-        if(empty($cat_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'测试类别不能为空']));
-        if(empty($cases)) exit(json_encode(['errno'=>-1,'errmsg'=>'测试用例不能为空']));
+        if(empty($title)) $this->error('测试标题不能为空');
+        if(empty($cat_id)) $this->error('测试类别不能为空');
+        if(empty($cases)) $this->error('测试用例不能为空');
 
         $contents=array_filter(array_column($cases, 'content'));
-        if(empty($contents)) exit(json_encode(['errno'=>-1,'errmsg'=>'测试用例不能为空']));
+        if(empty($contents)) $this->error('测试用例不能为空');
 
         try{
 
@@ -174,7 +174,7 @@ class IndexController extends BaseAuth {
 
         $test_id=$params['id'];
 
-        if(empty($test_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定测试']));
+        if(empty($test_id)) $this->error('未指定测试');
 
         t('test')->update(['stat'=>0],['id'=>$test_id]);
 
@@ -214,11 +214,11 @@ class IndexController extends BaseAuth {
         $api_id=$test_case['api_id'];
         $params=$test_case['api_params'];
 
-        if(empty($api_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未关联API接口']));
+        if(empty($api_id)) $this->error('未关联API接口');
 
         $api_detail=$m_api->getApi($api_id);
 
-        if(empty($api_detail)) exit(json_encode(['errno'=>-1,'errmsg'=>'关联API接口不存在']));
+        if(empty($api_detail)) $this->error('关联API接口不存在');
 
         $result=run($env,$api_detail['url'],json_decode($params,true));
 

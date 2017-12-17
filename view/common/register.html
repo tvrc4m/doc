@@ -1,6 +1,6 @@
 <div class="col-md-6 col-md-offset-3 login col-md-offset-3 col-sm-8 col-sm-offset-2 login-outer-div">
     <div class="login-inner-div">
-        <form class="login reg-page sky-form" id="form" method="POST" novalidate="novalidate">
+        <form class="login reg-page sky-form" id="form" method="POST" novalidate="novalidate" autocomplete="off">
             <!-- 扫码登录 -->
             <!-- 登录DIV -->
             <div id="ldLogin" class="ldLogin " style="display: block;">
@@ -11,13 +11,20 @@
                 <div id="loginByEmail">
                     <section class="mb-30">
                         <label class="input" style="margin-bottom: 0px;">
-                            <input type="text" id="realname" name="realname" value="" placeholder="请输入真实姓名">
+                            <input type="text" id="email" name="email" value="" autocomplete="off" placeholder="请输入邮箱地址" />
+                        </label>
+                        <em for="nick" class="invalid"></em>
+                    </section>
+                    <section class="mb-30 email-check hide">
+                        <label class="input" style="margin-bottom: 10px;">
+                            <input type="text" id="code" name="code" autocomplete="off" placeholder="验证码" style="display: inline-block;width:100px;" />
+                            <button class="btn btn-u pb-10 pt-10" type="button" onclick="send()" style="display: inline-block;width: 100px;float: right;">发送</button>
                         </label>
                         <em for="nick" class="invalid"></em>
                     </section>
                     <section class="mb-30">
                         <label class="input" style="margin-bottom: 0px;">
-                            <input type="text" id="nick" name="nick" value="" placeholder="请输入用户名">
+                            <input type="text" id="nick" name="nick" value="" autocomplete="off" placeholder="请输入用户名" />
                         </label>
                         <em for="nick" class="invalid"></em>
                     </section>
@@ -44,21 +51,48 @@
     </div>
 </div>
 <script type="text/javascript">
-function register(){
-    var realname=$("input[name=realname]").val();
-    var nick=$("input[name=nick]").val();
-    var password=$("input[name=pwd]").val();
-    if(vk.check_empty(realname,"真实用户名不能为空")) return false;
-    if(vk.check_empty(nick,"用户名不能为空")) return false;
-    if(vk.check_empty(password,"密码不能为空")) return false;
-    else if(password.length<6){
-        vk.notice("密码长度不能少于6位");
+    var email_reg=/[^@]+@\w+\.\w+/;
+    $("#email").on('blur',function(){
+        var email=$(this).val();
+        if(email_reg.test(email)){
+            $(".email-check").removeClass("hide");
+        }
+    });
+    function send(){
+        var email=vk.val("email");
+        if(email_reg.test(email)){
+            vk.post("/register/email",{email:email},function(){
+
+            })
+        }else{
+            vk.notice("邮箱地址格式不对");
+        }
     }
-    vk.post("/register/do",{nick:nick,realname:realname,pwd:password},function(){
-        vk.notice("注册成功,即将跳往登陆页面",function(){
-            document.location.href="/login";    
+    function register(){
+        var email=$("input[name=email]").val();
+        var code=$("input[name=code]").val();
+        var nick=$("input[name=nick]").val();
+        var password=$("input[name=pwd]").val();
+        if(vk.check_empty(email,"邮箱不能为空")) return false;
+        else if(!email_reg.test(email)){
+            vk.notice("邮箱地址格式不对");
+            return false;  
+        } 
+        if(vk.check_empty(code,"验证码不能为空")) return false;
+        if(code.length!=6){
+            vk.notice("验证码为四位数");
+            return false;
+        }
+        if(vk.check_empty(nick,"用户名不能为空")) return false;
+        if(vk.check_empty(password,"密码不能为空")) return false;
+        else if(password.length<6){
+            vk.notice("密码长度不能少于6位");
+        }
+        vk.post("/register/do",{nick:nick,email:email,code:code,pwd:password},function(){
+            vk.notice("注册成功,即将跳往登陆页面",function(){
+                document.location.href="/login";    
+            })
+            
         })
-        
-    })
-}
+    }
 </script>

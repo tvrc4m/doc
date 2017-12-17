@@ -2,12 +2,6 @@
     <form id="app_form">
         <h4>应用信息</h4>
         <table class="table table-bordered table-striped">
-            <thead>
-                <tr class="warning">
-                    <th width="110">字段</th>
-                    <th>值</th>
-                </tr>
-            </thead>
             <tbody id="base_body"></tbody>
         </table>
         <h4>测试环境</h4>
@@ -37,7 +31,7 @@
 <script id="api_base_template" type="text/html">
     {{each base as item name}}
         <tr>
-            <td>
+            <td style="width: 110px;">
                 <span class="td-title">{{name}}</span>
             </td>
             <td>

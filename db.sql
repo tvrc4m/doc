@@ -2,6 +2,7 @@ CREATE TABLE kf_api(
     id int AUTO_INCREMENT PRIMARY KEY,
     title varchar(255) NOT NULL COMMENT 'api接口',
     cat_id int NOT NULL COMMENT '类别id',
+    app_id int NOT NULL COMMENT '应用id',
     type tinyint default 1 COMMENT '1:post 2:get',
     url varchar(255) NOT NULL COMMENT '接口地址',
     version varchar(10) default '' COMMENT '版本',
@@ -13,6 +14,7 @@ CREATE TABLE kf_api(
 
 CREATE TABLE kf_api_params(
     id int AUTO_INCREMENT PRIMARY KEY,
+    app_id int NOT NULL COMMENT '应用id',
     name varchar(50) NOT NULL COMMENT '请求参数名',
     type tinyint NOT NULL COMMENT '类型',
     must boolean default 1 COMMENT '是否必填项 1:必填 0:非',
@@ -26,6 +28,7 @@ CREATE TABLE kf_api_params(
 
 CREATE TABLE kf_api_return(
     id int AUTO_INCREMENT PRIMARY KEY,
+    app_id int NOT NULL COMMENT '应用id',
     name varchar(50) NOT NULL COMMENT '请求参数名',
     type tinyint NOT NULL COMMENT '类型',
     must boolean default 1 COMMENT '是否必填项 1:必填 0:非',
@@ -38,6 +41,7 @@ CREATE TABLE kf_api_return(
 
 CREATE TABLE kf_cat(
     id int AUTO_INCREMENT PRIMARY KEY,
+    app_id int NOT NULL COMMENT '应用id',
     name varchar(50) NOT NULL COMMENT '类别名称',
     stat boolean default 1 COMMENT '状态,是否删除',
     type tinyint default 1 COMMENT '1:api类别，2:文档类别',
@@ -57,18 +61,11 @@ CREATE TABLE kf_api_example(
 
 CREATE TABLE kf_doc(
     id int AUTO_INCREMENT PRIMARY KEY,
+    app_id int NOT NULL COMMENT '应用id',
     title varchar(255) NOT NULL COMMENT '文档标题',
     content text NOT NULL COMMENT '内容',
     stat boolean default 1 COMMENT '状态,是否删除',
     cat_id int NOT NULL COMMENT '文档类别id',
-    create_date datetime,
-    update_date datetime
-) engine=InnoDB;
-
-CREATE TABLE kf_doc_cat(
-    id int AUTO_INCREMENT PRIMARY KEY,
-    name varchar(255) NOT NULL COMMENT '类别名称',
-    stat boolean default 1 COMMENT '状态,是否删除',
     create_date datetime,
     update_date datetime
 ) engine=InnoDB;
@@ -89,6 +86,7 @@ CREATE TABLE kf_user(
     card_no_front varchar(255) COMMENT '身份证正面',
     card_no_back varchar(255) COMMENT '身份证背面',
     cert_status boolean default 0 COMMENT '身份认证状态',
+    app_count int default 0 COMMENT '创建的应用数量',
     create_date datetime,
     update_date datetime
 ) engine=InnoDB;
@@ -107,6 +105,8 @@ CREATE TABLE kf_company(
 
 CREATE TABLE kf_app_version(
     id int AUTO_INCREMENT PRIMARY KEY,
+    app_id int NOT NULL COMMENT '应用id',
+    user_id int NOT NULL COMMENT '登录用户id',
     name varchar(50) NOT NULL COMMENT '版本号',
     stat boolean default 0 COMMENT '状态',
     create_date datetime,
@@ -208,12 +208,13 @@ CREATE TABLE kf_class_method_params(
 
 CREATE TABLE kf_user_setting(
     id int AUTO_INCREMENT PRIMARY KEY,
-    user_id int NOT COMMENT '用户id',
+    user_id int NOT NULL COMMENT '用户id',
     company_id int default 0 COMMENT '公司id',
-    test_env_count int default 2 COMMENT '支持的测试环境个数',
-    api_count int default 50 COMMENT '支持的api接口数量',
-    user_count default 10 COMMENT '支持的成员上限人数',
-    http_request_count int default 10000 COMMENT '支持调用的api接口次数(每月)',
+    app_count int default 0 COMMENT '支持的应用个数',
+    test_env_count int default 0 COMMENT '支持的测试环境个数',
+    api_count int default 0 COMMENT '支持的api接口数量',
+    user_count int default 0 COMMENT '支持的成员上限人数',
+    http_request_count int default 0 COMMENT '支持调用的api接口次数(每月)',
     create_date datetime,
     update_date datetime
 ) engine=InnoDB;

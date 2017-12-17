@@ -106,21 +106,21 @@ class PhpController extends Api {
         $version=$data['version'];
         $remark=$data['remark'];
 
-        if(!$is_add && empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定接口']));
+        if(!$is_add && empty($id)) $this->error('未指定接口');
 
-        if(empty($title)) exit(json_encode(['errno'=>-1,'errmsg'=>'接口标题不能为空']));
-        if(empty($url)) exit(json_encode(['errno'=>-1,'errmsg'=>'接口地址不能为空']));
-        if(empty($cat_id)) exit(json_encode(['errno'=>-1,'errmsg'=>'接口类型不能为空']));
+        if(empty($title)) $this->error('接口标题不能为空');
+        if(empty($url)) $this->error('接口地址不能为空');
+        if(empty($cat_id)) $this->error('接口类型不能为空');
         
         foreach ($params as $name=>$param) {
-            if(empty($name) || is_numeric($name))  exit(json_encode(['errno'=>-1,'errmsg'=>'请求参数名不能为空或为数字']));
-            if(empty($param['type']))  exit(json_encode(['errno'=>-1,'errmsg'=>'请求参数类型不能为空']));
+            if(empty($name) || is_numeric($name))  $this->error('请求参数名不能为空或为数字');
+            if(empty($param['type']))  $this->error('请求参数类型不能为空');
         }
 
         // 返回参数检测
         foreach ($return as $name=>$param) {
-            if(empty($name) || is_numeric($name))  exit(json_encode(['errno'=>-1,'errmsg'=>'返回参数名不能为空或为数字']));
-            if(empty($param['type']))  exit(json_encode(['errno'=>-1,'errmsg'=>'返回参数类型不能为空']));
+            if(empty($name) || is_numeric($name))  $this->error('返回参数名不能为空或为数字');
+            if(empty($param['type']))  $this->error('返回参数类型不能为空');
         }
 
         list($app,$controller,$action)=explode('/', $url);

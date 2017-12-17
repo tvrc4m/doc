@@ -56,6 +56,12 @@ class Base{
     protected $show_header=true;
 
     /**
+     * 是否显示left bar
+     * @var boolean
+     */
+    protected $hide_left_bar=false;
+
+    /**
      * 选中的样式名
      * @var string
      */
@@ -125,11 +131,11 @@ class Base{
 
     /**
      * json--输出错误
-     * @param  int $errno  错误码
      * @param  string|array $errmsg 错误文本
+     * @param  int $errno  错误码
      * @return json
      */
-    protected function error($errno,$errmsg){
+    protected function error($errmsg,$errno=-1){
 
         header('Content-type: application/json');
 
@@ -187,6 +193,8 @@ class Base{
     }
 
     protected function getLeftNavBar(){
+
+        if($this->hide_left_bar) return [];
 
         if($this->user_id){
 
@@ -268,8 +276,38 @@ class BaseAuth extends Base{
         $this->user=$user;
 
         $_SESSION['user']=$user;
-        // print_r($user);exit;
-        if(!$this->skip_cert_auth && in_array($user['cert_status'], [self::USER_CERT_STATUS_NONE,self::USER_CERT_STATUS_ERR])) 
-            header("Location:/account/cert/index");
+
+        if(!$user['app_count'] && $user['cert_status']==self::USER_CERT_STATUS_OK && !$this->skip_cert_auth){
+            go('/account/app/index');
+        }
+
+        if((!$user['app_count'] || in_array($user['cert_status'], [self::USER_CERT_STATUS_NONE,self::USER_CERT_STATUS_ERR])) && 
+            !$this->skip_cert_auth){ 
+            $this->hide_left_bar=true;
+            go('/account/cert/index');
+        }
+
+        $this->get_user_app();
+    }
+
+    /**
+     * 获取用户的app_id
+     * @return 
+     */
+    public function get_user_app(){
+
+        if(!$this->user['is_company']){
+
+            $user_app=t('user_app')->get(['user_id'=>$this->user_id,'stat'=>1]);
+
+            if(empty($user_app)){
+
+                $this->hide_left_bar=true;
+
+                return;
+            }
+
+            $this->app_id=$user_app['id'];
+        }
     }
 }

@@ -7,8 +7,12 @@ class AppController extends BaseAuth{
      * @var boolean
      */
     protected $bar_my=true;
-
+    // 调用actions方法
     protected $call_method_actions=true;
+    // 禁止跳转到account/cert/index
+    protected $skip_cert_auth=true;
+    // 隐藏left bar
+    // protected $hide_left_bar=true;
 
     public function index(){
 
@@ -26,6 +30,8 @@ class AppController extends BaseAuth{
      * @param 
      */
     public function add($params){
+        // 检查是否能添加app
+        if(!$this->check_add_app()) go('/error');
 
         $this->call_method_actions=false;
 
@@ -61,12 +67,12 @@ class AppController extends BaseAuth{
         $app_id=$params['id'];
         $is_add=$params['is_add'];
 
-        if(empty($name)) exit(json_encode(['errno'=>-1,'errmsg'=>'应用名称不能为空']));
-        if(empty($test_env)) exit(json_encode(['errno'=>-1,'errmsg'=>'测试环境不能为空']));
+        if(empty($name)) $this->error('应用名称不能为空');
+        if(empty($test_env)) $this->error('测试环境不能为空');
 
         array_walk($test_env, function($value){
-            if(empty($value['name'])) exit(json_encode(['errno'=>-1,'errmsg'=>'测试环境名称不能为空']));
-            if(empty($value['url'])) exit(json_encode(['errno'=>-1,'errmsg'=>'测试环境域名不能为空']));
+            if(empty($value['name'])) $this->error('测试环境名称不能为空');
+            if(empty($value['url'])) $this->error('测试环境域名不能为空');
         });
 
         try{
@@ -83,6 +89,8 @@ class AppController extends BaseAuth{
             }elseif($is_add){
 
                 $app_id=t('user_app')->insert($app_data);
+
+                t('user')->update(['app_count'=>['$inc'=>1]],['id'=>$this->user_id]);
             }else{
 
                 throw new Exception('不支持的操作');
@@ -129,7 +137,7 @@ class AppController extends BaseAuth{
 
         $id=$params['id'];
 
-        if(empty($id)) exit(json_encode(['errno'=>-1,'errmsg'=>'未指定应用']));
+        if(empty($id)) $this->error('未指定应用');
 
         t('user_app')->update(['stat'=>0],['id'=>$id]);
 
@@ -138,12 +146,25 @@ class AppController extends BaseAuth{
 
     public function actions(){
 
-        // TODO::检测是否到达应用限制
-
-        if(!$this->call_method_actions) return;
+        if(!$this->call_method_actions) return [];
+        // 检测是否到达应用限制
+        if(!$this->check_add_app()) return [];
 
         return [
             ['name'=>'新增应用','url'=>'/account/app/add','click'=>'redirectPage(this)']
         ];
+    }
+
+    /**
+     * 检查权限
+     * @return boolean
+     */
+    public function check_add_app(){
+
+        $user_setting=t('user_setting')->get(['user_id'=>$this->user_id]);
+        // 检测是否到达应用限制
+        if($user_setting['app_count']>=$this->user['app_count']) return false;
+
+        return true;
     }
 }
