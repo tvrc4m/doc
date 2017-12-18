@@ -115,8 +115,6 @@ class HttpController extends BaseAuth {
 
             !empty($example) && $example=$example['code'];
 
-            // empty($example) && $example=$this->_getApiExampleByApi($api);
-
             $api['example']=$example;
 
             $api['side_url']='/app/http#'.$api['id'];

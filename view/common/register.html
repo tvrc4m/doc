@@ -43,7 +43,7 @@
                     <input type="hidden" name="ltlKey" value="">
                     <button class="btn btn-u pb-10 pt-10" type="button" onclick="register()" id="submitButton">注册</button>
                     <p class="font-14 color-a0a0a1 lh-12 text-center" style="margin-top:15px">
-                        <a href="/login" class="color-green">登录</a>
+                        <a href="/user/login" class="color-green">登录</a>
                     </p>
                 </div>
             </div>
@@ -61,7 +61,7 @@
     function send(){
         var email=vk.val("email");
         if(email_reg.test(email)){
-            vk.post("/register/email",{email:email},null,function(){
+            vk.post("/user/register/email",{email:email},null,function(){
 
             })
         }else{
@@ -80,7 +80,7 @@
         } 
         if(vk.check_empty(code,"验证码不能为空")) return false;
         if(code.length!=6){
-            vk.notice("验证码为四位数");
+            vk.notice("验证码为六位数");
             return false;
         }
         if(vk.check_empty(nick,"用户名不能为空")) return false;
@@ -88,11 +88,8 @@
         else if(password.length<6){
             vk.notice("密码长度不能少于6位");
         }
-        vk.post("/register/do",{nick:nick,email:email,code:code,pwd:password},null,function(){
-            vk.notice("注册成功,即将跳往登陆页面",function(){
-                document.location.href="/login";    
-            })
-            
+        vk.post("/user/register/do",{nick:nick,email:email,code:code,pwd:password},null,function(){
+            document.location.href=res.data.redirect;
         })
     }
 </script>

@@ -88,15 +88,13 @@ class ApiController extends BaseAuth {
 
         list($app,$controller,$action)=explode('/', $url);
 
-        $code=strtolower($controller.'_'.$action);
-
         try{
 
             $db=DB::init();
 
             $db->start();
 
-            $api_data=['app_id'=>$this->app_id,'title'=>$title,'url'=>$url,'cat_id'=>$cat_id,'code'=>$code,'version'=>$version,'remark'=>$remark];
+            $api_data=['app_id'=>$this->app_id,'title'=>$title,'url'=>$url,'cat_id'=>$cat_id,'version'=>$version,'remark'=>$remark];
 
             if($id){
 
@@ -153,7 +151,7 @@ class ApiController extends BaseAuth {
 
             $db->commit();
 
-            exit(json_encode(['errno'=>0,'redirect'=>'/api#'.$code]));
+            exit(json_encode(['errno'=>0,'redirect'=>'/app/api#'.$id]));
 
         }catch(Exception $e){
 
@@ -205,7 +203,7 @@ class ApiController extends BaseAuth {
 
         return [
             ['name'=>'类别管理','url'=>'/app/cat/'.self::CAT_TYPE_API,'click'=>'redirectPage(this)'],
-            ['name'=>'APP版本管理','url'=>'/api/version/index','click'=>'redirectPage(this)'],
+            ['name'=>'APP版本管理','url'=>'/api/version','click'=>'redirectPage(this)'],
             ['name'=>'新增接口','url'=>'/app/api/add','click'=>'redirectPage(this)']
         ];
     }

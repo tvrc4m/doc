@@ -64,6 +64,6 @@ class RegisterController extends Base{
 
         $_SESSION['user']=['id'=>$user_id,'nick'=>$nick,'email'=>$email];
 
-        $this->ok();
+        $this->ok(['redirect'=>"/account/cert"]);
     }
 }

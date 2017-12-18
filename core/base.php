@@ -233,8 +233,8 @@ class Base{
 
         return 
         [
-            ['name'=>'注册','url'=>'/register','selected'=>$this->bar_register?$this->bar_selected:'','children'=>[]], 
-            ['name'=>'登陆','url'=>'/login','selected'=>$this->bar_login?$this->bar_selected:'','children'=>[]]
+            ['name'=>'注册','url'=>'/user/register','selected'=>$this->bar_register?$this->bar_selected:'','children'=>[]], 
+            ['name'=>'登陆','url'=>'/user/login','selected'=>$this->bar_login?$this->bar_selected:'','children'=>[]]
        ];
     }
 
@@ -266,11 +266,11 @@ class BaseAuth extends Base{
 
         $request='http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 
-        empty($this->user_id) && header("Location:/login?back=".urlencode($request));
+        empty($this->user_id) && go("/user/login?back=".urlencode($request));
 
         $user=t('user')->get(['stat'=>1,'id'=>$this->user_id]);
 
-        if(empty($user)) header("Location:/login");
+        if(empty($user)) go("/user/login?back=".urlencode($request));
 
         $this->user_id=$user['id'];
         $this->user=$user;

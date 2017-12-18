@@ -6,6 +6,8 @@ class LoginController extends Base{
 
     public function index($params){
 
+        if($this->user_id) go("/user/");
+
         $this->css[]="/static/css/login.css";
 
         $back=empty($params['back'])?'':urldecode($params['back']);
