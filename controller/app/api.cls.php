@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends BaseAuth {
+class ApiController extends BaseAuth {
 
     /**
      * 选中bar
@@ -206,7 +206,7 @@ class IndexController extends BaseAuth {
         return [
             ['name'=>'类别管理','url'=>'/app/cat/'.self::CAT_TYPE_API,'click'=>'redirectPage(this)'],
             ['name'=>'APP版本管理','url'=>'/api/version/index','click'=>'redirectPage(this)'],
-            ['name'=>'新增接口','url'=>'/api/add','click'=>'redirectPage(this)']
+            ['name'=>'新增接口','url'=>'/app/api/add','click'=>'redirectPage(this)']
         ];
     }
 
@@ -243,7 +243,7 @@ class IndexController extends BaseAuth {
 
             $api['example']=$example;
 
-            $api['side_url']='/api#'.$api['id'];
+            $api['side_url']='/app/api#'.$api['id'];
             // 按类别分组
             $api_result[$cat][]=$api;
         }

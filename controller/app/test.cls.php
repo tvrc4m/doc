@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends BaseAuth {
+class TestController extends BaseAuth {
 
     /**
      * 选中bar
@@ -238,7 +238,7 @@ class IndexController extends BaseAuth {
 
         foreach ($test_list as $test) {
 
-            $test['side_url']='/test/detail/'.$test['id'].'#'.$test['id'];
+            $test['side_url']='/app/test/detail/'.$test['id'].'#'.$test['id'];
             $test['code']=$test['id'];
 
             $api_list[$cat_list[$test['cat_id']]][]=$test;

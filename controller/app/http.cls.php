@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends BaseAuth {
+class HttpController extends BaseAuth {
 
     /**
      * 选中bar
@@ -11,10 +11,12 @@ class IndexController extends BaseAuth {
     public function index($params){
 
         $api_list=$this->getApiList();
+
+        if(!empty($api_list)) foreach ($api_list as $api) $current=$api[0]['id'];
         
         $cats=$this->_get_http_cat();
 
-        $this->display('http/index.html',['api_list'=>$api_list,'test_env'=>$test_env,'cats'=>$cats,'title'=>'发起请求','tab_selected'=>'http']);
+        $this->display('http/index.html',['api_list'=>$api_list,'test_env'=>$test_env,'current'=>$current,'cats'=>$cats,'title'=>'发起请求','tab_selected'=>'http']);
     }
 
     public function get($params){
@@ -24,8 +26,8 @@ class IndexController extends BaseAuth {
         $m_api=require_model('api');
 
         $api=$m_api->getApiParams($api_id);
-        
-        exit(json_encode($api));
+
+        $this->ok(['api'=>$api]);
     }
 
     /**
@@ -117,7 +119,7 @@ class IndexController extends BaseAuth {
 
             $api['example']=$example;
 
-            $api['side_url']='/http#'.$api['id'];
+            $api['side_url']='/app/http#'.$api['id'];
             // 按类别分组
             $api_result[$cat][]=$api;
         }

@@ -2,7 +2,7 @@
     function VK(){
 
     }
-    VK.prototype.ajax = function(url,type,data,before,success,error) {
+    VK.prototype.ajax = function(url,type,data,before,success,complete,error) {
         var self=this;
         $.ajax({
             url:url,
@@ -23,6 +23,7 @@
             },
             complete:function(){
                 vk.loading(0);
+                if(typeof(complete)=='function') return complete();
             },
             error:function(){
                 if(typeof(error)=='function') return error();

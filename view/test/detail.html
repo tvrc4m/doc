@@ -2,7 +2,7 @@
     <?php if($data['test']){?>
         <div id="paramInfo" class="headline">
             <h2><?php echo $data['test']['title'];?></h2>&nbsp;&nbsp;&nbsp;
-            <code><a class="doc-edit" href="/test/edit/<?php echo $data['test']['id'];?>">编辑</a></code>
+            <code><a class="doc-edit" href="/app/test/edit/<?php echo $data['test']['id'];?>">编辑</a></code>
             <code><a class="doc-del" href="javascript:void(0);" onclick="delTest(<?php echo $data['test']['id'];?>)">删除</a></code>
         </div>
         <div style="margin-bottom: 5px;">
@@ -56,19 +56,9 @@
         })
         function delTest(test_id){
             if(window.confirm("是否确定要删除？")){
-                $.ajax({
-                    url:"/test/del",
-                    type:"POST",
-                    dataType:"json",
-                    data:{id:test_id},
-                    success:function(data){
-                        if(data.errno==0){
-                            document.location.href="/test/";
-                        }else{
-                            alert(data.errmsg);
-                        }
-                    }
-                })
+                vk.post("/app/test/del",{id:test_id},null,function(){
+                    document.location.href="/app/test/";
+                });
             }
         }
         $(document).on('click',".case-btn:not('.waiting'):not('.over')",function(event){
@@ -83,33 +73,19 @@
                 $(self).removeClass("waiting");
                 return false;
             }
-            $.ajax({
-                url:"/test/run",
-                type:"POST",
-                dataType:"json",
-                data:{test_case_id:test_case_id},
-                beforeSend:function(){
-                    $(self).text("正在请求中...");
-                },
-                success:function(data){
-                    if(data.errno==0){
-                        $(self).text("查看结果");
-                        console.log(data.data);
-                        $(self).parents('tr').next().find('.run_result').html(data.data.replace(/\n/g,'<br>').replace(/\s/g,'&nbsp;'));   
-                    }else{
-                        $(self).text("执行报错");
-                        alert(data.errmsg); 
-                    }
-                },
-                complete:function(){
-                    $(self).removeClass("waiting");
-                    $(self).addClass("over");
-                },
-                error:function(){
-                    $(self).text("请求失败");
-                    $(self).removeClass("waiting");
-                    $(self).addClass("over");
-                }
+            vk.post("/app/test/run",{test_case_id:test_case_id},function(){
+                $(self).text("正在请求中...");
+            },function(data){
+                $(self).text("查看结果");
+                console.log(data.data);
+                $(self).parents('tr').next().find('.run_result').html(data.data.replace(/\n/g,'<br>').replace(/\s/g,'&nbsp;'));  
+            },function(){
+                $(self).removeClass("waiting");
+                $(self).addClass("over");
+            },function(){
+                $(self).text("请求失败");
+                $(self).removeClass("waiting");
+                $(self).addClass("over");
             })
             return false;
         })

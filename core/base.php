@@ -200,9 +200,9 @@ class Base{
 
             return  
             [
-                ['name'=>'接口文档','url'=>'/api','selected'=>$this->bar_api?$this->bar_selected:'','children'=>[]],
-                ['name'=>'发起请求','url'=>'/http','selected'=>$this->bar_http?$this->bar_selected:'','children'=>[]],
-                ['name'=>'测试用例','url'=>'/test','selected'=>$this->bar_test?$this->bar_selected:'','children'=>[]],
+                ['name'=>'接口文档','url'=>'/app/api','selected'=>$this->bar_api?$this->bar_selected:'','children'=>[]],
+                ['name'=>'发起请求','url'=>'/app/http','selected'=>$this->bar_http?$this->bar_selected:'','children'=>[]],
+                ['name'=>'测试用例','url'=>'/app/test','selected'=>$this->bar_test?$this->bar_selected:'','children'=>[]],
             ];
         }
 

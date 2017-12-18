@@ -48,7 +48,7 @@ function login(){
         vk.notice("密码长度不能少于6位");
         return false;
     }
-    vk.post("/login/do",{nick:nick,pwd:password},function(){
+    vk.post("/login/do",{nick:nick,pwd:password},null,function(){
         var back=vk.val("back");
         if(back) document.location.href=back;
         else document.location.href="/";

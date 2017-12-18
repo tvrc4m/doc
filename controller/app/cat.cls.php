@@ -36,7 +36,7 @@ class CatController extends BaseAuth {
         if(empty($id)) $this->error('未指定类别');
         if(empty($name)) $this->error('名称不能为空');
 
-        $exists=t('cat')->get(['id'=>['$not'=>$id],'name'=>$name]);
+        $exists=t('cat')->get(['id'=>['$not'=>$id],'app_id'=>$this->app_id,'name'=>$name]);
 
         if(!empty($exists)) $this->error('名称不能重复');
 

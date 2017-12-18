@@ -84,36 +84,31 @@
                 enableScroll();
                 scrollStart();
                 var api_id=$(this).data("id");
-                $.ajax({
-                    url:"/http/index/get",
-                    type:"GET",
-                    dataType:"json",
-                    data:{id:api_id},
-                    success:function(data){
-                        $(".headline h2").html(data.title);
-                        $(".api_url em").html(data.url);
-                        $(".api_url .label-primary").html(data.type==1?'POST':'GET');
-                        $("input[name=api_id]").val(data.id);
-                        $("input[name=url]").val(data.url);
-                        $("input[name=code]").val(data.code);
-                        if(data.params){
-                            var html="";
-                            for(index in data.params){
-                                html+='<tr>';
-                                if(data.params[index]['must']==1){
-                                    html+='<td class="text-center console-index td-bottom" style="width: 100px;"><code>*</code>'+data.params[index].name+'</td>';
-                                }else{
-                                    html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+data.params[index].name+'</td>';
-                                }
-                                html+='<td class="text-center td-bottom" style="width: 100px;">';
-                                html+='<input type="text" name="'+data.params[index].name+'" />';
-                                html+='</td>';
-                                html+='<td class="text-center td-bottom text-left">'+data.params[index].remark+'</td>';
-                                html+='</tr>';
+                vk.post("/app/http/get",{id:api_id},null,function(data){
+                    var api=data.data.api;
+                    $(".headline h2").html(api.title);
+                    $(".api_url em").html(api.url);
+                    $(".api_url .label-primary").html(api.type==1?'POST':'GET');
+                    $("input[name=api_id]").val(api.id);
+                    $("input[name=url]").val(api.url);
+                    $("input[name=code]").val(api.code);
+                    if(api.params){
+                        var html="";
+                        for(index in api.params){
+                            html+='<tr>';
+                            if(api.params[index]['must']==1){
+                                html+='<td class="text-center console-index td-bottom" style="width: 100px;"><code>*</code>'+api.params[index].name+'</td>';
+                            }else{
+                                html+='<td class="text-center console-index td-bottom" style="width: 100px;">'+api.params[index].name+'</td>';
                             }
-                            $("#api_params").html(html);
-                            editor.setValue("");
+                            html+='<td class="text-center td-bottom" style="width: 100px;">';
+                            html+='<input type="text" name="'+api.params[index].name+'" />';
+                            html+='</td>';
+                            html+='<td class="text-center td-bottom text-left">'+api.params[index].remark+'</td>';
+                            html+='</tr>';
                         }
+                        $("#api_params").html(html);
+                        editor.setValue("");
                     }
                 })
             })
@@ -192,27 +187,11 @@
             }
             function saveExample(){
                 var api_id=$('input:hidden[name=api_id]').val();
-                if(!api_id){
-                    alert("未指定接口");
-                    return false;
-                }
+                if(vk.check_empty(api_id,"未指定接口")) return false;
                 var code=editor.getValue();
-                if(!code){
-                    alert("example为空");
-                    return false;
-                }
-                $.ajax({
-                    url:"/api/example/save",
-                    type:"POST",
-                    dataType:"json",
-                    data:{api_id:api_id,code:code},
-                    success:function(data){
-                        if(data.errno==0){
-                            alert('保存成功');
-                        }else{
-                            alert(data.errmsg);
-                        }
-                    }
+                if(vk.check_empty(code,"example为空")) return false;
+                vk.post("/api/example/save",{api_id:api_id,code:code},null,function(){
+                    vk.notice("保存成功");
                 })
             }
             function goToApi(){
@@ -276,7 +255,7 @@
             var api_return=editor.getValue();
             console.log(api_params)
             console.log(api_return)
-            vk.post("/http/save",{title:title,api_id:api_id,api_params:api_params,api_return:api_return,is_public:is_public,cat_id:cat_id},null,function(){
+            vk.post("/app/http/save",{title:title,api_id:api_id,api_params:api_params,api_return:api_return,is_public:is_public,cat_id:cat_id},null,function(){
                 $("#http_form input[name=title]").val("");
                 vk.close();
             })
@@ -285,6 +264,6 @@
 <?php }else{ ?>
     <div style="margin-top: 40px;" class="text-center">
         <p>还没有相应的api接口地址</p>
-        <p><a href="/api/index/add" class="btn-u">创建api接口</a></p>
+        <p><a href="/app/api/add" class="btn-u">创建api接口</a></p>
     </div>
 <?php } ?>

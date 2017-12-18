@@ -61,7 +61,7 @@
     function send(){
         var email=vk.val("email");
         if(email_reg.test(email)){
-            vk.post("/register/email",{email:email},function(){
+            vk.post("/register/email",{email:email},null,function(){
 
             })
         }else{
@@ -88,7 +88,7 @@
         else if(password.length<6){
             vk.notice("密码长度不能少于6位");
         }
-        vk.post("/register/do",{nick:nick,email:email,code:code,pwd:password},function(){
+        vk.post("/register/do",{nick:nick,email:email,code:code,pwd:password},null,function(){
             vk.notice("注册成功,即将跳往登陆页面",function(){
                 document.location.href="/login";    
             })
