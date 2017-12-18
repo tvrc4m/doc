@@ -41,7 +41,7 @@ class VersionController extends BaseAuth {
 
         t('app_version')->insert(['user_id'=>$this->user_id,'app_id'=>$this->app_id,'name'=>$name,'remark'=>$remark,'stat'=>1]);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok();
     }
 
     /**
@@ -56,7 +56,7 @@ class VersionController extends BaseAuth {
 
         t('app_version')->update(['remark'=>$remark],['id'=>$version_id]);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok();
     }
 
     public function del($params){
@@ -83,7 +83,7 @@ class VersionController extends BaseAuth {
 
         t('app_version')->update(['stat'=>0],['id'=>$id]);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok();
     }
 
     protected function actions(){

@@ -37,6 +37,6 @@ class LoginController extends Base{
 
         $_SESSION['token']=$user['id'];
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok();
     }
 }

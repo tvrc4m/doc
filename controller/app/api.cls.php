@@ -13,11 +13,13 @@ class ApiController extends BaseAuth {
      */
     public function index(){
 
-        $commonapi=file_get_contents(ROOT.'/static/json/api.json');
-        $api_common=json_decode($commonapi,true);
+        // $commonapi=file_get_contents(ROOT.'/static/json/api.json');
+        // $api_common=json_decode($commonapi,true);
+
+        if(!$this->app_id) go('/account/app/add');
 
         $api_list=$this->getApiList();
-        
+
         $this->display("api/content.html",['api_list'=>$api_list,'api_common'=>$api_common,'title'=>'APP接口文档','tab_selected'=>'app']);
     }
 

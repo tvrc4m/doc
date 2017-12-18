@@ -11,6 +11,6 @@ class LogoutController{
 
         session_destroy();
 
-        header("Location:/");
+        go("/");
     }
 }

@@ -9,15 +9,14 @@ class CatController extends BaseAuth {
     public function index($params){
 
         $type=$params['id'];
-        
         $cat_list=t('cat')->find(['type'=>$type,'app_id'=>$this->app_id,'stat'=>1]);
-
+        
         switch ($type) {
-            case self::CAT_TYPE_API:$title='API类别管理';$tab_selected='app';break;
-            case self::CAT_TYPE_DOC:$title='文档类别管理';$tab_selected='doc';break;
-            case self::CAT_TYPE_TEST_CASE:$title='测试用例类别管理';$tab_selected='test';break;
-            case self::CAT_TYPE_HTTP:$title='发起请求例类别管理';$tab_selected='http';break;
-            case self::CAT_TYPE_CLASS_PHP:$title='PHP类文档类别管理';$tab_selected='php';break;
+            case self::CAT_TYPE_API:$title='API类别管理';$this->bar_api=true;break;
+            case self::CAT_TYPE_DOC:$title='文档类别管理';$this->bar_doc=true;break;
+            case self::CAT_TYPE_TEST_CASE:$title='测试用例类别管理';$this->bar_test=true;break;
+            case self::CAT_TYPE_HTTP:$title='发起请求例类别管理';$this->bar_http=true;break;
+            case self::CAT_TYPE_CLASS_PHP:$title='PHP类文档类别管理';$this->bar_php=true;break;
         }
 
         $this->display("app/cat.html",['cat_list'=>$cat_list,'tab_selected'=>$tab_selected,'title'=>$title,'type'=>$type]);
@@ -42,7 +41,7 @@ class CatController extends BaseAuth {
 
         t('cat')->update(['name'=>$name],['id'=>$id]);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok();
     }
 
     /**
@@ -65,7 +64,7 @@ class CatController extends BaseAuth {
 
         t('cat')->insert(['user_id'=>$this->user_id,'app_id'=>$this->app_id,'name'=>$name,'type'=>$type,'stat'=>1]);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok();
     }
 
     public function del($params){
@@ -89,7 +88,7 @@ class CatController extends BaseAuth {
 
         t('cat')->update(['stat'=>0],['id'=>$id]);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok();
     }
 
     protected function actions(){

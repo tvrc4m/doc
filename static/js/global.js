@@ -16,19 +16,22 @@
             success:function(res){
                 console.log(res)
                 if(res.errno==0){
-                    if(typeof(success)=='function') return success(res.data);
                     // 判断是否需要跳转
-                    if(res.data.redirect){
+                    if(typeof(res.data.redirect)!='undefined' && res.data.redirect){
                         // 先文字提示后跳转
-                        if(res.data.message){
+                        if(typeof(res.data.message)!='undefined' && res.data.message){
                             self.notice(res.data.message,function(){
-                                vk.redirect(res.data.redirect);
+                                self.redirect(res.data.redirect);
                             })
                         }else{
                             // 直接跳转
-                            vk.redirect(res.data.redirect);
+                            self.redirect(res.data.redirect);
                         }
+                    }else if(res.data.message){
+                        // 单纯弹出提示文字
+                        self.notice(res.data.message);
                     }
+                    if(typeof(success)=='function') return success(res.data);
                 }else{
                     self.notice(res.errmsg);
                 }
@@ -116,6 +119,15 @@
 
     VK.prototype.parse = function(target,templateid,data) {
         $(target).append(template(templateid,data));
+    };
+
+    /**
+     * url跳转
+     * @param  {string} url 跳转链接 
+     * @return 
+     */
+    VK.prototype.redirect = function(url) {
+        document.location.href=url;
     };
 
     VK.prototype.check_empty = function(name,message) {

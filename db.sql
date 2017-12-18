@@ -216,6 +216,8 @@ CREATE TABLE kf_user_setting(
     api_count int default 0 COMMENT '支持的api接口数量',
     user_count int default 0 COMMENT '支持的成员上限人数',
     http_request_count int default 0 COMMENT '支持调用的api接口次数(每月)',
+    start_date datetime COMMENT '开始计费日期',
+    valid_day int default 0 COMMENT '有效期(天数)',
     create_date datetime,
     update_date datetime
 ) engine=InnoDB;

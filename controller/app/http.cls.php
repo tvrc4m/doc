@@ -45,7 +45,11 @@ class HttpController extends BaseAuth {
         unset($params['url']);
         unset($params['env']);
 
-        $result=run($env,$url,$params);
+        $test=t('user_app_test_env')->get(['app_id'=>$this->app_id,'name'=>$env]);
+
+        $domain=trim($test['url'],'/');
+
+        $result=run($domain.'/'.$url,$params);
 
         echo $result;
         
@@ -71,10 +75,10 @@ class HttpController extends BaseAuth {
             if(empty($title)) $this->error('未设置标题');
             if(empty($cat_id)) $this->error('类别不能为空');
 
-            t('user_http')->insert(['user_id'=>$this->user_id,'app_id'=>$this->app_id,'title'=>$title,'cat_id'=>$cat_id,'api_id'=>$api_id,'api_params'=>json_encode($api_params),'api_return'=>$api_return,'is_public'=>$is_public]);
+            t('user_http')->insert(['user_id'=>$this->user_id,'app_id'=>$this->app_id,'title'=>$title,'cat_id'=>$cat_id,'api_id'=>$api_id,'api_params'=>json_encode($api_params),'api_return'=>$api_return,'is_public'=>$is_public,'stat'=>1]);
         }
 
-        exit(json_encode(['errno'=>0]));
+        $this->ok(['message'=>'保存成功']);
     }
 
     protected function actions(){
@@ -131,7 +135,7 @@ class HttpController extends BaseAuth {
      */
     private function _get_api_cat(){
 
-        return t('cat')->find(['type'=>self::CAT_TYPE_API,'stat'=>1]);
+        return t('cat')->find(['app_id'=>$this->app_id,'type'=>self::CAT_TYPE_API,'stat'=>1]);
     }
 
     /**
@@ -140,6 +144,6 @@ class HttpController extends BaseAuth {
      */
     private function _get_http_cat(){
 
-        return t('cat')->find(['type'=>self::CAT_TYPE_HTTP,'stat'=>1]);
+        return t('cat')->find(['app_id'=>$this->app_id,'type'=>self::CAT_TYPE_HTTP,'stat'=>1]);
     }
 }

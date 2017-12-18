@@ -70,16 +70,14 @@ class CertController extends BaseAuth{
         $realname=$params['realname'];
         $phone=$params['phone'];
         $phoneCode=$params['phoneCode'];
-        $email=$params['email'];
         $idcard=$params['idcard'];
         $company=$params['company'];
+        $licence_no=$params['license'];
         // $company=$params['company'];
         if($user_type!=self::USER_TYPE_COMPANY && $user_type!=self::USER_TYPE_PERSION) $this->error('不支持该用户类型');
         if(empty($realname)) $this->error('真实姓名不能为空');
         if(empty($phone)) $this->error('手机号不能为空');
         if(!preg_match('/(\d{11})/', $phone)) $this->error('手机号格式不对');
-        if(empty($email)) $this->error('邮箱不能为空');
-        if(!preg_match('/^[^@]+@\w+\.\w+/', $email)) $this->error('邮箱格式不对'); #TODO::正则待优化
 
         $db=DB::init();
 
@@ -92,10 +90,12 @@ class CertController extends BaseAuth{
             if($user_type==self::USER_TYPE_COMPANY){
 
                 $is_admin=$is_company=1;
-                $company_id=t('company')->insert(['name'=>$company]);
+                $company_id=t('company')->insert(['name'=>$company,'licence_no'=>$licence_no]);
             }
             
-            t('user')->update(['realname'=>$realname,'phone'=>$phone,'email'=>$email,'card_no'=>$idcard,'is_admin'=>$is_admin,'is_company'=>$is_company,'company_id'=>$company_id,'cert_status'=>self::USER_CERT_STATUS_CHECK],['id'=>$this->user_id]);
+            t('user')->update(['realname'=>$realname,'phone'=>$phone,'card_no'=>$idcard,'is_admin'=>$is_admin,'is_company'=>$is_company,'company_id'=>$company_id,'cert_status'=>self::USER_CERT_STATUS_CHECK],['id'=>$this->user_id]);
+            // 默认免费使用15天,支持15个用户，可创建100个api接口,支持一个应用
+            t('user_setting')->insert(['user_id'=>$this->user_id,'company_id'=>$company_id,'app_count'=>1,'api_count'=>100,'user_count'=>15,'start_date'=>date('Y-m-d H:i:s'),'valid_day'=>15]);
 
             $db->commit();
         }catch(Exception $e){
@@ -111,5 +111,20 @@ class CertController extends BaseAuth{
     protected function getLeftNavBar(){
 
         return [];
+    }
+
+    /**
+     * 重新定义右边的navbar
+     * @return array
+     */
+    protected function getRightNavBar(){
+
+        return 
+        [
+            ['name'=>'价格','url'=>'/account/price/index','selected'=>$this->bar_price?$this->bar_selected:''],
+            ['name'=>'@'.$_SESSION['user']['nick'],'selected'=>$this->bar_self?$this->bar_selected:'','children'=>[
+                ['name'=>'退出','url'=>'/user/logout','selected'=>'','children'=>[]],        
+            ]],
+       ];
     }
 }

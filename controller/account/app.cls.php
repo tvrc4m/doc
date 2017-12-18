@@ -31,7 +31,7 @@ class AppController extends BaseAuth{
      */
     public function add($params){
         // 检查是否能添加app
-        if(!$this->check_add_app()) go('/error');
+        if(!$this->check_add_app()) go('/account/app/');
 
         $this->call_method_actions=false;
 
@@ -161,9 +161,14 @@ class AppController extends BaseAuth{
      */
     public function check_add_app(){
 
-        $user_setting=t('user_setting')->get(['user_id'=>$this->user_id]);
+        if($this->user['company_id']){
+
+            $user_setting=t('user_setting')->get(['company_id'=>$this->user['company_id']]);
+        }else{
+            $user_setting=t('user_setting')->get(['user_id'=>$this->user_id]);
+        }
         // 检测是否到达应用限制
-        if($user_setting['app_count']>=$this->user['app_count']) return false;
+        if($user_setting['app_count']<=$this->user['app_count']) return false;
 
         return true;
     }

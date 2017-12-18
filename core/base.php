@@ -273,6 +273,7 @@ class BaseAuth extends Base{
         if(empty($user)) go("/user/login?back=".urlencode($request));
 
         $this->user_id=$user['id'];
+        $this->company_id=$user['company_id'];
         $this->user=$user;
 
         $_SESSION['user']=$user;
@@ -296,18 +297,15 @@ class BaseAuth extends Base{
      */
     public function get_user_app(){
 
-        if(!$this->user['is_company']){
+        $user_app=$this->m_app->get_user_app($this->user_id,$this->user['company_id']);
+        
+        if(empty($user_app)){
 
-            $user_app=t('user_app')->get(['user_id'=>$this->user_id,'stat'=>1]);
+            $this->hide_left_bar=true;
 
-            if(empty($user_app)){
-
-                $this->hide_left_bar=true;
-
-                return;
-            }
-
-            $this->app_id=$user_app['id'];
+            return;
         }
+
+        $this->app_id=$user_app['id'];
     }
 }

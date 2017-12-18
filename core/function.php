@@ -13,19 +13,10 @@ function require_model($class){
     return new $classname();
 }
 
-function run($env,$url,$params){
-
-    $environment=getEnvList();
-
-    $domain=$environment[$env];
-
-    if($env=='live') $params['test_code']='fdj837fb&30*83b*&73hf_kgjjg&hhf';
-
-    empty($params['page']) && $params['page']=1;
-    empty($params['pcount']) && $params['pcount']=20;
+function run($url,$params){
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $domain.$url);
+    curl_setopt($ch, CURLOPT_URL,$url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);

@@ -10,10 +10,9 @@
             <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
         </p>
         <?php echo $this->getTestHtml(3); ?>
-        <form id="httpform" action="/http/run" method="POST">
+        <form id="httpform" action="/app/http/run" method="POST">
             <input type="hidden" name="api_id" value="<?php echo $data['api']['id']; ?>" />
             <input type="hidden" name="url" value="<?php echo $data['api']['url']; ?>" />
-            <input type="hidden" name="code" value="<?php echo $data['api']['code']; ?>" />
             <input type="hidden" name="env" value="dev" />
             <table class="table hidden-xs" style="margin-bottom: 0;">
                 <thead>
@@ -36,7 +35,7 @@
         </form>
         <script src="/static/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript">
-            var current="",full=0;
+            var current="<?php echo $data['current'];?>",full=0;
             var editor = ace.edit("result");
             editor.setTheme("ace/theme/monokai");
             editor.getSession().setMode("ace/mode/javascript");
@@ -91,7 +90,6 @@
                     $(".api_url .label-primary").html(api.type==1?'POST':'GET');
                     $("input[name=api_id]").val(api.id);
                     $("input[name=url]").val(api.url);
-                    $("input[name=code]").val(api.code);
                     if(api.params){
                         var html="";
                         for(index in api.params){
@@ -190,13 +188,11 @@
                 if(vk.check_empty(api_id,"未指定接口")) return false;
                 var code=editor.getValue();
                 if(vk.check_empty(code,"example为空")) return false;
-                vk.post("/api/example/save",{api_id:api_id,code:code},null,function(){
-                    vk.notice("保存成功");
-                })
+                vk.post("/api/example/save",{api_id:api_id,code:code})
             }
             function goToApi(){
-                var code=$("input[name=code]").val();
-                document.location.href="/api#"+code;
+                var api_id=$("input[name=api_id]").val();
+                document.location.href="/app/api#"+api_id;
             }
             $(function(){
                 if(!current && document.location.hash){

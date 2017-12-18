@@ -11,7 +11,7 @@
         <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
     </p>
     <?php echo $this->getTestHtml(3);?>
-    <form id="httpform" action="/http/run" method="POST">
+    <form id="httpform" action="/app/http/run" method="POST">
         <input type="hidden" name="api_id" value="" />
         <input type="hidden" name="url" value="" />
         <input type="hidden" name="code" value="" />
@@ -202,9 +202,7 @@
                 alert("example为空");
                 return false;
             }
-            vk.post("/api/example/save",{api_id:api_id,code:code},null,function(){
-                vk.notice("保存成功");
-            })
+            vk.post("/api/example/save",{api_id:api_id,code:code})
         }
         function goToApi(){
             var code=$("input[name=code]").val();
@@ -231,7 +229,7 @@
 <?php }else{ ?>
     <div class="text-center" style="margin-top: 50px;font-size: 14px;font-weight: 600;">
         <p>目前还没有保存请求</p>
-        <code><a class="http_send" href="/api/http#channel_getlist">发起请求->保存按钮</a></code>
+        <code><a class="http_send" href="/app/http">发起请求->保存按钮</a></code>
     </div>
 <?php }?>
 <div id="http_save_modal" style="display: none">
@@ -274,7 +272,7 @@
         var api_params=$("#api_params input").serialize();
         var api_return=editor.getValue();
         vk.post("/http/save",{user_http_id:user_http_id,api_params:api_params,api_return:api_return},null,function(){
-            vk.close();
+            
         })
     })
 </script>

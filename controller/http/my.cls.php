@@ -11,7 +11,6 @@ class MyController extends BaseAuth{
 
         $user_http=$this->m_http->getUserAndPublicHttp($this->user_id);
         $cats=$this->_get_http_cat();
-        
         $result=[];
 
         foreach ($cats as $cat) {
@@ -78,7 +77,7 @@ class MyController extends BaseAuth{
 
         t('user_http')->update(['stat'=>0],['id'=>$user_http_id,'user_id'=>$this->user_id]);
 
-        exit(json_encode(['errno'=>0]));
+        $this->ok();
     }
 
     /**
@@ -87,6 +86,6 @@ class MyController extends BaseAuth{
      */
     private function _get_http_cat(){
 
-        return t('cat')->find(['type'=>self::CAT_TYPE_HTTP,'stat'=>1]);
+        return t('cat')->find(['app_id'=>$this->app_id,'type'=>self::CAT_TYPE_HTTP,'stat'=>1]);
     }
 }
