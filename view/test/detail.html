@@ -69,16 +69,16 @@
             var test_case_id=$(self).data("test_case_id");
             var env=$("input[name=env]:checked").val();
             if(!env){
-                alert("请先选择执行环境");
+                vk.notice("请先选择执行环境");
                 $(self).removeClass("waiting");
                 return false;
             }
-            vk.post("/app/test/run",{test_case_id:test_case_id},function(){
+            vk.post("/app/test/run",{test_case_id:test_case_id,env:env},function(){
                 $(self).text("正在请求中...");
             },function(data){
                 $(self).text("查看结果");
-                console.log(data.data);
-                $(self).parents('tr').next().find('.run_result').html(data.data.replace(/\n/g,'<br>').replace(/\s/g,'&nbsp;'));  
+                console.log(data);
+                $(self).parents('tr').next().find('.run_result').html(data.replace(/\n/g,'<br>').replace(/\s/g,'&nbsp;'));  
             },function(){
                 $(self).removeClass("waiting");
                 $(self).addClass("over");

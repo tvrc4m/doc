@@ -204,10 +204,6 @@ class TestController extends BaseAuth {
 
         $env=$params['env'];
         $test_case_id=$params['test_case_id'];
-        empty($env) && $env='dev';
-
-        $m_test=require_model('test');
-        $m_api=require_model('api');
 
         $test_case=t('test_case')->getById($test_case_id);
 
@@ -216,11 +212,13 @@ class TestController extends BaseAuth {
 
         if(empty($api_id)) $this->error('未关联API接口');
 
-        $api_detail=$m_api->getApi($api_id);
+        $api_detail=$this->m_api->getApi($api_id);
 
         if(empty($api_detail)) $this->error('关联API接口不存在');
 
-        $result=run($env,$api_detail['url'],json_decode($params,true));
+        $domain=$this->m_http->getTestEnvUrl($this->app_id,$env);
+
+        $result=run($domain.'/'.$api_detail['url'],json_decode($params,true));
 
         $result=json_encode(json_decode($result,true),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 

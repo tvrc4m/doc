@@ -10,4 +10,17 @@ class HttpModel extends Model{
 
         return t('user_http')->find(['user_id'=>$user_id,'stat'=>1]);
     }
+
+    /**
+     * 获取某个测试环境的域名
+     * @param  int $app_id 应用id
+     * @param  string $env    测试环境名称
+     * @return string 域名链接
+     */
+    public function getTestEnvUrl($app_id,$env){
+
+        $test=t('user_app_test_env')->get(['app_id'=>$app_id,'name'=>$env,'stat'=>1]);
+
+        return rtrim($test['url'],'/');
+    }
 }
