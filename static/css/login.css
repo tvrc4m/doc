@@ -26,9 +26,9 @@ div.content div.login-inner-div {
     border: 1px solid #e7ebed;
 }
 div.content div.login-outer-div {
-    width: 460px;
+    width: 410px;
     left: 50%;
-    margin-left: -230px;
+    margin-left: -205px;
     position: relative;
 }
 #form.sky-form {

@@ -256,7 +256,7 @@
         params.each(function(i,item){
             if(vk.check_empty($(item).val(),"参数类型不能为空")) return false;
         })
-        vk.post("/api/app/save",$("#api_form").serialize(),null,function(){
+        vk.post("/api/index/save",$("#api_form").serialize(),null,function(data){
             document.location.href=data.redirect;
         })
     }

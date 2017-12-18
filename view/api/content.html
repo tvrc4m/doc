@@ -68,16 +68,15 @@
     <?php if($data['api_list']){ ?>
         <?php foreach($data['api_list'] as $key=>$cat){?>
             <?php foreach($cat as $key=>$param){?>
-                <?php $key=$param['code'];?>
-                <a name="<?php echo $key; ?>"></a>
+                <a name="<?php echo $param['id']; ?>"></a>
                 <div style="height: 41px;"></div>
                 <div id="paramInfo" class="headline">
                     <h2><?php echo $param['title']; ?></h2>
-                    <?php if($key && $param['url']){ ?>
-                        <code><a class="api-copy" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api#'.$key;?>">拷贝链接</a></code>
+                    <?php if($param['url']){ ?>
+                        <code><a class="api-copy" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api#'.$param['id'];?>">拷贝链接</a></code>
                         <code><a class="api-edit" href="/api/edit/<?php echo $param['id'];?>">编辑</a></code>
                         <code><a class="api-case" href="/api/case/<?php echo $param['id'];?>">查看测试用例</a></code>
-                        <code><a class="http_send" href="/http#<?php echo $key;?>" target="_blank">发起请求</a></code>
+                        <code><a class="http_send" href="/http#<?php echo $param['id'];?>" target="_blank">发起请求</a></code>
                     <?php } ?>
                 </div>
                 <p>
@@ -193,7 +192,7 @@
             <?php if($param['example']){ ?>
                 <h4>返回代码&nbsp;&nbsp;
                     <code class="expand_example">展开</code>
-                    <code><a class="http_send" href="/http#<?php echo $key;?>" target="_blank">发起请求</a></code>
+                    <code><a class="http_send" href="/http#<?php echo $param['id'];?>" target="_blank">发起请求</a></code>
                 </h4>
                 <pre class="example"><?php echo $param['example'];?></pre>
             <?php } ?>

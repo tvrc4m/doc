@@ -10,7 +10,7 @@ class IndexController extends BaseAuth {
 
     public function index($params){
 
-        $api_list=$this->getApiList('http');
+        $api_list=$this->getApiList();
         
         $cats=$this->_get_http_cat();
 
@@ -69,7 +69,7 @@ class IndexController extends BaseAuth {
             if(empty($title)) $this->error('未设置标题');
             if(empty($cat_id)) $this->error('类别不能为空');
 
-            t('user_http')->insert(['user_id'=>$this->user_id,'title'=>$title,'cat_id'=>$cat_id,'api_id'=>$api_id,'api_params'=>json_encode($api_params),'api_return'=>$api_return,'is_public'=>$is_public]);
+            t('user_http')->insert(['user_id'=>$this->user_id,'app_id'=>$this->app_id,'title'=>$title,'cat_id'=>$cat_id,'api_id'=>$api_id,'api_params'=>json_encode($api_params),'api_return'=>$api_return,'is_public'=>$is_public]);
         }
 
         exit(json_encode(['errno'=>0]));
@@ -90,9 +90,9 @@ class IndexController extends BaseAuth {
     public function getApiList($action='http'){
         // 获取API类别
         $cat_list=$this->_get_api_cat();
-        $api_list=t('api')->find(['stat'=>1]);
-        $params_list=t('api_params')->find(['stat'=>1],null,['name'=>'asc']);        
-        $return_list=t('api_return')->find(['stat'=>1],null,['name'=>'asc']);
+        $api_list=t('api')->find(['app_id'=>$this->app_id,'stat'=>1]);
+        $params_list=t('api_params')->find(['app_id'=>$this->app_id,'stat'=>1],null,['name'=>'asc']);        
+        $return_list=t('api_return')->find(['app_id'=>$this->app_id,'stat'=>1],null,['name'=>'asc']);
 
         $cat_result=$params_result=$return_result=$api_result=[];
 
@@ -117,12 +117,7 @@ class IndexController extends BaseAuth {
 
             $api['example']=$example;
 
-            if($action=='api'){
-
-                $api['side_url']='/api#'.$api['code'];
-            }elseif($action=='http'){
-                $api['side_url']='/http#'.$api['code'];
-            }
+            $api['side_url']='/http#'.$api['id'];
             // 按类别分组
             $api_result[$cat][]=$api;
         }

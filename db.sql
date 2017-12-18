@@ -161,6 +161,7 @@ CREATE TABLE kf_user_http(
     id int AUTO_INCREMENT PRIMARY KEY,
     title varchar(500) NOT NULL COMMENT '标题',
     api_id int NOT NULL COMMENT 'api接口id',
+    app_id int NOT NULL COMMENT '应用id',
     api_params varchar(500) DEFAULT '',
     api_return text DEFAULT '',
     user_id int NOT NULL COMMENT '关联的用户id',

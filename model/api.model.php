@@ -16,6 +16,20 @@ class ApiModel extends Model{
         return $api;
     }
 
+    /**
+     * 获取api详情，包括请求参数，返回参数 
+     * @param  int $api_id 
+     * @return array
+     */
+    public function getApiDetail($api_id){
+
+        $api=t('api')->getById($api_id);
+        $api['params']=t('api_params')->find(['stat'=>1,'api_id'=>$api_id]);
+        $api['return']=t('api_return')->find(['stat'=>1,'api_id'=>$api_id]);
+
+        return $api;
+    }
+
     
     public function getAllCatApi(){
 

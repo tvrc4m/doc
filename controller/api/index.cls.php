@@ -43,7 +43,7 @@ class IndexController extends BaseAuth {
 
         $api_id=$params['id'];
 
-        $api=t('api')->getById($api_id);
+        $api=$this->m_api->getApiDetail($api_id);
 
         $api['cats']=$this->_get_api_cat();
 
@@ -103,7 +103,7 @@ class IndexController extends BaseAuth {
                 t('api')->update($api_data,['id'=>$id]);
             }elseif($is_add){
 
-                t('api')->insert($api_data);
+                $id=t('api')->insert($api_data);
             }else{
 
                 throw new Exception('不支持的操作');
@@ -119,7 +119,7 @@ class IndexController extends BaseAuth {
 
             foreach ($params as $name=>$param) {
 
-                $api_params_data=['app_id'=>$this->app_id,'name'=>$name,'type'=>$param['type'],'must'=>intval($param['must']),'version'=>$param['version'],'remark'=>$param['remark']];
+                $api_params_data=['app_id'=>$this->app_id,'api_id'=>$id,'name'=>$name,'type'=>$param['type'],'must'=>intval($param['must']),'version'=>$param['version'],'remark'=>$param['remark']];
 
                 if($param['id']){
 
@@ -140,7 +140,7 @@ class IndexController extends BaseAuth {
 
             foreach ($return as $name=>$ret) {
 
-                $api_ret_data=['app_id'=>$this->app_id,'name'=>$name,'type'=>$ret['type'],'must'=>intval($ret['must']),'version'=>$ret['version'],'remark'=>$ret['remark']];
+                $api_ret_data=['app_id'=>$this->app_id,'api_id'=>$id,'name'=>$name,'type'=>$ret['type'],'must'=>intval($ret['must']),'version'=>$ret['version'],'remark'=>$ret['remark']];
 
                 if($ret['id']){
 
@@ -227,7 +227,6 @@ class IndexController extends BaseAuth {
         foreach($cat_list as $cat) $cat_result[$cat['id']]=$cat['name'];
         foreach($params_list as $params) $params_result[$params['api_id']][]=$params;
         foreach($return_list as $return) $return_result[$return['api_id']][]=$return;
-        
         foreach ($api_list as $api) {
             // 类别名称
             $cat=$cat_result[$api['cat_id']];
@@ -244,7 +243,7 @@ class IndexController extends BaseAuth {
 
             $api['example']=$example;
 
-            $api['side_url']='/api#'.$api['code'];
+            $api['side_url']='/api#'.$api['id'];
             // 按类别分组
             $api_result[$cat][]=$api;
         }
