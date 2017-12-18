@@ -257,7 +257,7 @@
             if(vk.check_empty($(item).val(),"参数类型不能为空")) return false;
         })
         vk.post("/app/api/save",$("#api_form").serialize(),null,function(data){
-            document.location.href=data.redirect;
+            
         })
     }
     $("input[name=request_name]").on('focus',function(){

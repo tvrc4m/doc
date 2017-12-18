@@ -226,7 +226,7 @@ class Base{
                 ['name'=>'价格','url'=>'/account/price/index','selected'=>$this->bar_price?$this->bar_selected:''],
                 ['name'=>'设置','url'=>'/http','selected'=>$this->bar_setting?$this->bar_selected:'','children'=>[]],
                 ['name'=>'@'.$_SESSION['user']['nick'],'selected'=>$this->bar_self?$this->bar_selected:'','children'=>[
-                    ['name'=>'退出','url'=>'/logout','selected'=>'','children'=>[]],        
+                    ['name'=>'退出','url'=>'/user/logout','selected'=>'','children'=>[]],        
                 ]],
            ];
         }

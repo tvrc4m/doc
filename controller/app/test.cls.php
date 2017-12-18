@@ -155,13 +155,13 @@ class TestController extends BaseAuth {
 
             $db->commit();
 
-            exit(json_encode(['errno'=>0,'redirect'=>'/test/detail/'.$test_id.'#'.$test_id]));
+            $this->ok(['redirect'=>'/test/detail/'.$test_id.'#'.$test_id]);
 
         }catch(Exception $e){
 
             $db->rollback();
 
-            exit(json_encode(['errno'=>-1,'errmsg'=>$e->getMessage()]));
+            $this->error($e->getMessage());
         }
     }
 
@@ -178,7 +178,7 @@ class TestController extends BaseAuth {
 
         t('test')->update(['stat'=>0],['id'=>$test_id]);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok(['redirect'=>'/app/test']);
     }
 
     /**
@@ -191,7 +191,7 @@ class TestController extends BaseAuth {
 
         $params=t('api_params')->find(['stat'=>1,'api_id'=>$api_id]);
 
-        exit(json_encode($params));
+        $this->ok(['params'=>$params]);
     }
 
     /**
@@ -224,7 +224,7 @@ class TestController extends BaseAuth {
 
         $result=json_encode(json_decode($result,true),JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'','data'=>$result]));
+        $this->ok($result);
     }
 
     private function getSideBar(){

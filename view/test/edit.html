@@ -172,8 +172,8 @@ console.log(aaa);
     function getApiRequest(that,callback){
         var api_id=$(that).val();
         console.log(api_id);
-        vk.post("/test/api_params",{api_id:api_id},null,function(){
-            var params_html = template("params_template", {params:data});
+        vk.post("/app/test/api_params",{api_id:api_id},null,function(data){
+            var params_html = template("params_template", {params:data.params});
             $("#params_body").html(params_html);
             typeof(callback)=='function' && callback();
         })
@@ -218,8 +218,8 @@ console.log(aaa);
         cases.each(function(i,item){
             if(vk.check_empty($(item).val(),"测试用例说明不能为空")) return false;
         })
-        vk.post("/test/save",$("#test_case_form").serialize(),null,function(data){
-            document.location.href=data.redirect;
+        vk.post("/app/test/save",$("#test_case_form").serialize(),null,function(data){
+            
         })
     }
 </script>

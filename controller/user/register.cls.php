@@ -50,20 +50,30 @@ class RegisterController extends Base{
         if(empty($pwd)) $this->error('密码不能为空');
         if(strlen($pwd)<6) $this->error('密码最小长度为6位');
 
-        $user=t('user')->get(['nick'=>$nick,'stat'=>1],['nick','pwd']);
+        try{
 
-        if(!empty($user)) $this->error('用户已存在');
+            $db=DB::init();
+            $db->start();
 
-        $pwd=md5(sha1($pwd));
+            $user=t('user')->get(['nick'=>$nick,'stat'=>1],['nick','pwd']);
 
-        $user_id=t('user')->insert(['nick'=>$nick,'email'=>$email,'pwd'=>$pwd,'stat'=>1]);
+            if(!empty($user)) $this->error('用户已存在');
 
-        if(empty($user_id)) $this->error("注册失败");
+            $user_id=t('user')->insert(['nick'=>$nick,'email'=>$email,'pwd'=>md5(sha1($pwd)),'stat'=>1]);
 
-        $_SESSION['token']=$user_id;
+            if(empty($user_id)) throw new Exception('注册失败');
+            
+            $db->commit();
 
-        $_SESSION['user']=['id'=>$user_id,'nick'=>$nick,'email'=>$email];
+            $_SESSION['token']=$user_id;
+            $_SESSION['user']=['id'=>$user_id,'nick'=>$nick,'email'=>$email];
+            
+            $this->ok(['redirect'=>"/account/cert"]);
+        }catch(Exception $e){
 
-        $this->ok(['redirect'=>"/account/cert"]);
+            $db->rollback();
+
+            $this->error("注册失败,请稍后再试");
+        }
     }
 }

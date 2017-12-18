@@ -97,7 +97,7 @@
             if(vk.check_empty($(item).val(),"测试环境域名不能为空")) return false;
         })
         vk.post("/account/app/save",$("#app_form").serialize(),null,function(data){
-            document.location.href=data.redirect;
+            
         });
     }
     vk.check2radio("input[type=checkbox]");

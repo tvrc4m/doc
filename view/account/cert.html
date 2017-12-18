@@ -179,6 +179,9 @@
         $("input[name=region]").val(2);
     })
     $('#certBtn').on('click',function(){
+        vk.post("/account/cert/info",$("form").serialize(),null,function(res){
+            
+        })
         $.ajax({
             url:"/account/cert/info",
             data:$("form").serialize(),

@@ -105,7 +105,7 @@ class CertController extends BaseAuth{
             $this->error('操作异常,请稍后操作');
         }
 
-        $this->ok();
+        $this->ok(['redirect'=>'/account/cert/verify']);
     }
 
     protected function getLeftNavBar(){

@@ -89,7 +89,7 @@
             vk.notice("密码长度不能少于6位");
         }
         vk.post("/user/register/do",{nick:nick,email:email,code:code,pwd:password},null,function(){
-            document.location.href=res.data.redirect;
+            
         })
     }
 </script>

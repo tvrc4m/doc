@@ -85,7 +85,7 @@
                 scrollStart();
                 var api_id=$(this).data("id");
                 vk.post("/app/http/get",{id:api_id},null,function(data){
-                    var api=data.data.api;
+                    var api=data.api;
                     $(".headline h2").html(api.title);
                     $(".api_url em").html(api.url);
                     $(".api_url .label-primary").html(api.type==1?'POST':'GET');

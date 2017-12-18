@@ -13,12 +13,24 @@
                 vk.loading(1);
                 if(typeof(before)=='function') return before();
             },
-            success:function(data){
-                console.log(data)
-                if(data.errno==0){
-                    if(typeof(success)=='function') return success(data);
+            success:function(res){
+                console.log(res)
+                if(res.errno==0){
+                    if(typeof(success)=='function') return success(res.data);
+                    // 判断是否需要跳转
+                    if(res.data.redirect){
+                        // 先文字提示后跳转
+                        if(res.data.message){
+                            self.notice(res.data.message,function(){
+                                vk.redirect(res.data.redirect);
+                            })
+                        }else{
+                            // 直接跳转
+                            vk.redirect(res.data.redirect);
+                        }
+                    }
                 }else{
-                    self.notice(data.errmsg);
+                    self.notice(res.errmsg);
                 }
             },
             complete:function(){

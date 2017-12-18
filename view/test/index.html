@@ -14,8 +14,7 @@
     <script type="text/javascript">
         function delDoc(docid){
             if(window.confirm("是否确定要删除？")){
-                vk.post("/test/del",{id:docid},null,function(){
-                    document.location.href="/test/";
+                vk.post("/app/test/del",{id:docid},null,function(){
                 });
             }
         }

@@ -119,13 +119,13 @@ class AppController extends BaseAuth{
 
             $db->commit();
 
-            exit(json_encode(['errno'=>0,'redirect'=>'/account/app/'.$app_id]));
+            $this->ok(['redirect'=>'/account/app/'.$app_id]);
 
         }catch(Exception $e){
 
             $db->rollback();
 
-            exit(json_encode(['errno'=>-1,'errmsg'=>$e->getMessage()]));
+            $this->error($e->getMessage());
         }
     }
     /**
@@ -141,7 +141,7 @@ class AppController extends BaseAuth{
 
         t('user_app')->update(['stat'=>0],['id'=>$id]);
 
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        $this->ok();
     }
 
     public function actions(){

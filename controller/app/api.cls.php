@@ -151,13 +151,13 @@ class ApiController extends BaseAuth {
 
             $db->commit();
 
-            exit(json_encode(['errno'=>0,'redirect'=>'/app/api#'.$id]));
+            $this->ok(['redirect'=>'/app/api#'.$id]);
 
         }catch(Exception $e){
 
             $db->rollback();
 
-            exit(json_encode(['errno'=>-1,'errmsg'=>$e->getMessage()]));
+            $this->error($e->getMessage());
         }
     }
 
@@ -195,8 +195,8 @@ class ApiController extends BaseAuth {
 
             t('api_example')->insert(['code'=>$code],['id'=>$example['id']]);
         }
-
-        exit(json_encode(['errno'=>0,'errmsg'=>'']));
+        
+        $this->ok();
     }
 
     protected function actions(){
