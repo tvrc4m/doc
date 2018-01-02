@@ -25,11 +25,11 @@ class Base{
     const USER_CERT_STATUS_OK=2; #认证通过
     const USER_CERT_STATUS_ERR=3; #认证失败
 
-    const API_PARAMS_TYPE_INT=1;
-    const API_PARAMS_TYPE_STRING=2;
-    const API_PARAMS_TYPE_BOOLEAN=3;
-    const API_PARAMS_TYPE_OBJECT=4;
-    const API_PARAMS_TYPE_ARRAY=5;
+    const API_PARAMS_TYPE_INT='int';
+    const API_PARAMS_TYPE_STRING='string';
+    const API_PARAMS_TYPE_BOOLEAN='boolean';
+    const API_PARAMS_TYPE_OBJECT='object';
+    const API_PARAMS_TYPE_ARRAY='array';
 
     public $params_type=[
         self::API_PARAMS_TYPE_INT=>'int',
@@ -212,12 +212,24 @@ class Base{
 
         if($this->user_id){
 
-            return  
-            [
-                ['name'=>'接口文档','url'=>'/app/api','selected'=>$this->bar_api?$this->bar_selected:'','children'=>[]],
-                ['name'=>'发起请求','url'=>'/app/http','selected'=>$this->bar_http?$this->bar_selected:'','children'=>[]],
-                ['name'=>'测试用例','url'=>'/app/test','selected'=>$this->bar_test?$this->bar_selected:'','children'=>[]],
-            ];
+            $user_app=$this->m_app->get_user_app($this->user_id,$this->user['company_id']);
+
+            if(empty($user_app)){
+
+                return  
+                [
+                    ['name'=>'创建应用','url'=>'/account/app/add','children'=>[]]
+                ];
+            }else{
+
+                return  
+                [
+                    ['name'=>$user_app['name'],'url'=>'javascript:void(0);','selected'=>$this->bar_my_app?$this->bar_selected:'','children'=>[]], 
+                    ['name'=>'接口文档','url'=>'/app/api','selected'=>$this->bar_api?$this->bar_selected:'','children'=>[]],
+                    ['name'=>'发起请求','url'=>'/app/http','selected'=>$this->bar_http?$this->bar_selected:'','children'=>[]],
+                    ['name'=>'测试用例','url'=>'/app/test','selected'=>$this->bar_test?$this->bar_selected:'','children'=>[]],
+                ];
+            }
         }
 
         return 
@@ -233,10 +245,6 @@ class Base{
 
             return 
             [
-                ['name'=>'我的应用','url'=>'/http','selected'=>$this->bar_my_app?$this->bar_selected:'','children'=>[
-                    ['name'=>'看法app','url'=>'/http/my/index'],
-                    ['name'=>'yicker','url'=>'/account/app/index'],
-                ]], 
                 ['name'=>'我发起的请求','url'=>'/http/my/','selected'=>$this->bar_my?$this->bar_selected:'','children'=>[]], 
                 ['name'=>'价格','url'=>'/account/price/index','selected'=>$this->bar_price?$this->bar_selected:''],
                 ['name'=>'设置','url'=>'/http','selected'=>$this->bar_setting?$this->bar_selected:'','children'=>[]],

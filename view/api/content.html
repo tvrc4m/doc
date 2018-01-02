@@ -96,7 +96,7 @@
                     <?php } ?>
                 </p>
                 <p>
-                    <span class="label label-primary"><?php echo strtoupper($param['type']==1?'POST':'GET');?></span>
+                    <span class="label label-primary"><?php echo strtoupper($param['type']);?></span>
                     <?php echo $param['url']; ?>
                     <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
                 </p>
@@ -199,7 +199,15 @@
         <?php } ?>
         <?php } ?>
     <?php }else{ ?>
-    <p>未找到指定api接口</p>
+        <style>
+            .col-md-9{
+                padding: 0 !important;
+            }
+        </style>
+        <div style="margin-top: 40px;" class="text-center">
+            <p>还没有相应的api接口地址</p>
+            <p><a href="/app/api/add" class="btn-u">创建api接口</a></p>
+        </div>
     <?php } ?>
 </div>
 <script src="/static/js/clipboard.min.js"></script>

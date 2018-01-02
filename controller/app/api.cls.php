@@ -64,6 +64,7 @@ class ApiController extends BaseAuth {
         $id=$data['id'];
         $is_add=$data['add'];
         $title=$data['title'];
+        $http_type=$data['http_type'];
         $url=$data['url'];
         $cat_id=$data['cat_id'];
         $params=$data['params'];
@@ -96,8 +97,8 @@ class ApiController extends BaseAuth {
 
             $db->start();
 
-            $api_data=['app_id'=>$this->app_id,'title'=>$title,'url'=>$url,'cat_id'=>$cat_id,'version'=>$version,'remark'=>$remark];
-
+            $api_data=['app_id'=>$this->app_id,'type'=>$http_type,'title'=>$title,'url'=>$url,'cat_id'=>$cat_id,'version'=>$version,'remark'=>$remark];
+            
             if($id){
 
                 t('api')->update($api_data,['id'=>$id]);

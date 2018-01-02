@@ -3,7 +3,7 @@ CREATE TABLE kf_api(
     title varchar(255) NOT NULL COMMENT 'api接口',
     cat_id int NOT NULL COMMENT '类别id',
     app_id int NOT NULL COMMENT '应用id',
-    type tinyint default 1 COMMENT '1:post 2:get',
+    type ENUM('GET','POST','HEAD','PUT','DELETE') default 'POST' COMMENT '1:post 2:get',
     url varchar(255) NOT NULL COMMENT '接口地址',
     version varchar(10) default '' COMMENT '版本',
     remark varchar(500) default '' COMMENT '接口说明',
@@ -17,14 +17,13 @@ CREATE TABLE kf_api_params(
     app_id int NOT NULL COMMENT '应用id',
     api_id int NOT NULL COMMENT 'api id',
     name varchar(50) NOT NULL COMMENT '请求参数名',
-    type tinyint NOT NULL COMMENT '类型',
+    type ENUM('string','int','boolean','array','object') NOT NULL COMMENT '类型',
     must boolean default 1 COMMENT '是否必填项 1:必填 0:非',
     version varchar(10) default '' COMMENT '版本',
     remark varchar(500) default '' COMMENT '备注说明',
     stat boolean default 1 COMMENT '状态,是否删除',
     create_date datetime,
     update_date datetime
-
 ) engine=InnoDB;
 
 CREATE TABLE kf_api_return(
@@ -32,7 +31,7 @@ CREATE TABLE kf_api_return(
     app_id int NOT NULL COMMENT '应用id',
     api_id int NOT NULL COMMENT 'api id',
     name varchar(50) NOT NULL COMMENT '请求参数名',
-    type tinyint NOT NULL COMMENT '类型',
+    type ENUM('string','int','boolean','array','object') NOT NULL COMMENT '类型',
     must boolean default 1 COMMENT '是否必填项 1:必填 0:非',
     version varchar(10) default '' COMMENT '版本',
     remark varchar(500) default '' COMMENT '备注说明',
@@ -54,7 +53,7 @@ CREATE TABLE kf_cat(
 
 CREATE TABLE kf_api_example(
     id int AUTO_INCREMENT PRIMARY KEY,
-    code text default '' COMMENT 'code',
+    code text COMMENT 'code',
     api_id int NOT NULL,
     stat boolean default 1 COMMENT '状态,是否删除',
     create_date datetime,

@@ -27,11 +27,9 @@
                 <tr>
                     <td colspan="10">
                         <input style="width: 150px;display: inline-block;" placeholder="字段名" type="text" value="" name="request_name" class="form-control" />
-                        <input class="req_type" type="checkbox" name="type" value="string" checked>&nbsp;string&nbsp;&nbsp;
-                        <input class="req_type" type="checkbox" name="type" value="int">&nbsp;int&nbsp;&nbsp;
-                        <input class="req_type" type="checkbox" name="type" value="boolean">&nbsp;boolean&nbsp;&nbsp;
-                        <input class="req_type" type="checkbox" name="type" value="array">&nbsp;array&nbsp;&nbsp;
-                        <input class="req_type" type="checkbox" name="type" value="object">&nbsp;object&nbsp;&nbsp;
+                        <?php foreach($this->params_type as $val=>$name){?>
+                            <input class="req_type" type="checkbox" name="type" value="<?php echo $val;?>" <?php if($name=='string'){echo 'checked';}?>>&nbsp;<?php echo $name;?>&nbsp;&nbsp;
+                        <?php }?>
                         <code>|</code>
                         <input class="req_must" type="checkbox" name="must" checked="" value="1" />&nbsp;必填
                         <button type="button" onclick="addReqFeild()" class="btn-a" style="height:22px;padding:5px;font-size:12px;">添加字段</button>
@@ -56,11 +54,9 @@
                 <tr>
                     <td colspan="10">
                         <input style="width: 150px;display: inline-block;" placeholder="字段名" type="text" value="" name="return_name" class="form-control" />
-                        <input class="return_type" type="checkbox" name="type" value="string" checked>&nbsp;string&nbsp;&nbsp;
-                        <input class="return_type" type="checkbox" name="type" value="int">&nbsp;int&nbsp;&nbsp;
-                        <input class="return_type" type="checkbox" name="type" value="boolean">&nbsp;boolean&nbsp;&nbsp;
-                        <input class="return_type" type="checkbox" name="type" value="array">&nbsp;array&nbsp;&nbsp;
-                        <input class="return_type" type="checkbox" name="type" value="object">&nbsp;object&nbsp;&nbsp;
+                        <?php foreach($this->params_type as $val=>$name){?>
+                            <input class="return_type" type="checkbox" name="type" value="<?php echo $val;?>" <?php if($name=='string'){echo 'checked';}?>>&nbsp;<?php echo $name;?>&nbsp;&nbsp;
+                        <?php }?>
                         <code>|</code>
                         <input class="return_must" type="checkbox" name="must" checked="" value="1" />&nbsp;必返
                         <button type="button" onclick="addRetFeild()" class="btn-a" style="height:22px;padding:5px;font-size:12px;">添加字段</button>
@@ -85,6 +81,12 @@
                     <div class="td-title">
                         {{each item['list'] as cat}}
                             <input class="api_cat" type="checkbox" {{if cat['id']==item['value']}}checked{{/if}} name="cat_id" value="{{cat['id']}}">&nbsp;{{cat['name']}}&nbsp;&nbsp;
+                        {{/each}}
+                    </div>
+                {{else if item['name']=='type'}}
+                    <div class="td-title">
+                        {{each item['list'] as name}}
+                            <input class="http_type" type="checkbox" {{if name==item['value'].toUpperCase()}}checked{{/if}} name="http_type" value="{{name}}">&nbsp;{{name}}&nbsp;&nbsp;
                         {{/each}}
                     </div>
                 {{else if item['name']=='version'}}
@@ -186,7 +188,8 @@
 <script type="text/javascript">
     var apistr='<?php echo $data['api'];?>';
     var api=jQuery.parseJSON(apistr.replace(/\n/g,''));
-    var base={"接口地址":{name:"url",value:api.url},"标题":{name:'title',value:api.title},"描述说明":{name:"remark",value:api.remark},"版本号":{name:"version",value:api.version,list:api.versions},'类别':{name:"cat_id",value:api.cat_id,list:api.cats}};
+    var base={"接口地址":{name:"url",value:api.url},"标题":{name:'title',value:api.title},"描述说明":{name:"remark",value:api.remark},"版本号":{name:"version",value:api.version,list:api.versions},'HTTP请求':{name:"type",value:api.type,list:['POST','GET','HEAD','PUT']},'类别':{name:"cat_id",value:api.cat_id,list:api.cats}};
+    var params_type=jQuery.parseJSON('<?php echo json_encode($this->params_type);?>');
     var hidden_html = template("hidden_template", {hidden:{id:api.id}});
     var base_html = template("api_base_template", {base:base});
     console.log(api.versions)
@@ -201,6 +204,7 @@
     }
     $(function(){
         vk.check2radio(".api_cat");
+        vk.check2radio(".http_type");
         vk.check2radio(".req_type");
         vk.check2radio(".return_type");
     })
@@ -249,10 +253,12 @@
         var url=$("input[name=url]").val();
         var title=$("input[name=title]").val();
         var cat_id=$("input[name=cat_id]:checked").val();
+        var http_type=$("input[name=http_type]:checked").val();
         var params=$("select[name*=type]");
         if(vk.check_empty(url,"接口地址不能为空")) return false;
         if(vk.check_empty(title,"接口标题不能为空")) return false;
         if(vk.check_empty(cat_id,"类别不能为空")) return false;
+        if(vk.check_empty(http_type,"HTTP请求方法不能为空")) return false;
         params.each(function(i,item){
             if(vk.check_empty($(item).val(),"参数类型不能为空")) return false;
         })

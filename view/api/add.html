@@ -26,11 +26,9 @@
                 <tr>
                     <td colspan="10">
                         <input style="width: 150px;display: inline-block;" placeholder="字段名" type="text" value="" name="request_name" class="form-control" />
-                        <input class="req_type" type="checkbox" name="type" value="string" checked>&nbsp;string&nbsp;&nbsp;
-                        <input class="req_type" type="checkbox" name="type" value="int">&nbsp;int&nbsp;&nbsp;
-                        <input class="req_type" type="checkbox" name="type" value="boolean">&nbsp;boolean&nbsp;&nbsp;
-                        <input class="req_type" type="checkbox" name="type" value="array">&nbsp;array&nbsp;&nbsp;
-                        <input class="req_type" type="checkbox" name="type" value="object">&nbsp;object&nbsp;&nbsp;
+                        <?php foreach($this->params_type as $val=>$name){?>
+                            <input class="req_type" type="checkbox" name="type" value="<?php echo $val;?>" <?php if($name=='string'){echo 'checked';}?>>&nbsp;<?php echo $name;?>&nbsp;&nbsp;
+                        <?php }?>
                         <code>|</code>
                         <input class="req_must" type="checkbox" name="must" checked="" value="1" />&nbsp;必填
                         <button type="button" onclick="addReqFeild()" class="btn-a" style="height:22px;padding:5px;font-size:12px;">添加字段</button> 
@@ -55,11 +53,9 @@
                 <tr>
                     <td colspan="10">
                         <input style="width: 150px;display: inline-block;" placeholder="字段名" type="text" value="" name="return_name" class="form-control" />
-                        <input class="return_type" type="checkbox" name="type" value="string" checked>&nbsp;string&nbsp;&nbsp;
-                        <input class="return_type" type="checkbox" name="type" value="int">&nbsp;int&nbsp;&nbsp;
-                        <input class="return_type" type="checkbox" name="type" value="boolean">&nbsp;boolean&nbsp;&nbsp;
-                        <input class="return_type" type="checkbox" name="type" value="array">&nbsp;array&nbsp;&nbsp;
-                        <input class="return_type" type="checkbox" name="type" value="object">&nbsp;object&nbsp;&nbsp;
+                        <?php foreach($this->params_type as $val=>$name){?>
+                            <input class="return_type" type="checkbox" name="type" value="<?php echo $val;?>" <?php if($name=='string'){echo 'checked';}?>>&nbsp;<?php echo $name;?>&nbsp;&nbsp;
+                        <?php }?>
                         <code>|</code>
                         <input class="return_must" type="checkbox" name="must" checked="" value="1" />&nbsp;必返
                         <button type="button" onclick="addRetFeild()" class="btn-a" style="height:22px;padding:5px;font-size:12px;">添加字段</button> 
@@ -84,6 +80,12 @@
                     <div class="td-title">
                         {{each item['list'] as cat}}
                             <input class="api_cat" type="checkbox" {{if cat['id']==item['value']}}checked{{/if}} name="cat_id" value="{{cat['id']}}">&nbsp;{{cat['name']}}&nbsp;&nbsp;
+                        {{/each}}
+                    </div>
+                {{else if item['name']=='type'}}
+                    <div class="td-title">
+                        {{each item['list'] as name}}
+                            <input class="http_type" type="checkbox" {{if name==item['value']}}checked{{/if}} name="http_type" value="{{name}}">&nbsp;{{name}}&nbsp;&nbsp;
                         {{/each}}
                     </div>
                 {{else if item['name']=='version'}}
@@ -116,11 +118,9 @@
             <td>
                 <select name="params[{{item['name']}}][type]">
                     <option value="">--请选择类型--</option>
-                    <option {{if item['type']=='string'}}selected{{/if}} value="string">string</option>
-                    <option {{if item['type']=='int'}}selected{{/if}} value="int">int</option>
-                    <option {{if item['type']=='boolean'}}selected{{/if}} value="boolean">boolean</option>
-                    <option {{if item['type']=='array'}}selected{{/if}} value="array">array</option>
-                    <option {{if item['type']=='object'}}selected{{/if}} value="object">object</option>
+                    {{each params_type as name val}}
+                        <option {{if val==item['type']}}selected{{/if}} value="{{val}}">{{name}}</option>    
+                    {{/each}}
                 </select>
             </td>
             <td>
@@ -157,11 +157,9 @@
             <td>
                 <select name="return[{{item['name']}}][type]">
                     <option value="">--请选择类型--</option>
-                    <option {{if item['type']=='string'}}selected{{/if}} value="string">string</option>
-                    <option {{if item['type']=='int'}}selected{{/if}} value="int">int</option>
-                    <option {{if item['type']=='boolean'}}selected{{/if}} value="boolean">boolean</option>
-                    <option {{if item['type']=='array'}}selected{{/if}} value="array">array</option>
-                    <option {{if item['type']=='object'}}selected{{/if}} value="object">object</option>
+                    {{each params_type as name val}}
+                        <option {{if val==item['type']}}selected{{/if}} value="{{val}}">{{name}}</option>    
+                    {{/each}}
                 </select>
             </td>
             <td>
@@ -189,7 +187,8 @@
 <script type="text/javascript">
     var cats=jQuery.parseJSON('<?php echo $data['cats'];?>');
     var versions=jQuery.parseJSON('<?php echo $data['versions'];?>');
-    var base={"接口地址":{name:"url",value:""},"标题":{name:'title',value:""},"描述说明":{name:"remark",value:""},"APP版本":{name:"version",value:"",list:versions},'类别':{name:"cat_id",value:0,list:cats}};
+    var params_type=jQuery.parseJSON('<?php echo json_encode($this->params_type);?>');
+    var base={"接口地址":{name:"url",value:""},"标题":{name:'title',value:""},"描述说明":{name:"remark",value:""},"APP版本":{name:"version",value:"",list:versions},'HTTP请求':{name:"type",value:'POST',list:['POST','GET','HEAD','PUT']},'类别':{name:"cat_id",value:0,list:cats}};
     var base_html = template("api_base_template", {base:base});
     var hidden_html = template("hidden_template", {hidden:{add:1}});
     $("#api_form").prepend(hidden_html);
@@ -199,6 +198,7 @@
     }
     $(function(){
         vk.check2radio(".api_cat");
+        vk.check2radio(".http_type");
         vk.check2radio(".req_type");
         vk.check2radio(".return_type");
     })
@@ -213,7 +213,7 @@
         }
         var params={};
         Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0",versions:versions},enumerable:true});
-        var ret_html = template("api_params_template", {params:params});
+        var ret_html = template("api_params_template", {params:params,params_type:params_type});
         $("#request_body").append(ret_html);
         $("#request_table tr:last input[name*=remark]").focus();
         input.val("");
@@ -229,7 +229,7 @@
         }
         var params={};
         Object.defineProperty(params,name,{value:{name:name,type:type,must:must?"1":"0",versions:versions},enumerable:true});
-        var ret_html = template("api_return_template", {params:params});
+        var ret_html = template("api_return_template", {params:params,params_type:params_type});
         $("#return_body").append(ret_html);
         $("#return_table tr:last input[name*=remark]").focus();
         input.val("");
@@ -247,10 +247,12 @@
         var url=$("input[name=url]").val();
         var title=$("input[name=title]").val();
         var cat_id=$("input[name=cat_id]:checked").val();
+        var http_type=$("input[name=http_type]:checked").val();
         var params=$("select[name*=type]");
         if(vk.check_empty(url,"接口地址不能为空")) return false;
         if(vk.check_empty(title,"接口标题不能为空")) return false;
         if(vk.check_empty(cat_id,"类别不能为空")) return false;
+        if(vk.check_empty(http_type,"HTTP方法不能为空")) return false;
         params.each(function(i,item){
             if(vk.check_empty($(item).val(),"参数类型不能为空")) return false;
         })
