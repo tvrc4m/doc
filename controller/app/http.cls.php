@@ -14,7 +14,7 @@ class HttpController extends BaseAuth {
 
         if(!empty($api_list)) foreach ($api_list as $api) $current=$api[0]['id'];
         
-        $cats=$this->_get_http_cat();
+        $cats=$this->m_cat->getTypeCat($this->app_id,self::CAT_TYPE_HTTP);
 
         $this->display('http/index.html',['api_list'=>$api_list,'test_env'=>$test_env,'current'=>$current,'cats'=>$cats,'title'=>'发起请求','tab_selected'=>'http']);
     }
@@ -93,7 +93,7 @@ class HttpController extends BaseAuth {
      */
     public function getApiList($action='http'){
         // 获取API类别
-        $cat_list=$this->_get_api_cat();
+        $cat_list=$this->m_cat->getTypeCat($this->app_id,self::CAT_TYPE_API);
         $api_list=t('api')->find(['app_id'=>$this->app_id,'stat'=>1]);
         $params_list=t('api_params')->find(['app_id'=>$this->app_id,'stat'=>1],null,['name'=>'asc']);        
         $return_list=t('api_return')->find(['app_id'=>$this->app_id,'stat'=>1],null,['name'=>'asc']);
@@ -125,23 +125,5 @@ class HttpController extends BaseAuth {
         }
 
         return $api_result;
-    }
-
-    /**
-     * 获取doc关联的cat
-     * @return array
-     */
-    private function _get_api_cat(){
-
-        return t('cat')->find(['app_id'=>$this->app_id,'type'=>self::CAT_TYPE_API,'stat'=>1]);
-    }
-
-    /**
-     * 获取http关联的cat
-     * @return array
-     */
-    private function _get_http_cat(){
-
-        return t('cat')->find(['app_id'=>$this->app_id,'type'=>self::CAT_TYPE_HTTP,'stat'=>1]);
     }
 }

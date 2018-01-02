@@ -565,14 +565,25 @@ class DB {
                 }
             }
 
-            mysqli_stmt_close($stmt);
+            if(!$status){
 
-            if(!$status) throw new Exception('执行失败:'.$sql.var_export($params,true));
+                if(DEBUG){
+
+                    echo $sql.PHP_EOL;
+                    var_export($params);
+                    echo mysqli_stmt_error($stmt);
+                    exit;
+                }
+                
+                throw new Exception('执行失败:'.$sql.':'.mysqli_stmt_error($stmt));
+            }
+            
+            mysqli_stmt_close($stmt);
 
             return $select?$result:true;
         }
         
-        throw new Exception('sql解析错误:'.$sql."&nbsp;说明:".mysqli_error($this->_link));
+        throw new Exception('sql解析错误:'.mysqli_error($this->_link));
     }
 
     /**

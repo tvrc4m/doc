@@ -15,6 +15,7 @@ CREATE TABLE kf_api(
 CREATE TABLE kf_api_params(
     id int AUTO_INCREMENT PRIMARY KEY,
     app_id int NOT NULL COMMENT '应用id',
+    api_id int NOT NULL COMMENT 'api id',
     name varchar(50) NOT NULL COMMENT '请求参数名',
     type tinyint NOT NULL COMMENT '类型',
     must boolean default 1 COMMENT '是否必填项 1:必填 0:非',
@@ -29,6 +30,7 @@ CREATE TABLE kf_api_params(
 CREATE TABLE kf_api_return(
     id int AUTO_INCREMENT PRIMARY KEY,
     app_id int NOT NULL COMMENT '应用id',
+    api_id int NOT NULL COMMENT 'api id',
     name varchar(50) NOT NULL COMMENT '请求参数名',
     type tinyint NOT NULL COMMENT '类型',
     must boolean default 1 COMMENT '是否必填项 1:必填 0:非',
@@ -73,7 +75,7 @@ CREATE TABLE kf_doc(
 CREATE TABLE kf_user(
     id int AUTO_INCREMENT PRIMARY KEY,
     nick varchar(50) NOT NULL COMMENT '昵称',
-    realname varchar(50) NOT NULL COMMENT '真实姓名',
+    realname varchar(50) DEFAULT '' COMMENT '真实姓名',
     email varchar(100) DEFAULT '' COMMENT '邮箱',
     phone varchar(11) default '' COMMENT '手机号',
     pwd varchar(64) NOT NULL COMMENT '密码',
@@ -103,11 +105,12 @@ CREATE TABLE kf_company(
     update_date datetime
 ) engine=InnoDB;
 
-CREATE TABLE kf_app_version(
+CREATE TABLE kf_api_version(
     id int AUTO_INCREMENT PRIMARY KEY,
     app_id int NOT NULL COMMENT '应用id',
     user_id int NOT NULL COMMENT '登录用户id',
     name varchar(50) NOT NULL COMMENT '版本号',
+    remark varchar(250) default '' COMMENT '备注',
     stat boolean default 0 COMMENT '状态',
     create_date datetime,
     update_date datetime
@@ -119,6 +122,7 @@ CREATE TABLE kf_test(
     remark varchar(250) NOT NULL COMMENT '备注说明',
     cat_id int NOT NULL COMMENT '类别id',
     stat boolean default 0 COMMENT '状态',
+    app_id int NOT NULL COMMENT '应用id',
     create_date datetime,
     update_date datetime
 ) engine=InnoDB;
@@ -163,7 +167,7 @@ CREATE TABLE kf_user_http(
     api_id int NOT NULL COMMENT 'api接口id',
     app_id int NOT NULL COMMENT '应用id',
     api_params varchar(500) DEFAULT '',
-    api_return text DEFAULT '',
+    api_return text,
     user_id int NOT NULL COMMENT '关联的用户id',
     cat_id int NOT NULL COMMENT '类别id',
     is_public boolean DEFAULT 1 COMMENT '是否是公开的',

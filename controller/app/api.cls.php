@@ -29,9 +29,9 @@ class ApiController extends BaseAuth {
      */
     public function add($params){
 
-        $cats=$this->_get_api_cat();
+        $cats=$this->m_cat->getTypeCat($this->app_id,self::CAT_TYPE_API);
 
-        $versions=$this->_get_api_version();
+        $versions=$this->m_version->getApiVersion($this->app_id);
 
         $this->display("api/add.html",['tab_selected'=>'app','versions'=>json_encode($versions),'cats'=>json_encode($cats),'title'=>'添加APP接口文档']);
     }
@@ -47,9 +47,9 @@ class ApiController extends BaseAuth {
 
         $api=$this->m_api->getApiDetail($api_id);
 
-        $api['cats']=$this->_get_api_cat();
+        $api['cats']=$this->m_cat->getTypeCat($this->app_id,self::CAT_TYPE_API);
 
-        $api['versions']=$this->_get_api_version();
+        $api['versions']=$this->m_version->getApiVersion($this->app_id);
         // print_r($cat_list);exit;
         $this->display("api/edit.html",['tab_selected'=>'app','api'=>json_encode($api,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP),'title'=>'编辑APP接口文档']);
     }
@@ -217,7 +217,7 @@ class ApiController extends BaseAuth {
      */
     public function getApiList(){
         // 获取API类别
-        $cat_list=$this->_get_api_cat();
+        $cat_list=$this->m_cat->getTypeCat($this->app_id,self::CAT_TYPE_API);
         $api_list=t('api')->find(['app_id'=>$this->app_id,'stat'=>1]);
         $params_list=t('api_params')->find(['app_id'=>$this->app_id,'stat'=>1],null,['name'=>'asc']);        
         $return_list=t('api_return')->find(['app_id'=>$this->app_id,'stat'=>1],null,['name'=>'asc']);
@@ -364,23 +364,5 @@ class ApiController extends BaseAuth {
         }
 
         return '';
-    }
-
-    /**
-     * 获取doc关联的cat
-     * @return array
-     */
-    private function _get_api_cat(){
-
-        return t('cat')->find(['type'=>self::CAT_TYPE_API,'app_id'=>$this->app_id,'stat'=>1]);
-    }
-
-    /**
-     * 获取api版本
-     * @return array
-     */
-    private function _get_api_version(){
-
-        return t('app_version')->find(['stat'=>1,'app_id'=>$this->app_id]);
     }
 }

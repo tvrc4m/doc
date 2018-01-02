@@ -14,7 +14,7 @@ class VersionController extends BaseAuth {
      */
     public function index($params){
 
-        $version_list=t('app_version')->find(['app_id'=>$this->app_id,'stat'=>1]);
+        $version_list=t('api_version')->find(['app_id'=>$this->app_id,'stat'=>1]);
 
         $tab_selected=$type='api';
 
@@ -35,11 +35,11 @@ class VersionController extends BaseAuth {
 
         if(!preg_match('/^v\d+\.\d+\.\d+$/', $name)) $this->error('版本号须以v开头.eg: v1.1.0');
 
-        $exists=t('app_version')->get(['stat'=>1,'name'=>$name,'app_id'=>$this->app_id],'1');
+        $exists=t('api_version')->get(['stat'=>1,'name'=>$name,'app_id'=>$this->app_id],'1');
 
         if(!empty($exists)) $this->error('版本号不能重复');
 
-        t('app_version')->insert(['user_id'=>$this->user_id,'app_id'=>$this->app_id,'name'=>$name,'remark'=>$remark,'stat'=>1]);
+        t('api_version')->insert(['user_id'=>$this->user_id,'app_id'=>$this->app_id,'name'=>$name,'remark'=>$remark,'stat'=>1]);
 
         $this->ok();
     }
@@ -54,7 +54,7 @@ class VersionController extends BaseAuth {
         $version_id=$params['id'];
         $remark=trim($params['remark']);
 
-        t('app_version')->update(['remark'=>$remark],['id'=>$version_id]);
+        t('api_version')->update(['remark'=>$remark],['id'=>$version_id]);
 
         $this->ok();
     }
@@ -65,7 +65,7 @@ class VersionController extends BaseAuth {
 
         if(empty($id)) $this->error('未指定类别');
 
-        $detail=t('app_version')->getById($id);
+        $detail=t('api_version')->getById($id);
 
         $filter=['version'=>$detail['name'],'stat'=>1];
 
@@ -81,7 +81,7 @@ class VersionController extends BaseAuth {
 
         if($count) $this->error('有关联接口,不能删除');
 
-        t('app_version')->update(['stat'=>0],['id'=>$id]);
+        t('api_version')->update(['stat'=>0],['id'=>$id]);
 
         $this->ok();
     }

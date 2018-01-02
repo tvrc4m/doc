@@ -115,11 +115,7 @@ class TestController extends BaseAuth {
         $contents=array_filter(array_column($cases, 'content'));
         if(empty($contents)) $this->error('测试用例不能为空');
 
-        try{
-
-            $db=DB::init();
-
-            $db->start();
+        $test_trans=function($title,$remark,$cat_id,$cases,$test_id,$is_add){
 
             if($test_id){
 
@@ -133,14 +129,14 @@ class TestController extends BaseAuth {
             }
 
             // params
-            $case_exists=array_filter(array_column($params['cases'], 'id'));
+            $case_exists=array_filter(array_column($cases, 'id'));
 
             if(!empty($case_exists)){
 
                 t('test_case')->update(['stat'=>0],['id'=>['$non'=>$case_exists],'test_id'=>$test_id]);
             }
 
-            foreach ($params['cases'] as $name=>$case) {
+            foreach ($cases as $name=>$case) {
 
                 $case_data=['test_id'=>$test_id,'content'=>$case['content'],'api_id'=>$case['api_id'],'api_params'=>$case['api_params'],'stat'=>1];
 
@@ -153,16 +149,10 @@ class TestController extends BaseAuth {
                 }
             }
 
-            $db->commit();
-
-            $this->ok(['redirect'=>'/test/detail/'.$test_id.'#'.$test_id]);
-
-        }catch(Exception $e){
-
-            $db->rollback();
-
-            $this->error($e->getMessage());
+            return ['redirect'=>'/test/detail/'.$test_id.'#'.$test_id];
         }
+
+        $this->call_in_trans($test_trans,[$title,$remark,$cat_id,$cases,$test_id,$is_add]);
     }
 
     /**
@@ -227,7 +217,7 @@ class TestController extends BaseAuth {
 
     private function getSideBar(){
 
-        $test_list=t('test')->find(['stat'=>1]);
+        $test_list=t('test')->find(['app_id'=>$this->app_id,'stat'=>1]);
         $test_cat=$this->_get_test_cat();
 
         $cat_list=$api_list=[];
@@ -257,6 +247,6 @@ class TestController extends BaseAuth {
      */
     private function _get_test_cat(){
 
-        return t('cat')->find(['type'=>self::CAT_TYPE_TEST_CASE,'stat'=>1]);
+        return t('cat')->find(['app_id'=>$this->app_id,'type'=>self::CAT_TYPE_TEST_CASE,'stat'=>1]);
     }
 }

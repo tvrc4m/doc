@@ -6,7 +6,7 @@ class AppController extends BaseAuth{
      * 选中我的navbar
      * @var boolean
      */
-    protected $bar_my=true;
+    protected $bar_my_app=true;
     // 调用actions方法
     protected $call_method_actions=true;
     // 禁止跳转到account/cert/index

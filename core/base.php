@@ -25,6 +25,20 @@ class Base{
     const USER_CERT_STATUS_OK=2; #认证通过
     const USER_CERT_STATUS_ERR=3; #认证失败
 
+    const API_PARAMS_TYPE_INT=1;
+    const API_PARAMS_TYPE_STRING=2;
+    const API_PARAMS_TYPE_BOOLEAN=3;
+    const API_PARAMS_TYPE_OBJECT=4;
+    const API_PARAMS_TYPE_ARRAY=5;
+
+    public $params_type=[
+        self::API_PARAMS_TYPE_INT=>'int',
+        self::API_PARAMS_TYPE_STRING=>'string',
+        self::API_PARAMS_TYPE_BOOLEAN=>'boolean',
+        self::API_PARAMS_TYPE_OBJECT=>'object',
+        self::API_PARAMS_TYPE_ARRAY=>'array',
+    ];
+
     /**
      * header page content
      * @var string
@@ -100,7 +114,7 @@ class Base{
      * @param  array $data  要传递的数组
      * @return 
      */
-    protected function display($html,$data){
+    protected function display($html,$data=[]){
 
         $actions=$this->actions();
 
@@ -145,7 +159,7 @@ class Base{
     /**
      * json--成功输出
      * @param  返回的数据 $data 
-     * @return json
+     * @return json 0 表示正常
      */
     protected function ok($data=[]){
 
@@ -160,7 +174,7 @@ class Base{
      * @param  array $data
      * @return string
      */
-    public function fetch($page,$data){
+    public function fetch($page,$data=[]){
 
         return include_once(VIEW.$page);
     }
@@ -219,10 +233,11 @@ class Base{
 
             return 
             [
-                ['name'=>'我的','url'=>'/http','selected'=>$this->bar_my?$this->bar_selected:'','children'=>[
-                    ['name'=>'我发起的请求','url'=>'/http/my/index'],
-                    ['name'=>'我的应用','url'=>'/account/app/index'],
+                ['name'=>'我的应用','url'=>'/http','selected'=>$this->bar_my_app?$this->bar_selected:'','children'=>[
+                    ['name'=>'看法app','url'=>'/http/my/index'],
+                    ['name'=>'yicker','url'=>'/account/app/index'],
                 ]], 
+                ['name'=>'我发起的请求','url'=>'/http/my/','selected'=>$this->bar_my?$this->bar_selected:'','children'=>[]], 
                 ['name'=>'价格','url'=>'/account/price/index','selected'=>$this->bar_price?$this->bar_selected:''],
                 ['name'=>'设置','url'=>'/http','selected'=>$this->bar_setting?$this->bar_selected:'','children'=>[]],
                 ['name'=>'@'.$_SESSION['user']['nick'],'selected'=>$this->bar_self?$this->bar_selected:'','children'=>[
@@ -245,6 +260,29 @@ class Base{
     protected function getActionRole(){
 
 
+    }
+
+    protected function call_in_trans(callable $trans,array $params){
+
+        try{
+
+            $db=DB::init();
+
+            $db->start();
+
+            $data=call_user_func_array($trans, $params);
+
+            $db->commit();
+
+            $this->ok((array)$data);
+        }catch(Exception $e){
+
+            $db->rollback();
+
+            if(DEBUG) $this->error($e->getMessage());
+
+            $this->error("执行失败,请稍后再试");
+        }
     }
 }
 
@@ -278,15 +316,15 @@ class BaseAuth extends Base{
 
         $_SESSION['user']=$user;
 
-        if(!$user['app_count'] && $user['cert_status']==self::USER_CERT_STATUS_OK && !$this->skip_cert_auth){
-            go('/account/app/index');
-        }
+        // if(!$user['app_count'] && $user['cert_status']==self::USER_CERT_STATUS_OK && !$this->skip_cert_auth){
+        //     go('/account/app/index');
+        // }
 
-        if((!$user['app_count'] || in_array($user['cert_status'], [self::USER_CERT_STATUS_NONE,self::USER_CERT_STATUS_ERR])) && 
-            !$this->skip_cert_auth){ 
-            $this->hide_left_bar=true;
-            go('/account/cert/index');
-        }
+        // if((!$user['app_count'] || in_array($user['cert_status'], [self::USER_CERT_STATUS_NONE,self::USER_CERT_STATUS_ERR])) && 
+        //     !$this->skip_cert_auth){ 
+        //     $this->hide_left_bar=true;
+        //     go('/account/cert/index');
+        // }
 
         $this->get_user_app();
     }

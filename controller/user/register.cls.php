@@ -50,30 +50,29 @@ class RegisterController extends Base{
         if(empty($pwd)) $this->error('密码不能为空');
         if(strlen($pwd)<6) $this->error('密码最小长度为6位');
 
-        try{
+        $reg_trans=function($nick,$email,$pwd){
 
-            $db=DB::init();
-            $db->start();
-
-            $user=t('user')->get(['nick'=>$nick,'stat'=>1],['nick','pwd']);
+            $m_user=t('user');
+            
+            $user=$m_user->get(['nick'=>$nick,'stat'=>1],['nick','pwd']);
 
             if(!empty($user)) $this->error('用户已存在');
 
-            $user_id=t('user')->insert(['nick'=>$nick,'email'=>$email,'pwd'=>md5(sha1($pwd)),'stat'=>1]);
+            $user_id=$m_user->insert(['nick'=>$nick,'email'=>$email,'pwd'=>md5(sha1($pwd)),'stat'=>1]);
 
             if(empty($user_id)) throw new Exception('注册失败');
-            
-            $db->commit();
 
+            // 个人账户,只支持一个关联账户,100个接口
+            t('user_setting')->insert(['user_id'=>$user_id,'app_count'=>1,'api_count'=>100,'user_count'=>1]);
+            
             $_SESSION['token']=$user_id;
             $_SESSION['user']=['id'=>$user_id,'nick'=>$nick,'email'=>$email];
-            
-            $this->ok(['redirect'=>"/account/cert"]);
-        }catch(Exception $e){
 
-            $db->rollback();
+            // return ['redirect'=>"/account/cert"];
+            // 创建应用
+            return ['redirect'=>"/account/app/add"];
+        };
 
-            $this->error("注册失败,请稍后再试");
-        }
+        $this->call_in_trans($reg_trans,[$nick,$email,$pwd]);
     }
 }
