@@ -13,7 +13,7 @@ function require_model($class){
     return new $classname();
 }
 
-function run($url,$params){
+function run($url,$type,$params){
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,$url);
@@ -21,7 +21,8 @@ function run($url,$params){
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-    curl_setopt($ch, CURLOPT_POST, 1);
+    // curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST,strtoupper($type));
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
     
     if(($result = curl_exec($ch))===FALSE){

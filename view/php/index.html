@@ -1,0 +1,229 @@
+<div class="col-md-9" style="padding-left: 289px;padding-right:15px;width: 100%;">
+    <?php if($data['api_common']['desc']){ ?>
+    <a href="#app"></a>
+    <div id="paramInfo" class="headline">
+        <h2>接口说明</h2>
+    </div>
+    <div class="alert alert-warning fade in no-bottom">
+        <?php if(is_string($data['api_common']['desc'])){?>
+        <?php echo $data['api_common']['desc']; ?>
+        <?php }else{ ?>
+        <ol style="margin-bottom: 0">
+            <?php foreach($data['api_common']['desc'] as $desc){?>
+            <li>
+                <?php echo $desc;?>
+            </li>
+            <?php } ?>
+        </ol>
+        <?php } ?>
+    </div>
+    <?php } ?>
+    <?php if($data['api_common']['common']){ ?>
+    <?php foreach($data['api_common']['common'] as $name=>$common){ ?>
+    <div id="paramInfo" class="headline">
+        <h2><?php echo $name; ?></h2>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="warning">
+                <th width="110">参数</th>
+                <th width="110">类型</th>
+                <th width="110">是否必须</th>
+                <th width="120">APP版本</th>
+                <th>说明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($common as $name=>$item){ ?>
+            <tr>
+                <td>
+                    <?php echo $name; ?>
+                </td>
+                <td>
+                    <?php echo is_string($item['type'])?($item['type']=='array'?'<code>'.$item['type'].'</code>':$item['type']):implode(" | ",$item['type']);?></td>
+                <td>
+                    <?php echo $item['must']==1?'是':'否';?>
+                </td>
+                <td>
+                    <?php 
+                            if(is_string($item['version'])){
+                                echo $item['version'];
+                            }elseif(is_array($item['version'])){
+                                array_walk($item['version'],function(&$v,$k){
+                                    $v=$k.': '.$v;
+                                });
+                                echo implode("<br>",$item['version']);
+                            }
+                            ?>
+                </td>
+                <td>
+                    <?php echo $item['desc'];?>
+                </td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <?php } ?>
+    <?php } ?>
+    <?php if($data['api_list']){ ?>
+        <?php foreach($data['api_list'] as $key=>$cat){?>
+            <?php foreach($cat as $key=>$param){?>
+                <?php $key=$param['code'];?>
+                <a name="<?php echo $key; ?>"></a>
+                <div style="height: 41px;"></div>
+                <div id="paramInfo" class="headline">
+                    <h2><?php echo $param['title']; ?></h2>
+                    <?php if($key && $param['url']){ ?>
+                        <code><a class="api-copy" href="javascript:void(0);" data-clipboard-text="<?php echo BASEURL.'/api/app#'.$key;?>">拷贝链接</a></code>
+                        <code><a class="api-edit" href="/api/app/edit/<?php echo $key;?>">编辑</a></code>
+                        <code><a class="api-case" href="/api/case/<?php echo $param['id'];?>">查看测试用例</a></code>
+                        <code><a class="http_send" href="/api/http#<?php echo $key;?>" target="_blank">发起请求</a></code>
+                    <?php } ?>
+                </div>
+                <p>
+                    <?php if($param['version']){ ?>
+                        <code><?php echo $param['version']; ?></code>
+                    <?php } ?>
+                    <?php if(is_string($param['remark'])){?>
+                        <?php echo $param['remark']; ?>
+                    <?php }elseif(is_array($param['remark'])){ ?>
+                        <ol>
+                            <?php foreach($param['remark'] as $remark){?>
+                            <li>
+                                <?php echo $remark;?>
+                            </li>
+                            <?php } ?>
+                        </ol>
+                    <?php } ?>
+                </p>
+                <p>
+                    <span class="label label-primary"><?php echo strtoupper($param['type']==1?'POST':'GET');?></span>
+                    <?php echo $param['url']; ?>
+                    <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
+                </p>
+                <?php if($param['params']){ ?>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="warning">
+                            <th width="110">参数</th>
+                            <th width="110">类型</th>
+                            <th width="110">是否必须</th>
+                            <th width="120">APP版本</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($param['params'] as $item){ ?>
+                        <tr>
+                            <td>
+                                <?php echo $item['name']; ?>
+                            </td>
+                            <td>
+                                <?php echo ($item['type']=='array' || $item['type']=='object')?'<code>'.$item['type'].'</code>':$item['type'];?></td>
+                            <td>
+                                <?php echo $item['must']==1?'是':'否';?>
+                            </td>
+                            <td>
+                                <?php 
+                                                if(is_string($item['version'])){
+                                                    echo $item['version'];
+                                                }elseif(is_array($item['version'])){
+                                                    array_walk($item['version'],function(&$v,$k){
+                                                        $v=$k.': '.$v;
+                                                    });
+                                                    echo implode("\r\n",$item['version']);
+                                                }else{
+                                                    echo $param['version'];
+                                                }
+                                                ?>
+                            </td>
+                            <td>
+                                <?php echo $item['remark'];?>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <?php } ?>
+                <?php if($param['return']){ ?>
+                <h4>返回数据</h4>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr class="warning">
+                            <th width="110">参数</th>
+                            <th width="110">类型</th>
+                            <th width="110">是否必须</th>
+                            <th width="120">APP版本</th>
+                            <th>说明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($param['return'] as $item){ ?>
+                        <tr>
+                            <td>
+                                <?php echo $item['name']; ?>
+                            </td>
+                            <td>
+                                <?php echo ($item['type']=='array' || $item['type']=='object')?'<code>'.$item['type'].'</code>':$item['type'];?></td>
+                            <td>
+                                <?php echo $item['must']==1?'是':'否';?>
+                            </td>
+                            <td>
+                                <?php 
+                                                if(is_string($item['version'])){
+                                                    echo $item['version'];
+                                                }elseif(is_array($item['version'])){
+                                                    array_walk($item['version'],function(&$v,$k){
+                                                        $v=$k.': '.$v;
+                                                    });
+                                                    echo implode("\r\n",$item['version']);
+                                                }else{
+                                                    echo $param['version'];
+                                                }
+                                                ?>
+                            </td>
+                            <td>
+                                <?php echo $item['remark'];?>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php } ?>
+            <?php if($param['example']){ ?>
+                <h4>返回代码&nbsp;&nbsp;
+                    <code class="expand_example">展开</code>
+                    <code><a class="http_send" href="/api/http#<?php echo $key;?>" target="_blank">发起请求</a></code>
+                </h4>
+                <pre class="example"><?php echo $param['example'];?></pre>
+            <?php } ?>
+        <?php } ?>
+        <?php } ?>
+    <?php }else{ ?>
+    <p>未找到指定api接口</p>
+    <?php } ?>
+</div>
+<script src="/static/js/clipboard.min.js"></script>
+<script type="text/javascript">
+$(function() {
+    var clipboard = new Clipboard('.api-copy');
+    clipboard.on('success', function(e) {
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+        alert("拷贝失败,请手动拷贝");
+    });
+    $(".expand_example").on('click', function() {
+        var example = $(this).parent().next(".example");
+        if (example.hasClass("show")) {
+            example.removeClass("show");
+            $(this).html("展开");
+        } else {
+            example.addClass("show");
+            $(this).html("收起");
+        }
+
+    })
+})
+</script>

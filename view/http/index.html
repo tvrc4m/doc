@@ -5,7 +5,7 @@
             <code><a class="http_send" href="javascript:void(0);" onclick="goToApi()">查看文档</a></code>
         </div>
         <p class="api_url">
-            <span class="label label-primary"><?php echo strtoupper($data['api']['type']==1?"post":"get");?></span> 
+            <span class="label label-primary"><?php echo strtoupper($data['api']['type']);?></span> 
             <em><?php echo $data['api']['url']; ?></em>
             <i id="l_upload" class="fa fa-spinner fa-spin hide"></i>
         </p>
@@ -87,7 +87,7 @@
                     var api=data.api;
                     $(".headline h2").html(api.title);
                     $(".api_url em").html(api.url);
-                    $(".api_url .label-primary").html(api.type==1?'POST':'GET');
+                    $(".api_url .label-primary").html(api.type);
                     $("input[name=api_id]").val(api.id);
                     $("input[name=url]").val(api.url);
                     if(api.params){

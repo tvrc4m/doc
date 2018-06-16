@@ -40,14 +40,16 @@ class HttpController extends BaseAuth {
 
         empty($env) && $env='dev';
 
-        $url=$params['url'];
+        $api_id=$params['api_id'];
 
-        unset($params['url']);
+        unset($params['api_id']);
         unset($params['env']);
+
+        $api=t('api')->get(['id'=>$api_id,'app_id'=>$this->app_id,'stat'=>1]);
 
         $domain=$this->m_http->getTestEnvUrl($this->app_id,$env);
 
-        $result=run($domain.'/'.$url,$params);
+        $result=run($domain.'/'.$api['url'],$api['type'],$params);
 
         echo $result;
         
